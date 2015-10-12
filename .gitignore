@@ -6,4 +6,8 @@ target/
 *.iws
 .idea/
 *.ipr
+<<<<<<< HEAD
 *.log
+=======
+*.log
+>>>>>>> cac7c1b3bd4ae37dd31d867c937e43c3907e8076
