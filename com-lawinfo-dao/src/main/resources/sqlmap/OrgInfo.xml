@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="OrgInfo">
+    <!-- 信息对象 -->
+    <typeAlias alias="OrgInfo" type="com.lawinfo.domain.org.OrgInfo"/>
+
+
+    <!-- 返回结果集类型 -->
+    <resultMap id="OrgInfoResult" class="OrgInfo">
+        <result column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="TYPE" property="type"/>
+        <result column="DESC" property="desc"/>
+    </resultMap>
+
+
+    <!--查询的字段-->
+    <sql id="findAll">
+        ID,NAME,TYPE,DESC
+    </sql>
+
+    <!--查询条件片段-->
+    <sql id="condition">
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="id">
+                ID = #id#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="type">
+                TYPE = #type#
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+
+    <!-- 根据查询对象获得保税区对象集合，不带翻页 -->
+    <select id="findById" parameterClass="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+    <select id="findList" parameterClass="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+
+    <!-- 根据查询对象获得保税区对象集合，不带翻页 -->
+    <select id="count" parameterClass="OrgInfo" resultClass="int">
+        SELECT
+            COUNT(1)
+        FROM
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+
+</sqlMap>
