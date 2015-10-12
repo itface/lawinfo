@@ -77,14 +77,14 @@
             <value>/WEB-INF/vm/toolbox.xml</value>
         </property>
     </bean>
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="error/error"/>
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Exception">error/error</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
     <!--<bean
             class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="defaultContentType" value="text/html"/>

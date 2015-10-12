@@ -11,8 +11,8 @@ public class OrgInfo implements Serializable {
     /**
      * 机构类型：1律所、2银行、3非银
      */
-    private int type;
-    private String desc;
+    private int orgtype;
+    private String description;
 
     public long getId() {
         return id;
@@ -30,19 +30,23 @@ public class OrgInfo implements Serializable {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public int getOrgtype() {
+        return orgtype;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setOrgtype(int orgtype) {
+        this.orgtype = orgtype;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String toString() {
+        return id+":"+name;
     }
 }

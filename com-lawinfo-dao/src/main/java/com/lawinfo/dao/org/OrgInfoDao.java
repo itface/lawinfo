@@ -9,7 +9,9 @@ import java.util.List;
  */
 public interface OrgInfoDao {
 
-    public boolean insert(OrgInfo orgInfo);
+    public List<OrgInfo> findAll();
+
+    /*public boolean insert(OrgInfo orgInfo);
 
     public OrgInfo findById(long id);
 
@@ -19,7 +21,7 @@ public interface OrgInfoDao {
 
     public int count(OrgInfo orgInfo);
 
-    public boolean deleteById(long id);
+    public boolean deleteById(long id);*/
 
 
 }

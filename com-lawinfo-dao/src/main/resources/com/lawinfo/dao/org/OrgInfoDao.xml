@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lawinfo.dao.org.OrgInfoDao">
+    <resultMap id="OrgInfoResult" type="com.lawinfo.domain.org.OrgInfo">
+        <id property="id" column="id" />
+        <result column="name" property="name"/>
+        <result column="orgtype" property="orgtype"/>
+        <result column="description" property="description"/>
+    </resultMap>
+    <sql id="findAll">
+         id,name,orgtype,description
+    </sql>
+    <sql id="condition">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="id>0">
+                id = #id#
+            </if>
+            <if test="type>0">
+                and orgtype = #orgtype#
+            </if>
+        </trim>
+        <!--<where>
+            <if test="id>0">
+                ID = #id#
+            </if>
+            <if test="type>0">
+                AND TYPE = #type#
+            </if>
+        </where>-->
+    </sql>
+    <select id="findAll" parameterType="com.lawinfo.domain.org.OrgInfo"  resultMap="OrgInfoResult">
+        select
+        <include refid="findAll"/>
+         from
+          ORGINFO
+    </select>
+    <!--<select id="findById" parameterType="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="condition"/>
+    </select>
+
+    <select id="findList" parameterType="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="condition"/>
+    </select>
+    <select id="count" parameterType="OrgInfo" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        ORGINFO
+        <include refid="condition"/>
+    </select>-->
+</mapper>
+    <!--&lt;!&ndash; 信息对象 &ndash;&gt;
+    <typeAlias alias="OrgInfo" type="com.lawinfo.domain.org.OrgInfo"/>
+
+
+    &lt;!&ndash; 返回结果集类型 &ndash;&gt;
+    <resultMap id="OrgInfoResult" class="OrgInfo">
+        <result column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="TYPE" property="type"/>
+        <result column="DESC" property="desc"/>
+    </resultMap>
+
+
+    &lt;!&ndash;查询的字段&ndash;&gt;
+    <sql id="findAll">
+        ID,NAME,TYPE,DESC
+    </sql>
+
+    &lt;!&ndash;查询条件片段&ndash;&gt;
+    <sql id="condition">
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="id">
+                ID = #id#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="type">
+                TYPE = #type#
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+
+    &lt;!&ndash; 根据查询对象获得保税区对象集合，不带翻页 &ndash;&gt;
+    <select id="findById" parameterClass="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+    <select id="findList" parameterClass="OrgInfo"  resultMap="OrgInfo.OrgInfoResult">
+        select
+        <include refid="selectAll"/>
+        from
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+
+    &lt;!&ndash; 根据查询对象获得保税区对象集合，不带翻页 &ndash;&gt;
+    <select id="count" parameterClass="OrgInfo" resultClass="int">
+        SELECT
+            COUNT(1)
+        FROM
+        ORGINFO
+        <include refid="OrgInfo.condition"/>
+    </select>
+
+</sqlMap>-->

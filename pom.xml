@@ -35,6 +35,8 @@
         <guava.version>11.0.1</guava.version>
         <druid.version>1.0.7</druid.version>
         <commons-digester.version>2.0</commons-digester.version>
+        <mybatis.version>3.2.6</mybatis.version>
+        <mybatis-spring.version>1.2.2</mybatis-spring.version>
     </properties>
 
     <dependencyManagement>
@@ -141,10 +143,22 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>org.apache.ibatis</groupId>
                 <artifactId>ibatis-sqlmap</artifactId>
                 <version>${ibatis-sqlmap.version}</version>
+            </dependency>-->
+            <!-- mybatis核心包 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- mybatis/spring包 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
