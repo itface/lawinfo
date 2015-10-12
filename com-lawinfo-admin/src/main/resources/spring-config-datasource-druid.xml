@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-autowire="byName">
+
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${pop-customs.jdbc.mysql.driver}"/>
+        <property name="url" value="${pop-customs.jdbc.url}"/>
+        <property name="username" value="${pop-customs.jdbc.username}"/>
+        <property name="password" value="${pop-customs.jdbc.password}"/>
+        &lt;!&ndash; 配置初始化大小、最小、最大&ndash;&gt;
+        <property name="initialSize" value=" ${customs.mysql.jdbc.initialPoolSize}" />
+        <property name="minIdle" value="${customs.mysql.jdbc.minPoolSize}" />
+        <property name="maxActive" value="${customs.mysql.jdbc.maxPoolSize}" />
+        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;
+        <property name="maxWait" value="${customs.mysql.jdbc.maxWait}" />
+        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+        <property name="timeBetweenEvictionRunsMillis" value="${customs.mysql.jdbc.timeBetweenEvictionRunsMillis}" />
+        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+        <property name="minEvictableIdleTimeMillis" value="${customs.mysql.jdbc.maxIdleTime}" />
+        &lt;!&ndash;<property name="validationQuery" value="${customs.mysql.jdbc.validationQuery}" />&ndash;&gt;
+        <property name="testWhileIdle" value="${customs.mysql.jdbc.testWhileIdle}" />
+        <property name="testOnBorrow" value="${customs.mysql.jdbc.testOnBorrow}" />
+        <property name="testOnReturn" value="${customs.mysql.jdbc.testOnReturn}" />
+        &lt;!&ndash; 打开PSCache，并且指定每个连接上PSCache的大小 &ndash;&gt;
+        <property name="poolPreparedStatements" value="${customs.mysql.jdbc.poolPreparedStatements}" />
+        &lt;!&ndash;<property name="maxPoolPreparedStatementPerConnectionSize" value="${customs.mysql.jdbc.maxStatements}" />&ndash;&gt;
+        &lt;!&ndash; 配置监控统计拦截的filters &ndash;&gt;
+        <property name="filters" value="${customs.mysql.jdbc.filters}" />
+    </bean>-->
+</beans>

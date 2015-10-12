@@ -1,0 +1,6 @@
+
+#**
+ * enum message
+ *
+ * Macro to translate a enum into a message.
+ *#

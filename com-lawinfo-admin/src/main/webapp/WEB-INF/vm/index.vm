@@ -1,0 +1,10 @@
+<title></title>
+#set($layout = "layout/default.vm")
+#set($page_title ="firstpage")
+<div id="content">
+    <div>
+        <div>
+            helloworld
+        </div>
+    </div>
+</div>
