@@ -9,4 +9,7 @@ import java.util.List;
  */
 public interface OrgInfoService {
     public String findAll();
+
+    public boolean batchSave();
+
 }
