@@ -5,15 +5,13 @@ import com.lawinfo.domain.common.BaseDomain;
 import java.io.Serializable;
 
 /**
- * Created by wangrongtao on 15/10/12.
+ * Created by wangrongtao on 15/10/13.
  */
-public class OrgInfo extends BaseDomain {
+public class Dept extends BaseDomain {
     private long id;
     private String name;
-    /**
-     * 机构类型：1律所、2银行、3非银
-     */
-    private int orgtype;
+    private long orgid;
+
 
     public long getId() {
         return id;
@@ -31,15 +29,12 @@ public class OrgInfo extends BaseDomain {
         this.name = name;
     }
 
-    public int getOrgtype() {
-        return orgtype;
+    public long getOrgid() {
+        return orgid;
     }
 
-    public void setOrgtype(int orgtype) {
-        this.orgtype = orgtype;
+    public void setOrgid(long orgid) {
+        this.orgid = orgid;
     }
 
-    public String toString() {
-        return id+":"+name;
-    }
 }
