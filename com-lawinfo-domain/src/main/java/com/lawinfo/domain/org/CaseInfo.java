@@ -8,33 +8,91 @@ import com.lawinfo.domain.common.BaseDomain;
 public class CaseInfo extends BaseDomain {
     private long id;
     /**
+     * 案件所属银行
      * orginfo表里的orgid,orgtype为银行
      */
     private long bankid;
     private String bankname;
+    /**
+     * 目前所属阶段
+     */
     private long casenodeid;
+
     private String casenodename;
+    /**
+     * 案件联络人
+     */
     private String contact;
+    /**
+     * 联系方式
+     */
     private String contactphone;
-    private String zwrinfo;
-    private int iszqrrelated;
-    private String zwrpropertyinfo;
+    /**
+     * 债务人debtor信息
+     */
+    private String debtorinfo;
+    /**
+     * 债权人creditor是否与律师所关联（1是、0否)
+     */
+    private int iscreditorrelated;
+    /**
+     * 债务人财产状部
+     */
+    private String debtorpropertyinfo;
+    /**
+     * 债权本金
+     */
     private double zqbj;
+    /**
+     * 债权到期日
+     */
     private long zqdqr;
-    private String dbfs;
-    private String dbrinfo;
-    private int isdbrrelated;
-    private String dbrpropertyinfo;
-    private String dywxx;
-    private double dywvalue;
-    private String ajcx;
-    private String slfy;
+    /**
+     * 担保guarantee方式
+     */
+    private String guaranteetype;
+    /**
+     *担保人guarantor信息
+     */
+    private String guarantorinfo;
+    /**
+     * 担保人是否与律所关联（是1、否0）
+     */
+    private int isguarantorrelated;
+    /**
+     * 担保人财产情况
+     */
+    private String guarantorpropertyinfo;
+    /**
+     * 抵押物pawn信息
+     */
+    private String pawninfo;
+    /**
+     * 抵押物pawn评估价值
+     */
+    private double pawnvalue;
+    /**
+     * 案件程序
+     */
+    private String procedure;
+    /**
+     * 受理法院
+     */
+    private String court;
     /**
      * userid
      */
     private String lawyerid;
     private String lawyername;
-    private double price;
+    /**
+     * 律师费总额
+     */
+    private double totalprice;
+
+    /**
+     * 摘要，聚合关键字段，用于查询
+     */
+    private String summary;
 
     public long getId() {
         return id;
@@ -92,28 +150,28 @@ public class CaseInfo extends BaseDomain {
         this.contactphone = contactphone;
     }
 
-    public String getZwrinfo() {
-        return zwrinfo;
+    public String getDebtorinfo() {
+        return debtorinfo;
     }
 
-    public void setZwrinfo(String zwrinfo) {
-        this.zwrinfo = zwrinfo;
+    public void setDebtorinfo(String debtorinfo) {
+        this.debtorinfo = debtorinfo;
     }
 
-    public int getIszqrrelated() {
-        return iszqrrelated;
+    public int getIscreditorrelated() {
+        return iscreditorrelated;
     }
 
-    public void setIszqrrelated(int iszqrrelated) {
-        this.iszqrrelated = iszqrrelated;
+    public void setIscreditorrelated(int iscreditorrelated) {
+        this.iscreditorrelated = iscreditorrelated;
     }
 
-    public String getZwrpropertyinfo() {
-        return zwrpropertyinfo;
+    public String getDebtorpropertyinfo() {
+        return debtorpropertyinfo;
     }
 
-    public void setZwrpropertyinfo(String zwrpropertyinfo) {
-        this.zwrpropertyinfo = zwrpropertyinfo;
+    public void setDebtorpropertyinfo(String debtorpropertyinfo) {
+        this.debtorpropertyinfo = debtorpropertyinfo;
     }
 
     public double getZqbj() {
@@ -132,68 +190,68 @@ public class CaseInfo extends BaseDomain {
         this.zqdqr = zqdqr;
     }
 
-    public String getDbfs() {
-        return dbfs;
+    public String getGuaranteetype() {
+        return guaranteetype;
     }
 
-    public void setDbfs(String dbfs) {
-        this.dbfs = dbfs;
+    public void setGuaranteetype(String guaranteetype) {
+        this.guaranteetype = guaranteetype;
     }
 
-    public String getDbrinfo() {
-        return dbrinfo;
+    public String getGuarantorinfo() {
+        return guarantorinfo;
     }
 
-    public void setDbrinfo(String dbrinfo) {
-        this.dbrinfo = dbrinfo;
+    public void setGuarantorinfo(String guarantorinfo) {
+        this.guarantorinfo = guarantorinfo;
     }
 
-    public int getIsdbrrelated() {
-        return isdbrrelated;
+    public int getIsguarantorrelated() {
+        return isguarantorrelated;
     }
 
-    public void setIsdbrrelated(int isdbrrelated) {
-        this.isdbrrelated = isdbrrelated;
+    public void setIsguarantorrelated(int isguarantorrelated) {
+        this.isguarantorrelated = isguarantorrelated;
     }
 
-    public String getDbrpropertyinfo() {
-        return dbrpropertyinfo;
+    public String getGuarantorpropertyinfo() {
+        return guarantorpropertyinfo;
     }
 
-    public void setDbrpropertyinfo(String dbrpropertyinfo) {
-        this.dbrpropertyinfo = dbrpropertyinfo;
+    public void setGuarantorpropertyinfo(String guarantorpropertyinfo) {
+        this.guarantorpropertyinfo = guarantorpropertyinfo;
     }
 
-    public String getDywxx() {
-        return dywxx;
+    public String getPawninfo() {
+        return pawninfo;
     }
 
-    public void setDywxx(String dywxx) {
-        this.dywxx = dywxx;
+    public void setPawninfo(String pawninfo) {
+        this.pawninfo = pawninfo;
     }
 
-    public double getDywvalue() {
-        return dywvalue;
+    public double getPawnvalue() {
+        return pawnvalue;
     }
 
-    public void setDywvalue(double dywvalue) {
-        this.dywvalue = dywvalue;
+    public void setPawnvalue(double pawnvalue) {
+        this.pawnvalue = pawnvalue;
     }
 
-    public String getAjcx() {
-        return ajcx;
+    public String getProcedure() {
+        return procedure;
     }
 
-    public void setAjcx(String ajcx) {
-        this.ajcx = ajcx;
+    public void setProcedure(String procedure) {
+        this.procedure = procedure;
     }
 
-    public String getSlfy() {
-        return slfy;
+    public String getCourt() {
+        return court;
     }
 
-    public void setSlfy(String slfy) {
-        this.slfy = slfy;
+    public void setCourt(String court) {
+        this.court = court;
     }
 
     public String getLawyerid() {
@@ -212,11 +270,19 @@ public class CaseInfo extends BaseDomain {
         this.lawyername = lawyername;
     }
 
-    public double getPrice() {
-        return price;
+    public double getTotalprice() {
+        return totalprice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

@@ -2,17 +2,16 @@ package com.lawinfo.domain.org.query;
 
 import com.lawinfo.domain.common.BaseQuery;
 
+import java.io.Serializable;
+
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class OrgInfoQuery extends BaseQuery{
+public class UserRoleQuery extends BaseQuery{
 
     private long id;
-    private String name;
-    /**
-     * 机构类型：1律所、2银行、3非银
-     */
-    private int orgtype;
+    private String userid;
+    private int roleid;
 
     public long getId() {
         return id;
@@ -22,26 +21,26 @@ public class OrgInfoQuery extends BaseQuery{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public int getOrgtype() {
-        return orgtype;
+    public int getRoleid() {
+        return roleid;
     }
 
-    public void setOrgtype(int orgtype) {
-        this.orgtype = orgtype;
+    public void setRoleid(int roleid) {
+        this.roleid = roleid;
     }
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");
-        sb.append("name").append(":").append(name).append(",");
-        sb.append("orgtype").append(":").append(orgtype).append(",");
+        sb.append("userid").append(":").append(userid).append(",");
+        sb.append("roleid").append(":").append(roleid).append(",");
         sb.append("startRow").append(":").append(startRow).append(",");
         sb.append("pageSize").append(":").append(pageSize).append(",");
         return sb.toString();

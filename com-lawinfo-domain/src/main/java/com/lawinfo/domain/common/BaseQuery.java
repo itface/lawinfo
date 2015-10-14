@@ -6,9 +6,9 @@ import java.io.Serializable;
  * Created by wangrongtao on 15/10/13.
  */
 public class BaseQuery extends BaseDomain{
-    private int startRow;
-    private int endRow;
-    private int pageSize;
+    protected int startRow;
+    protected int endRow;
+    protected int pageSize;
 
     public int getStartRow() {
         return startRow;

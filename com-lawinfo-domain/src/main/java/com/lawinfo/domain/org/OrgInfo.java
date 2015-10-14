@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Created by wangrongtao on 15/10/12.
  */
 public class OrgInfo extends BaseDomain {
+
     private long id;
     private String name;
     /**
@@ -39,7 +40,4 @@ public class OrgInfo extends BaseDomain {
         this.orgtype = orgtype;
     }
 
-    public String toString() {
-        return id+":"+name;
-    }
 }

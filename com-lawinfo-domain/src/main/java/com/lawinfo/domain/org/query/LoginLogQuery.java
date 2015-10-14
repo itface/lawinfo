@@ -1,13 +1,12 @@
-package com.lawinfo.domain.org;
+package com.lawinfo.domain.org.query;
 
 import com.lawinfo.domain.common.BaseDomain;
-
-import java.io.Serializable;
+import com.lawinfo.domain.common.BaseQuery;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class LoginLog extends BaseDomain {
+public class LoginLogQuery extends BaseQuery {
     private long id;
     private String userid;
     private String username;
@@ -52,5 +51,15 @@ public class LoginLog extends BaseDomain {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String toLogString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("id").append(":").append(id).append(",");
+        sb.append("userid").append(":").append(userid).append(",");
+        sb.append("logintimestr").append(":").append(logintimestr).append(",");
+        sb.append("startRow").append(":").append(startRow).append(",");
+        sb.append("pageSize").append(":").append(pageSize).append(",");
+        return sb.toString();
     }
 }

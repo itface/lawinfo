@@ -5,4 +5,6 @@
     Unexpect：  $!exception.message
     </div>
 #end*#
-error!!!!
+<form id="myform">
+    error!!!!
+</form>

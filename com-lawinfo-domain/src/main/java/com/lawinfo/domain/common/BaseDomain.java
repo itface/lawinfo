@@ -6,12 +6,12 @@ import java.io.Serializable;
  * Created by wangrongtao on 15/10/13.
  */
 public class BaseDomain implements Serializable {
-    private long createtime;
-    private String createtimestr;
-    private long modifiedtime;
-    private String modifiedtimestr;
-    private String optuserid;
-    private String description;
+    protected long createtime;
+    protected String createtimestr;
+    protected long modifiedtime;
+    protected String modifiedtimestr;
+    protected String optuserid;
+    protected String description;
 
 
     public long getCreatetime() {

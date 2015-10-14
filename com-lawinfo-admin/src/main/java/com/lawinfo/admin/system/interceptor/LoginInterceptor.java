@@ -18,8 +18,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         boolean isAvailableLoginUser = LoginInfo.isAvailableLoginUser(session);
         if (!isAvailableLoginUser) {
-            response.sendRedirect("/error");
-            return false;
+            String uri = request.getRequestURI();
+            response.sendRedirect("/error?targeturl="+uri);
+//            return false;
         }
         return true;
     }

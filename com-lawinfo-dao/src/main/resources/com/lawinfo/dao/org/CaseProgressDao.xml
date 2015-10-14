@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lawinfo.dao.org.OrgInfoDao">
-    <resultMap id="OrgInfoResult" type="com.lawinfo.domain.org.OrgInfo">
+<mapper namespace="com.lawinfo.dao.org.CaseProgressDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.CaseProgress">
         <id property="id" column="id" />
         <result column="name" property="name"/>
-        <result column="orgtype" property="orgtype"/>
+        <result column="caseid" property="caseid"/>
+        <result column="casenodeid" property="casenodeid"/>
+        <result column="comments" property="comments"/>
+        <result column="nexttask" property="nexttask"/>
         <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
@@ -13,71 +16,64 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,caseid,casenodeid,comments,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="id>0">
                 id = #{id}
             </if>
-            <if test="orgtype>0">
-                and orgtype = #{orgtype}
+            <if test="casenodeid>0">
+                and casenodeid = #{casenodeid}
             </if>
-            <if test="name!=null and name!=''">
-                and name = #{name}
+            <if test="caseid!=null and caseid!=''">
+                and caseid = #{caseid}
             </if>
         </trim>
-        <!--<where>
-            <if test="id>0">
-                ID = #id#
-            </if>
-            <if test="type>0">
-                AND TYPE = #type#
-            </if>
-        </where>-->
     </sql>
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
-    <select id="findAll" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
-          ORGINFO
+          CaseProgress
     </select>
-    <select id="findById" parameterType="long"  resultMap="OrgInfoResult">
+    <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO where id = #{id}
+        CaseProgress where id = #{id}
     </select>
-    <select id="findList" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        CaseProgress
         <include refid="condition"/>
     </select>
-    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        CaseProgress
         <include refid="condition"/>
         <include refid="page"/>
     </select>
-    <select id="count" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery" resultType="int">
+    <select id="count" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery" resultType="int">
         SELECT
         COUNT(1)
         FROM
-        ORGINFO
+        CaseProgress
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.OrgInfo">
-        insert into orginfo(name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{orgtype},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    <insert id="save" parameterType="com.lawinfo.domain.org.CaseProgress">
+        insert into CaseProgress(name,caseid,casenodeid,comments,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{name},#{caseid},#{casenodeid},#{comments},#{nexttask},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
-        delete from orginfo where id=#{id}
+        delete from CaseProgress where id=#{id}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}

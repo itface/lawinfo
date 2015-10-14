@@ -23,4 +23,16 @@
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
        </bean>
 
+       <bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="privilegeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.PrivilegeDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="roleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.RoleDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
 </beans>

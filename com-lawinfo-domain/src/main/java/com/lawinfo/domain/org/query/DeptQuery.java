@@ -1,13 +1,11 @@
-package com.lawinfo.domain.org;
+package com.lawinfo.domain.org.query;
 
-import com.lawinfo.domain.common.BaseDomain;
-
-import java.io.Serializable;
+import com.lawinfo.domain.common.BaseQuery;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class Dept extends BaseDomain {
+public class DeptQuery extends BaseQuery {
     private long id;
     /**
      * 部门名称，
@@ -46,6 +44,13 @@ public class Dept extends BaseDomain {
         this.orgid = orgid;
     }
 
-
-
+    public String toLogString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("id").append(":").append(id).append(",");
+        sb.append("name").append(":").append(name).append(",");
+        sb.append("orgid").append(":").append(orgid).append(",");
+        sb.append("startRow").append(":").append(startRow).append(",");
+        sb.append("pageSize").append(":").append(pageSize).append(",");
+        return sb.toString();
+    }
 }

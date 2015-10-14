@@ -24,15 +24,11 @@ public class OrgInfoServiceImpl implements OrgInfoService {
     public String findAll() {
         List<OrgInfo> list = null;
         List<OrgInfo> list2 = null;
-        try {
-            list = orgInfoDao.findAll();
-            OrgInfoQuery orgInfoQuery = new OrgInfoQuery();
-            orgInfoQuery.setStartRow(3);
-            orgInfoQuery.setPageSize(2);
-            list2=orgInfoDao.findListByPage(orgInfoQuery);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        list = orgInfoDao.findAll();
+        OrgInfoQuery orgInfoQuery = new OrgInfoQuery();
+        orgInfoQuery.setStartRow(3);
+        orgInfoQuery.setPageSize(2);
+        list2=orgInfoDao.findListByPage(orgInfoQuery);
         StringBuilder sb = new StringBuilder("begin:");
         if (!CollectionUtils.isEmpty(list)) {
             for (OrgInfo orgInfo : list) {

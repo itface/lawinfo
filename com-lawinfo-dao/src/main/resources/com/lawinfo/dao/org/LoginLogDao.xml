@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lawinfo.dao.org.OrgInfoDao">
-    <resultMap id="OrgInfoResult" type="com.lawinfo.domain.org.OrgInfo">
+<mapper namespace="com.lawinfo.dao.org.LoginLogDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.LoginLog">
         <id property="id" column="id" />
-        <result column="name" property="name"/>
-        <result column="orgtype" property="orgtype"/>
+        <result column="userid" property="userid"/>
+        <result column="username" property="username"/>
+        <result column="logintime" property="logintime"/>
+        <result column="logintimestr" property="logintimestr"/>
         <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
@@ -13,18 +15,15 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,userid,username,logintime,logintimestr,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="id>0">
                 id = #{id}
             </if>
-            <if test="orgtype>0">
-                and orgtype = #{orgtype}
-            </if>
-            <if test="name!=null and name!=''">
-                and name = #{name}
+            <if test="userid!=null and userid!=''">
+                and userid = #{userid}
             </if>
         </trim>
         <!--<where>
@@ -39,45 +38,46 @@
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
-    <select id="findAll" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.LoginLogQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
-          ORGINFO
+          LoginLog
     </select>
-    <select id="findById" parameterType="long"  resultMap="OrgInfoResult">
+    <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO where id = #{id}
+        LoginLog where id = #{id}
     </select>
-    <select id="findList" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.LoginLogQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        LoginLog
         <include refid="condition"/>
     </select>
-    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.LoginLogQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        LoginLog
         <include refid="condition"/>
         <include refid="page"/>
     </select>
-    <select id="count" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery" resultType="int">
+    <select id="count" parameterType="com.lawinfo.domain.org.query.LoginLogQuery" resultType="int">
         SELECT
         COUNT(1)
         FROM
-        ORGINFO
+        LoginLog
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.OrgInfo">
-        insert into orginfo(name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{orgtype},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    <insert id="save" parameterType="com.lawinfo.domain.org.LoginLog">
+        insert into LoginLog(userid,username,logintime,logintimestr,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{userid},#{username},#{logintime},#{logintimestr},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
-        delete from orginfo where id=#{id}
+        delete from LoginLog where id=#{id}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}

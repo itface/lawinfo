@@ -3,6 +3,7 @@ package com.lawinfo.dao.org;
 import com.lawinfo.domain.org.OrgInfo;
 import com.lawinfo.domain.org.query.OrgInfoQuery;
 import com.lawinfo.service.org.OrgInfoService;
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,16 +35,24 @@ public class OrgInfoDaoTest {
     public void testSave() {
         int effectRows =0;
         OrgInfo orgInfo = new OrgInfo();
-        orgInfo.setName("yahoo");
-        orgInfo.setOrgtype(4);
+        orgInfo.setName("baidu");
+        orgInfo.setOrgtype(6);
+        Date date = new Date();
+        long now = date.getTime();
+        String nowstr = com.lawinfo.service.util.DateUtils.formatDatetime(date);
+        orgInfo.setCreatetime(now);
+        orgInfo.setCreatetimestr(nowstr);
+        orgInfo.setModifiedtime(now);
+        orgInfo.setModifiedtimestr(nowstr);
+        orgInfo.setOptuserid("admin");
         effectRows = orgInfoDao.save(orgInfo);
         OrgInfo orgInfo2 = new OrgInfo();
         orgInfo2.setName("ms");
-        orgInfo2.setOrgtype(4);
+        orgInfo2.setOrgtype(6);
         effectRows+= orgInfoDao.save(orgInfo2);
         OrgInfo orgInfo3 = new OrgInfo();
         orgInfo3.setName("google");
-        orgInfo3.setOrgtype(5);
+        orgInfo3.setOrgtype(7);
         effectRows+= orgInfoDao.save(orgInfo3);
         Assert.assertTrue(effectRows==3);
     }
@@ -79,5 +89,10 @@ public class OrgInfoDaoTest {
     public void testDelete() {
         int count = orgInfoDao.deleteById(3);
         Assert.assertTrue(count==1);
+    }
+    @Test
+    public void testFindAll() {
+        List<OrgInfo> list = orgInfoDao.findList(null);
+        System.out.println(list==null?0:list.size());
     }
 }

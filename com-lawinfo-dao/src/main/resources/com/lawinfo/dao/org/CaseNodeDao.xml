@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lawinfo.dao.org.OrgInfoDao">
-    <resultMap id="OrgInfoResult" type="com.lawinfo.domain.org.OrgInfo">
+<mapper namespace="com.lawinfo.dao.org.CaseNodeDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.CaseNode">
         <id property="id" column="id" />
         <result column="name" property="name"/>
-        <result column="orgtype" property="orgtype"/>
+        <result column="index" property="index"/>
+        <result column="parentid" property="parentid"/>
         <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
@@ -13,15 +14,16 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,parentid,index,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="id>0">
                 id = #{id}
             </if>
-            <if test="orgtype>0">
-                and orgtype = #{orgtype}
+            <!--parentid为0是顶层-->
+            <if test="parentid>-1">
+                and parentid = #{parentid}
             </if>
             <if test="name!=null and name!=''">
                 and name = #{name}
@@ -39,45 +41,45 @@
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
-    <select id="findAll" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.CaseNodeQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
-          ORGINFO
+          CaseNode
     </select>
-    <select id="findById" parameterType="long"  resultMap="OrgInfoResult">
+    <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO where id = #{id}
+        CaseNode where id = #{id}
     </select>
-    <select id="findList" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.CaseNodeQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        CaseNode
         <include refid="condition"/>
     </select>
-    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery"  resultMap="OrgInfoResult">
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.CaseNodeQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        ORGINFO
+        CaseNode
         <include refid="condition"/>
         <include refid="page"/>
     </select>
-    <select id="count" parameterType="com.lawinfo.domain.org.query.OrgInfoQuery" resultType="int">
+    <select id="count" parameterType="com.lawinfo.domain.org.query.CaseNodeQuery" resultType="int">
         SELECT
         COUNT(1)
         FROM
-        ORGINFO
+        CaseNode
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.OrgInfo">
-        insert into orginfo(name,orgtype,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{orgtype},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    <insert id="save" parameterType="com.lawinfo.domain.org.CaseNode">
+        insert into CaseNode(name,index,parentid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{index},#{parentid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
-        delete from orginfo where id=#{id}
+        delete from CaseNode where id=#{id}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}

@@ -1,11 +1,11 @@
-package com.lawinfo.domain.org;
+package com.lawinfo.domain.org.query;
 
-import com.lawinfo.domain.common.BaseDomain;
+import com.lawinfo.domain.common.BaseQuery;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class Privilege extends BaseDomain {
+public class PrivilegeQuery extends BaseQuery {
     private long id;
     /**
      * 1、诉讼2、执行3、创建案建权限
@@ -13,6 +13,7 @@ public class Privilege extends BaseDomain {
     private int privilegeid;
 
     private String name;
+
     public long getId() {
         return id;
     }
@@ -35,5 +36,15 @@ public class Privilege extends BaseDomain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toLogString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("id").append(":").append(id).append(",");
+        sb.append("name").append(":").append(name).append(",");
+        sb.append("privilegeid").append(":").append(privilegeid).append(",");
+        sb.append("startRow").append(":").append(startRow).append(",");
+        sb.append("pageSize").append(":").append(pageSize).append(",");
+        return sb.toString();
     }
 }

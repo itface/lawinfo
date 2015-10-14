@@ -1,13 +1,11 @@
-package com.lawinfo.domain.org;
+package com.lawinfo.domain.org.query;
 
-import com.lawinfo.domain.common.BaseDomain;
-
-import java.io.Serializable;
+import com.lawinfo.domain.common.BaseQuery;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class SmsLog extends BaseDomain {
+public class SmsQuery extends BaseQuery {
     private long id;
     private String phoneno;
     private String pwd;
@@ -71,5 +69,15 @@ public class SmsLog extends BaseDomain {
 
     public void setLoginfailcount(int loginfailcount) {
         this.loginfailcount = loginfailcount;
+    }
+    public String toLogString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("id").append(":").append(id).append(",");
+        sb.append("phoneno").append(":").append(phoneno).append(",");
+        sb.append("pwd").append(":").append(pwd).append(",");
+        sb.append("expiretime").append(":").append(expiretime).append(",");
+        sb.append("startRow").append(":").append(startRow).append(",");
+        sb.append("pageSize").append(":").append(pageSize).append(",");
+        return sb.toString();
     }
 }
