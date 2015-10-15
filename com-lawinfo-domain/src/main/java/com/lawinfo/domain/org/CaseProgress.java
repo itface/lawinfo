@@ -9,7 +9,7 @@ public class CaseProgress extends BaseDomain {
     private long id;
     private String caseid;
     private long casenodeid;
-    private String comments;
+    private String comment;
     private String nexttask;
 
     public long getId() {
@@ -36,12 +36,12 @@ public class CaseProgress extends BaseDomain {
         this.casenodeid = casenodeid;
     }
 
-    public String getComments() {
-        return comments;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getNexttask() {

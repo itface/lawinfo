@@ -2,6 +2,8 @@ package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
 
+import java.io.Serializable;
+
 /**
  * Created by wangrongtao on 15/10/13.
  */
@@ -9,7 +11,9 @@ public class CaseNode extends BaseDomain {
     private long id;
     private String name;
     private int index;
-    private int parentid;
+    private int level;
+    private int levelname;
+    private String comments;
 
     public long getId() {
         return id;
@@ -35,11 +39,27 @@ public class CaseNode extends BaseDomain {
         this.index = index;
     }
 
-    public int getParentid() {
-        return parentid;
+    public int getLevel() {
+        return level;
     }
 
-    public void setParentid(int parentid) {
-        this.parentid = parentid;
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevelname() {
+        return levelname;
+    }
+
+    public void setLevelname(int levelname) {
+        this.levelname = levelname;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

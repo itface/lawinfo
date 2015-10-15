@@ -31,6 +31,7 @@
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
         <slf4j.version>1.7.9</slf4j.version>
         <jackson-mapper-asl.version>1.8.2</jackson-mapper-asl.version>
+        <fastjson.version>1.2.6</fastjson.version>
         <mockito.version>1.10.19</mockito.version>
         <guava.version>11.0.1</guava.version>
         <druid.version>1.0.7</druid.version>
@@ -204,6 +205,11 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>${jackson-mapper-asl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>

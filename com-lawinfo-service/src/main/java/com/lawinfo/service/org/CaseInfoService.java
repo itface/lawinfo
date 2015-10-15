@@ -1,7 +1,7 @@
 package com.lawinfo.service.org;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.query.DeptQuery;
+import com.lawinfo.domain.org.CaseInfo;
+import com.lawinfo.domain.org.query.CaseInfoQuery;
 
 import java.util.List;
 
@@ -10,17 +10,17 @@ import java.util.List;
  */
 public interface CaseInfoService {
 
-    public List<Dept> findAll()throws Exception;
+    public List<CaseInfo> findAll()throws Exception;
 
-    public int save(Dept dept)throws Exception;
+    public int save(CaseInfo caseInfo)throws Exception;
 
-    public Dept findById(long id)throws Exception;
+    public CaseInfo findById(long id)throws Exception;
 
-    public List<Dept> findList(DeptQuery deptQuery)throws Exception;
+    public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery)throws Exception;
 
-    public List<Dept> findListByPage(DeptQuery deptQuery)throws Exception;
+    public List<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery)throws Exception;
 
-    public int count(DeptQuery deptQuery)throws Exception;
+    public int count(CaseInfoQuery caseInfoQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
 }
