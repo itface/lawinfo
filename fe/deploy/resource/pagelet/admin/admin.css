@@ -1,0 +1,17 @@
+.case-list {
+  margin-top: 20px;
+}
+.card-left,
+.card-right {
+  width: 572px;
+  float: left;
+}
+.card-left {
+  margin-right: 15px;
+}
+.form .property {
+  height: 45px;
+}
+.form .property label {
+  width: 90px;
+}

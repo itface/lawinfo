@@ -1,0 +1,124 @@
+{
+    "res": {
+        "common/common.less": {
+            "uri": "http://localhost:8080/resource/common/common.css",
+            "type": "css"
+        },
+        "common/libs/mod.js": {
+            "uri": "http://localhost:8080/resource/common/libs/mod.js",
+            "type": "js"
+        },
+        "pagelet/admin/admin.js": {
+            "uri": "http://localhost:8080/resource/pagelet/admin/admin.js",
+            "type": "js",
+            "deps": [
+                "pagelet/admin/admin.less"
+            ],
+            "id": "pagelet/admin/admin.js"
+        },
+        "pagelet/admin/admin.less": {
+            "uri": "http://localhost:8080/resource/pagelet/admin/admin.css",
+            "type": "css",
+            "id": "pagelet/admin/admin.less"
+        },
+        "pagelet/admin/admin.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/admin.js",
+            "type": "js",
+            "deps": [
+                "pagelet/admin/admin.less"
+            ]
+        },
+        "pagelet/login/login.js": {
+            "uri": "http://localhost:8080/resource/pagelet/login/login.js",
+            "type": "js",
+            "deps": [
+                "pagelet/login/login.less"
+            ]
+        },
+        "pagelet/login/login.less": {
+            "uri": "http://localhost:8080/resource/pagelet/login/login.css",
+            "type": "css"
+        },
+        "static/js/dist/chart/bar.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/bar.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/chord.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/chord.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/eventRiver.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/eventRiver.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/force.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/force.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/funnel.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/funnel.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/gauge.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/gauge.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/heatmap.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/heatmap.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/k.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/k.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/line.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/line.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/map.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/map.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/pie.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/pie.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/radar.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/radar.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/scatter.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/scatter.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/tree.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/tree.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/treemap.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/treemap.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/venn.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/venn.js",
+            "type": "js"
+        },
+        "static/js/dist/chart/wordCloud.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/chart/wordCloud.js",
+            "type": "js"
+        },
+        "static/js/dist/echarts-all.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/echarts-all.js",
+            "type": "js"
+        },
+        "static/js/dist/echarts.js": {
+            "uri": "http://localhost:8080/resource/static/js/dist/echarts.js",
+            "type": "js"
+        },
+        "pkg/asyncmap.js": {
+            "uri": "http://localhost:8080/pkg/asyncmap.js",
+            "type": "js"
+        }
+    },
+    "pkg": {}
+}

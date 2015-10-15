@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+</script>
+    <title>Law</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Sunday 26 October 2008 01:00 GMT" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <link rel="stylesheet" href="./static/css/login.css">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="./static/js/require.js"></script>
+
+    <script src="./static/js/dist/echarts.js"></script>
+</head>
+<body>
+
+<div class="run-time">
+    <div>
+       <div class="circle">
+         统计1
+       </div>
+       <div class="circle">
+         统计2
+       </div>
+       <div class="circle">
+         统计3
+       </div>
+    </div>
+
+    <div id="echarts">
+      
+
+    </div>
+    
+
+    <div id="tablist">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">tab1</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">tab2</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">tab3</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">tab4</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>表头1</th>
+                <th>表头2</th>
+                <th>表头3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>caseName1</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>caseName2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>caseName3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>caseName1</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>caseName2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
+                <td>caseName3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">7</th>
+                <td>caseName1</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">8</th>
+                <td>caseName2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">9</th>
+                <td>caseName3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>表头1</th>
+                <th>表头2</th>
+                <th>表头3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>c1</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>c2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>c3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+            </tbody>
+            
+          </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>表头1</th>
+                <th>表头2</th>
+                <th>表头3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>CN3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>CN2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>CASE</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="settings">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>表头1</th>
+                <th>表头2</th>
+                <th>表头3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>casme1</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>casame2</td>
+                <td>描述case</td>
+                <td>progress1</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>caName3</td>
+                <td>描述case</td>
+                <td>progress2</td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['已完成','未完成','正在审批','已经处理','文件处理中']
+    },
+    toolbox: {
+        show : false,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: false},
+            saveAsImage : {show: false}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'已完成',
+            type:'line',
+            stack: '总量',
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'未完成',
+            type:'line',
+            stack: '总量',
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'正在审批',
+            type:'line',
+            stack: '总量',
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'已经处理',
+            type:'line',
+            stack: '总量',
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'文件处理中',
+            type:'line',
+            stack: '总量',
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+    require.config({
+        baseUrl: "./static/js",
+        paths: {
+            echarts: "./dist"
+        }
+    });
+    
+    require(["echarts", "echarts/chart/line"], function(ec){
+        var myChart = ec.init(document.getElementById('echarts'));
+        // myChart.showLoading({
+        //     text: '正在努力的读取数据中...',    //loading话术
+        // });
+
+        myChart.setOption(option, true);
+    });
+</script>
+</body>
+</html>

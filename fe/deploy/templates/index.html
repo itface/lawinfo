@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+</script>
+    <title>Law</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Sunday 26 October 2008 01:00 GMT" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="http://localhost:8080/resource/common/libs/mod.js"></script>
+
+    
+    <script type="text/javascript" data-single="true" src="http://localhost:8080/pkg/asyncmap.js"></script>
+</head>
+<body>
+
+<div>
+    <div class="lg-bg">
+        <video id="J_video_player" 
+               loop="loop"
+               poster="https://i.alipayobjects.com/i/ecmng/png/201501/4Jdkug9K2v.png" 
+               class="video-player" data-height="1080" data-width="1920" autoplay
+               height="1080" width="100%"
+                 style="position: absolute; width: 100%; height: auto; top: 0px;">
+            <source src="https://t.alipayobjects.com/images/T1T78eXapfXXXXXXXX.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="loginModal" class="modal fade" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">账户密码登录</h4>
+      </div>
+      <div class="modal-body">
+            <div class="input-box">
+                <input type="text" placeholder="手机号"></input>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="密码"></input>
+            </div>
+            <div>
+                <input type="radio" name="role" id="role1" checked></input>
+                <label for="role1">角色1</label>
+                <input type="radio" 
+                       name="role" 
+                       id="role2"
+                       style="margin-left: 50px"
+                        ></input>
+                <label for="role2">角色2</label>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-primary" id="login" href="/works.html">登入</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<script type="text/javascript">
+
+    require.async("pagelet/login/login.js", function(exports){
+        
+    });
+    $('#loginModal').modal({ keyboard: true }).modal("show");
+</script>
+</body>
+</html>
