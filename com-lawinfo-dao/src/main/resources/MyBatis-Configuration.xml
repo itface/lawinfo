@@ -4,5 +4,6 @@
 <configuration>
     <mappers>
         <mapper resource="com/lawinfo/dao/org/OrgInfoDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/CaseProgressDao.xml"/>
     </mappers>
 </configuration>

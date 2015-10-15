@@ -8,7 +8,7 @@ import com.lawinfo.domain.common.BaseDomain;
 public class CaseProgress extends BaseDomain {
     private long id;
     private String caseid;
-    private long casenodeid;
+    private int casenodeid;
     private String comment;
     private String nexttask;
 
@@ -28,11 +28,11 @@ public class CaseProgress extends BaseDomain {
         this.caseid = caseid;
     }
 
-    public long getCasenodeid() {
+    public int getCasenodeid() {
         return casenodeid;
     }
 
-    public void setCasenodeid(long casenodeid) {
+    public void setCasenodeid(int casenodeid) {
         this.casenodeid = casenodeid;
     }
 

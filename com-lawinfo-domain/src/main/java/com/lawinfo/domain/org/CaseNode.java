@@ -12,7 +12,7 @@ public class CaseNode extends BaseDomain {
     private String name;
     private int index;
     private int level;
-    private int levelname;
+    private String levelname;
     private String comments;
 
     public long getId() {
@@ -47,11 +47,11 @@ public class CaseNode extends BaseDomain {
         this.level = level;
     }
 
-    public int getLevelname() {
+    public String getLevelname() {
         return levelname;
     }
 
-    public void setLevelname(int levelname) {
+    public void setLevelname(String levelname) {
         this.levelname = levelname;
     }
 

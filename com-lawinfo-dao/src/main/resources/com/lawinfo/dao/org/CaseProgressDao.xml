@@ -3,10 +3,9 @@
 <mapper namespace="com.lawinfo.dao.org.CaseProgressDao">
     <resultMap id="ResultMap" type="com.lawinfo.domain.org.CaseProgress">
         <id property="id" column="id" />
-        <result column="name" property="name"/>
         <result column="caseid" property="caseid"/>
         <result column="casenodeid" property="casenodeid"/>
-        <result column="comments" property="comments"/>
+        <result column="comment" property="comment"/>
         <result column="nexttask" property="nexttask"/>
         <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
@@ -16,7 +15,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,caseid,casenodeid,comments,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,caseid,casenodeid,comment,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -69,8 +68,8 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.CaseProgress">
-        insert into CaseProgress(name,caseid,casenodeid,comments,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
-        values(#{name},#{caseid},#{casenodeid},#{comments},#{nexttask},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into CaseProgress(caseid,casenodeid,comment,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{caseid},#{casenodeid},#{comment},#{nexttask},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from CaseProgress where id=#{id}

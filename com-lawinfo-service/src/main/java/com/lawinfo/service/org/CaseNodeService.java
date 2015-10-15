@@ -10,17 +10,15 @@ import java.util.List;
  */
 public interface CaseNodeService {
 
+    /*public String getAllCaseNodeJson();
     public List<CaseNode> findAll()throws Exception;
 
-    public int save(CaseNode caseNode)throws Exception;
 
     public CaseNode findById(long id)throws Exception;
 
     public List<CaseNode> findList(CaseNodeQuery caseNodeQuery)throws Exception;
 
-    public List<CaseNode> findListByPage(CaseNodeQuery caseNodeQuery)throws Exception;
+    public List<CaseNode> findListByPage(CaseNodeQuery caseNodeQuery)throws Exception;*/
 
-    public int count(CaseNodeQuery caseNodeQuery)throws Exception;
 
-    public int deleteById(long id)throws Exception;
 }

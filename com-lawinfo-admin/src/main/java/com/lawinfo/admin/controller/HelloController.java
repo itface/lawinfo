@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.service.org.CaseProgressService;
 import com.lawinfo.service.org.OrgInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ public class HelloController {
     private String CASE_NODE = "[{\"id\":1,\"name\":\"银行委托恰谈\",\"index\":1,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{1}},{\"id\":2,\"name\":\"合同已签订\",\"index\":2,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{2}}]";
     @Resource
     private OrgInfoService orgInfoService;
+    @Resource
+    private CaseProgressService caseProgressService;
     @RequestMapping("/admin/test")
     public String index() {
         return "index";
@@ -35,5 +38,10 @@ public class HelloController {
     public String login(HttpServletRequest request) {
         boolean flag = LoginInfo.addUseridToSession(request.getSession(),"itface");
         return flag?"success":"fail";
+    }
+    @RequestMapping("/query")
+    @ResponseBody
+    public String query() {
+        return caseProgressService.findCaseProgressWithNodeInfo("cs001");
     }
 }
