@@ -228,7 +228,7 @@
               <div class="card-header">
                  <span class="title">机构</span>
                  <div class="actions">
-                    <button type="button" class="btn btn-primary btn-depart">添加机构</button>
+                    <button type="button" class="btn btn-primary btn-organization">添加机构</button>
                  </div>
               </div>
               <div>
@@ -249,6 +249,41 @@
                     <tr>
                       <td>2</td>
                       <td>中国工商银行</td>
+                      <td>2002</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+
+          <div class="l-card">
+              <div class="card-header">
+                 <span class="title">部门</span>
+                 <div class="actions">
+                    <button type="button" class="btn btn-primary btn-depart">添加部门</button>
+                 </div>
+              </div>
+              <div>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>序号</th>
+                      <th>部门</th>
+                      <th>所属机构</th>
+                      <th>描述</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>法律部门</td>
+                      <td>礼名事务所</td>
+                      <td>xxxx</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>诉讼部门</td>
+                      <td>礼名事务所</td>
                       <td>2002</td>
                     </tr>
                   </tbody>
@@ -409,7 +444,7 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="adddepartpannel" class="modal fade" >
+<div id="addorganization" class="modal fade" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -421,16 +456,64 @@
           <div class="form">
               <div class="property">
                   <label>机构名称:</label>
-                  <input type="text" placeholder="名称"></input>
+                  <input name="orgName" type="text" placeholder="名称"></input>
               </div>
               <div class="property">
                   <label>描述:</label>
-                  <textarea></textarea>
+                  <textarea name="orgDesc"></textarea>
               </div>
           </div>
       </div>
       <div class="modal-footer">
-        <a type="button" class="btn btn-primary" href="/works.html">提交</a>
+         <a type="button" class="btn btn-primary submit" >提交</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="adddepartpannel" class="modal fade" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">部门</h4>
+      </div>
+
+      <div class="modal-body">
+          <div class="form">
+              <div class="property">
+                  <label>部门名称:</label>
+                  <input name="departName" type="text" placeholder="名称"></input>
+              </div>
+
+              <div class="property">
+                  <label>所属机构:</label>
+                  <!-- Single button -->
+                  <div class="btn-group">
+                    <button type="button" 
+                          class="btn btn-default dropdown-toggle" 
+                          data-toggle="dropdown" aria-haspopup ="true" 
+                          aria-expanded="false">
+                      礼明事务所 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">中国工商银行</a></li>
+                      <li><a href="#">礼明律师事务所</a></li>
+                      <li><a href="#">中国建设银行</a></li>
+                      <li><a href="#">XXX律师事务所</a></li>
+                    </ul>
+                  </div>
+              </div>
+
+              <div class="property">
+                  <label>描述:</label>
+                  <textarea name="departDesc"></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+         <a type="button" class="btn btn-primary submit" >提交</a>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
