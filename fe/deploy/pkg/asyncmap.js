@@ -68,6 +68,15 @@ require.resourceMap({
         },
         "static/js/dist/echarts.js": {
             "url": "http://localhost:8080/resource/static/js/dist/echarts.js"
+        },
+        "pagelet/admin/organization.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/organization.js"
+        },
+        "pagelet/admin/org_dropdown.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/org_dropdown.js"
+        },
+        "pagelet/admin/depart_list.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/depart_list.js"
         }
     },
     "pkg": {}

@@ -241,17 +241,8 @@
                       <th>描述</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>中国工商银行</td>
-                      <td>xxxx</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>中国工商银行</td>
-                      <td>2002</td>
-                    </tr>
+                  <tbody id="orgList">
+                    
                   </tbody>
                 </table>
               </div>
@@ -274,7 +265,7 @@
                       <th>描述</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="departListContent">
                     <tr>
                       <td>1</td>
                       <td>法律部门</td>
@@ -496,13 +487,9 @@
                           class="btn btn-default dropdown-toggle" 
                           data-toggle="dropdown" aria-haspopup ="true" 
                           aria-expanded="false">
-                      礼明事务所 <span class="caret"></span>
+                      <span class="lb"></span> <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">中国工商银行</a></li>
-                      <li><a href="#">礼明律师事务所</a></li>
-                      <li><a href="#">中国建设银行</a></li>
-                      <li><a href="#">XXX律师事务所</a></li>
+                    <ul class="dropdown-menu" id="orgdroplist">
                     </ul>
                   </div>
               </div>

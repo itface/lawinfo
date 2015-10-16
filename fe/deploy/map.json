@@ -115,6 +115,18 @@
             "uri": "http://localhost:8080/resource/static/js/dist/echarts.js",
             "type": "js"
         },
+        "pagelet/admin/organization.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/organization.js",
+            "type": "js"
+        },
+        "pagelet/admin/org_dropdown.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/org_dropdown.js",
+            "type": "js"
+        },
+        "pagelet/admin/depart_list.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/depart_list.js",
+            "type": "js"
+        },
         "pkg/asyncmap.js": {
             "uri": "http://localhost:8080/pkg/asyncmap.js",
             "type": "js"
