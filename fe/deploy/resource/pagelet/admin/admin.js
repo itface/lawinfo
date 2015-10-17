@@ -436,12 +436,12 @@ var admin = {
         var des = $pp.find('textarea').val();
 
         $.ajax({
-            url: "/api/add_role",
+            url: "/admin/role/add",
             method: "post", 
             data: {
                 name: name,
-                code: code,
-                des: des,
+                roleid: code,
+                description: des,
                 pgs: pgs
             }
         }).done(function(res){
@@ -466,12 +466,12 @@ var admin = {
         }
 
         $.ajax({
-            url: "/api/add_privilege",
+            url: "/admin/privilege/add",
             method: "post", 
             data: {
                 name: name,
-                code: code,
-                des: des,
+                privilegeid: code,
+                description: des,
             },
             success: function(){
                 console.log("add_privilege success");
@@ -493,6 +493,7 @@ var admin = {
         e.preventDefault();
 
         var name = this.$organizationPanel.find('input[name="orgName"]').val();
+        var type = this.$organizationPanel.find('[name="orgType"]:checked').val();
         var des = this.$organizationPanel.find('textarea').val();
 
         if(!name || !des){
@@ -501,11 +502,12 @@ var admin = {
         }
 
         $.ajax({
-            url: "/api/add_organization",
+            url: "/admin/orginfo/add",
             method: "post", 
             data: {
                 name: name,
-                des: des,
+                orgtype: type,
+                description: des,
             },
             success: function(){
                 console.log("add organization success");
@@ -529,15 +531,15 @@ var admin = {
         if(!name || !des || !_curSelectedOrgId){
             alert("有空填项");
             return;
-        }
+        };
 
         $.ajax({
-            url: "/api/add_depart",
+            url: "/admin/dept/add",
             method: "post", 
             data: {
                 name: name,
-                des: des,
-                orgId: _curSelectedOrgId
+                description: des,
+                orgid: _curSelectedOrgId
             },
             success: function(){
                 console.log("add depart success");
