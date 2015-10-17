@@ -11,7 +11,7 @@ fis.config.merge({
     roadmap: {
         //domain: ['http://wx.haodehaode.cn/static']
         //domain: ['http://message.haodehaode.cn/static']
-        domain: ["http://localhost:8080"]
+        domain: ["http://localhost:8080/static"]
     },
 
     modules: {
