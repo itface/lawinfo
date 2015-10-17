@@ -493,6 +493,7 @@ var admin = {
         e.preventDefault();
 
         var name = this.$organizationPanel.find('input[name="orgName"]').val();
+        var type = this.$organizationPanel.find('[name="orgType"]:checked').val();
         var des = this.$organizationPanel.find('textarea').val();
 
         if(!name || !des){
@@ -505,6 +506,7 @@ var admin = {
             method: "post", 
             data: {
                 name: name,
+                type: type,
                 des: des,
             },
             success: function(){

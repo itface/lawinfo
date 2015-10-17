@@ -14,7 +14,7 @@
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="http://localhost:8080/static/resource/common/common.css">
+    <link rel="stylesheet" href="http://localhost/static/resource/common/common.css">
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -22,12 +22,12 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script src="http://localhost:8080/static/resource/common/libs/mod.js"></script>
+    <script src="http://localhost/static/resource/common/libs/mod.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:8080/static/resource/pagelet/admin/admin.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/static/resource/pagelet/admin/admin.css">
 
 
-    <script type="text/javascript" data-single="true" src="http://localhost:8080/static/pkg/asyncmap.js"></script>
+    <script type="text/javascript" data-single="true" src="http://localhost/static/pkg/asyncmap.js"></script>
 </head>
 <body>
 
@@ -415,6 +415,20 @@
                   <input name="orgName" type="text" placeholder="名称"></input>
               </div>
               <div class="property">
+                  <label>机构类型:</label>
+                  <span>
+                    <label>
+                      <input name="orgType" type="radio" value="1">律所</input>
+                    </label>
+                    <label>
+                      <input name="orgType" type="radio" value="2">银行</input>
+                    </label>
+                    <label>
+                      <input name="orgType" type="radio" value="3">非银</input>
+                    </label>
+                  </span>
+              </div>
+              <div class="property">
                   <label>描述:</label>
                   <textarea name="orgDesc"></textarea>
               </div>
@@ -471,7 +485,7 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script type="text/javascript" src="http://localhost:8080/static/resource/pagelet/admin/admin.js"></script>
+<script type="text/javascript" src="http://localhost/static/resource/pagelet/admin/admin.js"></script>
 
 
 <script type="text/javascript">
