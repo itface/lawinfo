@@ -312,8 +312,8 @@ var admin = {
             method: "post", 
             data: {
                 name: name,
-                code: code,
-                des: des,
+                roleid: code,
+                description: des,
                 pgs: pgs
             }
         }).done(function(res){
@@ -342,8 +342,8 @@ var admin = {
             method: "post", 
             data: {
                 name: name,
-                code: code,
-                des: des,
+                privilegeid: code,
+                description: des,
             },
             success: function(){
                 console.log("add_privilege success");
@@ -378,8 +378,8 @@ var admin = {
             method: "post", 
             data: {
                 name: name,
-                type: type,
-                des: des,
+                orgtype: type,
+                description: des,
             },
             success: function(){
                 console.log("add organization success");
@@ -403,15 +403,15 @@ var admin = {
         if(!name || !des || !_curSelectedOrgId){
             alert("有空填项");
             return;
-        }
+        };
 
         $.ajax({
             url: "/admin/dept/add",
             method: "post", 
             data: {
                 name: name,
-                des: des,
-                orgId: _curSelectedOrgId
+                description: des,
+                orgid: _curSelectedOrgId
             },
             success: function(){
                 console.log("add depart success");
@@ -425,7 +425,7 @@ var admin = {
     },
 
     onAddDepartPannel: function(){
-        
+
     },
 
     onAddUserClick : function(){
