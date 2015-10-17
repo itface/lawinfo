@@ -77,6 +77,18 @@ require.resourceMap({
         },
         "pagelet/admin/depart_list.tpl": {
             "url": "http://localhost:8080/pagelet/admin/depart_list.js"
+        },
+        "pagelet/admin/previlige.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/previlige.js"
+        },
+        "pagelet/admin/roleItem.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/roleItem.js"
+        },
+        "pagelet/admin/previlige_selector.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/previlige_selector.js"
+        },
+        "pagelet/admin/useritem.tpl": {
+            "url": "http://localhost:8080/pagelet/admin/useritem.js"
         }
     },
     "pkg": {}

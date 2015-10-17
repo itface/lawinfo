@@ -91,50 +91,8 @@
                       <th>职位</th>
                     </tr>
                   </thead>
-                 <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>丁振赣</td>
-                      <td>13309830393</td>
-                      <td>礼名律师事务所</td>
-                      <td>负责人</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>老王</td>
-                      <td>1439393991</td>
-                      <td>赣州律师事务所</td>
-                      <td>部门负责人</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>卢先生</td>
-                      <td>15810013412</td>
-                      <td>九江法律律师事务所</td>
-                      <td>丘处机</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>高老板</td>
-                      <td>18633430923</td>
-                      <td>江西</td>
-                      <td>负责人</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>高老板</td>
-                      <td>18633430923</td>
-                      <td>江西</td>
-                      <td>负责人</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>高老板</td>
-                      <td>18633430923</td>
-                      <td>江西</td>
-                      <td>负责人</td>
-                    </tr>
-                  </tbody>
+                <tbody id="userlistcontent">
+                </tbody>
                 </table>
                 <div class="footer">
                   <a href="#">显示更多</a>
@@ -158,7 +116,7 @@
                       <th>描述</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="roleListContent">
                     <tr>
                       <th>1</th>
                       <td>负责人</td>
@@ -207,19 +165,7 @@
                       <th>描述</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>执行</td>
-                      <td>2001</td>
-                      <td>xxxx</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>诉讼</td>
-                      <td>2002</td>
-                      <td>xxxxx</td>
-                    </tr>
+                  <tbody id="privilegeListContent">
                   </tbody>
                 </table>
               </div>
@@ -310,9 +256,9 @@
                           class="btn btn-default dropdown-toggle" 
                           data-toggle="dropdown" aria-haspopup ="true" 
                           aria-expanded="false">
-                      礼明事务所 <span class="caret"></span>
+                      <span class="lb">礼明事务所</span> <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" id="userOrgMenu">
                       <li><a href="#">中国工商银行</a></li>
                       <li><a href="#">礼明律师事务所</a></li>
                       <li><a href="#">中国建设银行</a></li>
@@ -381,12 +327,30 @@
           <div class="form">
               <div class="property">
                   <label>角色名称:</label>
-                  <input type="text" placeholder="名称"></input>
+                  <input type="text" name="roleName" placeholder="名称"></input>
               </div>
 
               <div class="property">
                   <label>角色代码:</label>
-                  <input type="text" placeholder="唯一代码"></input>
+                  <input type="text" name="roleCode" placeholder="唯一代码"></input>
+              </div>
+              
+              <div class="property privileges">
+                  <label>选择权限</label>
+                  <span id="privilegeList">
+                    <span>
+                      <label><input type="checkbox"></input>p1</label>
+                    </span>
+                    <span>
+                      <label><input type="checkbox"></input>p2</label>
+                    </span>
+                    <span>
+                      <label><input type="checkbox"></input>p3</label>
+                    </span>
+                    <span>
+                      <label><input type="checkbox"></input>p5</label>
+                    </span>
+                  </span>
               </div>
 
               <div class="property">
@@ -396,7 +360,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <a type="button" class="btn btn-primary" href="/works.html">提交</a>
+        <a type="button" class="btn btn-primary submit">提交</a>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -414,12 +378,12 @@
           <div class="form">
               <div class="property">
                   <label>权限名称:</label>
-                  <input type="text" placeholder="名称"></input>
+                  <input type="text" name="preName" placeholder="名称"></input>
               </div>
 
               <div class="property">
                   <label>权限代码:</label>
-                  <input type="text" placeholder="唯一代码"></input>
+                  <input type="text" name="precode" placeholder="唯一代码"></input>
               </div>
 
               <div class="property">
@@ -429,7 +393,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <a type="button" class="btn btn-primary" href="/works.html">提交</a>
+        <a type="button" class="btn btn-primary submit">提交</a>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

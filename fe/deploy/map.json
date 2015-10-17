@@ -33,11 +33,13 @@
             "type": "js",
             "deps": [
                 "pagelet/login/login.less"
-            ]
+            ],
+            "id": "pagelet/login/login.js"
         },
         "pagelet/login/login.less": {
             "uri": "http://localhost:8080/resource/pagelet/login/login.css",
-            "type": "css"
+            "type": "css",
+            "id": "pagelet/login/login.less"
         },
         "static/js/dist/chart/bar.js": {
             "uri": "http://localhost:8080/resource/static/js/dist/chart/bar.js",
@@ -125,6 +127,22 @@
         },
         "pagelet/admin/depart_list.tpl": {
             "uri": "http://localhost:8080/pagelet/admin/depart_list.js",
+            "type": "js"
+        },
+        "pagelet/admin/previlige.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/previlige.js",
+            "type": "js"
+        },
+        "pagelet/admin/roleItem.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/roleItem.js",
+            "type": "js"
+        },
+        "pagelet/admin/previlige_selector.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/previlige_selector.js",
+            "type": "js"
+        },
+        "pagelet/admin/useritem.tpl": {
+            "uri": "http://localhost:8080/pagelet/admin/useritem.js",
             "type": "js"
         },
         "pkg/asyncmap.js": {
