@@ -19,7 +19,7 @@ public class Dept extends BaseDomain {
      * 非银：某某部门
      */
     @NotBlank
-    @Length(max=100,message = "名字最多不能超过100个字符")
+    @Length(max=100)
     private String name;
     /**
      * 机构id

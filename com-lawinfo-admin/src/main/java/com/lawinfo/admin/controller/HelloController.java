@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/12.
  */
-@Controller
+//@Controller
 public class HelloController {
-    private String CASE_NODE = "[{\"id\":1,\"name\":\"银行委托恰谈\",\"index\":1,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{1}},{\"id\":2,\"name\":\"合同已签订\",\"index\":2,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{2}}]";
+    /*private String CASE_NODE = "[{\"id\":1,\"name\":\"银行委托恰谈\",\"index\":1,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{1}},{\"id\":2,\"name\":\"合同已签订\",\"index\":2,\"level\":1,\"level_name\":\"合约恰谈\",\"comments\":{2}}]";
     @Resource
     private OrgInfoService orgInfoService;
     @Resource
@@ -50,5 +50,5 @@ public class HelloController {
     @ResponseBody
     public String query() {
         return caseProgressService.findCaseProgressWithNodeInfo("cs001");
-    }
+    }*/
 }
