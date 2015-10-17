@@ -308,7 +308,7 @@ var admin = {
         var des = $pp.find('textarea').val();
 
         $.ajax({
-            url: "/api/add_role",
+            url: "/admin/role/add",
             method: "post", 
             data: {
                 name: name,
@@ -338,7 +338,7 @@ var admin = {
         }
 
         $.ajax({
-            url: "/api/add_privilege",
+            url: "/admin/privilege/add",
             method: "post", 
             data: {
                 name: name,
@@ -374,7 +374,7 @@ var admin = {
         }
 
         $.ajax({
-            url: "/api/add_organization",
+            url: "/admin/orginfo/add",
             method: "post", 
             data: {
                 name: name,
@@ -406,7 +406,7 @@ var admin = {
         }
 
         $.ajax({
-            url: "/api/add_depart",
+            url: "/admin/dept/add",
             method: "post", 
             data: {
                 name: name,
@@ -425,7 +425,7 @@ var admin = {
     },
 
     onAddDepartPannel: function(){
-
+        
     },
 
     onAddUserClick : function(){
