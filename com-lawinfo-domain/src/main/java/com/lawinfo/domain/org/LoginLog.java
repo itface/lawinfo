@@ -1,6 +1,7 @@
 package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 
@@ -9,7 +10,9 @@ import java.io.Serializable;
  */
 public class LoginLog extends BaseDomain {
     private long id;
+    @Length(max=100)
     private String userid;
+    @Length(max=100)
     private String username;
     private long logintime;
     private String logintimestr;

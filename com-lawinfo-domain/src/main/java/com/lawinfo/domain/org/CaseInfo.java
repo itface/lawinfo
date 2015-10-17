@@ -1,6 +1,10 @@
 package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 /**
  * Created by wangrongtao on 15/10/13.
@@ -11,33 +15,42 @@ public class CaseInfo extends BaseDomain {
      * 案件所属银行
      * orginfo表里的orgid,orgtype为银行
      */
+    @Min(1)
     private long bankid;
+    @Length(max=100)
     private String bankname;
     /**
      * 目前所属阶段
      */
+    @Min(1)
     private long casenodeid;
-
+    @Length(max=100)
     private String casenodename;
     /**
      * 案件联络人
      */
+    @Length(max=100)
     private String contact;
     /**
      * 联系方式
      */
+    @Length(max=50)
     private String contactphone;
     /**
      * 债务人debtor信息
      */
+    @Length(max=150)
     private String debtorinfo;
     /**
      * 债权人creditor是否与律师所关联（1是、0否)
      */
+    @Min(0)
+    @Max(1)
     private int iscreditorrelated;
     /**
-     * 债务人财产状部
+     * 债务人财产状况
      */
+    @Length(max=150)
     private String debtorpropertyinfo;
     /**
      * 债权本金
@@ -47,25 +60,33 @@ public class CaseInfo extends BaseDomain {
      * 债权到期日
      */
     private long zqdqr;
+    @Length(max=20)
+    private String zqdqrstr;
     /**
      * 担保guarantee方式
      */
+    @Length(max=50)
     private String guaranteetype;
     /**
      *担保人guarantor信息
      */
+    @Length(max=150)
     private String guarantorinfo;
     /**
      * 担保人是否与律所关联（是1、否0）
      */
+    @Min(0)
+    @Max(1)
     private int isguarantorrelated;
     /**
      * 担保人财产情况
      */
+    @Length(max=150)
     private String guarantorpropertyinfo;
     /**
      * 抵押物pawn信息
      */
+    @Length(max=150)
     private String pawninfo;
     /**
      * 抵押物pawn评估价值
@@ -74,15 +95,19 @@ public class CaseInfo extends BaseDomain {
     /**
      * 案件程序
      */
+    @Length(max=150)
     private String procedure;
     /**
      * 受理法院
      */
+    @Length(max=150)
     private String court;
     /**
      * userid
      */
+    @Length(max=50)
     private String lawyerid;
+    @Length(max=100)
     private String lawyername;
     /**
      * 律师费总额
@@ -284,5 +309,13 @@ public class CaseInfo extends BaseDomain {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getZqdqrstr() {
+        return zqdqrstr;
+    }
+
+    public void setZqdqrstr(String zqdqrstr) {
+        this.zqdqrstr = zqdqrstr;
     }
 }

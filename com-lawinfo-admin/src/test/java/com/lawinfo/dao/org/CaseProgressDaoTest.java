@@ -32,7 +32,7 @@ public class CaseProgressDaoTest {
     public void testSave() {
         int effectRows =0;
         CaseProgress caseProgress = new CaseProgress();
-        caseProgress.setCaseid("cs001");
+        caseProgress.setCaseid(1);
         caseProgress.setCasenodeid(1);
         caseProgress.setComment("提交案卷");
         caseProgress.setNexttask("审查案卷");
@@ -46,7 +46,7 @@ public class CaseProgressDaoTest {
         caseProgress.setOptuserid("admin");
         effectRows = caseProgressDao.save(caseProgress);
         CaseProgress caseProgress2 = new CaseProgress();
-        caseProgress2.setCaseid("cs001");
+        caseProgress2.setCaseid(1);
         caseProgress2.setCasenodeid(1);
         caseProgress2.setComment("更新提交案卷");
         caseProgress2.setNexttask("重复审查案卷");
@@ -60,7 +60,7 @@ public class CaseProgressDaoTest {
         caseProgress2.setOptuserid("admin");
         effectRows+= caseProgressDao.save(caseProgress2);
         CaseProgress caseProgress3 = new CaseProgress();
-        caseProgress3.setCaseid("cs001");
+        caseProgress3.setCaseid(1);
         caseProgress3.setCasenodeid(2);
         caseProgress3.setComment("准备开庭");
         caseProgress3.setNexttask("审判");

@@ -30,7 +30,7 @@ public class DeptServiceImpl implements DeptService {
             logger.error("findAll error",e);
             throw e;
         }
-        return null;
+        return list;
     }
 
     @Override

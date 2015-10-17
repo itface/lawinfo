@@ -13,6 +13,8 @@
         <result column="iscreditorrelated" property="iscreditorrelated"/>
         <result column="debtorpropertyinfo" property="debtorpropertyinfo"/>
         <result column="zqbj" property="zqbj"/>
+        <result column="zqdqr" property="zqdqr"/>
+        <result column="zqdqrstr" property="zqdqrstr"/>
         <result column="guaranteetype" property="guaranteetype"/>
         <result column="guarantorinfo" property="guarantorinfo"/>
         <result column="isguarantorrelated" property="isguarantorrelated"/>
@@ -32,7 +34,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,bankid,bankname,casenodeid,casenodename,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+         id,bankid,bankname,casenodeid,casenodename,zqdqr,zqdqrstr,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
          ,lawyerid,lawyername,totalprice,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
@@ -84,10 +86,10 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.CaseInfo">
-        insert into CaseInfo(bankid,bankname,casenodeid,casenodename,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+        insert into CaseInfo(bankid,bankname,casenodeid,casenodename,contact,zqdqr,zqdqrstr,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
          ,lawyerid,lawyername,totalprice,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary)
-         values(#{bankid},#{bankname},#{casenodeid},#{casenodename},#{contact},#{contactphone},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj
+         values(#{bankid},#{bankname},#{casenodeid},#{casenodename},#{contact},#{zqdqr},#{zqdqrstr},#{contactphone},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj
          },#{guaranteetype},#{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court
          },#{lawyerid},#{lawyername},#{totalprice},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary})
     </insert>

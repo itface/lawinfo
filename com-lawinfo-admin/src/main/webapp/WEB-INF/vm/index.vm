@@ -6,5 +6,18 @@
         <div>
             helloworld
         </div>
+        <div>
+            <table width="100%">
+                #if($list && $list.size()>0)
+                    #foreach($orginfo in $list)
+                        <tr>
+                            <td>$orginfo.getId()</td>
+                            <td>$orginfo.getName()</td>
+                            <td>$orginfo.getOrgtype()</td>
+                        </tr>
+                    #end
+                #end
+            </table>
+        </div>
     </div>
 </div>

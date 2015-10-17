@@ -1,14 +1,19 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.org.OrgInfo;
+import com.lawinfo.domain.org.query.OrgInfoQuery;
 import com.lawinfo.service.org.CaseProgressService;
 import com.lawinfo.service.org.OrgInfoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/12.
@@ -29,9 +34,11 @@ public class HelloController {
         return "/error/error";
     }
     @RequestMapping("/find")
-    @ResponseBody
-    public String find() {
-        return orgInfoService.findAll();
+    public String find(ModelMap modelMap,OrgInfoQuery orgInfoQuery, BindingResult result)throws Exception{
+//        if (result.hasErrors())
+        List<OrgInfo> list = orgInfoService.findList(orgInfoQuery);
+        modelMap.put("list", list);
+        return "index";
     }
     @RequestMapping("/login")
     @ResponseBody

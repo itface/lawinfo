@@ -30,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
             logger.error("findAll error",e);
             throw e;
         }
-        return null;
+        return list;
     }
 
     @Override

@@ -1,22 +1,32 @@
 package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
 public class User extends BaseDomain {
     private long id;
+    @NotBlank
+    @Length(max=100)
     private String name;
     /**
      * 手机号
      */
+    @NotBlank
+    @Length(max=100)
     private String userid;
     /**
-     * 帐号状态，1是正常，-1锁定
+     * 帐号状态,预留，1是正常，-1锁定
      */
     private int status;
+    @Min(1)
     private long orgid;
+    @Min(1)
     private long deptid;
 
     public long getId() {

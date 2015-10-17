@@ -1,15 +1,25 @@
 package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
 
 /**
  * Created by wangrongtao on 15/10/13.
  */
 public class CaseProgress extends BaseDomain {
     private long id;
-    private String caseid;
+    @Min(1)
+    private long caseid;
+    @Min(1)
     private int casenodeid;
+    @NotBlank
+    @Length(max=200)
     private String comment;
+    @NotBlank
+    @Length(max=200)
     private String nexttask;
 
     public long getId() {
@@ -20,11 +30,11 @@ public class CaseProgress extends BaseDomain {
         this.id = id;
     }
 
-    public String getCaseid() {
+    public long getCaseid() {
         return caseid;
     }
 
-    public void setCaseid(String caseid) {
+    public void setCaseid(long caseid) {
         this.caseid = caseid;
     }
 

@@ -192,7 +192,7 @@ public class CaseProgressServiceImpl implements CaseProgressService {
             logger.error("findAll error",e);
             throw e;
         }
-        return null;    }
+        return list;    }
 
     @Override
     public int save(CaseProgress caseProgress) throws Exception {
@@ -203,7 +203,7 @@ public class CaseProgressServiceImpl implements CaseProgressService {
                 logger.info("save success,effectrows:"+effectrows+","+caseProgress.getCaseid());
             }
         } catch (Exception e) {
-            logger.error("findAll error,"+caseProgress==null?"null":caseProgress.getCaseid(),e);
+            logger.error("findAll error,caseid="+(caseProgress==null?0l:caseProgress.getCaseid()),e);
             throw e;
         }
         return effectrows;

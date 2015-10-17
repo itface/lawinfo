@@ -32,7 +32,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
             logger.error("findAll error",e);
             throw e;
         }
-        return null;
+        return list;
     }
 
     @Override
