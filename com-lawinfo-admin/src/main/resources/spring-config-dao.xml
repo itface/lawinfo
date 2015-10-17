@@ -23,4 +23,44 @@
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
        </bean>
 
+       <bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="privilegeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.PrivilegeDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="roleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.RoleDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+        <bean id="rolePrivilegeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.RolePrivilegeDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="caseInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.CaseInfoDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+       <bean id="caseProgressDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.CaseProgressDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+        <bean id="loginLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.LoginLogDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+        <bean id="smsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.SmsDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+        <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.UserDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
+        <bean id="userRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+              <property name="mapperInterface" value="com.lawinfo.dao.org.UserRoleDao"></property>
+              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+       </bean>
 </beans>

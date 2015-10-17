@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lawinfo.dao.org.CaseProgressDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.CaseProgress">
+        <id property="id" column="id" />
+        <result column="caseid" property="caseid"/>
+        <result column="casenodeid" property="casenodeid"/>
+        <result column="comment" property="comment"/>
+        <result column="nexttask" property="nexttask"/>
+        <result column="description" property="description"/>
+        <result column="createtime" property="createtime"/>
+        <result column="createtimestr" property="createtimestr"/>
+        <result column="modifiedtime" property="modifiedtime"/>
+        <result column="modifiedtimestr" property="modifiedtimestr"/>
+        <result column="optuserid" property="optuserid"/>
+    </resultMap>
+    <sql id="allColumn">
+         id,caseid,casenodeid,comment,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+    </sql>
+    <sql id="condition">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="id>0">
+                id = #{id}
+            </if>
+            <if test="casenodeid>0">
+                and casenodeid = #{casenodeid}
+            </if>
+            <if test="caseid>0">
+                and caseid = #{caseid}
+            </if>
+        </trim>
+    </sql>
+    <sql id="page">
+          limit #{startRow},#{pageSize}
+    </sql>
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+         from
+          CaseProgress
+    </select>
+    <select id="findById" parameterType="long"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        CaseProgress where id = #{id}
+    </select>
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        CaseProgress
+        <include refid="condition"/>
+    </select>
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        CaseProgress
+        <include refid="condition"/>
+        <include refid="page"/>
+    </select>
+    <select id="count" parameterType="com.lawinfo.domain.org.query.CaseProgressQuery" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        CaseProgress
+        <include refid="condition"/>
+    </select>
+    <insert id="save" parameterType="com.lawinfo.domain.org.CaseProgress">
+        insert into CaseProgress(caseid,casenodeid,comment,nexttask,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{caseid},#{casenodeid},#{comment},#{nexttask},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    </insert>
+    <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
+        delete from CaseProgress where id=#{id}
+    </delete>
+    <!--<update id="update" parameterType="com.icreate.entity.User">
+        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
+    </update>-->
+</mapper>

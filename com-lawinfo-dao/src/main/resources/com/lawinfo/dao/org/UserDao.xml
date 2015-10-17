@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lawinfo.dao.org.UserDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.User">
+        <id property="id" column="id" />
+        <result column="name" property="name"/>
+        <result column="userid" property="userid"/>
+        <result column="status" property="status"/>
+        <result column="deptid" property="deptid"/>
+        <result column="description" property="description"/>
+        <result column="createtime" property="createtime"/>
+        <result column="createtimestr" property="createtimestr"/>
+        <result column="modifiedtime" property="modifiedtime"/>
+        <result column="modifiedtimestr" property="modifiedtimestr"/>
+        <result column="optuserid" property="optuserid"/>
+    </resultMap>
+    <sql id="allColumn">
+         id,name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+    </sql>
+    <sql id="condition">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="id>0">
+                id = #{id}
+            </if>
+            <if test="deptid>0">
+                and deptid = #{deptid}
+            </if>
+            <if test="userid!=null and userid!=''">
+                and userid = #{userid}
+            </if>
+            <if test="name!=null and name!=''">
+                and name = #{name}
+            </if>
+        </trim>
+        <!--<where>
+            <if test="id>0">
+                ID = #id#
+            </if>
+            <if test="type>0">
+                AND TYPE = #type#
+            </if>
+        </where>-->
+    </sql>
+    <sql id="page">
+          limit #{startRow},#{pageSize}
+    </sql>
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+         from
+          User
+    </select>
+    <select id="findById" parameterType="long"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        User where id = #{id}
+    </select>
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        User
+        <include refid="condition"/>
+    </select>
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        User
+        <include refid="condition"/>
+        <include refid="page"/>
+    </select>
+    <select id="count" parameterType="com.lawinfo.domain.org.query.UserQuery" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        User
+        <include refid="condition"/>
+    </select>
+    <insert id="save" parameterType="com.lawinfo.domain.org.User">
+        insert into User(name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{name},#{userid},#{status},#{deptid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    </insert>
+    <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
+        delete from User where id=#{id}
+    </delete>
+    <!--<update id="update" parameterType="com.icreate.entity.User">
+        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
+    </update>-->
+</mapper>

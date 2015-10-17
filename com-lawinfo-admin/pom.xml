@@ -51,15 +51,6 @@
             <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <!-- common logging replacer -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
@@ -74,10 +65,6 @@
         <dependency>
             <groupId>com.lawinfo</groupId>
             <artifactId>com-lawinfo-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -116,12 +103,9 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-            <!--plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin-->
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
@@ -142,7 +126,7 @@
                 <log.root.level>INFO</log.root.level>
                 <lawinfo.jdbc.datasource.type>druid</lawinfo.jdbc.datasource.type>
                 <lawinfo.jdbc.mysql.driver>com.mysql.jdbc.Driver</lawinfo.jdbc.mysql.driver>
-                <lawinfo.jdbc.url>jdbc:mysql://127.0.0.1:3306/lawinfo</lawinfo.jdbc.url>
+                <lawinfo.jdbc.url>jdbc:mysql://127.0.0.1:3306/lawinfo??useUnicode=true&amp;amp;characterEncoding=UTF-8</lawinfo.jdbc.url>
                 <lawinfo.jdbc.username>root</lawinfo.jdbc.username>
                 <lawinfo.jdbc.password>root</lawinfo.jdbc.password>
             </properties>

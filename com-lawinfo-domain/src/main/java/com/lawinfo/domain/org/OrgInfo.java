@@ -1,18 +1,29 @@
 package com.lawinfo.domain.org;
 
+import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
  * Created by wangrongtao on 15/10/12.
  */
-public class OrgInfo implements Serializable {
+public class OrgInfo extends BaseDomain {
+
     private long id;
+
+    @NotBlank
+    @Length(max=100,message = "名字最多不能超过100个字符")
     private String name;
     /**
      * 机构类型：1律所、2银行、3非银
      */
+    @Min(1)
+//    @Max(3)
     private int orgtype;
-    private String description;
 
     public long getId() {
         return id;
@@ -38,15 +49,4 @@ public class OrgInfo implements Serializable {
         this.orgtype = orgtype;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String toString() {
-        return id+":"+name;
-    }
 }
