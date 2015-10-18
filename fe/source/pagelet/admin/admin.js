@@ -190,8 +190,11 @@ var admin = {
         $.ajax({
             url: "/admin/user/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(datalist){
+                var tplData = {
+                    list: datalist
+                };
+                render(tplData);
             },
             error: function(res){
                 render(userDataList);
@@ -208,8 +211,11 @@ var admin = {
         $.ajax({
             url: "/admin/role/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(datalist){
+                var tplData = {
+                    list: datalist
+                };
+                render(tplData);
             },
             error: function(res){
                 render(roleDataList);
@@ -270,8 +276,11 @@ var admin = {
         $.ajax({
             url: "/admin/dept/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(datalist){
+                var tplData = {
+                    list: datalist
+                };
+                render(tplData);
             },
             error: function(res){
                 render(departListData);
@@ -290,8 +299,11 @@ var admin = {
         $.ajax({
             url: "/admin/privilege/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(datalist){
+                var tplData = {
+                    list: datalist
+                };
+                render(tplData);
             },
             error: function(res){
                 render(priviligeList);
