@@ -161,8 +161,6 @@ var roleList = [
     }
 ];
 
-
-var template = __inline('/pagelet/admin/admin.tpl');
 var organizationTpl = __inline("/pagelet/admin/organization.tpl");
 var departTpl = __inline("/pagelet/admin/depart_list.tpl");
 var dropOrganizationTpl = __inline("/pagelet/admin/org_dropdown.tpl");

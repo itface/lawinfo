@@ -21,13 +21,6 @@
             "type": "css",
             "id": "pagelet/admin/admin.less"
         },
-        "pagelet/admin/admin.tpl": {
-            "uri": "http://localhost/static/pagelet/admin/admin.js",
-            "type": "js",
-            "deps": [
-                "pagelet/admin/admin.less"
-            ]
-        },
         "pagelet/admin/depart_list.tpl": {
             "uri": "http://localhost/static/pagelet/admin/depart_list.js",
             "type": "js"

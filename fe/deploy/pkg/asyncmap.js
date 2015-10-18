@@ -6,9 +6,6 @@ require.resourceMap({
         "pagelet/admin/admin.js": {
             "url": "http://localhost/static/resource/pagelet/admin/admin.js"
         },
-        "pagelet/admin/admin.tpl": {
-            "url": "http://localhost/static/pagelet/admin/admin.js"
-        },
         "pagelet/admin/depart_list.tpl": {
             "url": "http://localhost/static/pagelet/admin/depart_list.js"
         },
