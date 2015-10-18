@@ -8,7 +8,7 @@ __p+='\n<tr>\n  <td>'+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].des))==null?'':__t)+
+((__t=(list[i].description))==null?'':__t)+
 '</td>\n</tr>\n';
 }
 __p+='';

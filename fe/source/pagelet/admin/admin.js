@@ -17,18 +17,21 @@ var departListData = {
                         ]
                     };
 var orgListData = {
+
+                    status: 200,
+
                     list: [
-                        {
-                            id: "111",
-                            name: "org1",
-                            des: "XXXXXXXXXXXXXXX"
-                        },
-                        {
-                            id: "123",
-                            name: "org2",
-                            des: "YYYYYYYYYYYYYY"
-                        }
-                    ]
+                            {
+                                id: "111",
+                                name: "org1",
+                                des: "XXXXXXXXXXXXXXX"
+                            },
+                            {
+                                id: "123",
+                                name: "org2",
+                                des: "YYYYYYYYYYYYYY"
+                            }
+                        ]
                 };
 
 var priviligeList = {
@@ -242,10 +245,13 @@ var admin = {
         $.ajax({
             url: "/admin/orginfo/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(dataList){
+                var tplData =  {
+                    list: dataList
+                };
+                render(tplData);
             },
-            error: function(res){
+            error: function(){
                 render(orgListData);
             }
         });
@@ -355,10 +361,6 @@ var admin = {
         });
     },
 
-    onAddOrganization: function(e){
-        this.$organizationPanel.modal({ keyboard: true }).modal("show");
-    },
-
     onAddOrgForm: function(e){
         var self = this;
 
@@ -426,6 +428,10 @@ var admin = {
 
     onAddDepartPannel: function(){
 
+    },
+
+    onAddOrganization: function(e){
+        this.$organizationPanel.modal({ keyboard: true }).modal("show");
     },
 
     onAddUserClick : function(){

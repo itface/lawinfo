@@ -17,18 +17,21 @@ define('pagelet/admin/admin.js', function(require, exports, module){ var departL
                         ]
                     };
 var orgListData = {
+
+                    status: 200,
+
                     list: [
-                        {
-                            id: "111",
-                            name: "org1",
-                            des: "XXXXXXXXXXXXXXX"
-                        },
-                        {
-                            id: "123",
-                            name: "org2",
-                            des: "YYYYYYYYYYYYYY"
-                        }
-                    ]
+                            {
+                                id: "111",
+                                name: "org1",
+                                des: "XXXXXXXXXXXXXXX"
+                            },
+                            {
+                                id: "123",
+                                name: "org2",
+                                des: "YYYYYYYYYYYYYY"
+                            }
+                        ]
                 };
 
 var priviligeList = {
@@ -125,7 +128,7 @@ __p+='\n<tr>\n  <td>'+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].des))==null?'':__t)+
+((__t=(list[i].description))==null?'':__t)+
 '</td>\n</tr>\n';
 }
 __p+='';
@@ -370,10 +373,13 @@ var admin = {
         $.ajax({
             url: "/admin/orginfo/find",
             method: "get", 
-            success: function(res){
-                render(res);
+            success: function(dataList){
+                var tplData =  {
+                    list: dataList
+                };
+                render(tplData);
             },
-            error: function(res){
+            error: function(){
                 render(orgListData);
             }
         });
@@ -483,10 +489,6 @@ var admin = {
         });
     },
 
-    onAddOrganization: function(e){
-        this.$organizationPanel.modal({ keyboard: true }).modal("show");
-    },
-
     onAddOrgForm: function(e){
         var self = this;
 
@@ -554,6 +556,10 @@ var admin = {
 
     onAddDepartPannel: function(){
 
+    },
+
+    onAddOrganization: function(e){
+        this.$organizationPanel.modal({ keyboard: true }).modal("show");
     },
 
     onAddUserClick : function(){
