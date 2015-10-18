@@ -361,13 +361,14 @@ var admin = {
         e.preventDefault();
         var $pp = this.$rolePannel;
 
-        var pgs = '';
+        var pgs = [];
         var name = $pp.find('input[name="roleName"]').val();
         var code = $pp.find('input[name="roleCode"]').val();
         var $privileges = $pp.find('.privileges input:checked');
         $privileges.each(function(){
-            pgs += ","+$(this).attr("p-id");
+            pgs.push($(this).attr("p-id"));
         });
+        pgs = pgs.join(",");
 
         var des = $pp.find('textarea').val();
 
