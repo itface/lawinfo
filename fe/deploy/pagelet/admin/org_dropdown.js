@@ -7,6 +7,8 @@ __p+='\n  <li label="'+
 ((__t=(list[i].name))==null?'':__t)+
 '" data-id="'+
 ((__t=(list[i].id))==null?'':__t)+
+'" data-type="'+
+((__t=(list[i].orgtype))==null?'':__t)+
 '"><a href="#">'+
 ((__t=(list[i].name ))==null?'':__t)+
 '</a></li>\n';
