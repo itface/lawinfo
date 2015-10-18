@@ -147,7 +147,7 @@ __p+='\n<tr>\n  <td>'+
 '</td>\n  <td>'+
 ((__t=(list[i].orgname))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].des))==null?'':__t)+
+((__t=(list[i].description))==null?'':__t)+
 '</td>\n</tr>\n';
 }
 __p+='';
@@ -181,9 +181,9 @@ __p+='\n<tr>\n  <td>'+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].code))==null?'':__t)+
+((__t=(list[i].privilegeid))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].des))==null?'':__t)+
+((__t=(list[i].description))==null?'':__t)+
 '</td>\n</tr>\n';
 }
 __p+='';
@@ -200,9 +200,9 @@ __p+='\n<tr>\n  <td>'+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].code))==null?'':__t)+
+((__t=(list[i].roleid))==null?'':__t)+
 '</td>\n  <td>'+
-((__t=(list[i].des))==null?'':__t)+
+((__t=(list[i].description))==null?'':__t)+
 '</td>\n</tr>\n';
 }
 __p+='';

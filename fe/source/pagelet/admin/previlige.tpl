@@ -2,7 +2,7 @@
 <tr>
   <td><%=i%></td>
   <td><%=list[i].name%></td>
-  <td><%=list[i].code%></td>
-  <td><%=list[i].des%></td>
+  <td><%=list[i].privilegeid%></td>
+  <td><%=list[i].description%></td>
 </tr>
 <%}%>
