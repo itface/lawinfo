@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.domain.org.Dept;
+import com.lawinfo.domain.org.OrgInfo;
 import com.lawinfo.domain.org.query.DeptQuery;
 import com.lawinfo.service.org.DeptService;
 import org.springframework.stereotype.Controller;
@@ -42,5 +43,11 @@ public class DeptController {
     public String remove(@PathVariable long id)throws Exception{
         int rows = deptService.deleteById(id);
         return rows+"";
+    }
+    @ResponseBody
+    @RequestMapping("/find")
+    public List<Dept> find()throws Exception{
+        List<Dept> list = deptService.findAll();
+        return list;
     }
 }

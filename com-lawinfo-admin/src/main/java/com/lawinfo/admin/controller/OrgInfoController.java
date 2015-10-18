@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/17.
@@ -26,6 +27,12 @@ public class OrgInfoController {
     public String save(OrgInfo orgInfo,BindingResult result)throws Exception{
         int rows = orgInfoService.save(orgInfo);
         return rows+"";
+    }
+    @ResponseBody
+    @RequestMapping("/find")
+    public List<OrgInfo> find()throws Exception{
+        List<OrgInfo> list = orgInfoService.findAll();
+        return list;
     }
     @ResponseBody
     @RequestMapping("/remove/{id}")

@@ -40,4 +40,10 @@ public class PrivilegeController {
         int rows = privilegeService.deleteById(id);
         return rows+"";
     }
+    @ResponseBody
+    @RequestMapping("/find")
+    public List<Privilege> find()throws Exception{
+        List<Privilege> list = privilegeService.findAll();
+        return list;
+    }
 }

@@ -1,6 +1,8 @@
 package com.lawinfo.domain.common;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by wangrongtao on 15/10/13.
@@ -60,5 +62,15 @@ public class BaseDomain implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public void initBaseDomain() {
+        Date date = new Date();
+        long now = date.getTime();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowstr = sf.format(date);
+        this.createtime = now;
+        this.createtimestr = nowstr;
+        this.modifiedtime = now;
+        this.createtimestr = nowstr;
     }
 }
