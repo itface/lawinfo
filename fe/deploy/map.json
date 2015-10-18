@@ -8,14 +8,6 @@
             "uri": "http://localhost/static/resource/common/libs/mod.js",
             "type": "js"
         },
-        "pagelet/admin/admin.js": {
-            "uri": "http://localhost/static/resource/pagelet/admin/admin.js",
-            "type": "js",
-            "deps": [
-                "pagelet/admin/admin.less"
-            ],
-            "id": "pagelet/admin/admin.js"
-        },
         "pagelet/admin/admin.less": {
             "uri": "http://localhost/static/resource/pagelet/admin/admin.css",
             "type": "css",
@@ -144,6 +136,14 @@
         "static/js/dist/echarts.js": {
             "uri": "http://localhost/static/resource/static/js/dist/echarts.js",
             "type": "js"
+        },
+        "pagelet/admin/admin.js": {
+            "uri": "http://localhost/static/resource/pagelet/admin/admin.js",
+            "type": "js",
+            "deps": [
+                "pagelet/admin/admin.less"
+            ],
+            "id": "pagelet/admin/admin.js"
         },
         "pkg/asyncmap.js": {
             "uri": "http://localhost/static/pkg/asyncmap.js",
