@@ -297,11 +297,11 @@ __p+='\n    <tr>\n      <td>'+
 '</td>\n      <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n      <td>'+
-((__t=(list[i].tel))==null?'':__t)+
+((__t=(list[i].userid))==null?'':__t)+
 '</td>\n      <td>'+
-((__t=(list[i].org))==null?'':__t)+
-'</td>å\n      <td>'+
-((__t=(list[i].role))==null?'':__t)+
+((__t=(list[i].orgname))==null?'':__t)+
+'</td>\n      <td>'+
+((__t=(list[i].rolename))==null?'':__t)+
 '</td>\n      <td>\n          <button class="btn btn-default btn-delete" data-id="'+
 ((__t=(list[i].id))==null?'':__t)+
 '">删除</button>\n      </td>\n    </tr>\n';
