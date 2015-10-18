@@ -39,6 +39,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         try {
             if (caseInfo!=null) {
                 caseInfo.initSummary();
+                caseInfo.initBaseDomain();
                 effectrows = caseInfoDao.save(caseInfo);
                 logger.info("save success,effectrows:"+effectrows+",caseid:"+caseInfo.getId());
             }

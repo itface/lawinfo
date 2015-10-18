@@ -43,6 +43,7 @@ public class SmsServiceImpl implements SmsService {
         int effectrows = 0;
         try {
             if (sms!=null) {
+                sms.initBaseDomain();
                 effectrows = smsDao.save(sms);
                 logger.info("save success,effectrows:"+effectrows+","+sms.getPhoneno());
             }

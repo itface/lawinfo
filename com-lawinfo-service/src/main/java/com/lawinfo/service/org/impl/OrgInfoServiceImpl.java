@@ -42,6 +42,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
         int effectrows = 0;
         try {
             if (orgInfo!=null) {
+                orgInfo.initBaseDomain();
                 effectrows = orgInfoDao.save(orgInfo);
                 logger.info("save success,effectrows:"+effectrows+","+orgInfo.getName());
             }

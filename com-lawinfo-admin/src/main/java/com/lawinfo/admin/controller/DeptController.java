@@ -1,5 +1,6 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.OrgInfo;
 import com.lawinfo.domain.org.query.DeptQuery;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,13 +28,18 @@ public class DeptController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public String save(Dept dept,BindingResult result)throws Exception{
-        int rows = deptService.save(dept);
-        return rows+"";
+    public String save(HttpServletRequest request,Dept dept,BindingResult result)throws Exception {
+        String userid = LoginInfo.getUseridFromSession(request.getSession());
+        if (dept != null) {
+            dept.setOptuserid(userid);
+            int rows = deptService.save(dept);
+            return rows + "";
+        }
+        return null;
     }
     @ResponseBody
     @RequestMapping("/findDeptByOrgid/{orgid}")
-    public List<Dept> RequestMapping(@PathVariable long orgid)throws Exception{
+    public List<Dept> findDeptByOrgid(@PathVariable long orgid)throws Exception{
         DeptQuery deptQuery = new DeptQuery();
         deptQuery.setOrgid(orgid);
         List<Dept> list = deptService.findList(deptQuery);

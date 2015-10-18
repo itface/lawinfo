@@ -71,6 +71,6 @@ public class BaseDomain implements Serializable {
         this.createtime = now;
         this.createtimestr = nowstr;
         this.modifiedtime = now;
-        this.createtimestr = nowstr;
+        this.modifiedtimestr = nowstr;
     }
 }

@@ -40,6 +40,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         int effectrows = 0;
         try {
             if (privilege!=null) {
+                privilege.initBaseDomain();
                 effectrows = privilegeDao.save(privilege);
                 logger.info("save success,effectrows:"+effectrows+","+privilege.getName());
             }

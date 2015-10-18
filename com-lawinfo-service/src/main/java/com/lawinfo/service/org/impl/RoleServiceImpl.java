@@ -2,12 +2,14 @@ package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.RoleDao;
 import com.lawinfo.domain.org.Role;
+import com.lawinfo.domain.org.RolePrivilege;
 import com.lawinfo.domain.org.query.RoleQuery;
 import com.lawinfo.service.org.RolePrivilegeService;
 import com.lawinfo.service.org.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,7 +43,20 @@ public class RoleServiceImpl implements RoleService {
         int effectrows = 0;
         try {
             if (role!=null) {
+                role.initBaseDomain();
                 effectrows = roleDao.save(role);
+                String privilegeids = role.getPrivilegeids();
+                if (!StringUtils.isEmpty(privilegeids)) {
+                    int roleid = role.getRoleid();
+                    String[] privilArr = privilegeids.split(",");
+                    for (int i=0;i<privilArr.length;i++){
+                        RolePrivilege rolePrivilege = new RolePrivilege();
+                        rolePrivilege.setRoleid(roleid);
+                        rolePrivilege.setPrivilegeid(Integer.parseInt(privilArr[i]));
+                        rolePrivilegeService.save(rolePrivilege);
+                    }
+
+                }
                 logger.info("save success,effectrows:"+effectrows+","+role.getName());
             }
         } catch (Exception e) {

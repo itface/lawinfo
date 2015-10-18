@@ -38,6 +38,7 @@ public class DeptServiceImpl implements DeptService {
         int effectrows = 0;
         try {
             if (dept!=null) {
+                dept.initBaseDomain();
                 effectrows = deptDao.save(dept);
                 logger.info("save success,effectrows:"+effectrows+","+dept.getName());
             }

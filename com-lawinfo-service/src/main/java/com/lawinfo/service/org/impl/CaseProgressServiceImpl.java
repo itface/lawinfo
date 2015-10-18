@@ -199,6 +199,7 @@ public class CaseProgressServiceImpl implements CaseProgressService {
         int effectrows = 0;
         try {
             if (caseProgress!=null) {
+                caseProgress.initBaseDomain();
                 effectrows = caseProgressDao.save(caseProgress);
                 logger.info("save success,effectrows:"+effectrows+","+caseProgress.getCaseid());
             }

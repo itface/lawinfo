@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         int effectrows = 0;
         try {
             if (user!=null) {
+                user.initBaseDomain();
                 effectrows = userDao.save(user);
                 logger.info("save success,effectrows:"+effectrows+","+user.getName());
             }

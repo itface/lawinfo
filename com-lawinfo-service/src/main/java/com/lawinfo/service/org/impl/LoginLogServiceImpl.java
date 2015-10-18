@@ -38,6 +38,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         int effectrows = 0;
         try {
             if (loginLog!=null) {
+                loginLog.initBaseDomain();
                 effectrows = loginLogDao.save(loginLog);
                 logger.info("save success,effectrows:" + effectrows + "," + loginLog.getUsername());
             }
