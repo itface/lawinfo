@@ -3,6 +3,8 @@ package com.lawinfo.admin.controller;
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.User;
+import com.lawinfo.domain.org.vo.UserVo;
+import com.lawinfo.service.org.UserOrginfoDeptRoleService;
 import com.lawinfo.service.org.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private UserOrginfoDeptRoleService userOrginfoDeptRoleService;
 
 
     @ResponseBody
@@ -44,8 +48,8 @@ public class UserController {
     }
     @ResponseBody
     @RequestMapping("/find")
-    public List<User> find()throws Exception{
-        List<User> list = userService.findAll();
+    public List<UserVo> find()throws Exception{
+        List<UserVo> list = userOrginfoDeptRoleService.find();
         return list;
     }
 }
