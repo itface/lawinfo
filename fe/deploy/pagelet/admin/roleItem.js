@@ -11,7 +11,9 @@ __p+='\n<tr>\n  <td>'+
 ((__t=(list[i].roleid))==null?'':__t)+
 '</td>\n  <td>'+
 ((__t=(list[i].description))==null?'':__t)+
-'</td>\n</tr>\n';
+'</td>\n  <td><button class="btn btn-default btn-delete" data-id="'+
+((__t=(list[i].id))==null?'':__t)+
+'">删除</button></td>\n</tr>\n';
 }
 __p+='';
 }

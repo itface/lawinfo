@@ -179,6 +179,52 @@ var admin = {
         this.fetchOrganization();
         this.fetchDepartList();
         this.fetchPrivilegeList();
+
+        this.initDeleteBtn();
+    },
+
+    initDeleteBtn: function(){
+        var self = this;
+
+        var deleteData = function(url, callback){
+            $.ajax({
+                url: url,
+                method: "get"
+            }).done(function(){
+                callback && callback();
+            });
+        };
+
+        $("#userlistcontent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/user/remove/"+id, function(){
+                self.fetchUserList();
+            });
+        });
+        $("#roleListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/role/remove/"+id, function(){
+                self.fetRoleList();
+            });
+        });
+        $("#privilegeListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/privilege/remove/"+id, function(){
+                self.fetchPrivilegeList();
+            });
+        });
+        $("#orgList").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/orginfo/remove/"+id, function(){
+                self.fetchOrganization();
+            });
+        });
+        $("#departListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/dept/remove/"+id, function(){
+                self.fetchDepartList();
+            });
+        });
     },
 
     fetchUserList: function(){
