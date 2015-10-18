@@ -185,7 +185,7 @@ var admin = {
         };
 
         $.ajax({
-            url: "/api/fetch_user_list",
+            url: "/admin/user/find",
             method: "get", 
             success: function(res){
                 render(res);
@@ -203,7 +203,7 @@ var admin = {
         };
 
         $.ajax({
-            url: "/api/fetch_role_list",
+            url: "/admin/role/find",
             method: "get", 
             success: function(res){
                 render(res);
@@ -240,7 +240,7 @@ var admin = {
         };
 
         $.ajax({
-            url: "/api/fetch_organization",
+            url: "/admin/orginfo/find",
             method: "get", 
             success: function(res){
                 render(res);
@@ -262,7 +262,7 @@ var admin = {
         };
 
         $.ajax({
-            url: "/api/fetch_depart_list",
+            url: "/admin/dept/find",
             method: "get", 
             success: function(res){
                 render(res);
@@ -282,7 +282,7 @@ var admin = {
         };
 
         $.ajax({
-            url: "/api/fetch_previlige_list",
+            url: "/admin/privilege/find",
             method: "get", 
             success: function(res){
                 render(res);
