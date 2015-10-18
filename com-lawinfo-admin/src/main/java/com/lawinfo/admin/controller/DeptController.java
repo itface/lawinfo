@@ -4,7 +4,9 @@ import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.OrgInfo;
 import com.lawinfo.domain.org.query.DeptQuery;
+import com.lawinfo.domain.org.vo.DeptVo;
 import com.lawinfo.service.org.DeptService;
+import com.lawinfo.service.org.OrgInfoDeptService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,8 @@ public class DeptController {
 
     @Resource
     private DeptService deptService;
+    @Resource
+    private OrgInfoDeptService orgInfoDeptService;
 
 
     @ResponseBody
@@ -53,8 +57,8 @@ public class DeptController {
     }
     @ResponseBody
     @RequestMapping("/find")
-    public List<Dept> find()throws Exception{
-        List<Dept> list = deptService.findAll();
+    public List<DeptVo> find()throws Exception{
+        List<DeptVo> list = orgInfoDeptService.findDeptVo();
         return list;
     }
 }

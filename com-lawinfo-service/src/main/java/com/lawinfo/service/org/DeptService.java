@@ -2,6 +2,7 @@ package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.query.DeptQuery;
+import com.lawinfo.domain.org.vo.DeptVo;
 
 import java.util.List;
 

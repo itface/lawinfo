@@ -3,6 +3,7 @@ package com.lawinfo.service.org.impl;
 import com.lawinfo.dao.org.DeptDao;
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.query.DeptQuery;
+import com.lawinfo.domain.org.vo.DeptVo;
 import com.lawinfo.service.org.DeptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
