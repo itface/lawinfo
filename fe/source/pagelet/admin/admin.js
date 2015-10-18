@@ -118,13 +118,16 @@ var roleItemTpl = __inline("/pagelet/admin/roleitem.tpl");
 var previligeSelectorTpl = __inline("/pagelet/admin/previlige_selector.tpl");
 var userItemTpl = __inline("/pagelet/admin/useritem.tpl");
 
-var _curSelectedOrgId = '';
+var _curSelectedOrgId = '';//部门的下啦菜单选择
 var _addUserOrgId = '';
+var _addUserDepartId = '';
+var _addUserRoleId = '';
 
 var dropdownMenu = {};
 
 dropdownMenu.register = function(id, selectedHandler){
     var $dropdown = $("#"+id);
+    $dropdown.off("click");
     $dropdown.on("click", "li", function(e){
         e.preventDefault();
         $dropdown.parent().find(".dropdown-toggle .lb").text($(this).attr("label"));
@@ -157,6 +160,7 @@ var admin = {
             var label = $(this).attr("label");
 
             _addUserOrgId = dataId;
+            self.findDepartByOrg(dataId);
         });
 
         
@@ -171,7 +175,7 @@ var admin = {
         this.$organizationPanel.on("click", ".modal-footer .submit", $.proxy(this.onAddOrgForm, this));
         this.$departPannel.on("click", ".modal-footer .submit", $.proxy(this.onAddDepartForm, this));
         this.$privilegePannel.on("click", ".modal-footer .submit", $.proxy(this.onAddPrivilegeForm, this));
-        this.$privilegePannel.on("click", ".modal-footer .submit", $.proxy(this.onAddPrivilegeForm, this));
+        this.$userPanell.on("click", ".modal-footer .submit", $.proxy(this.onAddUserForm, this));
         this.$rolePannel.on("click", ".modal-footer .submit", $.proxy(this.onaddRoleForm, this));
 
         this.fetchUserList();
@@ -227,6 +231,38 @@ var admin = {
         });
     },
 
+    findDepartByOrg: function(orgId){
+        $.ajax({
+            url: "/admin/dept/findbyorgid/"+orgId,
+            method: "get", 
+            success: function(dataList){
+                _addUserDepartId = dataList && dataList.length> 0 ? dataList[0].id : "";
+                $("#departMenuList").parent().find(".lb").text(_addUserDepartId?dataList[0].name: "");
+
+                var tpl = '';
+                for(var i=0; i < dataList.length; i++){
+                    tpl += '<li label="'+dataList[i].name+'" data-id="' +dataList[i].id+ '""><a href="#">' +dataList[i].name+ '</a></li>';
+                }
+                $("#departMenuList").html(tpl);
+                dropdownMenu.register("departMenuList");
+            },
+            error: function(res){
+                /*
+                dataList = [{id: "xx", name: "xxxnnmame"}, {id: "xx", name: "yyyyyyy"}];
+                _addUserDepartId = dataList && dataList.length> 0 ? dataList[0].id : "";
+                $("#departMenuList").parent().find(".lb").text(_addUserDepartId?dataList[0].name: "");
+
+                var tpl = '';
+                for(var i=0; i < dataList.length; i++){
+                    tpl += '<li label="'+dataList[i].name+'" data-id="' +dataList[i].id+ '""><a href="#">' +dataList[i].name+ '</a></li>';
+                }
+                $("#departMenuList").html(tpl);
+                dropdownMenu.register("departMenuList");
+                */
+            }
+        });
+    },
+
     fetchUserList: function(){
         var render = function( data ){
             var tpl = userItemTpl( data );
@@ -252,6 +288,19 @@ var admin = {
         var render = function( data ){
             var tpl = roleItemTpl( data );
             $("#roleListContent").html(tpl);
+            var dataList = data.list;
+
+            //dataList = [{id: "xx", name: "xxxnnmame"}];
+            var tpl = '';
+            for(var i=0; i < dataList.length; i++){
+                tpl += '<li label="'+dataList[i].name+'" data-id="' +dataList[i].id+ '""><a href="#">' +dataList[i].name+ '</a></li>';
+            }
+            $("#roleMenuList").html(tpl);
+
+            _addUserRoleId = dataList && dataList.length > 0 ? dataList[0].id : "";
+            if(_addUserRoleId){
+                $("#roleMenuList").parent().find(".lb").text(dataList[0].name);
+            }
         };
 
         $.ajax({
@@ -278,6 +327,7 @@ var admin = {
      }]
      */
     fetchOrganization: function(){
+        var self = this;
         var render = function( data ){
             var tpl = organizationTpl( data );
             var tpl_drop = dropOrganizationTpl( data );
@@ -288,6 +338,7 @@ var admin = {
             if(data.list && data.list.length != 0){
                 _curSelectedOrgId = data.list[0].id;
                 _addUserOrgId = _curSelectedOrgId;
+                _addUserOrgId && self.findDepartByOrg(_addUserOrgId);
 
                 $("#orgdroplist").parent().find(".lb").html(data.list[0].name);
                 $("#userOrgMenu").parent().find(".lb").html(data.list[0].name);
@@ -358,6 +409,7 @@ var admin = {
     },
 
     onaddRoleForm: function(e){
+        var self = this;
         e.preventDefault();
         var $pp = this.$rolePannel;
 
@@ -379,7 +431,7 @@ var admin = {
                 name: name,
                 roleid: code,
                 description: des,
-                pgs: pgs
+                privilegeids: pgs
             }
         }).done(function(res){
             self.fetRoleList(res);
@@ -483,6 +535,33 @@ var admin = {
             }
         });
         return false;
+    },
+
+    onAddUserForm: function(e){
+        var self = this;
+
+        e.preventDefault();
+
+        var userid = this.$userPanell.find('[name="tel"]').val();
+        var name = this.$userPanell.find('[name="username"]').val();
+
+        $.ajax({
+            url: "/admin/user/add",
+            method: "post", 
+            data: {
+                name: name,
+                userid: userid,
+                orgid: _addUserOrgId,
+                deptid: _addUserDepartId,
+                roleids: _addUserRoleId
+            },
+            success: function(){
+                self.fetchUserList();
+            },
+            error: function(res){
+                alert(res.status);
+            }
+        });
     },
 
     onAddDepartPannel: function(){
