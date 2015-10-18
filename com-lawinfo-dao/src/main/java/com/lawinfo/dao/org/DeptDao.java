@@ -25,6 +25,7 @@ public interface DeptDao {
     public int count(DeptQuery deptQuery);
 
     public int deleteById(long id);
+    public int deleteByOrgid(long orgid);
 
 
 }

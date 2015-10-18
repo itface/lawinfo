@@ -8,6 +8,7 @@ import com.lawinfo.service.org.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int save(User user)throws Exception {
         int effectrows = 0;
         try {
@@ -101,11 +103,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
-            effectrows = userDao.deleteById(id);
+            User user = userDao.findById(id);
+            if (user != null) {
+                String userid = user.getUserid();
+                userRoleService.deleteByUserid(userid);
+                effectrows = userDao.deleteById(id);
+            }
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
         }

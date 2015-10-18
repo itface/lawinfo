@@ -12,7 +12,7 @@ public class RolePrivilegeQuery extends BaseQuery {
      */
     private int roldid;
 
-    private String privilegeid;
+    private int privilegeid;
 
     public long getId() {
         return id;
@@ -30,11 +30,11 @@ public class RolePrivilegeQuery extends BaseQuery {
         this.roldid = roldid;
     }
 
-    public String getPrivilegeid() {
+    public int getPrivilegeid() {
         return privilegeid;
     }
 
-    public void setPrivilegeid(String privilegeid) {
+    public void setPrivilegeid(int privilegeid) {
         this.privilegeid = privilegeid;
     }
 

@@ -3,11 +3,14 @@ package com.lawinfo.service.org.impl;
 import com.lawinfo.dao.org.PrivilegeDao;
 import com.lawinfo.domain.org.Privilege;
 import com.lawinfo.domain.org.Privilege;
+import com.lawinfo.domain.org.RolePrivilege;
 import com.lawinfo.domain.org.query.PrivilegeQuery;
 import com.lawinfo.service.org.PrivilegeService;
+import com.lawinfo.service.org.RolePrivilegeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +25,8 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 
     @Resource
     private PrivilegeDao privilegeDao;
+    @Resource
+    private RolePrivilegeService rolePrivilegeService;
 
     @Override
     public List<Privilege> findAll() throws Exception{
@@ -36,6 +41,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
+    @Transactional
     public int save(Privilege privilege)throws Exception {
         int effectrows = 0;
         try {
@@ -101,11 +107,17 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
-            effectrows = privilegeDao.deleteById(id);
+            Privilege privilege = privilegeDao.findById(id);
+            if (privilege != null) {
+                int privilegeid = privilege.getPrivilegeid();
+                rolePrivilegeService.deleteByPrivilegeid(privilegeid);
+                effectrows = privilegeDao.deleteById(id);
+            }
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
         }

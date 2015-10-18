@@ -23,4 +23,6 @@ public interface UserRoleService {
     public int count(UserRoleQuery userRoleQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int deleteByUserid(String userid)throws Exception;
+    public int deleteByRoleid(int roleid)throws Exception;
 }

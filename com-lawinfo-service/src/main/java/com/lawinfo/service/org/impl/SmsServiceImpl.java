@@ -7,6 +7,7 @@ import com.lawinfo.service.org.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -39,6 +40,7 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
+    @Transactional
     public int save(Sms sms)throws Exception {
         int effectrows = 0;
         try {
@@ -104,6 +106,7 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;

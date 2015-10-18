@@ -23,6 +23,8 @@ public interface RolePrivilegeDao {
     public int count(RolePrivilegeQuery rolePrivilegeQuery);
 
     public int deleteById(long id);
+    public int deleteByPrivilegeid(int privilegeid);
+    public int deleteByRoleid(int roleid);
 
 
 }

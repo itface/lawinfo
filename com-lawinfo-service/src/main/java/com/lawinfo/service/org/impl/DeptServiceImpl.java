@@ -7,6 +7,7 @@ import com.lawinfo.service.org.DeptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -34,6 +35,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
+    @Transactional
     public int save(Dept dept)throws Exception {
         int effectrows = 0;
         try {
@@ -99,6 +101,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
@@ -106,6 +109,18 @@ public class DeptServiceImpl implements DeptService {
             effectrows = deptDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+        }
+        return effectrows;
+    }
+
+    @Override
+    public int deleteByOrgid(long orgid) throws Exception {
+        logger.info("deleteByOrgid begin,orgid=" + orgid);
+        int effectrows = 0;
+        try {
+            effectrows = deptDao.deleteByOrgid(orgid);
+        } catch (Exception e) {
+            logger.error("deleteByOrgid error,orgid=" + orgid, e);
         }
         return effectrows;
     }

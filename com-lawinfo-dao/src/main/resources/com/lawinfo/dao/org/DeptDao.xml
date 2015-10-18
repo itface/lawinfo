@@ -79,6 +79,9 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from dept where id=#{id}
     </delete>
+    <delete id="deleteByOrgid" parameterType="long">    <!-- 删除用户 -->
+        delete from dept where deleteByOrgid=#{deleteByOrgid}
+    </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
     </update>-->

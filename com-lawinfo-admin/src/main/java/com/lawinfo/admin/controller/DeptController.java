@@ -38,7 +38,7 @@ public class DeptController {
         return null;
     }
     @ResponseBody
-    @RequestMapping("/findDeptByOrgid/{orgid}")
+    @RequestMapping("/findbyorgid/{orgid}")
     public List<Dept> findDeptByOrgid(@PathVariable long orgid)throws Exception{
         DeptQuery deptQuery = new DeptQuery();
         deptQuery.setOrgid(orgid);

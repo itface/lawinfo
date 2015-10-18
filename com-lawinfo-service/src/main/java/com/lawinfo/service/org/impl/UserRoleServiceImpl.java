@@ -7,6 +7,7 @@ import com.lawinfo.service.org.UserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -34,6 +35,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    @Transactional
     public int save(UserRole userRole)throws Exception {
         int effectrows = 0;
         try {
@@ -96,6 +98,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
@@ -103,6 +106,32 @@ public class UserRoleServiceImpl implements UserRoleService {
             effectrows = userRoleDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+        }
+        return effectrows;
+    }
+
+    @Override
+    @Transactional
+    public int deleteByUserid(String userid) throws Exception {
+        logger.info("deleteByUserid begin,userid=" + userid);
+        int effectrows = 0;
+        try {
+            effectrows = userRoleDao.deleteByUserid(userid);
+        } catch (Exception e) {
+            logger.error("deleteByUserid error,userid=" + userid, e);
+        }
+        return effectrows;
+    }
+
+    @Override
+    @Transactional
+    public int deleteByRoleid(int roleid) throws Exception {
+        logger.info("deleteByRoleid begin,roleid=" + roleid);
+        int effectrows = 0;
+        try {
+            effectrows = userRoleDao.deleteByRoleid(roleid);
+        } catch (Exception e) {
+            logger.error("deleteByRoleid error,roleid=" + roleid, e);
         }
         return effectrows;
     }

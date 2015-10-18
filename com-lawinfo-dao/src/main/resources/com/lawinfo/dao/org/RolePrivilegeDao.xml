@@ -71,8 +71,14 @@
         insert into RolePrivilege(roleid,privilegeid)
         values(#{roleid},#{privilegeid})
     </insert>
-    <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
+    <delete id="deleteById" parameterType="long">
         delete from RolePrivilege where id=#{id}
+    </delete>
+    <delete id="deleteByPrivilegeid" parameterType="int">
+        delete from RolePrivilege where privilegeid=#{privilegeid}
+    </delete>
+    <delete id="deleteByRoleid" parameterType="int">
+        delete from RolePrivilege where roleid=#{roleid}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}

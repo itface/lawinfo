@@ -23,4 +23,6 @@ public interface RolePrivilegeService {
     public int count(RolePrivilegeQuery rolePrivilegeQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int deleteByPrivilegeid(int privilegeid)throws Exception;
+    public int deleteByRoleid(int roleid)throws Exception;
 }

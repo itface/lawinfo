@@ -6,9 +6,11 @@ import com.lawinfo.domain.org.RolePrivilege;
 import com.lawinfo.domain.org.query.RoleQuery;
 import com.lawinfo.service.org.RolePrivilegeService;
 import com.lawinfo.service.org.RoleService;
+import com.lawinfo.service.org.UserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -25,6 +27,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
     @Resource
     private RolePrivilegeService rolePrivilegeService;
+    @Resource
+    private UserRoleService userRoleService;
 
     @Override
     public List<Role> findAll() throws Exception{
@@ -39,6 +43,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public int save(Role role)throws Exception {
         int effectrows = 0;
         try {
@@ -116,11 +121,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
-            effectrows = roleDao.deleteById(id);
+            Role role = roleDao.findById(id);
+            if (role != null) {
+                int roleid = role.getRoleid();
+                userRoleService.deleteByRoleid(roleid);
+                rolePrivilegeService.deleteByRoleid(roleid);
+                effectrows = roleDao.deleteById(id);
+            }
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
         }

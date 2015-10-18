@@ -24,6 +24,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
     @Resource
     private OrgInfoDao orgInfoDao;
+    @Resource
+    private DeptServiceImpl deptService;
 
     @Override
     public List<OrgInfo> findAll() throws Exception{
@@ -38,6 +40,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
     }
 
     @Override
+    @Transactional
     public int save(OrgInfo orgInfo)throws Exception {
         int effectrows = 0;
         try {
@@ -103,10 +106,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
     }
 
     @Override
+    @Transactional
     public int deleteById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
+            deptService.deleteByOrgid(id);
             effectrows = orgInfoDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);

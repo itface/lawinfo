@@ -23,4 +23,5 @@ public interface DeptService {
     public int count(DeptQuery deptQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int deleteByOrgid(long orgid)throws Exception;
 }

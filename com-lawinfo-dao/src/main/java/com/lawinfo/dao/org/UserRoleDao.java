@@ -23,6 +23,8 @@ public interface UserRoleDao {
     public int count(UserRoleQuery userRoleQuery);
 
     public int deleteById(long id);
+    public int deleteByUserid(String userid);
+    public int deleteByRoleid(int roleid);
 
 
 }
