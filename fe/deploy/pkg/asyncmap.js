@@ -3,9 +3,6 @@ require.resourceMap({
         "common/libs/mod.js": {
             "url": "http://localhost/static/resource/common/libs/mod.js"
         },
-        "pagelet/admin/admin.js": {
-            "url": "http://localhost/static/resource/pagelet/admin/admin.js"
-        },
         "pagelet/admin/admin.tpl": {
             "url": "http://localhost/static/pagelet/admin/admin.js"
         },
@@ -89,6 +86,9 @@ require.resourceMap({
         },
         "static/js/dist/echarts.js": {
             "url": "http://localhost/static/resource/static/js/dist/echarts.js"
+        },
+        "pagelet/admin/admin.js": {
+            "url": "http://localhost/static/resource/pagelet/admin/admin.js"
         }
     },
     "pkg": {}
