@@ -11,9 +11,10 @@
         <result column="modifiedtime" property="modifiedtime"/>
         <result column="modifiedtimestr" property="modifiedtimestr"/>
         <result column="optuserid" property="optuserid"/>
+        <result column="privilegeids" property="privilegeids"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,privilegeids
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -74,7 +75,7 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.Role">
-        insert into role(name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{roleid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into role(name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,privilegeids) values(#{name},#{roleid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{privilegeids})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from role where id=#{id}

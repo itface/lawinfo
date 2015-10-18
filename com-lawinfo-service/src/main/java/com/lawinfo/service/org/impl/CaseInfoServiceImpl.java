@@ -38,6 +38,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         int effectrows = 0;
         try {
             if (caseInfo!=null) {
+                caseInfo.initSummary();
                 effectrows = caseInfoDao.save(caseInfo);
                 logger.info("save success,effectrows:"+effectrows+",caseid:"+caseInfo.getId());
             }

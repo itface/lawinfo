@@ -318,4 +318,19 @@ public class CaseInfo extends BaseDomain {
     public void setZqdqrstr(String zqdqrstr) {
         this.zqdqrstr = zqdqrstr;
     }
+    public void initSummary() {
+        StringBuilder sb = new StringBuilder();
+        if (bankname!=null&&bankname.trim().length()>0) {
+            sb.append("[").append(bankname).append("]");
+        }if (casenodename!=null&&casenodename.trim().length()>0) {
+            sb.append("[").append(casenodename).append("]");
+        }if (contact!=null&&contact.trim().length()>0) {
+            sb.append("[").append(contact).append("]");
+        }if (court!=null&&court.trim().length()>0) {
+            sb.append("[").append(court).append("]");
+        }if (lawyerid!=null&&lawyerid.trim().length()>0) {
+            sb.append("[").append(lawyerid).append("]");
+        }
+        this.summary = sb.toString();
+    }
 }

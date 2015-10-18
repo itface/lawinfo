@@ -19,6 +19,10 @@ public class Role extends BaseDomain {
      */
     @Min(1)
     private int roldid;
+    /**
+     * 权限码id
+     */
+    private String privilegeids;
 
     public long getId() {
         return id;
@@ -42,5 +46,13 @@ public class Role extends BaseDomain {
 
     public void setRoldid(int roldid) {
         this.roldid = roldid;
+    }
+
+    public String getPrivilegeids() {
+        return privilegeids;
+    }
+
+    public void setPrivilegeids(String privilegeids) {
+        this.privilegeids = privilegeids;
     }
 }

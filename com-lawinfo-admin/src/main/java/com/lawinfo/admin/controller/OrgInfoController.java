@@ -29,7 +29,7 @@ public class OrgInfoController {
     }
     @ResponseBody
     @RequestMapping("/remove/{id}")
-    public String save(@PathVariable long id)throws Exception{
+    public String remove(@PathVariable long id)throws Exception{
         int rows = orgInfoService.deleteById(id);
         return rows+"";
     }

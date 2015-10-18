@@ -28,6 +28,10 @@ public class User extends BaseDomain {
     private long orgid;
     @Min(1)
     private long deptid;
+    /**
+     * 角色id
+     */
+    private String roleids;
 
     public long getId() {
         return id;
@@ -75,5 +79,13 @@ public class User extends BaseDomain {
 
     public void setDeptid(long deptid) {
         this.deptid = deptid;
+    }
+
+    public String getRoleids() {
+        return roleids;
+    }
+
+    public void setRoleids(String roleids) {
+        this.roleids = roleids;
     }
 }

@@ -29,7 +29,7 @@ public class RoleController {
     }
     @ResponseBody
     @RequestMapping("/remove/{id}")
-    public String save(@PathVariable long id)throws Exception{
+    public String remove(@PathVariable long id)throws Exception{
         int rows = roleService.deleteById(id);
         return rows+"";
     }

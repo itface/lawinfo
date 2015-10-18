@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/17.
@@ -28,8 +29,14 @@ public class PrivilegeController {
         return rows+"";
     }
     @ResponseBody
+    @RequestMapping("/findall")
+    public List<Privilege> findall()throws Exception{
+        List<Privilege> list= privilegeService.findAll();
+        return list;
+    }
+    @ResponseBody
     @RequestMapping("/remove/{id}")
-    public String save(@PathVariable long id)throws Exception{
+    public String remove(@PathVariable long id)throws Exception{
         int rows = privilegeService.deleteById(id);
         return rows+"";
     }

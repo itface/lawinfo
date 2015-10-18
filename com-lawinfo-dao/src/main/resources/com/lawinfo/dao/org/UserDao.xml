@@ -13,9 +13,10 @@
         <result column="modifiedtime" property="modifiedtime"/>
         <result column="modifiedtimestr" property="modifiedtimestr"/>
         <result column="optuserid" property="optuserid"/>
+        <result column="roleids" property="roleids"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,roleids
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -79,8 +80,8 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.User">
-        insert into User(name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
-        values(#{name},#{userid},#{status},#{deptid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into User(name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,roleids)
+        values(#{name},#{userid},#{status},#{deptid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{roleids})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from User where id=#{id}

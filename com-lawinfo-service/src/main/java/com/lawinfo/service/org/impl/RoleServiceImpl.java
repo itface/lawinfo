@@ -3,6 +3,7 @@ package com.lawinfo.service.org.impl;
 import com.lawinfo.dao.org.RoleDao;
 import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.query.RoleQuery;
+import com.lawinfo.service.org.RolePrivilegeService;
 import com.lawinfo.service.org.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Resource
     private RoleDao roleDao;
+    @Resource
+    private RolePrivilegeService rolePrivilegeService;
 
     @Override
     public List<Role> findAll() throws Exception{

@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 public class Privilege extends BaseDomain {
     private long id;
     /**
-     * 1、诉讼2、执行3、创建案建权限
+     * 1、诉讼2、执行3、创建案件权限
      */
     @Min(1)
     private int privilegeid;

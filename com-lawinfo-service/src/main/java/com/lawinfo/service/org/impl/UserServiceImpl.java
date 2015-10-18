@@ -3,6 +3,7 @@ package com.lawinfo.service.org.impl;
 import com.lawinfo.dao.org.UserDao;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.UserQuery;
+import com.lawinfo.service.org.UserRoleService;
 import com.lawinfo.service.org.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
+    @Resource
+    private UserRoleService userRoleService;
 
     @Override
     public List<User> findAll() throws Exception{

@@ -29,7 +29,7 @@
             <param name="LevelMin" value="WARN"/>
         </filter>
     </appender>
-    <appender name="SQL-DAO-ORG-ORGINFODAO" class="org.apache.log4j.DailyRollingFileAppender">
+    <!--<appender name="SQL-DAO-ORG-ORGINFODAO" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
         <param name="file" value="${log.path}/sql/sql-dao-org-orginfodao.log"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -40,6 +40,128 @@
     <logger name="com.lawinfo.dao.org.OrgInfoDao" additivity="true">
         <level value="DEBUG"/>
         <appender-ref ref="SQL-DAO-ORG-ORGINFODAO"/>
+    </logger>-->
+    <appender name="SERVICE-ORG-ORGINFOSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-orginfoservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.OrgInfoService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-ORGINFOSERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-DEPTSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-deptservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.DeptService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-DEPTSERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-CASEINFOSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-caseinfoservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.CaseInfoService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-CASEINFOSERVICE"/>
+    </logger>
+
+    <appender name="SERVICE-ORG-CASEPROGRESSSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-caseprogressservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.CaseProgressService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-CASEPROGRESSSERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-LOGINLOGSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-loginlogservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.LOGINLOGSERVICE" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-DEPTSERVICE"/>
+    </logger>
+
+    <appender name="SERVICE-ORG-PRIVILEGESERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-privilegeservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.PrivilegeService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-PRIVILEGESERVICE"/>
+    </logger>
+<appender name="SERVICE-ORG-ROLESERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-roleservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.RoleService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-ROLESERVICE"/>
+    </logger>
+<appender name="SERVICE-ORG-ROLEPRIVILEGESERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-roleprivilegeservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.RolePrivilegeService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-ROLEPRIVILEGESERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-SMSSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-smsservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.SmsService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-SMSSERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-USERROLESERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-userroleservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.UserRoleService" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-USERROLESERVICE"/>
     </logger>
 
     <root>
