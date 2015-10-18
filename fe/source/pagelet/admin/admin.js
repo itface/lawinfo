@@ -437,6 +437,8 @@ var admin = {
             self.fetRoleList(res);
         }).error(function(res){
             alert(res.status);
+        }).always(function(){
+            self.$rolePannel.modal({ keyboard: true }).modal("hide");
         });
     },
 
@@ -469,6 +471,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$privilegePannel.modal({ keyboard: true }).modal("hide");
         });
     },
 
@@ -501,6 +505,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$organizationPanel.modal({ keyboard: true }).modal("hide");
         });
         return false;
     },
@@ -533,6 +539,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$departPannel.modal({ keyboard: true }).modal("hide");
         });
         return false;
     },
@@ -561,6 +569,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$userPanell.modal({ keyboard: true }).modal("hide");
         });
     },
 
