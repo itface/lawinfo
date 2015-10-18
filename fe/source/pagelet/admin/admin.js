@@ -179,6 +179,52 @@ var admin = {
         this.fetchOrganization();
         this.fetchDepartList();
         this.fetchPrivilegeList();
+
+        this.initDeleteBtn();
+    },
+
+    initDeleteBtn: function(){
+        var self = this;
+
+        var deleteData = function(url, callback){
+            $.ajax({
+                url: url,
+                method: "get"
+            }).done(function(){
+                callback && callback();
+            });
+        };
+
+        $("#userlistcontent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/user/remove/"+id, function(){
+                self.fetchUserList();
+            });
+        });
+        $("#roleListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/role/remove/"+id, function(){
+                self.fetRoleList();
+            });
+        });
+        $("#privilegeListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/privilege/remove/"+id, function(){
+                self.fetchPrivilegeList();
+            });
+        });
+        $("#orgList").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/orginfo/remove/"+id, function(){
+                self.fetchOrganization();
+            });
+        });
+        $("#departListContent").on("click", ".btn-delete", function(){
+            var id = $(this).attr("data-id");
+            deleteData("/admin/dept/remove/"+id, function(){
+                self.fetchDepartList();
+            });
+        });
     },
 
     fetchUserList: function(){
@@ -315,13 +361,14 @@ var admin = {
         e.preventDefault();
         var $pp = this.$rolePannel;
 
-        var pgs = '';
+        var pgs = [];
         var name = $pp.find('input[name="roleName"]').val();
         var code = $pp.find('input[name="roleCode"]').val();
         var $privileges = $pp.find('.privileges input:checked');
         $privileges.each(function(){
-            pgs += ","+$(this).attr("p-id");
+            pgs.push($(this).attr("p-id"));
         });
+        pgs = pgs.join(",");
 
         var des = $pp.find('textarea').val();
 
