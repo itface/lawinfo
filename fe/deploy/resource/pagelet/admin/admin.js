@@ -24,11 +24,19 @@ var orgListData = {
                             {
                                 id: "111",
                                 name: "org1",
+                                orgtype: 1,
                                 des: "XXXXXXXXXXXXXXX"
                             },
                             {
                                 id: "123",
                                 name: "org2",
+                                orgtype: 2,
+                                des: "YYYYYYYYYYYYYY"
+                            },
+                            {
+                                id: "1233333",
+                                name: "org3",
+                                orgtype: 3,
                                 des: "YYYYYYYYYYYYYY"
                             }
                         ]
@@ -109,6 +117,51 @@ var userDataList = {
 };
 
 
+
+var roleList = [
+    {
+        name: "团队负责人",
+        roleid: 1,
+    },
+    {
+        name: "执行部门负责人",
+        roleid: 2,
+    },
+    {
+        name: "诉讼部门负责人",
+        roleid: 3,
+    },
+    {
+        name: "主办律师",
+        roleid: 4
+    },
+    {
+        name: "总行",
+        roleid: 5,
+    },
+    {
+        name: "分、分支行",
+        roleid: 6,
+    },
+    {
+        name: "客户经理",
+        roleid: 7,
+    },
+    {
+        name: "非银负责人",
+        roleid: 8
+    },
+    {
+        name: "非银部门负责人",
+        roleid: 9
+    },
+    {
+        name: "非银业务员",
+        roleid: 10
+    }
+];
+
+
 var template = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
@@ -124,7 +177,7 @@ with(obj||{}){
 __p+='';
  for(var i=0; i < list.length; i++){
 __p+='\n<tr>\n  <td>'+
-((__t=(i))==null?'':__t)+
+((__t=(i+1))==null?'':__t)+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
@@ -143,7 +196,7 @@ with(obj||{}){
 __p+='';
  for(var i=0; i < list.length; i++){
 __p+='\n<tr>\n  <td>'+
-((__t=(i))==null?'':__t)+
+((__t=(i+1))==null?'':__t)+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
@@ -167,6 +220,8 @@ __p+='\n  <li label="'+
 ((__t=(list[i].name))==null?'':__t)+
 '" data-id="'+
 ((__t=(list[i].id))==null?'':__t)+
+'" data-type="'+
+((__t=(list[i].orgtype))==null?'':__t)+
 '"><a href="#">'+
 ((__t=(list[i].name ))==null?'':__t)+
 '</a></li>\n';
@@ -181,7 +236,7 @@ with(obj||{}){
 __p+='';
  for(var i=0; i < list.length; i++){
 __p+='\n<tr>\n  <td>'+
-((__t=(i))==null?'':__t)+
+((__t=(i+1))==null?'':__t)+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
@@ -202,7 +257,7 @@ with(obj||{}){
 __p+='';
  for(var i=0; i < list.length; i++){
 __p+='\n<tr>\n  <td>'+
-((__t=(i))==null?'':__t)+
+((__t=(i+1))==null?'':__t)+
 '</td>\n  <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n  <td>'+
@@ -238,7 +293,7 @@ with(obj||{}){
 __p+='';
  for(var i=0; i < list.length; i++){
 __p+='\n    <tr>\n      <td>'+
-((__t=(i))==null?'':__t)+
+((__t=(i+1))==null?'':__t)+
 '</td>\n      <td>'+
 ((__t=(list[i].name))==null?'':__t)+
 '</td>\n      <td>'+
@@ -256,10 +311,12 @@ __p+='';
 return __p;
 };
 
+var _curSelectedOrgData
 var _curSelectedOrgId = '';//部门的下啦菜单选择
 var _addUserOrgId = '';
 var _addUserDepartId = '';
 var _addUserRoleId = '';
+var _addUserRoleData;
 
 var dropdownMenu = {};
 
@@ -296,9 +353,22 @@ var admin = {
         dropdownMenu.register("userOrgMenu", function(){
             var dataId = $(this).attr("data-id");
             var label = $(this).attr("label");
+            var orgtype = $(this).attr("data-type");
 
             _addUserOrgId = dataId;
             self.findDepartByOrg(dataId);
+            self.findRole(orgtype);
+        });
+
+
+        dropdownMenu.register("roleMenuList", function(){
+            var dataId = $(this).attr("data-id");
+            _addUserRoleId = dataId;
+            if(dataId == 1 || dataId == 5 || dataId == 8){
+                $("#row-depart-add").hide();
+            }else{
+                $("#row-depart-add").show();
+            }
         });
 
         
@@ -369,7 +439,54 @@ var admin = {
         });
     },
 
-    findDepartByOrg: function(orgId){
+    findRole: function(type){
+        var dataList = [];
+
+      
+        for(var i=0; i < roleList.length; i++){
+            if(type == 1){
+                if(roleList[i].roleid == 1 || 
+                    roleList[i].roleid == 2 || 
+                    roleList[i].roleid == 3 || 
+                    roleList[i].roleid == 4){
+                    dataList.push(roleList[i]);
+                }
+            }else if(type == 2){
+                if(roleList[i].roleid == 5 || 
+                    roleList[i].roleid == 6 || 
+                    roleList[i].roleid == 7){
+                    dataList.push(roleList[i]);
+                }
+            }else if(type == 3){
+                if(roleList[i].roleid == 8 || 
+                    roleList[i].roleid == 9 || 
+                    roleList[i].roleid == 10){
+                    dataList.push(roleList[i]);
+                }
+            }
+        }
+
+        var tpl = '';
+        for(var i=0; i < dataList.length; i++){
+            tpl += '<li label="'+dataList[i].name+'" data-id="' 
+                +dataList[i].roleid+ '""><a href="#">' +dataList[i].name+ '</a></li>';
+        }
+        $("#roleMenuList").html(tpl);
+
+        _addUserRoleId = dataList && dataList.length > 0 ? dataList[0].roleid : "";
+
+        if(_addUserRoleId){
+            _addUserRoleData = dataList[0];
+            $("#roleMenuList").parent().find(".lb").text(dataList[0].name);
+        }
+        if(_addUserRoleId == 1 || _addUserRoleId == 5 || _addUserRoleId == 8){
+            $("#row-depart-add").hide();
+        }else{
+            $("#row-depart-add").show();
+        }
+    },
+
+    findDepartByOrg: function( orgId ){
         $.ajax({
             url: "/admin/dept/findbyorgid/"+orgId,
             method: "get", 
@@ -385,7 +502,7 @@ var admin = {
                 dropdownMenu.register("departMenuList");
             },
             error: function(res){
-                /*
+                
                 dataList = [{id: "xx", name: "xxxnnmame"}, {id: "xx", name: "yyyyyyy"}];
                 _addUserDepartId = dataList && dataList.length> 0 ? dataList[0].id : "";
                 $("#departMenuList").parent().find(".lb").text(_addUserDepartId?dataList[0].name: "");
@@ -396,7 +513,7 @@ var admin = {
                 }
                 $("#departMenuList").html(tpl);
                 dropdownMenu.register("departMenuList");
-                */
+                
             }
         });
     },
@@ -423,6 +540,7 @@ var admin = {
     },
 
     fetRoleList: function(){
+        return;
         var render = function( data ){
             var tpl = roleItemTpl( data );
             $("#roleListContent").html(tpl);
@@ -433,11 +551,11 @@ var admin = {
             for(var i=0; i < dataList.length; i++){
                 tpl += '<li label="'+dataList[i].name+'" data-id="' +dataList[i].id+ '""><a href="#">' +dataList[i].name+ '</a></li>';
             }
-            $("#roleMenuList").html(tpl);
+            //$("#roleMenuList").html(tpl);
 
             _addUserRoleId = dataList && dataList.length > 0 ? dataList[0].id : "";
             if(_addUserRoleId){
-                $("#roleMenuList").parent().find(".lb").text(dataList[0].name);
+                //$("#roleMenuList").parent().find(".lb").text(dataList[0].name);
             }
         };
 
@@ -469,17 +587,21 @@ var admin = {
         var render = function( data ){
             var tpl = organizationTpl( data );
             var tpl_drop = dropOrganizationTpl( data );
+
             $("#orgList").html(tpl);
             $("#orgdroplist").html(tpl_drop);
             $("#userOrgMenu").html(tpl_drop);
 
             if(data.list && data.list.length != 0){
+                _curSelectedOrgData = data.list[0];
                 _curSelectedOrgId = data.list[0].id;
                 _addUserOrgId = _curSelectedOrgId;
                 _addUserOrgId && self.findDepartByOrg(_addUserOrgId);
 
                 $("#orgdroplist").parent().find(".lb").html(data.list[0].name);
                 $("#userOrgMenu").parent().find(".lb").html(data.list[0].name);
+
+                self.findRole(_curSelectedOrgData.orgtype);
             }
         };
 
@@ -503,6 +625,7 @@ var admin = {
      *  
      */
     fetchDepartList: function(){
+        
         var render = function( data ){
             var tpl = departTpl( data );
             $("#departListContent").html(tpl);
@@ -575,6 +698,8 @@ var admin = {
             self.fetRoleList(res);
         }).error(function(res){
             alert(res.status);
+        }).always(function(){
+            self.$rolePannel.modal({ keyboard: true }).modal("hide");
         });
     },
 
@@ -607,6 +732,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$privilegePannel.modal({ keyboard: true }).modal("hide");
         });
     },
 
@@ -639,6 +766,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$organizationPanel.modal({ keyboard: true }).modal("hide");
         });
         return false;
     },
@@ -671,6 +800,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$departPannel.modal({ keyboard: true }).modal("hide");
         });
         return false;
     },
@@ -690,7 +821,7 @@ var admin = {
                 name: name,
                 userid: userid,
                 orgid: _addUserOrgId,
-                deptid: _addUserDepartId,
+                deptid: (_addUserRoleId == 1 || _addUserRoleId == 5 || _addUserRoleId == 8)?"": _addUserDepartId,
                 roleids: _addUserRoleId
             },
             success: function(){
@@ -699,6 +830,8 @@ var admin = {
             error: function(res){
                 alert(res.status);
             }
+        }).always(function(){
+            self.$userPanell.modal({ keyboard: true }).modal("hide");
         });
     },
 
