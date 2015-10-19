@@ -77,12 +77,12 @@
             <value>/WEB-INF/vm/toolbox.xml</value>
         </property>
     </bean>
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
     <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="error/error"/>
         <property name="exceptionMappings">

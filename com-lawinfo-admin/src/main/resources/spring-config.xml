@@ -15,6 +15,7 @@
         <property name="locations">
             <list>
                 <value>classpath:common.properties</value>
+                <value>classpath:important.properties</value>
             </list>
         </property>
     </bean>

@@ -1,0 +1,20 @@
+.card-left,
+.card-right {
+  width: 572px;
+  float: left;
+}
+.card-left {
+  margin-right: 15px;
+}
+.form .property {
+  height: 45px;
+}
+.form .property label {
+  width: 90px;
+}
+.btn-delete {
+  padding: 1px 3px;
+}
+table thead th:last-child {
+  width: 50px;
+}

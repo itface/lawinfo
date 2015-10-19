@@ -26,7 +26,7 @@ public class UserVo extends BaseDomain {
      * 角色id
      */
     private String roleids;
-    private String orginfoname;
+    private String orgname;
     private String deptname;
     private String rolename;
 
@@ -86,12 +86,12 @@ public class UserVo extends BaseDomain {
         this.roleids = roleids;
     }
 
-    public String getOrginfoname() {
-        return orginfoname;
+    public String getOrgname() {
+        return orgname;
     }
 
-    public void setOrginfoname(String orginfoname) {
-        this.orginfoname = orginfoname;
+    public void setOrgname(String orgname) {
+        this.orgname = orgname;
     }
 
     public String getDeptname() {

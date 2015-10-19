@@ -39,7 +39,7 @@ public class LoginInfo {
         }
         return null;
     }
-    public static boolean addUseridToSession(HttpSession session,String userid) {
+    public synchronized static boolean addUseridToSession(HttpSession session,String userid) {
         if (session!=null) {
             session.setAttribute(SESSION_USERID_KEY,userid);
             loginUserSet.add(userid);

@@ -55,10 +55,10 @@ public class UserOrginfoDeptRoleServiceImpl implements UserOrginfoDeptRoleServic
                     }
                 }
                 List<Role> roles = roleService.findAll();
-                Map<Integer, String> roleMap = new HashMap<Integer, String>();
+                Map<String, String> roleMap = new HashMap<String, String>();
                 if (!CollectionUtils.isEmpty(roles)) {
                     for (Role role : roles) {
-                        roleMap.put(role.getRoleid(), role.getName());
+                        roleMap.put(role.getRoleid()+"", role.getName());
                     }
                 }
                 for (User user : list) {
@@ -70,8 +70,8 @@ public class UserOrginfoDeptRoleServiceImpl implements UserOrginfoDeptRoleServic
                     userVo.setDeptid(user.getDeptid());
                     userVo.setUserid(user.getUserid());
                     userVo.setDeptname(deptMap.get(user.getDeptid()));
-                    userVo.setOrginfoname(orginfoMap.get(user.getOrgid()));
-                    userVo.setRolename(orginfoMap.get(user.getRoleids()));
+                    userVo.setOrgname(orginfoMap.get(user.getOrgid()));
+                    userVo.setRolename(roleMap.get(user.getRoleids()));
                     userVos.add(userVo);
                 }
             }
