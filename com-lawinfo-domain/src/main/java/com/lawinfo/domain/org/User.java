@@ -88,4 +88,20 @@ public class User extends BaseDomain {
     public void setRoleids(String roleids) {
         this.roleids = roleids;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return userid.equals(user.userid);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return userid.hashCode();
+    }
 }

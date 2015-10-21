@@ -2,6 +2,7 @@ package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.Privilege;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.DeptQuery;
 import com.lawinfo.domain.org.query.PrivilegeQuery;
 
@@ -11,8 +12,10 @@ import java.util.List;
  * Created by wangrongtao on 15/10/14.
  */
 public interface PrivilegeService {
+    public void initCache() throws Exception;
 
     public List<Privilege> findAll()throws Exception;
+    public List<Privilege> findAllFromDb() throws Exception;
 
     public int save(Privilege privilege)throws Exception;
 

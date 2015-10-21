@@ -7,10 +7,13 @@ import com.lawinfo.domain.org.RolePrivilege;
 import com.lawinfo.domain.org.query.PrivilegeQuery;
 import com.lawinfo.service.org.PrivilegeService;
 import com.lawinfo.service.org.RolePrivilegeService;
+import com.lawinfo.service.org.utils.PrivilegeUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,12 +32,42 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     private RolePrivilegeService rolePrivilegeService;
 
     @Override
+    public void initCache() throws Exception {
+        try {
+            List<Privilege> privilegeList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(privilegeList)) {
+                for (Privilege privilege : privilegeList) {
+                    PrivilegeUtils.add(privilege);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
+
+    @Override
     public List<Privilege> findAll() throws Exception{
+        List<Privilege> list = null;
+        try {
+            list = PrivilegeUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = privilegeDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<Privilege> findAllFromDb() throws Exception {
         List<Privilege> list = null;
         try {
             list = privilegeDao.findAll();
         } catch (Exception e) {
-            logger.error("findAll error",e);
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;

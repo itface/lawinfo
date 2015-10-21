@@ -1,6 +1,7 @@
 package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.Dept;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.DeptQuery;
 import com.lawinfo.domain.org.vo.DeptVo;
 
@@ -11,8 +12,9 @@ import java.util.List;
  */
 public interface DeptService {
 
+    public void initCache() throws Exception;
     public List<Dept> findAll()throws Exception;
-
+    public List<Dept> findAllFromDb() throws Exception;
     public int save(Dept dept)throws Exception;
 
     public Dept findById(long id)throws Exception;

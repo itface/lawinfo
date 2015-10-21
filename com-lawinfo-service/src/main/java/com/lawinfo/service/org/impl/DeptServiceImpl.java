@@ -5,10 +5,13 @@ import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.query.DeptQuery;
 import com.lawinfo.domain.org.vo.DeptVo;
 import com.lawinfo.service.org.DeptService;
+import com.lawinfo.service.org.utils.DeptUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,12 +27,42 @@ public class DeptServiceImpl implements DeptService {
     private DeptDao deptDao;
 
     @Override
+    public void initCache() throws Exception {
+        try {
+            List<Dept> deptList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(deptList)) {
+                for (Dept dept : deptList) {
+                    DeptUtils.add(dept);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initCache exception",e);
+            throw e;
+        }
+    }
+
+    @Override
     public List<Dept> findAll() throws Exception{
+        List<Dept> list = null;
+        try {
+            list = DeptUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = deptDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<Dept> findAllFromDb() throws Exception {
         List<Dept> list = null;
         try {
             list = deptDao.findAll();
         } catch (Exception e) {
-            logger.error("findAll error",e);
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;

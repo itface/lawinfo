@@ -5,10 +5,12 @@ import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.UserQuery;
 import com.lawinfo.service.org.UserRoleService;
 import com.lawinfo.service.org.UserService;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,12 +28,42 @@ public class UserServiceImpl implements UserService {
     private UserRoleService userRoleService;
 
     @Override
+    public void initCache() throws Exception {
+        try {
+            List<User> userList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(userList)) {
+                for (User user : userList) {
+                    UserUtils.add(user);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
+
+    @Override
     public List<User> findAll() throws Exception{
+        List<User> list = null;
+        try {
+            list = UserUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = userDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<User> findAllFromDb() throws Exception {
         List<User> list = null;
         try {
             list = userDao.findAll();
         } catch (Exception e) {
-            logger.error("findAll error",e);
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;

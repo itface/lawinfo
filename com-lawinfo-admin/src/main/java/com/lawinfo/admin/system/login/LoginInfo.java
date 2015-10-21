@@ -9,10 +9,9 @@ import java.util.Set;
 /**
  * Created by wangrongtao on 15/10/13.
  */
-@Component
 public class LoginInfo {
     private static Set<String> loginUserSet = new HashSet<String>();
-    public static final String SESSION_USERID_KEY = "userid";
+    private static final String SESSION_USERID_KEY = "userid";
 
     public synchronized static boolean addLoginUser(String userId) {
         if (userId!=null) {
@@ -26,7 +25,7 @@ public class LoginInfo {
         }
         return false;
     }
-    public static boolean isAvailableLoginUser(String userId) {
+    public synchronized static boolean isAvailableLoginUser(String userId) {
         if (userId!=null) {
             return loginUserSet.contains(userId);
         }

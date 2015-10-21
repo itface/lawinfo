@@ -164,6 +164,44 @@
         <appender-ref ref="SERVICE-ORG-USERROLESERVICE"/>
     </logger>
 
+
+    <appender name="SERVICE-ORG-ORGINIT-LISTENER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-orginit-listener.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.listener.OrgInitListener" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-ORGINIT-LISTENER"/>
+    </logger>
+    <appender name="SERVICE-ORG-USERORGINFODEPTROLESERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-userorginfodeptroleservice.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.impl.UserOrginfoDeptRoleServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-USERORGINFODEPTROLESERVICE"/>
+    </logger>
+    <appender name="SERVICE-ORG-ORGINFODEPTSERVICEIMPL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-org-orginfodeptserviceimpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.org.impl.OrgInfoDeptServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-ORG-ORGINFODEPTSERVICEIMPL"/>
+    </logger>
+
     <root>
         <priority value="${log.root.level}"/>
         <appender-ref ref="CONSOLE"/>

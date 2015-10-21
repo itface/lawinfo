@@ -7,10 +7,13 @@ import com.lawinfo.domain.org.query.RoleQuery;
 import com.lawinfo.service.org.RolePrivilegeService;
 import com.lawinfo.service.org.RoleService;
 import com.lawinfo.service.org.UserRoleService;
+import com.lawinfo.service.org.utils.RoleUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -31,12 +34,42 @@ public class RoleServiceImpl implements RoleService {
     private UserRoleService userRoleService;
 
     @Override
+    public void initCache() throws Exception {
+        try {
+            List<Role> roleList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(roleList)) {
+                for (Role role : roleList) {
+                    RoleUtils.add(role);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
+
+    @Override
     public List<Role> findAll() throws Exception{
+        List<Role> list = null;
+        try {
+            list = RoleUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = roleDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<Role> findAllFromDb() throws Exception {
         List<Role> list = null;
         try {
             list = roleDao.findAll();
         } catch (Exception e) {
-            logger.error("findAll error",e);
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;

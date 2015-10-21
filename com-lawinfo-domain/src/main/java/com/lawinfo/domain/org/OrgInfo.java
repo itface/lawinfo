@@ -49,4 +49,19 @@ public class OrgInfo extends BaseDomain {
         this.orgtype = orgtype;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrgInfo orgInfo = (OrgInfo) o;
+
+        return id == orgInfo.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

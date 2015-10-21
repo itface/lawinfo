@@ -1,6 +1,7 @@
 package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.Role;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.RoleQuery;
 
 import java.util.List;
@@ -10,8 +11,9 @@ import java.util.List;
  */
 public interface RoleService {
 
+    public void initCache() throws Exception;
     public List<Role> findAll()throws Exception;
-
+    public List<Role> findAllFromDb() throws Exception;
     public int save(Role Role)throws Exception;
 
     public Role findById(long id)throws Exception;

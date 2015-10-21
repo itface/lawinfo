@@ -52,6 +52,19 @@ public class Dept extends BaseDomain {
         this.orgid = orgid;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Dept dept = (Dept) o;
 
+        return id == dept.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

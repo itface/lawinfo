@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface UserService {
 
+    public void initCache() throws Exception;
     public List<User> findAll()throws Exception;
+    public List<User> findAllFromDb()throws Exception;
 
     public int save(User user)throws Exception;
 

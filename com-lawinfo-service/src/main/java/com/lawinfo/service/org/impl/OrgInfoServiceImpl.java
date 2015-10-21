@@ -6,6 +6,8 @@ import com.lawinfo.domain.org.OrgInfo;
 import com.lawinfo.domain.org.query.OrgInfoQuery;
 import com.lawinfo.domain.org.query.OrgInfoQuery;
 import com.lawinfo.service.org.OrgInfoService;
+import com.lawinfo.service.org.utils.OrgInfoUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,12 +30,42 @@ public class OrgInfoServiceImpl implements OrgInfoService {
     private DeptServiceImpl deptService;
 
     @Override
+    public void initCache() throws Exception {
+        try {
+            List<OrgInfo> orgInfoList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(orgInfoList)) {
+                for (OrgInfo orgInfo : orgInfoList) {
+                    OrgInfoUtils.add(orgInfo);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
+
+    @Override
     public List<OrgInfo> findAll() throws Exception{
+        List<OrgInfo> list = null;
+        try {
+            list = OrgInfoUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = orgInfoDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<OrgInfo> findAllFromDb() throws Exception {
         List<OrgInfo> list = null;
         try {
             list = orgInfoDao.findAll();
         } catch (Exception e) {
-            logger.error("findAll error",e);
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;
