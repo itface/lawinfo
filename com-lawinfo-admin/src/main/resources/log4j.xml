@@ -31,13 +31,13 @@
     </appender>
     <!--<appender name="SQL-DAO-ORG-ORGINFODAO" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <param name="file" value="${log.path}/sql/sql-dao-org-orginfodao.log"/>
+        <param name="file" value="${log.path}/sql/sql-dao-org-smsdao.log"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
         </layout>
     </appender>
 
-    <logger name="com.lawinfo.dao.org.OrgInfoDao" additivity="true">
+    <logger name="com.lawinfo.dao.org.SmsDao" additivity="true">
         <level value="DEBUG"/>
         <appender-ref ref="SQL-DAO-ORG-ORGINFODAO"/>
     </logger>-->

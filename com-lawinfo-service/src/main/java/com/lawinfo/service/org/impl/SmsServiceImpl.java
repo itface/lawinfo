@@ -117,4 +117,17 @@ public class SmsServiceImpl implements SmsService {
         }
         return effectrows;
     }
+
+    @Override
+    @Transactional
+    public int updateLoginfailcount(long id) throws Exception{
+        logger.info("updateLoginfailcount begin,id=" + id);
+        int effectrows = 0;
+        try {
+            effectrows = smsDao.updateLoginfailcount(id);
+        } catch (Exception e) {
+            logger.error("updateLoginfailcount error,id=" + id, e);
+        }
+        return effectrows;
+    }
 }

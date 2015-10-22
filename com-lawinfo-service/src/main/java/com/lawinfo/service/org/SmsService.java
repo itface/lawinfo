@@ -29,4 +29,5 @@ public interface SmsService {
     public int count(SmsQuery smsQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int updateLoginfailcount(long id)throws Exception;
 }

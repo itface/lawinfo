@@ -24,5 +24,5 @@ public interface SmsDao {
 
     public int deleteById(long id);
 
-
+    public int updateLoginfailcount(long id);
 }

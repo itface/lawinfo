@@ -24,7 +24,7 @@
                 id = #{id}
             </if>
             <if test="expiretime>0">
-                and expiretime = #{expiretime}
+                and expiretime &gt; #{expiretime}-1
             </if>
             <if test="phoneno!=null and phoneno!=''">
                 and phoneno = #{phoneno}
@@ -75,7 +75,7 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from Sms where id=#{id}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="updateLoginfailcount" parameterType="long">
+        update sms set loginfailcount=loginfailcount+1 where id=#{id}
+    </update>
 </mapper>

@@ -20,5 +20,6 @@
         </property>
     </bean>
     <import resource="spring-config-dao.xml"/>
+    <import resource="spring-config-service.xml"/>
     <import resource="spring-config-datasource-druid.xml"/>
 </beans>

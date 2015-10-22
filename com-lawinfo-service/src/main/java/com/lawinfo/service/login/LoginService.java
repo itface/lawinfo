@@ -1,8 +1,10 @@
 package com.lawinfo.service.login;
 
+import com.lawinfo.service.login.enumtype.LoginResultEnum;
+
 /**
  * Created by wangrongtao on 15/10/16.
  */
 public interface LoginService {
-    public String login(String userid,String pwd);
+    public LoginResultEnum login(String userid,String pwd);
 }
