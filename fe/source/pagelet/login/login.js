@@ -37,12 +37,13 @@ var login = {
             self.timeout();
         });
 
-        $("#loginForm").on("submit", function(e){
-            var tel = $(this).find("[name='tel']").val();
-            var code = $(this).find("[name='code']").val();
+        $(".login").on("click", function(e){
+            var tel = $("#loginForm").find("[name='tel']").val();
+            var code = $("#loginForm").find("[name='code']").val();
+
+            e.preventDefault();
 
             if(!tel){
-                e.preventDefault();
                 alert("请输入手机号");
                 return;
             }
@@ -50,6 +51,24 @@ var login = {
                 e.preventDefault();
                 alert("请输入验证码");
             }
+            
+            $.ajax({
+              method: "POST",
+              url: "/login/dologin",
+              data: {tel: tel, code: code}
+            }).done(function(data){
+              if(data.code == 0){
+                if(data.type == 1){
+                  location.replace("/admin/index");
+                }else {
+                  location.replace("/lawinfo");
+                }
+              }else{
+                alert(data.error);
+              }
+            }).error(function(){
+              alert("未知错误");
+            });
         });
     },
     timeout: function(){

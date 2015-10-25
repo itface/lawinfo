@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+</script>
+    <title>Law</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Sunday 26 October 2008 01:00 GMT" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="http://localhost/static/resource/common/common.css" />
+    <link rel="stylesheet" href="http://localhost/static/resource/common/treeview.css" />
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="http://localhost/static/resource/static/js/treeview.js" type="text/javascript"></script>
+
+    <script src="http://localhost/static/resource/common/libs/mod.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://localhost/static/resource/pagelet/userinfo/userinfo.css">
+
+    <script type="text/javascript" data-single="true" src="http://localhost/static/pkg/asyncmap.js"></script>
+</head>
+<body>
+
+<header class="l-header">
+  <div class="l-header-ctn">
+    
+  </div>
+</header>
+<div class="page-container">
+
+   <div class="page-nav">
+     <div id="nav-tree"></div>
+   </div>
+
+   <div class="page-ctn">
+
+    <div class="toolbar">
+      <!-- Standard button -->
+      <button type="button" class="btn btn-primary" id="btn-case-add">
+        创建案件
+      </button>   
+      <button type="button" class="btn btn-default" id="btn-statistic">
+        查看统计
+      </button>
+    </div>
+    <div class="l-pannel">
+      <ul class="nav nav-tabs nav-justified" id="record-nav">
+       <li role="presentation" class="active"><a href="#">在办</a></li>
+       <li role="presentation"><a href="#">已办</a></li>
+       <li role="presentation"><a href="#">所有</a></li>
+     </ul>
+    </div>
+
+    <div  class="list">
+        <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>摘要</th>
+          </tr>
+        </thead>
+       <tbody>
+          <tr>
+            <td>1</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>中国工商银行诉中央办事处XXXXX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+     
+   </div>
+</div>
+
+
+<div id="progress" class="modal fade" >
+  <div class="modal-dialog pregress-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">进度明细</h4>
+      </div>
+      <div class="modal-body">
+        <div class="detail">
+            <div id="node-tree"></div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="case-add" class="modal fade" >
+  <div class="modal-dialog pregress-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">新增案件</h4>
+      </div>
+      <div class="modal-body">
+          <div class="case-form">
+             <div class="property">
+                <label>案件所属银行:</label>
+                <select>
+                    <option>111</option>
+                </select>
+
+                <label>目前所属阶段:</label>
+                <select>
+                    <option>111</option>
+                </select>
+             </div>
+
+             <div class="property">
+                <label>案件联络人:</label>
+                <input name="casecontact" type="text" placeholder="联络人名称"></input>
+
+                <label>联系方式:</label>
+                <input name="casecontact" type="text" placeholder="联系方式"></input>
+             </div>
+
+             <div class="property">
+                <label>债务人信息:</label>
+                <input name="casecontact" type="text" placeholder="债务人信息"></input>
+
+                <label>是否与律所关联:</label>
+                <input name="casecontact" type="checkbox"></input>
+             </div>
+
+             <div class="property">
+                <label>债务人财产状况:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>案由:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>债权本金:</label>
+                <input name="casecontact" type="text"></input>
+                <label>债权到账日期:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>担保方式:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>担保信息:</label>
+                <input name="casecontact" type="text"></input>
+
+                <label>是否与律所有关联:</label>
+                <input name="casecontact" type="checkbox"></input>
+             </div>
+
+             <div class="property">
+                <label>担保人财产状况:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>抵押物信息:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>抵押物评估价值:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>案件程序:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+            <div class="property">
+                <label>受理法院:</label>
+                <input name="casecontact" type="text"></input>
+
+                <label>承办法官:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+             <div class="property">
+                <label>承办律师:</label>
+                <input name="casecontact" type="text"></input>
+
+                <label>律师费总额:</label>
+                <input name="casecontact" type="text"></input>
+             </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <a type="button" class="btn btn-primary submit">提交</a>
+          </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="statistic">
+
+</div>
+
+<script type="text/javascript">
+    var tree = [
+      {
+        text: "Parent 1",
+        nodes: [
+          {
+            text: "Child 1",
+            nodes: [
+              {
+                text: "GrandcGrandchildGrandchildGrandchildGrandchildGrandchildGrandchildhild 1"
+              },
+              {
+                text: "Grandchild 2"
+              }
+            ]
+          },
+          {
+            text: "Child 2"
+          }
+        ]
+      },
+      {
+        text: "Parent 2"
+      },
+      {
+        text: "Parent 3"
+      },
+      {
+        text: "Parent 4"
+      },
+      {
+        text: "Parent 5"
+      }
+    ];
+
+    $('#nav-tree').treeview(
+        {data:tree, 
+            collapseIcon: "glyphicon glyphicon-triangle-right",
+            expandIcon: "glyphicon glyphicon-triangle-bottom"
+        });
+    
+</script>
+<script type="text/javascript" src="http://localhost/static/resource/pagelet/userinfo/userinfo.js"></script>
+<script type="text/javascript" src="http://localhost/static/resource/static/js/progress_nodes.js"></script>
+
+
+<script type="text/javascript">
+require("pagelet/userinfo/userinfo.js").init();
+$('#node-tree').treeview({ 
+    data : require("static/js/progress_nodes.js")
+});
+</script>
+</body>
+</html>
