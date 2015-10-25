@@ -30,6 +30,9 @@ require.resourceMap({
         "pagelet/login/login.js": {
             "url": "http://120.25.212.69/static/resource/pagelet/login/login.js"
         },
+        "pagelet/userinfo/userinfo.js": {
+            "url": "http://localhost/static/resource/pagelet/userinfo/userinfo.js"
+        },
         "static/js/dist/chart/bar.js": {
             "url": "http://120.25.212.69/static/resource/static/js/dist/chart/bar.js"
         },
@@ -83,9 +86,6 @@ require.resourceMap({
         },
         "static/js/dist/echarts-all.js": {
             "url": "http://120.25.212.69/static/resource/static/js/dist/echarts-all.js"
-        },
-        "static/js/dist/echarts.js": {
-            "url": "http://120.25.212.69/static/resource/static/js/dist/echarts.js"
         }
     },
     "pkg": {}

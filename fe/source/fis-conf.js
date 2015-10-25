@@ -146,6 +146,12 @@ var regular = [{
     useOptimizer: false,
     release: '/resource/$&'
 }, {
+    reg: /^\/static\/js\/treeview\.js$/,
+    isMod: false,
+    useHash: false,
+    useOptimizer: false,
+    release: '/resource/$&'
+},{
     reg: /^\/common\/libs\/.*\.js$/,
     useHash: false,
     isMod: true,

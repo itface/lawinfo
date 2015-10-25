@@ -8,6 +8,10 @@
             "uri": "http://120.25.212.69/static/resource/common/libs/mod.js",
             "type": "js"
         },
+        "common/treeview.css": {
+            "uri": "http://localhost/static/resource/common/treeview.css",
+            "type": "css"
+        },
         "pagelet/admin/admin.js": {
             "uri": "http://120.25.212.69/static/resource/pagelet/admin/admin.js",
             "type": "js",
@@ -61,6 +65,19 @@
             "uri": "http://120.25.212.69/static/resource/pagelet/login/login.css",
             "type": "css",
             "id": "pagelet/login/login.less"
+        },
+        "pagelet/userinfo/userinfo.js": {
+            "uri": "http://localhost/static/resource/pagelet/userinfo/userinfo.js",
+            "type": "js",
+            "deps": [
+                "pagelet/userinfo/userinfo.less"
+            ],
+            "id": "pagelet/userinfo/userinfo.js"
+        },
+        "pagelet/userinfo/userinfo.less": {
+            "uri": "http://localhost/static/resource/pagelet/userinfo/userinfo.css",
+            "type": "css",
+            "id": "pagelet/userinfo/userinfo.less"
         },
         "static/js/dist/chart/bar.js": {
             "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/bar.js",
@@ -136,6 +153,19 @@
         },
         "static/js/dist/echarts.js": {
             "uri": "http://120.25.212.69/static/resource/static/js/dist/echarts.js",
+            "type": "js"
+        },
+        "static/js/jquery.js": {
+            "uri": "http://localhost/static/resource/static/js/jquery.js",
+            "type": "js"
+        },
+        "static/js/progress_nodes.js": {
+            "uri": "http://localhost/static/resource/static/js/progress_nodes.js",
+            "type": "js",
+            "id": "static/js/progress_nodes.js"
+        },
+        "static/js/treeview.js": {
+            "uri": "http://localhost/static/resource/static/js/treeview.js",
             "type": "js"
         },
         "pkg/asyncmap.js": {
