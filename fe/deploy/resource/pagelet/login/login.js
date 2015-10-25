@@ -33,8 +33,24 @@ var login = {
         var self = this;
         var $authCodeBtn = $("#authCodeBtn");
         $authCodeBtn.on("click", function(e){
+            var _self = this;
             $(this).prop("disabled", true);
-            self.timeout();
+            $.ajax({
+              url: "/login/sendsms",
+              dataType: "json",
+              success: function(data){
+                $(_self).prop("disabled", false);
+                if(data.code == 0){
+                  self.timeout();
+                }else{
+                  alert(data.error);
+                }
+              },
+              error: function(){
+                $(_self).prop("disabled", false);
+                alert("获取验证码失败");
+              }
+            })
         });
 
         $(".login").on("click", function(e){
@@ -55,7 +71,8 @@ var login = {
             $.ajax({
               method: "POST",
               url: "/login/dologin",
-              data: {tel: tel, code: code}
+              data: {tel: tel, code: code},
+              dataType: "json",
             }).done(function(data){
               if(data.code == 0){
                 if(data.type == 1){

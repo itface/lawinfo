@@ -14,7 +14,6 @@ var userinfo = {
             $("#progress").modal({ keyboard: true }).modal("show");
         });
 
-
         $("#btn-case-add").on("click", function(){
             $("#case-add").modal({ keyboard: true }).modal("show");
         });

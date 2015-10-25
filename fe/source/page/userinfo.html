@@ -143,13 +143,13 @@
           <div class="case-form">
              <div class="property">
                 <label>案件所属银行:</label>
-                <select>
-                    <option>111</option>
+                <select name="orginfo">
+                    <option value="id">中国工商银行中关村支行</option>
+                    <option value="id">招商银行海淀分行</option>
                 </select>
 
                 <label>目前所属阶段:</label>
-                <select>
-                    <option>111</option>
+                <select name="casenodeid">
                 </select>
              </div>
 
@@ -295,9 +295,20 @@
 
 <script type="text/javascript">
 require("/pagelet/userinfo/userinfo.js").init();
+var data = require("/static/js/progress_nodes.js");
+
 $('#node-tree').treeview({ 
-    data : require("/static/js/progress_nodes.js")
+    data : data
 });
+
+var selecthtml = '';
+for(var i=0; i < data.length; i++){
+    selecthtml +=  '<option value="' +data.id+ '">' +data[i].text+ '</option>'
+}
+
+var $caseNodeSelect = $('[name="casenodeid"]');
+$caseNodeSelect.html(selecthtml);
+
 </script>
 </body>
 </html>
