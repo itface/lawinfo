@@ -1,15 +1,19 @@
 {
     "res": {
         "common/common.less": {
-            "uri": "http://120.25.212.69/static/resource/common/common.css",
+            "uri": "http://localhost/static/resource/common/common.css",
             "type": "css"
         },
         "common/libs/mod.js": {
-            "uri": "http://120.25.212.69/static/resource/common/libs/mod.js",
+            "uri": "http://localhost/static/resource/common/libs/mod.js",
             "type": "js"
         },
+        "common/treeview.css": {
+            "uri": "http://localhost/static/resource/common/treeview.css",
+            "type": "css"
+        },
         "pagelet/admin/admin.js": {
-            "uri": "http://120.25.212.69/static/resource/pagelet/admin/admin.js",
+            "uri": "http://localhost/static/resource/pagelet/admin/admin.js",
             "type": "js",
             "deps": [
                 "pagelet/admin/admin.less"
@@ -17,40 +21,40 @@
             "id": "pagelet/admin/admin.js"
         },
         "pagelet/admin/admin.less": {
-            "uri": "http://120.25.212.69/static/resource/pagelet/admin/admin.css",
+            "uri": "http://localhost/static/resource/pagelet/admin/admin.css",
             "type": "css",
             "id": "pagelet/admin/admin.less"
         },
         "pagelet/admin/depart_list.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/depart_list.js",
+            "uri": "http://localhost/static/pagelet/admin/depart_list.js",
             "type": "js"
         },
         "pagelet/admin/org_dropdown.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/org_dropdown.js",
+            "uri": "http://localhost/static/pagelet/admin/org_dropdown.js",
             "type": "js"
         },
         "pagelet/admin/organization.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/organization.js",
+            "uri": "http://localhost/static/pagelet/admin/organization.js",
             "type": "js"
         },
         "pagelet/admin/previlige.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/previlige.js",
+            "uri": "http://localhost/static/pagelet/admin/previlige.js",
             "type": "js"
         },
         "pagelet/admin/previlige_selector.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/previlige_selector.js",
+            "uri": "http://localhost/static/pagelet/admin/previlige_selector.js",
             "type": "js"
         },
         "pagelet/admin/roleItem.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/roleItem.js",
+            "uri": "http://localhost/static/pagelet/admin/roleItem.js",
             "type": "js"
         },
         "pagelet/admin/useritem.tpl": {
-            "uri": "http://120.25.212.69/static/pagelet/admin/useritem.js",
+            "uri": "http://localhost/static/pagelet/admin/useritem.js",
             "type": "js"
         },
         "pagelet/login/login.js": {
-            "uri": "http://120.25.212.69/static/resource/pagelet/login/login.js",
+            "uri": "http://localhost/static/resource/pagelet/login/login.js",
             "type": "js",
             "deps": [
                 "pagelet/login/login.less"
@@ -58,88 +62,114 @@
             "id": "pagelet/login/login.js"
         },
         "pagelet/login/login.less": {
-            "uri": "http://120.25.212.69/static/resource/pagelet/login/login.css",
+            "uri": "http://localhost/static/resource/pagelet/login/login.css",
             "type": "css",
             "id": "pagelet/login/login.less"
         },
+        "pagelet/userinfo/userinfo.js": {
+            "uri": "http://localhost/static/resource/pagelet/userinfo/userinfo.js",
+            "type": "js",
+            "deps": [
+                "pagelet/userinfo/userinfo.less"
+            ],
+            "id": "pagelet/userinfo/userinfo.js"
+        },
+        "pagelet/userinfo/userinfo.less": {
+            "uri": "http://localhost/static/resource/pagelet/userinfo/userinfo.css",
+            "type": "css",
+            "id": "pagelet/userinfo/userinfo.less"
+        },
         "static/js/dist/chart/bar.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/bar.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/bar.js",
             "type": "js"
         },
         "static/js/dist/chart/chord.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/chord.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/chord.js",
             "type": "js"
         },
         "static/js/dist/chart/eventRiver.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/eventRiver.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/eventRiver.js",
             "type": "js"
         },
         "static/js/dist/chart/force.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/force.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/force.js",
             "type": "js"
         },
         "static/js/dist/chart/funnel.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/funnel.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/funnel.js",
             "type": "js"
         },
         "static/js/dist/chart/gauge.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/gauge.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/gauge.js",
             "type": "js"
         },
         "static/js/dist/chart/heatmap.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/heatmap.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/heatmap.js",
             "type": "js"
         },
         "static/js/dist/chart/k.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/k.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/k.js",
             "type": "js"
         },
         "static/js/dist/chart/line.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/line.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/line.js",
             "type": "js"
         },
         "static/js/dist/chart/map.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/map.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/map.js",
             "type": "js"
         },
         "static/js/dist/chart/pie.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/pie.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/pie.js",
             "type": "js"
         },
         "static/js/dist/chart/radar.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/radar.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/radar.js",
             "type": "js"
         },
         "static/js/dist/chart/scatter.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/scatter.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/scatter.js",
             "type": "js"
         },
         "static/js/dist/chart/tree.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/tree.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/tree.js",
             "type": "js"
         },
         "static/js/dist/chart/treemap.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/treemap.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/treemap.js",
             "type": "js"
         },
         "static/js/dist/chart/venn.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/venn.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/venn.js",
             "type": "js"
         },
         "static/js/dist/chart/wordCloud.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/chart/wordCloud.js",
+            "uri": "http://localhost/static/resource/static/js/dist/chart/wordCloud.js",
             "type": "js"
         },
         "static/js/dist/echarts-all.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/echarts-all.js",
+            "uri": "http://localhost/static/resource/static/js/dist/echarts-all.js",
             "type": "js"
         },
         "static/js/dist/echarts.js": {
-            "uri": "http://120.25.212.69/static/resource/static/js/dist/echarts.js",
+            "uri": "http://localhost/static/resource/static/js/dist/echarts.js",
+            "type": "js"
+        },
+        "static/js/jquery.js": {
+            "uri": "http://localhost/static/resource/static/js/jquery.js",
+            "type": "js"
+        },
+        "static/js/progress_nodes.js": {
+            "uri": "http://localhost/static/resource/static/js/progress_nodes.js",
+            "type": "js",
+            "id": "static/js/progress_nodes.js"
+        },
+        "static/js/treeview.js": {
+            "uri": "http://localhost/static/resource/static/js/treeview.js",
             "type": "js"
         },
         "pkg/asyncmap.js": {
-            "uri": "http://120.25.212.69/static/pkg/asyncmap.js",
+            "uri": "http://localhost/static/pkg/asyncmap.js",
             "type": "js"
         }
     },
