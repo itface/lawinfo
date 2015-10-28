@@ -11,7 +11,7 @@ public class UserRole implements Serializable{
 
     private long id;
     private String userid;
-    private int roleid;
+    private long roleid;
 
     public long getId() {
         return id;
@@ -29,11 +29,11 @@ public class UserRole implements Serializable{
         this.userid = userid;
     }
 
-    public int getRoleid() {
+    public long getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(int roleid) {
+    public void setRoleid(long roleid) {
         this.roleid = roleid;
     }
 }

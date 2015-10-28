@@ -1,12 +1,11 @@
 package com.lawinfo.service.org.utils;
 
-import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.Role;
-import com.lawinfo.domain.org.RolePrivilege;
-import com.lawinfo.domain.org.User;
-import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangrongtao on 15/10/20.
@@ -15,7 +14,7 @@ public class RoleUtils {
     /**
      * Hashtable线程安全
      */
-   private static Map<Integer, Role> roleMap = new Hashtable<Integer, Role>();
+   /*private static Map<Integer, Role> roleMap = new Hashtable<Integer, Role>();
 
 
     public static boolean add(Role role) {
@@ -40,5 +39,5 @@ public class RoleUtils {
     }
     public static Role findByRoleid(int roleid){
         return roleMap.get(roleid);
-    }
+    }*/
 }

@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class RolePrivilegeServiceImpl implements RolePrivilegeService {
-    private static Logger logger = LoggerFactory.getLogger(RolePrivilegeServiceImpl.class);
+//@Service
+public class RolePrivilegeServiceImpl{
+    /*private static Logger logger = LoggerFactory.getLogger(RolePrivilegeServiceImpl.class);
 
     @Resource
     private RolePrivilegeDao rolePrivilegeDao;
@@ -132,5 +132,5 @@ public class RolePrivilegeServiceImpl implements RolePrivilegeService {
             logger.error("deleteByRoleid error,roleid=" + roleid, e);
         }
         return effectrows;
-    }
+    }*/
 }

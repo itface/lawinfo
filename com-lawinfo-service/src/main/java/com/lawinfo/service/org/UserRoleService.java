@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserRoleService {
 
-    public List<UserRole> findAll()throws Exception;
+    /*public List<UserRole> findAll()throws Exception;
 
     public int save(UserRole userRole)throws Exception;
 
@@ -24,5 +24,5 @@ public interface UserRoleService {
 
     public int deleteById(long id)throws Exception;
     public int deleteByUserid(String userid)throws Exception;
-    public int deleteByRoleid(int roleid)throws Exception;
+    public int deleteByRoleid(int roleid)throws Exception;*/
 }

@@ -1,14 +1,5 @@
 package com.lawinfo.service.org.utils;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.User;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by wangrongtao on 15/10/20.
  */
@@ -16,7 +7,7 @@ public class DeptUtils {
     /**
      * Hashtable线程安全
      */
-   private static Map<Long, Dept> deptMap = new Hashtable<Long, Dept>();
+   /*private static Map<Long, Dept> deptMap = new Hashtable<Long, Dept>();
 
 
     public static boolean add(Dept dept) {
@@ -37,5 +28,5 @@ public class DeptUtils {
     }
     public static Dept findById(long id){
         return deptMap.get(id);
-    }
+    }*/
 }

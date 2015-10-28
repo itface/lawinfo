@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    public void initCache() throws Exception;
+    /*public void initCache() throws Exception;
     public List<User> findAll()throws Exception;
     public List<User> findAllFromDb()throws Exception;
 
@@ -24,5 +24,5 @@ public interface UserService {
 
     public int count(UserQuery userQuery)throws Exception;
 
-    public int deleteById(long id)throws Exception;
+    public int deleteById(long id)throws Exception;*/
 }

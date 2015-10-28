@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface RoleService {
 
-    public void initCache() throws Exception;
+   /* public void initCache() throws Exception;
     public List<Role> findAll()throws Exception;
     public List<Role> findAllFromDb() throws Exception;
     public int save(Role Role)throws Exception;
@@ -24,5 +24,5 @@ public interface RoleService {
 
     public int count(RoleQuery RoleQuery)throws Exception;
 
-    public int deleteById(long id)throws Exception;
+    public int deleteById(long id)throws Exception;*/
 }

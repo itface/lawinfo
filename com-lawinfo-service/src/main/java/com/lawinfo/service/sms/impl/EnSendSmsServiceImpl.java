@@ -1,40 +1,10 @@
 package com.lawinfo.service.sms.impl;
 
-import com.lawinfo.domain.org.Sms;
-import com.lawinfo.domain.org.User;
-import com.lawinfo.domain.org.query.UserQuery;
-import com.lawinfo.service.org.SmsService;
-import com.lawinfo.service.org.UserService;
-import com.lawinfo.service.org.utils.UserUtils;
-import com.lawinfo.service.sms.EnSendSmsService;
-import com.lawinfo.service.sms.cache.InvalidSendSmsCache;
-import com.lawinfo.service.sms.enumtype.EnSendSmsResultEnum;
-import com.lawinfo.service.util.DateUtils;
-import com.lawinfo.service.util.StrUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-
-import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by wangrongtao on 15/10/22.
  */
-public class EnSendSmsServiceImpl implements EnSendSmsService {
-
+public class EnSendSmsServiceImpl{
+/*
     private static Logger logger = LoggerFactory.getLogger(EnSendSmsServiceImpl.class);
 
     private  String address;
@@ -47,13 +17,13 @@ public class EnSendSmsServiceImpl implements EnSendSmsService {
     @Resource
     private UserService userService;
 
-    /*
+    *//*
     * 如uid是：test，登录密码是：123123
     pwd=md5(123123test),即
     pwd=b9887c5ebb23ebb294acab183ecf0769
 
     线生成地址：http://www.sms.cn/password
-    */
+    *//*
     @Override
     public EnSendSmsResultEnum sendSms(String phoneno) {
         try {
@@ -191,5 +161,5 @@ public class EnSendSmsServiceImpl implements EnSendSmsService {
 
     public void setExpiretime(long expiretime) {
         this.expiretime = expiretime;
-    }
+    }*/
 }

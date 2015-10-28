@@ -1,8 +1,6 @@
 package com.lawinfo.service.org.utils;
 
-import com.lawinfo.domain.org.Dept;
 import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.User;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -16,7 +14,7 @@ public class PrivilegeUtils {
     /**
      * Hashtable线程安全
      */
-   private static Map<Integer, Privilege> privilegeMap = new Hashtable<Integer, Privilege>();
+   /*private static Map<Integer, Privilege> privilegeMap = new Hashtable<Integer, Privilege>();
 
 
     public static boolean add(Privilege privilege) {
@@ -40,5 +38,5 @@ public class PrivilegeUtils {
     }
     public static Privilege findByPrivilegeid(int privilegeid){
         return privilegeMap.get(privilegeid);
-    }
+    }*/
 }

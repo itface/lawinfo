@@ -1,16 +1,11 @@
 package com.lawinfo.dao.org;
 
-import com.lawinfo.domain.org.RolePrivilege;
-import com.lawinfo.domain.org.query.RolePrivilegeQuery;
-
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/12.
  */
 public interface RolePrivilegeDao {
 
-    public List<RolePrivilege> findAll();
+   /* public List<RolePrivilege> findAll();
 
     public int save(RolePrivilege rolePrivilege);
 
@@ -25,6 +20,6 @@ public interface RolePrivilegeDao {
     public int deleteById(long id);
     public int deleteByPrivilegeid(int privilegeid);
     public int deleteByRoleid(int roleid);
-
+*/
 
 }

@@ -1,9 +1,6 @@
 package com.lawinfo.service.org.utils;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.OrgInfo;
-import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.User;
+import com.lawinfo.domain.org.Org;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -17,12 +14,15 @@ public class OrgInfoUtils {
     /**
      * Hashtable线程安全
      */
-   private static Map<Long, OrgInfo> orginfoMap = new Hashtable<Long, OrgInfo>();
+   private static Map<Long, Org> orginfoMap = new Hashtable<Long, Org>();
 
 
-    public static boolean add(OrgInfo orgInfo) {
-        if (orgInfo != null) {
-            orginfoMap.put(orgInfo.getId(),orgInfo);
+    public static void init() {
+        orginfoMap.clear();
+    }
+    public static boolean add(Org org) {
+        if (org != null) {
+            orginfoMap.put(org.getId(), org);
             return true;
         }
         return false;
@@ -34,12 +34,12 @@ public class OrgInfoUtils {
         }
         return false;
     }
-    public static List<OrgInfo> findAll(){
-        List<OrgInfo> list = new ArrayList<OrgInfo>();
+    public static List<Org> findAll(){
+        List<Org> list = new ArrayList<Org>();
         list.addAll(orginfoMap.values());
         return list;
     }
-    public static OrgInfo findById(long id){
+    public static Org findById(long id){
         return orginfoMap.get(id);
     }
 }

@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by wangrongtao on 15/10/18.
  */
-@Controller
-@RequestMapping("/login")
+/*@Controller
+@RequestMapping("/login")*/
 public class LoginController {
-    @Resource
+    /*@Resource
     private LoginService loginService;
     @Resource
     private EnSendSmsService enSendSmsService;
@@ -68,5 +68,5 @@ public class LoginController {
         sb.append("\"desc\":").append(enSendSmsResultEnum.getDesc());
         sb.append("}");
         return sb.toString();
-    }
+    }*/
 }

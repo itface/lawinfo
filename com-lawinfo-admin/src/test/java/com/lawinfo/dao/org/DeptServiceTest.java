@@ -1,30 +1,21 @@
 package com.lawinfo.dao.org;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.query.DeptQuery;
-import com.lawinfo.service.org.DeptService;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/13.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
+/*@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager",defaultRollback=false)
+@TransactionConfiguration(transactionManager = "transactionManager",defaultRollback=false)*/
 public class DeptServiceTest {
-    @Resource
+    /*@Resource
     private DeptService deptService;
 
 
@@ -63,6 +54,6 @@ public class DeptServiceTest {
         deptQuery.setId(3);
         List<Dept> list = deptService.findList(deptQuery);
         System.out.println(list.size());
-    }
+    }*/
 
 }

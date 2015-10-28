@@ -1,31 +1,19 @@
 package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.DeptDao;
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.query.DeptQuery;
-import com.lawinfo.domain.org.vo.DeptVo;
-import com.lawinfo.service.org.DeptService;
-import com.lawinfo.service.org.utils.DeptUtils;
-import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class DeptServiceImpl implements DeptService {
+//@Service
+public class DeptServiceImpl {
     private static Logger logger = LoggerFactory.getLogger(DeptServiceImpl.class);
 
-    @Resource
+//    @Resource
     private DeptDao deptDao;
-
+/*
     @Override
     public void initCache() throws Exception {
         try {
@@ -157,5 +145,5 @@ public class DeptServiceImpl implements DeptService {
             logger.error("deleteByOrgid error,orgid=" + orgid, e);
         }
         return effectrows;
-    }
+    }*/
 }

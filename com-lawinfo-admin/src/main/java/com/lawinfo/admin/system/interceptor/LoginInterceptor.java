@@ -15,13 +15,13 @@ import javax.servlet.http.HttpSession;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
         boolean isAvailableLoginUser = LoginInfo.isAvailableLoginUser(session);
         if (!isAvailableLoginUser) {
             String uri = request.getRequestURI();
             response.sendRedirect("/login");
             return false;
-        }
+        }*/
         return true;
     }
 

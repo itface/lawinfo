@@ -1,29 +1,11 @@
 package com.lawinfo.service.org.impl;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.OrgInfo;
-import com.lawinfo.domain.org.vo.DeptVo;
-import com.lawinfo.service.org.DeptService;
-import com.lawinfo.service.org.OrgInfoDeptService;
-import com.lawinfo.service.org.OrgInfoService;
-import com.lawinfo.service.org.utils.OrgInfoUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by wangrongtao on 15/10/18.
  */
-@Service
-public class OrgInfoDeptServiceImpl implements OrgInfoDeptService {
-    private static Logger logger = LoggerFactory.getLogger(OrgInfoDeptServiceImpl.class);
+//@Service
+public class OrgInfoDeptServiceImpl  {
+    /*private static Logger logger = LoggerFactory.getLogger(OrgInfoDeptServiceImpl.class);
 
     @Resource
     private DeptService deptService;
@@ -50,5 +32,5 @@ public class OrgInfoDeptServiceImpl implements OrgInfoDeptService {
             throw e;
         }
         return null;
-    }
+    }*/
 }

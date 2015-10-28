@@ -20,18 +20,14 @@ public class User extends BaseDomain {
     @NotBlank
     @Length(max=100)
     private String userid;
+    private String pwd;
     /**
      * 帐号状态,预留，1是正常，-1锁定
      */
     private int status;
     @Min(1)
     private long orgid;
-    @Min(1)
-    private long deptid;
-    /**
-     * 角色id
-     */
-    private String roleids;
+
 
     public long getId() {
         return id;
@@ -73,20 +69,12 @@ public class User extends BaseDomain {
         this.orgid = orgid;
     }
 
-    public long getDeptid() {
-        return deptid;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setDeptid(long deptid) {
-        this.deptid = deptid;
-    }
-
-    public String getRoleids() {
-        return roleids;
-    }
-
-    public void setRoleids(String roleids) {
-        this.roleids = roleids;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     @Override

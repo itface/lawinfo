@@ -122,7 +122,7 @@
         <profile>
             <id>development</id>
             <properties>
-                <log.path>/export/logs/lawinfo.net</log.path>
+                <log.path>/export/logs/info.net</log.path>
                 <log.root.level>INFO</log.root.level>
                 <log.common.level>INFO</log.common.level>
                 <lawinfo.jdbc.datasource.type>druid</lawinfo.jdbc.datasource.type>
@@ -135,7 +135,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <log.path>/export/logs/lawinfo.com</log.path>
+                <log.path>/export/logs/info.com</log.path>
                 <log.root.level>INFO</log.root.level>
                 <log.common.level>INFO</log.common.level>
                 <lawinfo.jdbc.datasource.type>druid</lawinfo.jdbc.datasource.type>

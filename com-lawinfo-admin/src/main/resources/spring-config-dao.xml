@@ -15,15 +15,14 @@
               <!--<qualifier value="isap"/>-->
        </bean>
 
-       <!-- 如果是isap的表，用@Transactional("isap")，如果是smis用 @Transactional("smis")管理事务-->
+        <!--如果是isap的表，用@Transactional("isap")，如果是smis用 @Transactional("smis")管理事务-->
        <tx:annotation-driven transaction-manager="transactionManager" />
+        <bean id="orgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.OrgDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
 
-       <bean id="orgInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-              <property name="mapperInterface" value="com.lawinfo.dao.org.OrgInfoDao"></property>
-              <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-       </bean>
-
-       <bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+       <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
        </bean>
@@ -62,5 +61,5 @@
         <bean id="userRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.UserRoleDao"></property>
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-       </bean>
+       </bean>-->
 </beans>

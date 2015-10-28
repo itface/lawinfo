@@ -18,21 +18,21 @@ import java.util.List;
  */
 @Service
 public class OrgInitListener implements ApplicationListener<ContextRefreshedEvent> {
-
+/*
     private static Logger logger = LoggerFactory.getLogger(OrgInitListener.class);
     @Resource
     private UserService userService;
     @Resource
     private DeptService deptService;
     @Resource
-    private OrgInfoService orgInfoService;
+    private OrgService orgInfoService;
     @Resource
     private RoleService roleService;
     @Resource
-    private PrivilegeService privilegeService;
+    private PrivilegeService privilegeService;*/
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        try {
+        /*try {
             orgInfoService.initCache();;
             deptService.initCache();
             privilegeService.initCache();
@@ -40,6 +40,6 @@ public class OrgInitListener implements ApplicationListener<ContextRefreshedEven
             userService.initCache();
         } catch (Exception e) {
             logger.error("init orgs exception",e);
-        }
+        }*/
     }
 }

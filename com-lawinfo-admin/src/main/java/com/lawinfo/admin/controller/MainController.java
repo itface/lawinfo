@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
  * Created by wangrongtao on 15/10/18.
  */
 @Controller
-@RequestMapping("/lawinfo")
+@RequestMapping("/lawinfo/admin/main")
 public class MainController {
 
 
     @RequestMapping("")
     public String index() {
-        return "/admin/login";
+        return "/admin/main";
     }
 }

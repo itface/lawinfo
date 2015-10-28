@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lawinfo.dao.org.OrgDao">
+    <resultMap id="OrgResult" type="com.lawinfo.domain.org.Org">
+        <id property="id" column="id" />
+        <result column="name" property="name"/>
+        <result column="parentorgid" property="parentorgid"/>
+        <result column="description" property="description"/>
+        <result column="createtime" property="createtime"/>
+        <result column="createtimestr" property="createtimestr"/>
+        <result column="modifiedtime" property="modifiedtime"/>
+        <result column="modifiedtimestr" property="modifiedtimestr"/>
+        <result column="optuserid" property="optuserid"/>
+    </resultMap>
+    <sql id="allColumn">
+         id,name,parentorgid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+    </sql>
+    <sql id="condition">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="id>0">
+                id = #{id}
+            </if>
+            <if test="parentorgid>0">
+                and parentorgid = #{parentorgid}
+            </if>
+            <if test="name!=null and name!=''">
+                and name = #{name}
+            </if>
+        </trim>
+        <!--<where>
+            <if test="id>0">
+                ID = #id#
+            </if>
+            <if test="type>0">
+                AND TYPE = #type#
+            </if>
+        </where>-->
+    </sql>
+    <sql id="page">
+          limit #{startRow},#{pageSize}
+    </sql>
+    <sql id="orderby">
+          order by id asc
+    </sql>
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.OrgQuery"  resultMap="OrgResult">
+        select
+        <include refid="allColumn"/>
+         from
+          org
+    </select>
+    <select id="findById" parameterType="long"  resultMap="OrgResult">
+        select
+        <include refid="allColumn"/>
+        from
+        org where id = #{id}
+    </select>
+    <select id="findByParentorgid" parameterType="long"  resultMap="OrgResult">
+        select
+        <include refid="allColumn"/>
+        from
+        org where parentorgid = #{parentorgid}
+    </select>
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.OrgQuery"  resultMap="OrgResult">
+        select
+        <include refid="allColumn"/>
+        from
+        org
+        <include refid="condition"/>
+    </select>
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.OrgQuery"  resultMap="OrgResult">
+        select
+        <include refid="allColumn"/>
+        from
+        org
+        <include refid="condition"/>
+        <include refid="page"/>
+    </select>
+    <select id="count" parameterType="com.lawinfo.domain.org.query.OrgQuery" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        org
+        <include refid="condition"/>
+    </select>
+    <insert id="save" parameterType="com.lawinfo.domain.org.Org">
+        insert into org(name,parentorgid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{parentorgid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+    </insert>
+    <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
+        delete from org where id=#{id}
+    </delete>
+    <delete id="deleteByParentorgid" parameterType="long">    <!-- 删除用户 -->
+        delete from org where parentorgid=#{parentorgid}
+    </delete>
+    <!--<update id="update" parameterType="com.icreate.entity.User">
+        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
+    </update>-->
+</mapper>

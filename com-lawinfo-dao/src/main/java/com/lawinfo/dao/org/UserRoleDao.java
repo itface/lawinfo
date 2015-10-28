@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserRoleDao {
 
-    public List<UserRole> findAll();
+    /*public List<UserRole> findAll();
 
     public int save(UserRole userRole);
 
@@ -24,7 +24,7 @@ public interface UserRoleDao {
 
     public int deleteById(long id);
     public int deleteByUserid(String userid);
-    public int deleteByRoleid(int roleid);
+    public int deleteByRoleid(int roleid);*/
 
 
 }

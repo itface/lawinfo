@@ -22,9 +22,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class RoleServiceImpl implements RoleService {
-    private static Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
+//@Service
+public class RoleServiceImpl  {
+    /*private static Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Resource
     private RoleDao roleDao;
@@ -170,5 +170,5 @@ public class RoleServiceImpl implements RoleService {
             logger.error("deleteById error,id=" + id, e);
         }
         return effectrows;
-    }
+    }*/
 }

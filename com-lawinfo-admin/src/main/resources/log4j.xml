@@ -41,7 +41,7 @@
         <level value="DEBUG"/>
         <appender-ref ref="SQL-DAO-ORG-ORGINFODAO"/>
     </logger>-->
-    <appender name="SERVICE-ORG-ORGINFOSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+    <!--<appender name="SERVICE-ORG-ORGINFOSERVICE" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
         <param name="file" value="${log.path}/service-org-orginfoservice.log"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -49,7 +49,7 @@
         </layout>
     </appender>
 
-    <logger name="com.lawinfo.service.org.OrgInfoService" additivity="true">
+    <logger name="com.lawinfo.service.org.OrgServiceditivity="true">
         <level value="${log.common.level}"/>
         <appender-ref ref="SERVICE-ORG-ORGINFOSERVICE"/>
     </logger>
@@ -200,7 +200,7 @@
     <logger name="com.lawinfo.service.org.impl.OrgInfoDeptServiceImpl" additivity="true">
         <level value="${log.common.level}"/>
         <appender-ref ref="SERVICE-ORG-ORGINFODEPTSERVICEIMPL"/>
-    </logger>
+    </logger>-->
 
     <root>
         <priority value="${log.root.level}"/>

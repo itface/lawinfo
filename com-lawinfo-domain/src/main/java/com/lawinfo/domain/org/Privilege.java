@@ -11,29 +11,18 @@ import javax.validation.constraints.Min;
  */
 public class Privilege extends BaseDomain {
     private long id;
-    /**
-     * 1、诉讼2、执行3、创建案件权限
-     */
-    @Min(1)
-    private int privilegeid;
 
     @NotBlank
     @Length(max=100)
     private String name;
+    private String type;
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getPrivilegeid() {
-        return privilegeid;
-    }
-
-    public void setPrivilegeid(int privilegeid) {
-        this.privilegeid = privilegeid;
     }
 
     public String getName() {
@@ -44,19 +33,11 @@ public class Privilege extends BaseDomain {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Privilege privilege = (Privilege) o;
-
-        return privilegeid == privilege.privilegeid;
-
+    public String getType() {
+        return type;
     }
 
-    @Override
-    public int hashCode() {
-        return privilegeid;
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -18,8 +18,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class UserServiceImpl implements UserService {
+//@Service
+public class UserServiceImpl  {
+    /*
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
@@ -150,5 +151,5 @@ public class UserServiceImpl implements UserService {
             logger.error("deleteById error,id=" + id, e);
         }
         return effectrows;
-    }
+    }*/
 }

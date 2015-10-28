@@ -21,9 +21,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class PrivilegeServiceImpl implements PrivilegeService {
-    
+//@Service
+public class PrivilegeServiceImpl {
+    /*
     private static Logger logger = LoggerFactory.getLogger(PrivilegeServiceImpl.class);
 
     @Resource
@@ -155,5 +155,5 @@ public class PrivilegeServiceImpl implements PrivilegeService {
             logger.error("deleteById error,id=" + id, e);
         }
         return effectrows;
-    }
+    }*/
 }

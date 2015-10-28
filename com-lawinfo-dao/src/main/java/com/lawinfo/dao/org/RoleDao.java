@@ -1,20 +1,11 @@
 package com.lawinfo.dao.org;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.Role;
-import com.lawinfo.domain.org.query.DeptQuery;
-import com.lawinfo.domain.org.query.PrivilegeQuery;
-import com.lawinfo.domain.org.query.RoleQuery;
-
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/12.
  */
 public interface RoleDao {
 
-    public List<Role> findAll();
+    /*public List<Role> findAll();
 
     public int save(Role role);
 
@@ -26,7 +17,7 @@ public interface RoleDao {
 
     public int count(RoleQuery roleQuery);
 
-    public int deleteById(long id);
+    public int deleteById(long id);*/
 
 
 }

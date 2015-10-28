@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface RolePrivilegeService {
 
-    public List<RolePrivilege> findAll()throws Exception;
+    /*public List<RolePrivilege> findAll()throws Exception;
 
     public int save(RolePrivilege rolePrivilege)throws Exception;
 
@@ -24,5 +24,5 @@ public interface RolePrivilegeService {
 
     public int deleteById(long id)throws Exception;
     public int deleteByPrivilegeid(int privilegeid)throws Exception;
-    public int deleteByRoleid(int roleid)throws Exception;
+    public int deleteByRoleid(int roleid)throws Exception;*/
 }

@@ -1,17 +1,10 @@
 package com.lawinfo.service.org;
 
-import com.lawinfo.domain.org.Dept;
-import com.lawinfo.domain.org.User;
-import com.lawinfo.domain.org.query.DeptQuery;
-import com.lawinfo.domain.org.vo.DeptVo;
-
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/14.
  */
 public interface DeptService {
-
+/*
     public void initCache() throws Exception;
     public List<Dept> findAll()throws Exception;
     public List<Dept> findAllFromDb() throws Exception;
@@ -26,5 +19,5 @@ public interface DeptService {
     public int count(DeptQuery deptQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
-    public int deleteByOrgid(long orgid)throws Exception;
+    public int deleteByOrgid(long orgid)throws Exception;*/
 }

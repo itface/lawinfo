@@ -16,10 +16,10 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/17.
  */
-@Controller
-@RequestMapping("/admin/privilege")
+/*@Controller
+@RequestMapping("/admin/privilege")*/
 public class PrivilegeController {
-
+/*
     @Resource
     private PrivilegeService privilegeService;
 
@@ -52,5 +52,5 @@ public class PrivilegeController {
     public List<Privilege> find()throws Exception{
         List<Privilege> list = privilegeService.findAll();
         return list;
-    }
+    }*/
 }

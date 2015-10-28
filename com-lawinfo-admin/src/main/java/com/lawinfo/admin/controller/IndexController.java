@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by wangrongtao on 15/10/18.
  */
-@Controller
-@RequestMapping("/admin")
+/*@Controller
+@RequestMapping("/admin")*/
 public class IndexController {
 
-    @RequestMapping("/index")
+    /*@RequestMapping("/index")
     public String index() {
         return "/admin/admin";
-    }
+    }*/
 
 }

@@ -15,8 +15,9 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-@Service
-public class UserRoleServiceImpl implements UserRoleService {
+//@Service
+public class UserRoleServiceImpl  {
+    /*
     private static Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 
     @Resource
@@ -134,5 +135,5 @@ public class UserRoleServiceImpl implements UserRoleService {
             logger.error("deleteByRoleid error,roleid=" + roleid, e);
         }
         return effectrows;
-    }
+    }*/
 }

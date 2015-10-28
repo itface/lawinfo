@@ -2,8 +2,6 @@ package com.lawinfo.service.org.aop;
 
 import com.lawinfo.domain.org.*;
 import com.lawinfo.service.org.*;
-import com.lawinfo.service.org.utils.OrgInfoUtils;
-import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -21,28 +19,51 @@ public class OrgInit {
     private static Logger logger = LoggerFactory.getLogger(OrgInit.class);
 
     @Resource
+    private OrgService orgService;
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.save(..)) && args(org)",argNames= "org")
+    public void saveOrginfo(Org org) {
+        if (org !=null) {
+            logger.info("saveOrginfo begin,orgname:"+ org.getName());
+            try {
+                orgService.initCache();
+            } catch (Exception e) {
+                logger.error("saveOrginfo exception,orgname:"+ org.getName(), e);
+            }
+        }
+    }
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.deleteById(..)) && args(id)",argNames= "id")
+    public void deleteOrginfoById(long id) {
+        logger.info("saveOrginfo begin,id:"+id);
+        try {
+            orgService.initCache();
+        } catch (Exception e) {
+            logger.error("saveOrginfo deleteOrginfoById,id:"+id, e);
+        }
+    }
+    /*
+    @Resource
     private UserService userService;
     @Resource
     private DeptService deptService;
     @Resource
-    private OrgInfoService orgInfoService;
+    private OrgService orgInfoService;
     @Resource
     private RoleService roleService;
     @Resource
     private PrivilegeService privilegeService;
 
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgInfoServiceImpl.save(..)) && args(orgInfo)",argNames= "orgInfo")
-    public void saveOrginfo(OrgInfo orgInfo) {
-        if (orgInfo!=null) {
-            logger.info("saveOrginfo begin,orgname:"+orgInfo.getName());
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.save(..)) && args(org)",argNames= "org")
+    public void saveOrginfo(Org org) {
+        if (org !=null) {
+            logger.info("saveOrginfo begin,orgname:"+ org.getName());
             try {
                 orgInfoService.initCache();
             } catch (Exception e) {
-                logger.error("saveOrginfo exception,orgname:"+orgInfo.getName(), e);
+                logger.error("saveOrginfo exception,orgname:"+ org.getName(), e);
             }
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgInfoServiceImpl.deleteById(..)) && args(id)",argNames= "id")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.deleteById(..)) && args(id)",argNames= "id")
     public void deleteOrginfoById(long id) {
         logger.info("saveOrginfo begin,id:"+id);
         try {
@@ -122,7 +143,7 @@ public class OrgInit {
             }
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgInfoServiceImpl.deleteById(..)) && args(id)",argNames= "id")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.deleteById(..)) && args(id)",argNames= "id")
     public void deleteUserById(long id) {
         logger.info("deleteUserById begin,id:"+id);
         try {
@@ -130,5 +151,5 @@ public class OrgInit {
         } catch (Exception e) {
             logger.error("deleteUserById exception,id:"+id, e);
         }
-    }
+    }*/
 }
