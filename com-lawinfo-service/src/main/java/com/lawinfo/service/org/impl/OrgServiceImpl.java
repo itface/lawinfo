@@ -26,7 +26,7 @@ public class OrgServiceImpl implements OrgService{
     private static Logger logger = LoggerFactory.getLogger(OrgServiceImpl.class);
 
     @Resource
-    private OrgDao orgInfoDao;
+    private OrgDao orgDao;
 
     @Override
     public void initCache() throws Exception {
@@ -130,7 +130,7 @@ public class OrgServiceImpl implements OrgService{
             list = OrgInfoUtils.findAll();
             list = null;
             if (CollectionUtils.isEmpty(list)) {
-                list = orgInfoDao.findAll();
+                list = orgDao.findAll();
             }
         } catch (Exception e) {
             logger.error("findAll error",e);
@@ -143,7 +143,7 @@ public class OrgServiceImpl implements OrgService{
     public List<Org> findAllFromDb() throws Exception {
         List<Org> list = null;
         try {
-            list = orgInfoDao.findAll();
+            list = orgDao.findAll();
         } catch (Exception e) {
             logger.error("findAllFromDb error",e);
             throw e;
@@ -158,7 +158,7 @@ public class OrgServiceImpl implements OrgService{
         try {
             if (org !=null) {
                 org.initBaseDomain();
-                effectrows = orgInfoDao.save(org);
+                effectrows = orgDao.save(org);
                 logger.info("save success,effectrows:"+effectrows+","+ org.getName());
             }
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class OrgServiceImpl implements OrgService{
         logger.info("findById begin,id:"+id);
         Org org = null;
         try {
-            org =orgInfoDao.findById(id);
+            org =orgDao.findById(id);
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
@@ -186,7 +186,7 @@ public class OrgServiceImpl implements OrgService{
         logger.info("findList begin,OrgQuery=" + orgInfoQuery == null ? "null" : orgInfoQuery.toLogString());
         List<Org> list = null;
         try {
-            list = orgInfoDao.findList(orgInfoQuery);
+            list = orgDao.findList(orgInfoQuery);
         } catch (Exception e) {
             logger.error("findList error,OrgQuery=" + orgInfoQuery==null?"null":orgInfoQuery.toLogString(), e);
         }
@@ -198,7 +198,7 @@ public class OrgServiceImpl implements OrgService{
         logger.info("findListByPage begin,OrgQuery=" + orgInfoQuery==null?"null":orgInfoQuery.toLogString());
         List<Org> list = null;
         try {
-            list = orgInfoDao.findListByPage(orgInfoQuery);
+            list = orgDao.findListByPage(orgInfoQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,OrgQuery=" + orgInfoQuery==null?"null":orgInfoQuery.toLogString(), e);
         }
@@ -210,7 +210,7 @@ public class OrgServiceImpl implements OrgService{
         logger.info("count begin,OrgQuery=" + orgInfoQuery==null?"null":orgInfoQuery.toLogString());
         int effectrows = 0;
         try {
-            effectrows = orgInfoDao.count(orgInfoQuery);
+            effectrows = orgDao.count(orgInfoQuery);
         } catch (Exception e) {
             logger.error("count error,OrgQuery=" + orgInfoQuery==null?"null":orgInfoQuery.toLogString(), e);
         }
@@ -224,7 +224,7 @@ public class OrgServiceImpl implements OrgService{
         int effectrows = 0;
         try {
             deleteByParentorgid(id);
-            effectrows = orgInfoDao.deleteById(id);
+            effectrows = orgDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
         }
@@ -236,13 +236,13 @@ public class OrgServiceImpl implements OrgService{
     public void deleteByParentorgid(long parentorgid) throws Exception {
         logger.info("deleteByParentorgid begin,parentorgid=" + parentorgid);
         try {
-            List<Org> orgs = orgInfoDao.findByParentorgid(parentorgid);
+            List<Org> orgs = orgDao.findByParentorgid(parentorgid);
             if (!CollectionUtils.isEmpty(orgs)) {
                 for (Org org : orgs) {
                     deleteByParentorgid(org.getId());
                 }
             }
-            orgInfoDao.deleteByParentorgid(parentorgid);
+            orgDao.deleteByParentorgid(parentorgid);
         } catch (Exception e) {
             logger.error("deleteByParentorgid error,parentorgid=" + parentorgid, e);
         }

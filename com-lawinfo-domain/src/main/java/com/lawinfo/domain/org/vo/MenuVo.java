@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/27.
  */
-public class OrgVo implements Serializable,Comparable {
+public class MenuVo implements Serializable,Comparable {
     private Long id;
     private String text;
-    private Long parentorgid;
-    private List<OrgVo> nodes;
+    private Long parentmenuid;
+    private List<MenuVo> nodes;
 
     public Long getId() {
         return id;
@@ -28,26 +28,26 @@ public class OrgVo implements Serializable,Comparable {
         this.text = text;
     }
 
-    public Long getParentorgid() {
-        return parentorgid;
+    public Long getParentmenuid() {
+        return parentmenuid;
     }
 
-    public void setParentorgid(Long parentorgid) {
-        this.parentorgid = parentorgid;
+    public void setParentmenuid(Long parentmenuid) {
+        this.parentmenuid = parentmenuid;
     }
 
-    public List<OrgVo> getNodes() {
+    public List<MenuVo> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<OrgVo> nodes) {
+    public void setNodes(List<MenuVo> nodes) {
         this.nodes = nodes;
     }
 
     @Override
     public int compareTo(Object o) {
         if (o!=null) {
-            return (this.id).compareTo(((OrgVo) o).getId());
+            return this.id.compareTo(((MenuVo) o).getId());
         }
         return 0;
     }

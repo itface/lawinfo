@@ -6,16 +6,16 @@ import com.lawinfo.domain.common.BaseDomain;
  * Created by wangrongtao on 15/10/26.
  */
 public class Menu extends BaseDomain {
-    private long id;
+    private Long id;
     private String name;
     private String url;
-    private long parentmenuid;
+    private Long parentmenuid;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,11 +35,11 @@ public class Menu extends BaseDomain {
         this.url = url;
     }
 
-    public long getParentmenuid() {
+    public Long getParentmenuid() {
         return parentmenuid;
     }
 
-    public void setParentmenuid(long parentmenuid) {
+    public void setParentmenuid(Long parentmenuid) {
         this.parentmenuid = parentmenuid;
     }
 }

@@ -25,6 +25,10 @@
             <property name="mapperInterface" value="com.lawinfo.dao.org.ActionDao"/>
             <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         </bean>
+        <bean id="menuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.MenuDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
 
        <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>
