@@ -11,7 +11,7 @@ public class Action extends BaseDomain {
     /**
      * url，拦截器拦载url，判断权限
      */
-    private String key;
+    private String actionkey;
     /**
      * 用于授权时归类，分组，没有特珠含义
      */
@@ -33,12 +33,12 @@ public class Action extends BaseDomain {
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getActionkey() {
+        return actionkey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setActionkey(String actionkey) {
+        this.actionkey = actionkey;
     }
 
     public String getTag() {

@@ -102,7 +102,7 @@ var org = {
     doDelOrg:function(){
         var self = this;
         jQuery.ajax({
-            url:'/lawinfo/admin/org/remove/'+orgSelectedNode.id,
+            url:'/lawinfo/admin/org/remove?id='+orgSelectedNode.id,
             type:'GET',
             //async:false,
             success:function(data) {

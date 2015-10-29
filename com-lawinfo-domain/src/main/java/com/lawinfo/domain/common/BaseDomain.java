@@ -13,7 +13,6 @@ public class BaseDomain implements Serializable {
     protected long modifiedtime;
     protected String modifiedtimestr;
     protected String optuserid;
-    protected String description;
 
 
     public long getCreatetime() {
@@ -56,13 +55,6 @@ public class BaseDomain implements Serializable {
         this.optuserid = optuserid;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public void initBaseDomain() {
         Date date = new Date();
         long now = date.getTime();

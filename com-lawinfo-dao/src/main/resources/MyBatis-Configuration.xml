@@ -4,6 +4,7 @@
 <configuration>
     <mappers>
         <mapper resource="com/lawinfo/dao/org/OrgDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/ActionDao.xml"/>
         <!--<mapper resource="com/lawinfo/dao/org/OrgDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/DeptDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/RoleDao.xml"/>

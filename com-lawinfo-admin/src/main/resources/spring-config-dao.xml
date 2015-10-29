@@ -21,6 +21,10 @@
             <property name="mapperInterface" value="com.lawinfo.dao.org.OrgDao"/>
             <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         </bean>
+        <bean id="actionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.ActionDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
 
        <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>

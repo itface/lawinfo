@@ -1,11 +1,12 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.vo.OrgVo;
+import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.OrgService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,32 +18,32 @@ import java.util.List;
  * Created by wangrongtao on 15/10/17.
  */
 @Controller
-@RequestMapping("/lawinfo/admin/org")
-public class OrgController {
+@RequestMapping("/lawinfo/admin/action")
+public class ActionController {
 
     @Resource
-    private OrgService orgService;
+    private ActionService actionService;
 
 
     @ResponseBody
     @RequestMapping("/add")
-    public int save(HttpServletRequest request,Org org,BindingResult result)throws Exception{
-        if (org != null) {
-            int rows = orgService.save(org);
+    public int save(HttpServletRequest request,Action action,BindingResult result)throws Exception{
+        if (action != null) {
+            int rows = actionService.save(action);
             return rows;
         }
         return 0;
     }
     @ResponseBody
-    @RequestMapping("/findtree")
-    public List<OrgVo> findtree()throws Exception{
-        List<OrgVo> list = orgService.findOrgTree();
+    @RequestMapping("/find")
+    public List<Action> find()throws Exception{
+        List<Action> list = actionService.findAll();
         return list;
     }
     @ResponseBody
     @RequestMapping("/remove")
     public int remove(long id)throws Exception{
-        int rows = orgService.deleteById(id);
+        int rows = actionService.deleteById(id);
         return rows;
     }
 }
