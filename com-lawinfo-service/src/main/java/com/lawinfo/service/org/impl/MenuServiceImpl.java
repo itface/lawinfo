@@ -245,4 +245,9 @@ public class MenuServiceImpl implements MenuService {
             logger.error("deleteByParentMenuid error,parentMenuid=" + parentmenuid, e);
         }
     }
+
+    @Override
+    public List<Menu> findByIds(Long[] ids) {
+        return menuDao.findByIds(ids);
+    }
 }

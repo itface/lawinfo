@@ -15,9 +15,8 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-//@Service
-public class UserRoleServiceImpl  {
-    /*
+@Service
+public class UserRoleServiceImpl  implements UserRoleService{
     private static Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 
     @Resource
@@ -60,6 +59,26 @@ public class UserRoleServiceImpl  {
             throw e;
         }
         return userRole;
+    }
+
+    @Override
+    public List<UserRole> findByRoleid(long roleid) throws Exception {
+        try {
+            return userRoleDao.findByRoleid(roleid);
+        } catch (Exception e) {
+            logger.error("findByRoleid error,roleid=" + roleid, e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<UserRole> findByUserid(String userid) throws Exception {
+        try {
+            return userRoleDao.findByUserid(userid);
+        } catch (Exception e) {
+            logger.error("findByRoleid error,userid=" + userid, e);
+            throw e;
+        }
     }
 
     @Override
@@ -133,7 +152,8 @@ public class UserRoleServiceImpl  {
             effectrows = userRoleDao.deleteByRoleid(roleid);
         } catch (Exception e) {
             logger.error("deleteByRoleid error,roleid=" + roleid, e);
+            throw e;
         }
         return effectrows;
-    }*/
+    }
 }

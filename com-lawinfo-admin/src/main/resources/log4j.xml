@@ -135,7 +135,7 @@
         </layout>
     </appender>
 
-    <logger name="com.lawinfo.service.org.RolePrivilegeService" additivity="true">
+    <logger name="com.lawinfo.service.org.RoleMenuServiceitivity="true">
         <level value="${log.common.level}"/>
         <appender-ref ref="SERVICE-ORG-ROLEPRIVILEGESERVICE"/>
     </logger>

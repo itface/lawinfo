@@ -15,10 +15,12 @@
 
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script src="/static/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+		<script src="/static/bootstrap-treeview/bootstrap-treeview.js"></script>
 		<script src="/static/admin/org.js"></script>
 		<script src="/static/admin/action.js"></script>
 		<script src="/static/admin/menu.js"></script>
+		<script src="/static/admin/role.js"></script>
+		<script src="/static/admin/user.js"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -43,13 +45,13 @@
                             <a href="#menu" data-toggle="tab" id="menu-tab">菜单管理</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="tab" id="user-tab">用户管理</a>
+                            <a href="#role" data-toggle="tab" id="role-tab">角色管理</a>
+                        </li>
+                        <li>
+                            <a href="#user" data-toggle="tab" id="user-tab">用户管理</a>
                         </li>
 						<li>
 							<a href="#" data-toggle="tab" id="privilege-tab">权限管理</a>
-						</li>
-						<li>
-							<a href="#" data-toggle="tab" id="role-tab">角色管理</a>
 						</li>
 						<li>
 							<a href="#" data-toggle="tab" id="group-tab">组管理</a>
@@ -123,11 +125,170 @@
                                 <div id="treeview-menu" class=""></div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="role">
+                            <h2 align="right">
+                                <button type="button" class="btn btn-primary btn-add">添加角色</button>
+                                <button type="button" class="btn btn-primary btn-rm">删除角色</button>
+                            </h2>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="table-responsive">
+                                        <table class="table role-table">
+                                            <caption></caption>
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>角色名称</th>
+                                                <th>拥有菜单</th>
+                                                <th>拥有权限</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="user">
+                            <h2 align="right">
+                                <button type="button" class="btn btn-primary btn-add">添加用户</button>
+                                <button type="button" class="btn btn-primary btn-rm">删除用户</button>
+                            </h2>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="table-responsive">
+                                        <table class="table user-table">
+                                            <caption></caption>
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>用户id</th>
+                                                <th>用户名称</th>
+                                                <th>用户角色</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                </div>
+                            </div>
+                        </div>
 				</div>
 
 			</div>
 		</div>
         <!-----------------------------主界面 主体内容 end------------------------------------------>
+            <!-----------------------------用户 begin------------------------------------------>
+            <div class="modal fade" id="userModal" tabindex="-1" role="dialog"
+                 aria-labelledby="userModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="userModalLabel">
+                                添加用户
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form" id="userform">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">用户id</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="userid" type="text" placeholder="用户id">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">用户名称</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="username" type="text" placeholder="用户名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">拥有角色</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="userroleids" type="text">
+                                        <div id="treeview-role-action" class=""></div>
+                                    </div>
+                                </div>
+                                <div class="form-group has-error" style="display: none">
+                                    <label class="col-sm-6 control-label error-label" for="inputError">
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-save">
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------------用户 end--------------------------------->
+            <!-----------------------------角色 begin------------------------------------------>
+            <div class="modal fade" id="roleModal" tabindex="-1" role="dialog"
+                 aria-labelledby="roleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="roleModalLabel">
+                                添加角色
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form" id="roleform">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">角色名称</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="rolename" type="text" placeholder="角色名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">拥有菜单</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="rolemenuids" type="text">
+                                        <div id="treeview-role-menu" class=""></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">拥有权限</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="roleactionids" type="text">
+                                        <div id="treeview-role-action" class=""></div>
+                                    </div>
+                                </div>
+                                <div class="form-group has-error" style="display: none">
+                                    <label class="col-sm-6 control-label error-label" for="inputError">
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-save">
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------------角色 end--------------------------------->
         <!-----------------------------动作 begin------------------------------------------>
             <div class="modal fade" id="actionModal" tabindex="-1" role="dialog"
                  aria-labelledby="actionModalLabel" aria-hidden="true">
@@ -324,6 +485,7 @@
                 jQuery('#msgModal').modal('show');
             }
             jQuery(function(){
+                org.init();
                 jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     // 获取已激活的标签页的名称
                     var tabid = jQuery(e.target).attr("id");
@@ -333,13 +495,16 @@
                         action.init();
                     }else if (tabid == 'menu-tab') {
                         menu.init();
+                    }else if (tabid == 'role-tab') {
+                        role.init();
+                    }else if (tabid == 'user-tab') {
+                        user.init();
                     }
                     /*// 获取前一个激活的标签页的名称
                     var previousTab = jQuery(e.relatedTarget).text();
                     jQuery(".active-tab span").html(activeTab);
                     jQuery(".previous-tab span").html(previousTab);*/
                 });
-                org.init();
                 /*var defaultData = [
                     {
                         text: '机构',

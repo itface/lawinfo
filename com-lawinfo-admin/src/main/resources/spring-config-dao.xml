@@ -29,6 +29,26 @@
             <property name="mapperInterface" value="com.lawinfo.dao.org.MenuDao"/>
             <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         </bean>
+        <bean id="roleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.RoleDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
+        <bean id="roleMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.RoleMenuDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
+        <bean id="roleActionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.RoleActionDao"/>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
+        <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.UserDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
+        <bean id="userRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.UserRoleDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
 
        <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>
@@ -43,7 +63,7 @@
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
        </bean>
         <bean id="rolePrivilegeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-              <property name="mapperInterface" value="com.lawinfo.dao.org.RolePrivilegeDao"></property>
+              <property name="mapperInterface" value="com.lawinfo.dao.org.RoleActionDao/property>
               <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
        </bean>
        <bean id="caseInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">

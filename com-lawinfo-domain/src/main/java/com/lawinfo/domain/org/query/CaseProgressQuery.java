@@ -6,17 +6,17 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class CaseProgressQuery extends BaseQuery {
-    private long id;
+    private Long id;
     private String caseid;
-    private long casenodeid;
+    private Long casenodeid;
     private String comments;
     private String nexttask;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -28,11 +28,11 @@ public class CaseProgressQuery extends BaseQuery {
         this.caseid = caseid;
     }
 
-    public long getCasenodeid() {
+    public Long getCasenodeid() {
         return casenodeid;
     }
 
-    public void setCasenodeid(long casenodeid) {
+    public void setCasenodeid(Long casenodeid) {
         this.casenodeid = casenodeid;
     }
 

@@ -1,5 +1,6 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.org.RoleMenu;
 import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.UserRoleQuery;
 
@@ -10,12 +11,13 @@ import java.util.List;
  */
 public interface UserRoleService {
 
-    /*public List<UserRole> findAll()throws Exception;
+    public List<UserRole> findAll()throws Exception;
 
     public int save(UserRole userRole)throws Exception;
 
     public UserRole findById(long id)throws Exception;
-
+    public List<UserRole> findByRoleid(long roleid)throws Exception;
+    public List<UserRole> findByUserid(String userid)throws Exception;
     public List<UserRole> findList(UserRoleQuery userRoleQuery)throws Exception;
 
     public List<UserRole> findListByPage(UserRoleQuery userRoleQuery)throws Exception;
@@ -24,5 +26,5 @@ public interface UserRoleService {
 
     public int deleteById(long id)throws Exception;
     public int deleteByUserid(String userid)throws Exception;
-    public int deleteByRoleid(int roleid)throws Exception;*/
+    public int deleteByRoleid(int roleid)throws Exception;
 }

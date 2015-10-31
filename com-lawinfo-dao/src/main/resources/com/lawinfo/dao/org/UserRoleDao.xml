@@ -37,6 +37,18 @@
         from
         UserRole where id = #{id}
     </select>
+    <select id="findByRoleid" parameterType="long"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        UserRole where roleid = #{roleid}
+    </select>
+    <select id="findByUserid" parameterType="String"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        UserRole where userid = #{userid}
+    </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.UserRoleQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>

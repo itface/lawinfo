@@ -2,16 +2,15 @@ package com.lawinfo.domain.org.query;
 
 import com.lawinfo.domain.common.BaseQuery;
 
-import java.io.Serializable;
-
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class UserRoleQuery extends BaseQuery{
-
+public class RoleActionQuery extends BaseQuery {
     private Long id;
-    private String userid;
-    private Integer roleid;
+
+    private Long roldid;
+
+    private Long actionid;
 
     public Long getId() {
         return id;
@@ -21,27 +20,27 @@ public class UserRoleQuery extends BaseQuery{
         this.id = id;
     }
 
-    public String getUserid() {
-        return userid;
+    public Long getRoldid() {
+        return roldid;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setRoldid(Long roldid) {
+        this.roldid = roldid;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Long getActionid() {
+        return actionid;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setActionid(Long actionid) {
+        this.actionid = actionid;
     }
 
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");
-        sb.append("userid").append(":").append(userid).append(",");
-        sb.append("roleid").append(":").append(roleid).append(",");
+        sb.append("actionid").append(":").append(actionid).append(",");
+        sb.append("roldid").append(":").append(roldid).append(",");
         sb.append("startRow").append(":").append(startRow).append(",");
         sb.append("pageSize").append(":").append(pageSize).append(",");
         return sb.toString();

@@ -2,6 +2,7 @@ package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.UserQuery;
+import com.lawinfo.domain.org.vo.UserVo;
 
 import java.util.List;
 
@@ -10,11 +11,13 @@ import java.util.List;
  */
 public interface UserService {
 
-    /*public void initCache() throws Exception;
+    public void initCache() throws Exception;
     public List<User> findAll()throws Exception;
+    public List<UserVo> findAllUservo()throws Exception;
     public List<User> findAllFromDb()throws Exception;
 
     public int save(User user)throws Exception;
+    public int saveByUservo(UserVo userVo)throws Exception;
 
     public User findById(long id)throws Exception;
 
@@ -24,5 +27,5 @@ public interface UserService {
 
     public int count(UserQuery userQuery)throws Exception;
 
-    public int deleteById(long id)throws Exception;*/
+    public int deleteById(long id)throws Exception;
 }

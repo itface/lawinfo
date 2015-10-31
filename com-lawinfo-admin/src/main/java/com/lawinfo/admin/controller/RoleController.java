@@ -1,40 +1,54 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.domain.org.Role;
+import com.lawinfo.domain.org.vo.MenuVo;
+import com.lawinfo.domain.org.vo.RoleTreeVo;
+import com.lawinfo.domain.org.vo.RoleVo;
+import com.lawinfo.service.org.RoleService;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * Created by wangrongtao on 15/10/17.
  */
-/*@Controller
-@RequestMapping("/admin/role")*/
+@Controller
+@RequestMapping("/lawinfo/admin/role")
 public class RoleController {
-/*
     @Resource
     private RoleService roleService;
 
-
     @ResponseBody
     @RequestMapping("/add")
-    public String save(HttpServletRequest request,Role role,BindingResult result)throws Exception{
-        if (result.hasErrors()){
-            return null;
+    public int save(HttpServletRequest request,String rolename,String menuids,String actionids)throws Exception{
+        if (!StringUtils.isEmpty(rolename)) {
+            int rows = roleService.save(rolename,menuids,actionids);
+            return rows;
         }
-        String userid = LoginInfo.getUseridFromSession(request.getSession());
-        if (role != null) {
-            role.setOptuserid(userid);
-            int rows = roleService.save(role);
-            return rows + "";
-        }
-        return null;
+        return 0;
     }
     @ResponseBody
-    @RequestMapping("/remove/{id}")
-    public String remove(@PathVariable long id)throws Exception{
+    @RequestMapping("/remove")
+    public int remove(long id)throws Exception{
         int rows = roleService.deleteById(id);
-        return rows+"";
+        return rows;
     }
     @ResponseBody
     @RequestMapping("/find")
-    public List<Role> find()throws Exception{
-        List<Role> list = roleService.findAll();
+    public List<RoleVo> find()throws Exception{
+        List<RoleVo> list = roleService.findAllVo();
         return list;
-    }*/
+    }
+    @ResponseBody
+    @RequestMapping("/findtree")
+    public List<RoleTreeVo> findtree()throws Exception{
+        List<RoleTreeVo> list = roleService.findAllTree();
+        return list;
+    }
 }

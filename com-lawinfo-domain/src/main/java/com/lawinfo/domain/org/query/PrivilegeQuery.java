@@ -6,27 +6,27 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class PrivilegeQuery extends BaseQuery {
-    private long id;
+    private Long id;
     /**
      * 1、诉讼2、执行3、创建案建权限
      */
-    private int privilegeid;
+    private Integer privilegeid;
 
     private String name;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getPrivilegeid() {
+    public Integer getPrivilegeid() {
         return privilegeid;
     }
 
-    public void setPrivilegeid(int privilegeid) {
+    public void setPrivilegeid(Integer privilegeid) {
         this.privilegeid = privilegeid;
     }
 

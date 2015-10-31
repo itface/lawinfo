@@ -6,8 +6,8 @@
         <result column="name" property="name"/>
         <result column="userid" property="userid"/>
         <result column="status" property="status"/>
-        <result column="deptid" property="deptid"/>
-        <result column="description" property="description"/>
+        <result column="pwd" property="pwd"/>
+        <result column="orgid" property="orgid"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -17,20 +17,23 @@
         <result column="orgid" property="orgid"/>
     </resultMap>
     <sql id="allColumn">
-         id,orgid,name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,roleids
+         id,orgid,name,userid,status,pwd,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="id>0">
                 id = #{id}
             </if>
-            <if test="deptid>0">
-                and deptid = #{deptid}
+            <if test="status!=null">
+                and status = #{status}
             </if>
-            <if test="userid!=null and userid!=''">
+            <if test="userid!=null">
                 and userid = #{userid}
             </if>
-            <if test="name!=null and name!=''">
+            <if test="orgid!=null">
+                and orgid = #{orgid}
+            </if>
+            <if test="name!=null">
                 and name = #{name}
             </if>
         </trim>
@@ -81,8 +84,8 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.User">
-        insert into User(orgid,name,userid,status,deptid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,roleids)
-        values(#{orgid},#{name},#{userid},#{status},#{deptid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{roleids})
+        insert into User(orgid,name,userid,status,pwd,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{orgid},#{name},#{userid},#{status},#{pwd},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from User where id=#{id}

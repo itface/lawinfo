@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Min;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/18.
@@ -17,18 +18,11 @@ public class UserVo extends BaseDomain {
      */
     private String userid;
     /**
-     * 帐号状态,预留，1是正常，-1锁定
+     * 帐号状态,预留，0是正常，-1锁定
      */
     private int status;
-    private long orgid;
-    private long deptid;
-    /**
-     * 角色id
-     */
-    private String roleids;
-    private String orgname;
-    private String deptname;
-    private String rolename;
+    private String roleIds;
+    private String rolenames;
 
     public long getId() {
         return id;
@@ -62,51 +56,19 @@ public class UserVo extends BaseDomain {
         this.status = status;
     }
 
-    public long getOrgid() {
-        return orgid;
+    public String getRoleIds() {
+        return roleIds;
     }
 
-    public void setOrgid(long orgid) {
-        this.orgid = orgid;
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
     }
 
-    public long getDeptid() {
-        return deptid;
+    public String getRolenames() {
+        return rolenames;
     }
 
-    public void setDeptid(long deptid) {
-        this.deptid = deptid;
-    }
-
-    public String getRoleids() {
-        return roleids;
-    }
-
-    public void setRoleids(String roleids) {
-        this.roleids = roleids;
-    }
-
-    public String getOrgname() {
-        return orgname;
-    }
-
-    public void setOrgname(String orgname) {
-        this.orgname = orgname;
-    }
-
-    public String getDeptname() {
-        return deptname;
-    }
-
-    public void setDeptname(String deptname) {
-        this.deptname = deptname;
-    }
-
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRolenames(String rolenames) {
+        this.rolenames = rolenames;
     }
 }

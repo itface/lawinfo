@@ -6,7 +6,7 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class UserQuery extends BaseQuery {
-    private long id;
+    private Long id;
     private String name;
     /**
      * 手机号
@@ -15,15 +15,15 @@ public class UserQuery extends BaseQuery {
     /**
      * 帐号状态，1是正常，-1锁定
      */
-    private int status;
-    private long orgid;
-    private long deptid;
+    private Integer status;
+    private Long orgid;
+    private Long deptid;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,29 +43,30 @@ public class UserQuery extends BaseQuery {
         this.userid = userid;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public long getOrgid() {
+    public Long getOrgid() {
         return orgid;
     }
 
-    public void setOrgid(long orgid) {
+    public void setOrgid(Long orgid) {
         this.orgid = orgid;
     }
 
-    public long getDeptid() {
+    public Long getDeptid() {
         return deptid;
     }
 
-    public void setDeptid(long deptid) {
+    public void setDeptid(Long deptid) {
         this.deptid = deptid;
     }
+
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");

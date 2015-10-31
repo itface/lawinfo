@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lawinfo.dao.org.RolePrivilegeDao">
-    <resultMap id="ResultMap" type="com.lawinfo.domain.org.RolePrivilege">
+<mapper namespace="com.lawinfo.dao.org.RoleMenuDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.org.RoleMenu">
         <id property="id" column="id" />
-        <result column="privilegeid" property="privilegeid"/>
+        <result column="menuid" property="menuid"/>
         <result column="roleid" property="roleid"/>
     </resultMap>
     <sql id="allColumn">
-         id,privilegeid,roleid
+         id,menuid,roleid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="id>0">
+            <if test="id!=null">
                 id = #{id}
             </if>
-            <if test="roleid>0">
+            <if test="roleid!=null">
                 and roleid = #{roleid}
             </if>
-            <if test="privilegeid>0">
-                and privilegeid = #{privilegeid}
+            <if test="menuid!=null">
+                and menuid = #{menuid}
             </if>
         </trim>
         <!--<where>
@@ -33,52 +33,64 @@
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
-    <select id="findAll" parameterType="com.lawinfo.domain.org.query.RolePrivilegeQuery"  resultMap="ResultMap">
+    <select id="findAll" parameterType="com.lawinfo.domain.org.query.RoleMenuQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
-          RolePrivilege
+        rolemenu
     </select>
     <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        RolePrivilege where id = #{id}
+        rolemenu where id = #{id}
     </select>
-    <select id="findList" parameterType="com.lawinfo.domain.org.query.RolePrivilegeQuery"  resultMap="ResultMap">
+    <select id="findByRoleid" parameterType="long"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        RolePrivilege
+        rolemenu where roleid = #{roleid}
+    </select>
+    <select id="findByMenuid" parameterType="long"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        rolemenu where menuid = #{menuid}
+    </select>
+    <select id="findList" parameterType="com.lawinfo.domain.org.query.RoleMenuQuery"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        rolemenu
         <include refid="condition"/>
     </select>
-    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.RolePrivilegeQuery"  resultMap="ResultMap">
+    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.RoleMenuQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
-        RolePrivilege
+        rolemenu
         <include refid="condition"/>
         <include refid="page"/>
     </select>
-    <select id="count" parameterType="com.lawinfo.domain.org.query.RolePrivilegeQuery" resultType="int">
+    <select id="count" parameterType="com.lawinfo.domain.org.query.RoleMenuQuery" resultType="int">
         SELECT
         COUNT(1)
         FROM
-        RolePrivilege
+        rolemenu
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.RolePrivilege">
-        insert into RolePrivilege(roleid,privilegeid)
-        values(#{roleid},#{privilegeid})
+    <insert id="save" parameterType="com.lawinfo.domain.org.RoleMenu">
+        insert into rolemenu(roleid,menuid)
+        values(#{roleid},#{menuid})
     </insert>
     <delete id="deleteById" parameterType="long">
-        delete from RolePrivilege where id=#{id}
+        delete from rolemenu where id=#{id}
     </delete>
-    <delete id="deleteByPrivilegeid" parameterType="int">
-        delete from RolePrivilege where privilegeid=#{privilegeid}
+    <delete id="deleteByMenuid" parameterType="long">
+        delete from rolemenu where menuid=#{menuid}
     </delete>
-    <delete id="deleteByRoleid" parameterType="int">
-        delete from RolePrivilege where roleid=#{roleid}
+    <delete id="deleteByRoleid" parameterType="long">
+        delete from rolemenu where roleid=#{roleid}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}

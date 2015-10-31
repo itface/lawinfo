@@ -6,7 +6,7 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class DeptQuery extends BaseQuery {
-    private long id;
+    private Long id;
     /**
      * 部门名称，
      * 律所：上诉部门、执行部门
@@ -17,14 +17,14 @@ public class DeptQuery extends BaseQuery {
     /**
      * 机构id
      */
-    private long orgid;
+    private Long orgid;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class DeptQuery extends BaseQuery {
         this.name = name;
     }
 
-    public long getOrgid() {
+    public Long getOrgid() {
         return orgid;
     }
 
-    public void setOrgid(long orgid) {
+    public void setOrgid(Long orgid) {
         this.orgid = orgid;
     }
 

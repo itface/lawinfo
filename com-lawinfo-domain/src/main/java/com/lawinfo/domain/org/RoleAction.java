@@ -5,10 +5,10 @@ import com.lawinfo.domain.common.BaseDomain;
 /**
  * Created by wangrongtao on 15/10/26.
  */
-public class GroupRole extends BaseDomain {
+public class RoleAction extends BaseDomain {
     private Long id;
-    private Long groupid;
     private Long roleid;
+    private Long actionid;
 
     public Long getId() {
         return id;
@@ -18,19 +18,19 @@ public class GroupRole extends BaseDomain {
         this.id = id;
     }
 
-    public Long getGroupid() {
-        return groupid;
-    }
-
-    public void setGroupid(Long groupid) {
-        this.groupid = groupid;
-    }
-
     public Long getRoleid() {
         return roleid;
     }
 
     public void setRoleid(Long roleid) {
         this.roleid = roleid;
+    }
+
+    public Long getActionid() {
+        return actionid;
+    }
+
+    public void setActionid(Long actionid) {
+        this.actionid = actionid;
     }
 }

@@ -1,5 +1,6 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.query.MenuQuery;
@@ -31,5 +32,6 @@ public interface MenuService {
 
     public int deleteById(long id)throws Exception;
     public void deleteByParentmenuid(long parentmenuid)throws Exception;
+    public List<Menu> findByIds(Long[] ids);
 
 }

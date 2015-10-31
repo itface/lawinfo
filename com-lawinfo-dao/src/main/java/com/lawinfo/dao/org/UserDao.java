@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserDao {
 
-    /*public List<User> findAll();
+    public List<User> findAll();
 
     public int save(User user);
 
@@ -22,7 +22,7 @@ public interface UserDao {
 
     public int count(UserQuery userQuery);
 
-    public int deleteById(long id);*/
+    public int deleteById(long id);
 
 
 }

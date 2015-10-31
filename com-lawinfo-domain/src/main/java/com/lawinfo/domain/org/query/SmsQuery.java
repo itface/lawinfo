@@ -6,10 +6,10 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class SmsQuery extends BaseQuery {
-    private long id;
+    private Long id;
     private String phoneno;
     private String pwd;
-    private long expiretime;
+    private Long expiretime;
     /**
      * 一个有效期内只能发一条验证码，保证一个时间点只有一个验证码有效
      */
@@ -21,13 +21,13 @@ public class SmsQuery extends BaseQuery {
      * 如果前面条件都满足，再判断pwd是否相等，如果是则登录成功，如果否则验证失败，同时loginfailcount+1
      * （如果有多条有效的验证码，则多条都执行loginfailcount+1，更新方法要synchronized,有可能会出现loginfailcount大于最大失败次数，因为查询sql和判断是否能登录之间存在时间差）
      */
-    private int loginfailcount;
+    private Integer loginfailcount;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +47,11 @@ public class SmsQuery extends BaseQuery {
         this.pwd = pwd;
     }
 
-    public long getExpiretime() {
+    public Long getExpiretime() {
         return expiretime;
     }
 
-    public void setExpiretime(long expiretime) {
+    public void setExpiretime(Long expiretime) {
         this.expiretime = expiretime;
     }
 
@@ -63,13 +63,14 @@ public class SmsQuery extends BaseQuery {
         this.expiretimestr = expiretimestr;
     }
 
-    public int getLoginfailcount() {
+    public Integer getLoginfailcount() {
         return loginfailcount;
     }
 
-    public void setLoginfailcount(int loginfailcount) {
+    public void setLoginfailcount(Integer loginfailcount) {
         this.loginfailcount = loginfailcount;
     }
+
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");

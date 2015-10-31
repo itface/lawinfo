@@ -1,23 +1,5 @@
 package com.lawinfo.service.org.impl;
 
-import com.lawinfo.dao.org.PrivilegeDao;
-import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.Privilege;
-import com.lawinfo.domain.org.RolePrivilege;
-import com.lawinfo.domain.org.query.PrivilegeQuery;
-import com.lawinfo.service.org.PrivilegeService;
-import com.lawinfo.service.org.RolePrivilegeService;
-import com.lawinfo.service.org.utils.PrivilegeUtils;
-import com.lawinfo.service.org.utils.UserUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
-import javax.annotation.Resource;
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/14.
  */
@@ -29,7 +11,7 @@ public class PrivilegeServiceImpl {
     @Resource
     private PrivilegeDao privilegeDao;
     @Resource
-    private RolePrivilegeService rolePrivilegeService;
+    private RoleMenuService rolePrivilegeService;
 
     @Override
     public void initCache() throws Exception {

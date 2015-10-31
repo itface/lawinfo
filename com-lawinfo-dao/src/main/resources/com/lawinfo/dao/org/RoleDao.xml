@@ -4,25 +4,19 @@
     <resultMap id="ResultMap" type="com.lawinfo.domain.org.Role">
         <id property="id" column="id" />
         <result column="name" property="name"/>
-        <result column="roleid" property="roleid"/>
-        <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
         <result column="modifiedtimestr" property="modifiedtimestr"/>
         <result column="optuserid" property="optuserid"/>
-        <result column="privilegeids" property="privilegeids"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,privilegeids
+         id,name,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="id>0">
                 id = #{id}
-            </if>
-            <if test="roleid>0">
-                and roleid = #{roleid}
             </if>
             <if test="name!=null and name!=''">
                 and name = #{name}
@@ -74,8 +68,8 @@
         role
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.Role">
-        insert into role(name,roleid,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,privilegeids) values(#{name},#{roleid},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{privilegeids})
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.lawinfo.domain.org.Role">
+        insert into role(name,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from role where id=#{id}

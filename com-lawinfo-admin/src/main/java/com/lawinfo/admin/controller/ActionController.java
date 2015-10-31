@@ -2,6 +2,7 @@ package com.lawinfo.admin.controller;
 
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Org;
+import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.OrgService;
@@ -38,6 +39,12 @@ public class ActionController {
     @RequestMapping("/find")
     public List<Action> find()throws Exception{
         List<Action> list = actionService.findAll();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findtree")
+    public List<ActionTreeVo> findtree()throws Exception{
+        List<ActionTreeVo> list = actionService.findAllTree();
         return list;
     }
     @ResponseBody

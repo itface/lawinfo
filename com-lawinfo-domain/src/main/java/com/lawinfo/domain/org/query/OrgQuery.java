@@ -7,18 +7,18 @@ import com.lawinfo.domain.common.BaseQuery;
  */
 public class OrgQuery extends BaseQuery{
 
-    private long id;
+    private Long id;
     private String name;
     /**
      * 机构类型：1律所、2银行、3非银
      */
-    private long parentorgid;
+    private Long parentorgid;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,11 +30,11 @@ public class OrgQuery extends BaseQuery{
         this.name = name;
     }
 
-    public long getParentorgid() {
+    public Long getParentorgid() {
         return parentorgid;
     }
 
-    public void setParentorgid(long parentorgid) {
+    public void setParentorgid(Long parentorgid) {
         this.parentorgid = parentorgid;
     }
 

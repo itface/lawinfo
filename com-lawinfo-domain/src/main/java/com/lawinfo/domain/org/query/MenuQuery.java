@@ -7,16 +7,16 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/26.
  */
 public class MenuQuery extends BaseQuery {
-    private long id;
+    private Long id;
     private String name;
     private String url;
-    private long parentmenuid;
+    private Long parentmenuid;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,13 +36,14 @@ public class MenuQuery extends BaseQuery {
         this.url = url;
     }
 
-    public long getParentmenuid() {
+    public Long getParentmenuid() {
         return parentmenuid;
     }
 
-    public void setParentmenuid(long parentmenuid) {
+    public void setParentmenuid(Long parentmenuid) {
         this.parentmenuid = parentmenuid;
     }
+
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");

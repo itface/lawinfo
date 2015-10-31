@@ -6,11 +6,16 @@
         <mapper resource="com/lawinfo/dao/org/OrgDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/ActionDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/MenuDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/RoleActionDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/RoleMenuDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/RoleDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/UserDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/UserRoleDao.xml"/>
         <!--<mapper resource="com/lawinfo/dao/org/OrgDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/DeptDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/RoleDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/PrivilegeDao.xml"/>
-        <mapper resource="com/lawinfo/dao/org/RolePrivilegeDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/RoleActionDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/CaseInfoDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/CaseProgressDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/LoginLogDao.xml"/>

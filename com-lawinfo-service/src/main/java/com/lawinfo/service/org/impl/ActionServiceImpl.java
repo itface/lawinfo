@@ -1,15 +1,23 @@
 package com.lawinfo.service.org.impl;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.ActionDao;
 import com.lawinfo.domain.org.Action;
+import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.query.ActionQuery;
+import com.lawinfo.domain.org.vo.ActionTreeVo;
+import com.lawinfo.domain.org.vo.MenuVo;
 import com.lawinfo.service.org.ActionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,6 +44,35 @@ public class ActionServiceImpl implements ActionService {
             throw e;
         }
         return list;
+    }
+
+    @Override
+    public List<ActionTreeVo> findAllTree() throws Exception {
+        try {
+            List<Action> list = findAll();
+            if (!CollectionUtils.isEmpty(list)) {
+                List<ActionTreeVo> actionTreeVos = new ArrayList<ActionTreeVo>();
+                ActionTreeVo root = new ActionTreeVo();
+                root.setId(0l);
+                root.setParentactionid(-1l);
+                root.setText("权限管理");
+                List<ActionTreeVo> actionVoList2 = new ArrayList<ActionTreeVo>();
+                for (Action action : list) {
+                    ActionTreeVo actionTreeVo = new ActionTreeVo();
+                    actionTreeVo.setId(action.getId());
+                    actionTreeVo.setParentactionid(root.getId());
+                    actionTreeVo.setText(action.getName());
+                    actionVoList2.add(actionTreeVo);
+                }
+                root.setNodes(actionVoList2);
+                actionTreeVos.add(root);
+                return actionTreeVos;
+            }
+        } catch (Exception e) {
+            logger.error("findAllTree error",e);
+            throw e;
+        }
+        return null;
     }
 
     @Override
@@ -127,5 +164,10 @@ public class ActionServiceImpl implements ActionService {
             logger.error("deleteById error,id=" + id, e);
         }
         return effectrows;
+    }
+
+    @Override
+    public List<Action> findByIds(Long[] ids) {
+        return actionDao.findByIds(ids);
     }
 }

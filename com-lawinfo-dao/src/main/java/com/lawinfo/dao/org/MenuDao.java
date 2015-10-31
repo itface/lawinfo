@@ -1,5 +1,6 @@
 package com.lawinfo.dao.org;
 
+import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.query.MenuQuery;
 
@@ -26,5 +27,6 @@ public interface MenuDao {
     public int deleteById(long id);
     public int deleteByParentmenuid(long parentmenuid);
 
+    public List<Menu> findByIds(Long[] ids);
 
 }

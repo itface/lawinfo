@@ -7,17 +7,17 @@ import com.lawinfo.domain.common.BaseQuery;
  * Created by wangrongtao on 15/10/13.
  */
 public class LoginLogQuery extends BaseQuery {
-    private long id;
+    private Long id;
     private String userid;
     private String username;
-    private long logintime;
+    private Long logintime;
     private String logintimestr;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -29,11 +29,19 @@ public class LoginLogQuery extends BaseQuery {
         this.userid = userid;
     }
 
-    public long getLogintime() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getLogintime() {
         return logintime;
     }
 
-    public void setLogintime(long logintime) {
+    public void setLogintime(Long logintime) {
         this.logintime = logintime;
     }
 
@@ -43,14 +51,6 @@ public class LoginLogQuery extends BaseQuery {
 
     public void setLogintimestr(String logintimestr) {
         this.logintimestr = logintimestr;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String toLogString() {

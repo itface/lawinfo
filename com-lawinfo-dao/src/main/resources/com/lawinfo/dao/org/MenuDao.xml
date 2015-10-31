@@ -57,6 +57,16 @@
         from
         Menu where id = #{id}
     </select>
+    <select id="findByIds"   resultMap="MenuResult">
+        select
+        <include refid="allColumn"/>
+        from
+        Menu where id IN
+        <foreach item="item" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
     <select id="findByParentmenuid" parameterType="long"  resultMap="MenuResult">
         select
         <include refid="allColumn"/>

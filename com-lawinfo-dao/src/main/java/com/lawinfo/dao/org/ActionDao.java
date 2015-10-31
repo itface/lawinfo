@@ -23,6 +23,5 @@ public interface ActionDao {
     public int count(ActionQuery actionQuery);
 
     public int deleteById(long id);
-
-
+    public List<Action> findByIds(Long[] ids);
 }

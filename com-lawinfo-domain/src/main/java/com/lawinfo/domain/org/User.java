@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
  * Created by wangrongtao on 15/10/13.
  */
 public class User extends BaseDomain {
-    private long id;
+    private Long id;
     @NotBlank
     @Length(max=100)
     private String name;
@@ -24,16 +24,16 @@ public class User extends BaseDomain {
     /**
      * 帐号状态,预留，1是正常，-1锁定
      */
-    private int status;
-    @Min(1)
-    private long orgid;
+    private Integer status;
+    private Long orgid;
 
 
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,20 +53,12 @@ public class User extends BaseDomain {
         this.userid = userid;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public long getOrgid() {
-        return orgid;
-    }
-
-    public void setOrgid(long orgid) {
-        this.orgid = orgid;
     }
 
     public String getPwd() {
@@ -75,6 +67,14 @@ public class User extends BaseDomain {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public Long getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(Long orgid) {
+        this.orgid = orgid;
     }
 
     @Override

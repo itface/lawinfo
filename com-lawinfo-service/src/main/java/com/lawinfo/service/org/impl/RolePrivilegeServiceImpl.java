@@ -1,17 +1,5 @@
 package com.lawinfo.service.org.impl;
 
-import com.lawinfo.dao.org.RolePrivilegeDao;
-import com.lawinfo.domain.org.RolePrivilege;
-import com.lawinfo.domain.org.query.RolePrivilegeQuery;
-import com.lawinfo.service.org.RolePrivilegeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.List;
-
 /**
  * Created by wangrongtao on 15/10/14.
  */
@@ -20,11 +8,11 @@ public class RolePrivilegeServiceImpl{
     /*private static Logger logger = LoggerFactory.getLogger(RolePrivilegeServiceImpl.class);
 
     @Resource
-    private RolePrivilegeDao rolePrivilegeDao;
+    private RoleActionDao rolePrivilegeDao;
 
     @Override
-    public List<RolePrivilege> findAll() throws Exception{
-        List<RolePrivilege> list = null;
+    public List<RoleMenu> findAll() throws Exception{
+        List<RoleMenu> list = null;
         try {
             list = rolePrivilegeDao.findAll();
         } catch (Exception e) {
@@ -36,7 +24,7 @@ public class RolePrivilegeServiceImpl{
 
     @Override
     @Transactional
-    public int save(RolePrivilege rolePrivilege)throws Exception {
+    public int save(RoleMenu rolePrivilege)throws Exception {
         int effectrows = 0;
         try {
             if (rolePrivilege!=null) {
@@ -51,9 +39,9 @@ public class RolePrivilegeServiceImpl{
     }
 
     @Override
-    public RolePrivilege findById(long id)throws Exception {
+    public RoleMenu findById(long id)throws Exception {
         logger.info("findById begin,id:"+id);
-        RolePrivilege rolePrivilege = null;
+        RoleMenu rolePrivilege = null;
         try {
             rolePrivilege=rolePrivilegeDao.findById(id);
         } catch (Exception e) {
@@ -64,34 +52,34 @@ public class RolePrivilegeServiceImpl{
     }
 
     @Override
-    public List<RolePrivilege> findList(RolePrivilegeQuery rolePrivilegeQuery)throws Exception {
-        List<RolePrivilege> list = null;
+    public List<RoleMenu> findList(RoleActionQuery rolePrivilegeQuery)throws Exception {
+        List<RoleMenu> list = null;
         try {
             list = rolePrivilegeDao.findList(rolePrivilegeQuery);
         } catch (Exception e) {
-            logger.error("findList error,RolePrivilegeQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
+            logger.error("findList error,RoleActionQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
         }
         return list;
     }
 
     @Override
-    public List<RolePrivilege> findListByPage(RolePrivilegeQuery rolePrivilegeQuery)throws Exception {
-        List<RolePrivilege> list = null;
+    public List<RoleMenu> findListByPage(RoleActionQuery rolePrivilegeQuery)throws Exception {
+        List<RoleMenu> list = null;
         try {
             list = rolePrivilegeDao.findListByPage(rolePrivilegeQuery);
         } catch (Exception e) {
-            logger.error("findListByPage error,RolePrivilegeQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
+            logger.error("findListByPage error,RoleActionQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
         }
         return list;
     }
 
     @Override
-    public int count(RolePrivilegeQuery rolePrivilegeQuery)throws Exception {
+    public int count(RoleActionQuery rolePrivilegeQuery)throws Exception {
         int effectrows = 0;
         try {
             effectrows = rolePrivilegeDao.count(rolePrivilegeQuery);
         } catch (Exception e) {
-            logger.error("count error,RolePrivilegeQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
+            logger.error("count error,RoleActionQuery=" + rolePrivilegeQuery==null?"null":rolePrivilegeQuery.toLogString(), e);
         }
         return effectrows;
     }
