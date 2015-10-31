@@ -14,7 +14,7 @@ public interface UserRoleDao {
 
     public int save(UserRole userRole);
 
-    public UserRole findById(long id);
+    public UserRole findById(Long id);
 
     public List<UserRole> findList(UserRoleQuery userRoleQuery);
 
@@ -22,11 +22,11 @@ public interface UserRoleDao {
 
     public int count(UserRoleQuery userRoleQuery);
 
-    public int deleteById(long id);
+    public int deleteById(Long id);
     public int deleteByUserid(String userid);
-    public int deleteByRoleid(long roleid);
+    public int deleteByRoleid(Long roleid);
     public List<UserRole> findByUserid(String userid);
-    public List<UserRole> findByRoleid(long roleid);
+    public List<UserRole> findByRoleid(Long roleid);
 
 
 }

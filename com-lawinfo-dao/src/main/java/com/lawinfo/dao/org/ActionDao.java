@@ -14,7 +14,7 @@ public interface ActionDao {
 
     public int save(Action action);
 
-    public Action findById(long id);
+    public Action findById(Long id);
 
     public List<Action> findList(ActionQuery actionQuery);
 
@@ -22,6 +22,6 @@ public interface ActionDao {
 
     public int count(ActionQuery actionQuery);
 
-    public int deleteById(long id);
+    public int deleteById(Long id);
     public List<Action> findByIds(Long[] ids);
 }

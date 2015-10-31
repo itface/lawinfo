@@ -2,6 +2,8 @@ package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.UserQuery;
+import com.lawinfo.domain.org.vo.OrgVo;
+import com.lawinfo.domain.org.vo.UserTreeVo;
 import com.lawinfo.domain.org.vo.UserVo;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public interface UserService {
     public int saveByUservo(UserVo userVo)throws Exception;
 
     public User findById(long id)throws Exception;
+    public List<OrgVo> findUserTreeVo()throws Exception;
 
     public List<User> findList(UserQuery userQuery)throws Exception;
 

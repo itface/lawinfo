@@ -14,17 +14,17 @@ public interface RoleMenuDao {
 
     public int save(RoleMenu roleMenu);
 
-    public RoleMenu findById(long id);
-    public List<RoleMenu> findByRoleid(long roleid);
-    public List<RoleMenu> findByMenuid(long menuid);
+    public RoleMenu findById(Long id);
+    public List<RoleMenu> findByRoleid(Long roleid);
+    public List<RoleMenu> findByMenuid(Long menuid);
     public List<RoleMenu> findList(RoleMenuQuery roleMenu);
 
     public List<RoleMenu> findListByPage(RoleMenuQuery roleMenu);
 
     public int count(RoleMenuQuery roleMenuQuery);
 
-    public int deleteById(long id);
-    public int deleteByMenuid(long menuid);
-    public int deleteByRoleid(long roleid);
+    public int deleteById(Long id);
+    public int deleteByMenuid(Long menuid);
+    public int deleteByRoleid(Long roleid);
 
 }

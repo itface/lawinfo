@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.domain.org.vo.UserVo;
 import com.lawinfo.service.org.UserService;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,12 @@ public class UserController {
     @RequestMapping("/find")
     public List<UserVo> find()throws Exception{
         List<UserVo> list = userService.findAllUservo();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findtree")
+    public List<OrgVo> findtree()throws Exception{
+        List<OrgVo> list = userService.findUserTreeVo();
         return list;
     }
 }

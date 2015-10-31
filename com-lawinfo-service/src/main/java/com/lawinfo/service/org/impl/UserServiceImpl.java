@@ -5,7 +5,10 @@ import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.UserQuery;
+import com.lawinfo.domain.org.vo.OrgVo;
+import com.lawinfo.domain.org.vo.UserTreeVo;
 import com.lawinfo.domain.org.vo.UserVo;
+import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.RoleService;
 import com.lawinfo.service.org.UserRoleService;
 import com.lawinfo.service.org.UserService;
@@ -19,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,6 +38,8 @@ public class UserServiceImpl implements UserService{
     private UserRoleService userRoleService;
     @Resource
     private RoleService roleService;
+    @Resource
+    private OrgService orgService;
 
     @Override
     public void initCache() throws Exception {
@@ -91,7 +97,7 @@ public class UserServiceImpl implements UserService{
 
                         }
                         userVo.setRolenames(roleNames.substring(0, roleNames.length() - 1));
-                        userVo.setRoleIds(roleIds.substring(0, roleIds.length() - 1));
+                        userVo.setRoleids(roleIds.substring(0, roleIds.length() - 1));
                     }
                     userVoList.add(userVo);
                 }
@@ -207,7 +213,10 @@ public class UserServiceImpl implements UserService{
                 User user = new User();
                 user.setName(userVo.getName());
                 user.setUserid(userVo.getUserid());
-                String roleids = userVo.getRoleIds();
+                user.setOrgid(userVo.getOrgid());
+                user.setStatus(0);
+                user.initBaseDomain();
+                String roleids = userVo.getRoleids();
                 if (!StringUtils.isEmpty(userVo)) {
                     String[] roleidArr = roleids.split(",");
                     for (int i = 0; i < roleidArr.length; i++) {
@@ -221,7 +230,62 @@ public class UserServiceImpl implements UserService{
             }
         } catch (Exception e) {
             logger.error("saveByUservo error", e);
+            throw e;
         }
         return 0;
+    }
+
+    private void buildOrgVo(OrgVo orgVo)throws Exception{
+        try {
+            if (orgVo!=null) {
+                long orgid = orgVo.getId();
+                UserQuery userQuery = new UserQuery();
+                userQuery.setOrgid(orgid);
+                List<User> users = findList(userQuery);
+                if (!CollectionUtils.isEmpty(users)) {
+                    for (User user : users) {
+                        OrgVo usernode = new OrgVo();
+                        usernode.setId(user.getId());
+                        usernode.setText(user.getName());
+                        usernode.setParentorgid(orgid);
+                        usernode.setIcon("glyphicon glyphicon-user");
+                        usernode.setType(1);
+                        if (orgVo.getNodes() == null) {
+                            List<OrgVo> son = new ArrayList<OrgVo>();
+                            son.add(usernode);
+                            orgVo.setNodes(son);
+                        } else {
+                            orgVo.getNodes().add(usernode);
+                        }
+                    }
+                    Collections.sort(orgVo.getNodes());
+                }
+                List<OrgVo> sons = orgVo.getNodes();
+                if (!CollectionUtils.isEmpty(sons)) {
+                    for (OrgVo orgVo1 : sons) {
+                        buildOrgVo(orgVo1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("buildOrgVo error", e);
+            throw e;
+        }
+    }
+    @Override
+    public List<OrgVo> findUserTreeVo() throws Exception {
+        List<OrgVo> orgTrees = null;
+        try {
+            orgTrees = orgService.findOrgTree();
+            if (!CollectionUtils.isEmpty(orgTrees)) {
+                for (OrgVo orgVo : orgTrees) {
+                    buildOrgVo(orgVo);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findUserTreeVo error", e);
+            throw e;
+        }
+        return orgTrees;
     }
 }

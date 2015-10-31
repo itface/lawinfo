@@ -10,6 +10,11 @@ public class OrgVo implements Serializable,Comparable {
     private Long id;
     private String text;
     private Long parentorgid;
+    private String icon;
+    /**
+     * 0代表机构，1代表人员
+     */
+    private int type;
     private List<OrgVo> nodes;
 
     public Long getId() {
@@ -44,10 +49,30 @@ public class OrgVo implements Serializable,Comparable {
         this.nodes = nodes;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public int compareTo(Object o) {
         if (o!=null) {
-            return (this.id).compareTo(((OrgVo) o).getId());
+            int num = ((OrgVo) o).getType()-this.type;
+            if (num==0) {
+                return (this.id).compareTo(((OrgVo) o).getId());
+            }
+            return num;
         }
         return 0;
     }

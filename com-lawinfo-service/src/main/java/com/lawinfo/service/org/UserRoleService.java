@@ -26,5 +26,5 @@ public interface UserRoleService {
 
     public int deleteById(long id)throws Exception;
     public int deleteByUserid(String userid)throws Exception;
-    public int deleteByRoleid(int roleid)throws Exception;
+    public int deleteByRoleid(long roleid)throws Exception;
 }

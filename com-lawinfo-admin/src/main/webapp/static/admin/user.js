@@ -1,7 +1,8 @@
 /**
  * Created by wangrongtao on 15/10/28.
  */
-var selectUserId = null;
+var selectUserTreeNode = null;
+var userTree = null;
 var userRoleTree = null;
 var userRoleSelectedNode=null;
 var user = {
@@ -12,9 +13,14 @@ var user = {
     },
     init:function(){
         var self = this;
-        jQuery('#user').on('click','.user-row', $.proxy(self.registUserTableRowEvent,this));
+        userTree = self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
+
         jQuery('#user .btn-add').on('click', function (e) {
-            jQuery('#userModal').modal('show');
+            if (selectUserTreeNode&&selectUserTreeNode.type!=1) {
+                jQuery('#userModal').modal('show');
+            }else{
+                mainAlert('请选择要添加的用户所在的部门，不能选择用户');
+            }
         });
         $('#userModal').on('show.bs.modal', function () {
             self.initUserRoleTree($.proxy(self.buildUserRoleTree,self));
@@ -23,6 +29,7 @@ var user = {
             var username = jQuery('#userform  #username').val();
             var userid = jQuery('#userform  #userid').val();
             var roleids = jQuery('#userform  #userroleids').val();
+            var orgid = selectUserTreeNode.id;
             if (!username) {
                 self.saveUserAlert('用户名称不能为空');
                 return false;
@@ -34,13 +41,17 @@ var user = {
                 self.saveUserAlert('角色不能为空');
                 return false;
             }
+            if (!orgid) {
+                self.saveUserAlert('机构不能为空');
+                return false;
+            }
             jQuery.ajax({
                 url:'/lawinfo/admin/user/add',
-                data:{name:username,userid:userid,roleids:roleids},
+                data:{name:username,userid:userid,roleids:roleids,orgid:orgid},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {
-                        self.showUserTable($.proxy(self.buildUserTable,this));
+                        userTree = self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
                         $('#userModal').modal('hide');
                     }else{
                         self.saveUserAlert('保存异常');
@@ -53,6 +64,41 @@ var user = {
         });
         jQuery('#user .btn-rm').on('click',$.proxy(this.delUser,this));
         self.showUserTable($.proxy(self.buildUserTable,this));
+    },
+    buildOrgUserTree : function(treedata) {
+        var self = this;
+        if (treedata==null||treedata=='') {
+            treedata = [
+                {
+                    text: '用户管理',
+                    id:0,
+                    parentid:-1
+                }
+            ];
+        }
+        return $('#treeview-user').treeview({
+            data: treedata,
+            onNodeSelected: function(event, node) {
+                selectUserTreeNode=node;
+            },
+            onNodeUnselected: function (event, node) {
+            }
+        });
+    },
+    initOrgUserTree:function(callback) {
+        var treedata = null;
+        jQuery.ajax({
+            url:'/lawinfo/admin/user/findtree',
+            type:'GET',
+            success:function(data) {
+                treedata = data;
+            },
+            error:function() {
+                mainAlert('获取用户信息异常');
+            }
+        }).done(function(){
+            callback && callback(treedata);
+        });
     },
     findCheckedUserRoleNodes : function(nodeTexts) {
         return userRoleTree.treeview('search', [ nodeTexts, { ignoreCase: false, exactMatch: false } ]);
@@ -69,7 +115,7 @@ var user = {
                 }
             ];
         }
-        userRoleTree = $('#treeview-user-menu').treeview({
+        userRoleTree = $('#treeview-user-role').treeview({
             data: userRoleTreeData,
             showIcon: false,
             showCheckbox: true,
@@ -157,9 +203,6 @@ var user = {
             $('.user-table tbody').append(html);
         }
     },
-    registUserTableRowEvent:function(e){
-        selectUserId = jQuery(e.currentTarget).attr('userrowid');
-    },
     showUserTable:function(callback){
         var self = this;
         var userRoleData = null;
@@ -179,19 +222,21 @@ var user = {
     },
     delUser:function() {
         var self = this;
-        if (selectUserId==null||selectUserId<=0) {
-            mainAlert('请选择您要用户');
+        if (selectUserTreeNode&&selectUserTreeNode.type==1) {
+            mainConfirm('您确认要删除吗？',jQuery.proxy(self.doDelUser,this));
+        }else{
+            mainAlert('请选择您要用户，不能删除机构');
             return false;
         }
-        mainConfirm('您确认要删除吗？',jQuery.proxy(self.doDelUser,this));
     },
     doDelUser:function(){
         var self = this;
         jQuery.ajax({
-            url:'/lawinfo/admin/user/remove/?userid='+selectUserId,
+            url:'/lawinfo/admin/user/remove/'+selectUserTreeNode.id,
             type:'GET',
             success:function(data) {
-                selectUserId=null;
+                selectUserTreeNode=null;
+                userTree = self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
                 mainAlert('删除成功');
             },
             error:function() {

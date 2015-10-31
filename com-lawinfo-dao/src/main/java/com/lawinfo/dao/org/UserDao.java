@@ -14,7 +14,7 @@ public interface UserDao {
 
     public int save(User user);
 
-    public User findById(long id);
+    public User findById(Long id);
 
     public List<User> findList(UserQuery userQuery);
 
@@ -22,7 +22,7 @@ public interface UserDao {
 
     public int count(UserQuery userQuery);
 
-    public int deleteById(long id);
+    public int deleteById(Long id);
 
 
 }

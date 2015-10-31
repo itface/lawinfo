@@ -77,10 +77,10 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from UserRole where id = #{id}
     </delete>
-    <delete id="deleteByUserid" parameterType="long">    <!-- 删除用户 -->
+    <delete id="deleteByUserid" parameterType="String">    <!-- 删除用户 -->
         delete from UserRole where userid=#{userid}
     </delete>
-    <delete id="deleteByRoleid" parameterType="int">    <!-- 删除用户 -->
+    <delete id="deleteByRoleid" parameterType="long">    <!-- 删除用户 -->
         delete from UserRole where roleid=#{roleid}
     </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">

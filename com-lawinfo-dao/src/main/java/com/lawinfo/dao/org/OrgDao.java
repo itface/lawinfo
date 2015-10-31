@@ -11,11 +11,11 @@ import java.util.List;
 public interface OrgDao {
 
     public List<Org> findAll();
-    public List<Org> findByParentorgid(long parentorgid);
+    public List<Org> findByParentorgid(Long parentorgid);
 
     public int save(Org org);
 
-    public Org findById(long id);
+    public Org findById(Long id);
 
     public List<Org> findList(OrgQuery orgQuery);
 
@@ -23,8 +23,8 @@ public interface OrgDao {
 
     public int count(OrgQuery orgQuery);
 
-    public int deleteById(long id);
-    public int deleteByParentorgid(long parentorgid);
+    public int deleteById(Long id);
+    public int deleteByParentorgid(Long parentorgid);
 
 
 }

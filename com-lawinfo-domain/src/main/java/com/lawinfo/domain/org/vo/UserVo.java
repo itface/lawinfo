@@ -21,8 +21,9 @@ public class UserVo extends BaseDomain {
      * 帐号状态,预留，0是正常，-1锁定
      */
     private int status;
-    private String roleIds;
+    private String roleids;
     private String rolenames;
+    private Long orgid;
 
     public long getId() {
         return id;
@@ -56,12 +57,12 @@ public class UserVo extends BaseDomain {
         this.status = status;
     }
 
-    public String getRoleIds() {
-        return roleIds;
+    public String getRoleids() {
+        return roleids;
     }
 
-    public void setRoleIds(String roleIds) {
-        this.roleIds = roleIds;
+    public void setRoleids(String roleids) {
+        this.roleids = roleids;
     }
 
     public String getRolenames() {
@@ -70,5 +71,13 @@ public class UserVo extends BaseDomain {
 
     public void setRolenames(String rolenames) {
         this.rolenames = rolenames;
+    }
+
+    public Long getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(Long orgid) {
+        this.orgid = orgid;
     }
 }

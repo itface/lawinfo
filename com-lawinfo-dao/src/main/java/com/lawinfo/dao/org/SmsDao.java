@@ -9,7 +9,7 @@ public interface SmsDao {
 
     public int save(Sms sms);
 
-    public Sms findById(long id);
+    public Sms findById(Long id);
 
     public List<Sms> findList(SmsQuery smsQuery);
 
@@ -17,7 +17,7 @@ public interface SmsDao {
 
     public int count(SmsQuery smsQuery);
 
-    public int deleteById(long id);
+    public int deleteById(Long id);
 
-    public int updateLoginfailcount(long id);*/
+    public int updateLoginfailcount(Long id);*/
 }

@@ -14,7 +14,7 @@ public interface RoleDao {
 
     public int save(Role role);
 
-    public Role findById(long id);
+    public Role findById(Long id);
 
     public List<Role> findList(RoleQuery roleQuery);
 
@@ -22,7 +22,7 @@ public interface RoleDao {
 
     public int count(RoleQuery roleQuery);
 
-    public int deleteById(long id);
+    public int deleteById(Long id);
 
 
 }

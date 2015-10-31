@@ -139,13 +139,14 @@ public class UserRoleServiceImpl  implements UserRoleService{
             effectrows = userRoleDao.deleteByUserid(userid);
         } catch (Exception e) {
             logger.error("deleteByUserid error,userid=" + userid, e);
+            throw e;
         }
         return effectrows;
     }
 
     @Override
     @Transactional
-    public int deleteByRoleid(int roleid) throws Exception {
+    public int deleteByRoleid(long roleid) throws Exception {
         logger.info("deleteByRoleid begin,roleid=" + roleid);
         int effectrows = 0;
         try {

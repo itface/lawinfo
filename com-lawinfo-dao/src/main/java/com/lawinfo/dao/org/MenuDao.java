@@ -12,11 +12,11 @@ import java.util.List;
 public interface MenuDao {
 
     public List<Menu> findAll();
-    public List<Menu> findByParentmenuid(long parentmenuid);
+    public List<Menu> findByParentmenuid(Long parentmenuid);
 
     public int save(Menu menu);
 
-    public Menu findById(long id);
+    public Menu findById(Long id);
 
     public List<Menu> findList(MenuQuery menuQuery);
 
@@ -24,8 +24,8 @@ public interface MenuDao {
 
     public int count(MenuQuery menuQuery);
 
-    public int deleteById(long id);
-    public int deleteByParentmenuid(long parentmenuid);
+    public int deleteById(Long id);
+    public int deleteByParentmenuid(Long parentmenuid);
 
     public List<Menu> findByIds(Long[] ids);
 

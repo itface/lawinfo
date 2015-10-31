@@ -15,9 +15,9 @@ public interface RoleActionDao {
 
     public int save(RoleAction roleAction);
 
-    public RoleAction findById(long id);
-    public List<RoleAction> findByRoleid(long roleid);
-    public List<RoleAction> findByActionid(long actionid);
+    public RoleAction findById(Long id);
+    public List<RoleAction> findByRoleid(Long roleid);
+    public List<RoleAction> findByActionid(Long actionid);
 
     public List<RoleAction> findList(RoleActionQuery roleAction);
 
@@ -25,8 +25,8 @@ public interface RoleActionDao {
 
     public int count(RoleActionQuery roleActionQuery);
 
-    public int deleteById(long id);
-    public int deleteByActionid(long actionid);
-    public int deleteByRoleid(long roleid);
+    public int deleteById(Long id);
+    public int deleteByActionid(Long actionid);
+    public int deleteByRoleid(Long roleid);
 
 }

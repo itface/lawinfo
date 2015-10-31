@@ -9,7 +9,7 @@ public interface LoginLogDao {
 
     public int save(LoginLog loginLog);
 
-    public LoginLog findById(long id);
+    public LoginLog findById(Long id);
 
     public List<LoginLog> findList(LoginLogQuery loginLogQuery);
 
@@ -17,7 +17,7 @@ public interface LoginLogDao {
 
     public int count(LoginLogQuery loginLogQuery);
 
-    public int deleteById(long id);*/
+    public int deleteById(Long id);*/
 
 
 }
