@@ -45,6 +45,6 @@ public class LoginController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         LoginInfo.removeLoginUser(request.getSession());
-        return "/login";
+        return "redirect:/login";
     }
 }

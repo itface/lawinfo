@@ -71,7 +71,8 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
                     if (user != null) {
                         String code = getRandomStr();
                         String smsContent = getSmsContent(code);
-                        String result = send(smsContent,phoneno);
+                        //String result = send(smsContent,phoneno);
+                        String result = "0";
                         int resultCode = Integer.parseInt(result);
                         EnSendSmsResultEnum enSendSmsResultEnum = EnSendSmsResultEnum.findByCode(resultCode);
                         if (enSendSmsResultEnum == null) {

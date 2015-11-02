@@ -69,7 +69,11 @@ var login = {
 
         var func = function(){
             timeout--;
-            $("#authCodeBtn").html("倒计时" + timeout + "秒");
+            if (timeout==0) {
+                $("#authCodeBtn").html("获取验证码");
+            }else{
+                $("#authCodeBtn").html("倒计时" + timeout + "秒");
+            }
             if(timeout == 0){
                clearTimeout(self.time);
                $("#authCodeBtn").prop("disabled", false);
