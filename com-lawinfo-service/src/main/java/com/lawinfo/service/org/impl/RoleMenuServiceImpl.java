@@ -2,12 +2,16 @@ package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.RoleMenuDao;
 import com.lawinfo.domain.org.RoleMenu;
+import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.RoleMenuQuery;
 import com.lawinfo.service.org.RoleMenuService;
+import com.lawinfo.service.org.utils.RoleMenuUtils;
+import com.lawinfo.service.org.utils.UserRoleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +26,20 @@ public class RoleMenuServiceImpl implements RoleMenuService{
     @Resource
     private RoleMenuDao roleMenuDao;
 
+    @Override
+    public void initCache() throws Exception {
+        try {
+            List<RoleMenu> roleMenus= this.findAll();
+            if (!CollectionUtils.isEmpty(roleMenus)) {
+                for (RoleMenu roleMenu : roleMenus) {
+                    RoleMenuUtils.add(roleMenu);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
     @Override
     public List<RoleMenu> findAll() throws Exception{
         List<RoleMenu> list = null;

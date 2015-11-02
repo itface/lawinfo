@@ -6,31 +6,31 @@ import com.lawinfo.domain.common.BaseDomain;
  * Created by wangrongtao on 15/10/26.
  */
 public class GroupRole extends BaseDomain {
-    private Long id;
-    private Long groupid;
-    private Long roleid;
+    private long id;
+    private long groupid;
+    private long roleid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getGroupid() {
+    public long getGroupid() {
         return groupid;
     }
 
-    public void setGroupid(Long groupid) {
+    public void setGroupid(long groupid) {
         this.groupid = groupid;
     }
 
-    public Long getRoleid() {
+    public long getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(long roleid) {
         this.roleid = roleid;
     }
 }

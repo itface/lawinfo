@@ -5,10 +5,15 @@ import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.ActionDao;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Menu;
+import com.lawinfo.domain.org.RoleAction;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.ActionQuery;
 import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.domain.org.vo.MenuVo;
 import com.lawinfo.service.org.ActionService;
+import com.lawinfo.service.org.RoleActionService;
+import com.lawinfo.service.org.utils.ActionUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,9 +34,21 @@ public class ActionServiceImpl implements ActionService {
 
     @Resource
     private ActionDao actionDao;
+    @Resource
+    private RoleActionService roleActionService;
     @Override
     public void initCache() throws Exception {
-
+        try {
+            List<Action> actionList= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(actionList)) {
+                for (Action action : actionList) {
+                    ActionUtils.add(action);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
     }
 
     @Override
@@ -159,15 +176,32 @@ public class ActionServiceImpl implements ActionService {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
+            roleActionService.deleteByActionid(id);
             effectrows = actionDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
 
     @Override
-    public List<Action> findByIds(Long[] ids) {
-        return actionDao.findByIds(ids);
+    public List<Action> findByIds(Long[] ids)throws Exception {
+        try {
+            return actionDao.findByIds(ids);
+        } catch (Exception e) {
+            logger.error("findByIds error", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Action> findByTags(String[] tags)throws Exception {
+        try {
+            return actionDao.findByTags(tags);
+        } catch (Exception e) {
+            logger.error("findByTags error", e);
+            throw e;
+        }
     }
 }

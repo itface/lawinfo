@@ -10,6 +10,7 @@ import java.util.List;
  * Created by wangrongtao on 15/10/14.
  */
 public interface RoleActionService {
+    public void initCache()throws Exception;
 
     public List<RoleAction> findAll()throws Exception;
 

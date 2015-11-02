@@ -3,16 +3,16 @@ package com.lawinfo.service.org.impl;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.MenuDao;
-import com.lawinfo.dao.org.OrgDao;
+import com.lawinfo.dao.org.RoleMenuDao;
 import com.lawinfo.domain.org.Menu;
-import com.lawinfo.domain.org.Org;
+import com.lawinfo.domain.org.RoleMenu;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.MenuQuery;
-import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.vo.MenuVo;
-import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.org.MenuService;
-import com.lawinfo.service.org.OrgService;
-import com.lawinfo.service.org.utils.OrgInfoUtils;
+import com.lawinfo.service.org.RoleMenuService;
+import com.lawinfo.service.org.utils.MenuUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,12 +34,18 @@ public class MenuServiceImpl implements MenuService {
 
     @Resource
     private MenuDao menuDao;
+    @Resource
+    private RoleMenuService roleMenuService;
 
     @Override
     public void initCache() throws Exception {
         try {
-//            List<Menu> orgList = this.findAllFromDb();
-
+            List<Menu> list= this.findAllFromDb();
+            if (!CollectionUtils.isEmpty(list)) {
+                for (Menu menu : list) {
+                    MenuUtils.add(menu);
+                }
+            }
         } catch (Exception e) {
             logger.error("initcache exception",e);
             throw e;
@@ -221,6 +227,7 @@ public class MenuServiceImpl implements MenuService {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
+            roleMenuService.deleteByMenuid(id);
             deleteByParentmenuid(id);
             effectrows = menuDao.deleteById(id);
         } catch (Exception e) {
@@ -237,6 +244,7 @@ public class MenuServiceImpl implements MenuService {
             List<Menu> Menus = menuDao.findByParentmenuid(parentmenuid);
             if (!CollectionUtils.isEmpty(Menus)) {
                 for (Menu menu : Menus) {
+                    roleMenuService.deleteByMenuid(menu.getId());
                     deleteByParentmenuid(menu.getId());
                 }
             }

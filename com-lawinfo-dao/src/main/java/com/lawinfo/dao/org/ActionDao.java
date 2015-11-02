@@ -24,4 +24,5 @@ public interface ActionDao {
 
     public int deleteById(Long id);
     public List<Action> findByIds(Long[] ids);
+    public List<Action> findByTags(String[] tags);
 }

@@ -26,6 +26,7 @@ public interface ActionService {
     public int count(ActionQuery actionQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
-    public List<Action> findByIds(Long[] ids);
+    public List<Action> findByIds(Long[] ids)throws Exception;
+    public List<Action> findByTags(String[] tags)throws Exception;
 
 }

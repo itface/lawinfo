@@ -9,15 +9,15 @@ import java.io.Serializable;
  */
 public class UserRole implements Serializable{
 
-    private Long id;
+    private long id;
     private String userid;
-    private Long roleid;
+    private long roleid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -29,11 +29,11 @@ public class UserRole implements Serializable{
         this.userid = userid;
     }
 
-    public Long getRoleid() {
+    public long getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(long roleid) {
         this.roleid = roleid;
     }
 }

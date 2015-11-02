@@ -16,6 +16,11 @@ public class DateUtils {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sf.format(date);
     }
+    public static String formatDatetime(long datetime) {
+        Date date = new Date(datetime);
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sf.format(date);
+    }
 
     public static Date convertToDate(long time) {
         return new Date(time);

@@ -28,7 +28,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>
-						h3. 这是一套可视化布局系统.
+						后台管理系统
 					</h3>
 				</div>
 			</div>
@@ -36,33 +36,30 @@
 				<div class="span12">
 					<ul class="nav nav-tabs" id="myTab">
 						<li class="active">
-							<a href="#org" data-toggle="tab" id="org-tab">组织管理</a>
+							<a href="#org" data-toggle="tab" id="org-tab" actionid="admin-org-man" style="display: none">组织管理</a>
 						</li>
                         <li>
-                            <a href="#action" data-toggle="tab" id="action-tab">动作管理</a>
+                            <a href="#user" data-toggle="tab" id="user-tab" actionid="admin-user-man" style="display: none">用户管理</a>
                         </li>
                         <li>
-                            <a href="#menu" data-toggle="tab" id="menu-tab">菜单管理</a>
+                            <a href="#action" data-toggle="tab" id="action-tab" actionid="admin-action-man" style="display: none">动作管理</a>
                         </li>
                         <li>
-                            <a href="#role" data-toggle="tab" id="role-tab">角色管理</a>
+                            <a href="#menu" data-toggle="tab" id="menu-tab" actionid="admin-menu-man" style="display: none">菜单管理</a>
                         </li>
                         <li>
-                            <a href="#user" data-toggle="tab" id="user-tab">用户管理</a>
+                            <a href="#role" data-toggle="tab" id="role-tab" actionid="admin-role-man" style="display: none">角色管理</a>
                         </li>
 						<li>
-							<a href="#" data-toggle="tab" id="privilege-tab">权限管理</a>
-						</li>
-						<li>
-							<a href="#" data-toggle="tab" id="group-tab">组管理</a>
+							<a href="#" data-toggle="tab" id="group-tab" actionid="admin-group-man" style="display: none">组管理</a>
 						</li>
 						<li class="dropdown pull-right">
-							 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
+							 <a href="#" data-toggle="dropdown" class="dropdown-toggle">设置<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#">操作</a>
+									<a href="/logout">离开</a>
 								</li>
-								<li>
+								#*<li>
 									<a href="#">设置栏目</a>
 								</li>
 								<li>
@@ -72,7 +69,7 @@
 								</li>
 								<li>
 									<a href="#">分割线</a>
-								</li>
+								</li>*#
 							</ul>
 						</li>
 					</ul>
@@ -80,8 +77,8 @@
                         <div class="tab-pane fade in active" id="org">
                             <div>
                                 <h2 align="right">
-									<button type="button" class="btn btn-primary btn-add-org">添加机构</button>
-									<button type="button" class="btn btn-primary btn-rm-org">删除机构</button>
+									<button type="button" class="btn btn-primary btn-add-org" actionid="admin-org-man-add" style="display: none">添加机构</button>
+									<button type="button" class="btn btn-primary btn-rm-org" actionid="admin-org-man-remove" style="display: none">删除机构</button>
 								</h2>
                                 <div id="treeview-selectable" class=""></div>
                             </div>
@@ -157,8 +154,8 @@
                         </div>
                         <div class="tab-pane fade" id="user">
                             <h2 align="right">
-                                <button type="button" class="btn btn-primary btn-add">添加用户</button>
-                                <button type="button" class="btn btn-primary btn-rm">删除用户</button>
+                                <button type="button" class="btn btn-primary btn-add" actionid="admin-user-man-add" style="display: none">添加用户</button>
+                                <button type="button" class="btn btn-primary btn-rm" actionid="admin-user-man-remove" style="display: none">删除用户</button>
                             </h2>
                             <div id="treeview-user" class=""></div>
                         </div>
@@ -192,6 +189,15 @@
                                     <label class="col-sm-2 control-label">用户名称</label>
                                     <div class="col-sm-8">
                                         <input class="form-control" id="username" type="text" placeholder="用户名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">登录类型</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="logintype">
+                                            <option value="1">短信验证</option>
+                                            <option value="0">密码验证</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -454,6 +460,7 @@
         <script>
             function mainConfirm(msg,confirmCallback){
                 jQuery('#confirmModal .msg-label').text(msg);
+                jQuery('#confirmModal .btn-confirm').unbind("click")
                 jQuery('#confirmModal .btn-confirm').on('click',confirmCallback);
                 jQuery('#confirmModal').modal('show');
             }
@@ -482,6 +489,14 @@
                     jQuery(".active-tab span").html(activeTab);
                     jQuery(".previous-tab span").html(previousTab);*/
                 });
+                var actionList = "$!actionList";
+                if (actionList) {
+                    var actionArr = actionList.split(",");
+                    for (var i=0;i<actionArr.length;i++) {
+                        jQuery("[actionid='"+actionArr[i]+"']").show();
+                    }
+                }
+
                 /*var defaultData = [
                     {
                         text: '机构',

@@ -9,6 +9,7 @@ import java.util.List;
  * Created by wangrongtao on 15/10/14.
  */
 public interface RoleMenuService {
+    public void initCache()throws Exception;
 
     public List<RoleMenu> findAll()throws Exception;
 

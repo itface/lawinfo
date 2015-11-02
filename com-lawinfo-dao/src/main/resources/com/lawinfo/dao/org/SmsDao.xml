@@ -8,7 +8,6 @@
         <result column="expiretime" property="expiretime"/>
         <result column="expiretimestr" property="expiretimestr"/>
         <result column="loginfailcount" property="loginfailcount"/>
-        <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -16,7 +15,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,phoneno,pwd,expiretime,expiretimestr,loginfailcount,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,phoneno,pwd,expiretime,expiretimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -69,8 +68,8 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.Sms">
-        insert into Sms(phoneno,pwd,expiretime,expiretimestr,loginfailcount,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
-        values(#{phoneno},#{pwd},#{expiretime},#{expiretimestr},#{loginfailcount},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into Sms(phoneno,pwd,expiretime,expiretimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{phoneno},#{pwd},#{expiretime},#{expiretimestr},#{loginfailcount},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from Sms where id=#{id}

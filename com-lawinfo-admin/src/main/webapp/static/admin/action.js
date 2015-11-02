@@ -8,8 +8,16 @@ var action = {
         jQuery('#actionform .error-label').text(msg);
         jQuery('#actionform .has-error').show();
     },
+    initClickEvent:function(){
+        jQuery('#action').unbind('click');
+        jQuery('#action .action-row').unbind('click');
+        jQuery('#action .btn-add').unbind('click');
+        jQuery('#actionModal .btn-save').unbind('click');
+        jQuery('#action .btn-rm').unbind('click');
+    },
     init:function(){
         var self = this;
+        self.initClickEvent();
         jQuery('#action').on('click','.action-row', $.proxy(self.registActionTableRowEvent,this));
         jQuery('#action .btn-add').on('click', function (e) {
             jQuery('#actionModal').modal('show');
@@ -22,10 +30,10 @@ var action = {
                 self.saveActionAlert('动作名称不能为空');
                 return false;
             }
-            if (!key) {
+            /*if (!key) {
                 self.saveActionAlert('动作key不能为空');
                 return false;
-            }
+            }*/
             if (!tag) {
                 self.saveActionAlert('动作标签不能为空');
                 return false;

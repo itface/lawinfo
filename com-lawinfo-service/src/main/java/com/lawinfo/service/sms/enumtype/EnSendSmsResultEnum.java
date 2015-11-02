@@ -57,4 +57,14 @@ public enum  EnSendSmsResultEnum {
         }
         return null;
     }
+    public static String toJsonStr(EnSendSmsResultEnum enSendSmsResultEnum){
+        StringBuilder sb = new StringBuilder();
+        if (enSendSmsResultEnum!=null) {
+            sb.append("{");
+            sb.append("\"code\":").append(enSendSmsResultEnum.getCode()).append(",");
+            sb.append("\"desc\":\"").append(enSendSmsResultEnum.getDesc()).append("\"");
+            sb.append("}");
+        }
+        return sb.toString();
+    }
 }

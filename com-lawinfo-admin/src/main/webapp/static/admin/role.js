@@ -12,8 +12,16 @@ var role = {
         jQuery('#roleform .error-label').text(msg);
         jQuery('#roleform .has-error').show();
     },
+    initClickEvent:function(){
+        jQuery('#role').unbind('click');
+        jQuery('#role .role-row').unbind('click');
+        jQuery('#role .btn-add').unbind('click');
+        jQuery('#roleModal .btn-save').unbind('click');
+        jQuery('#role .btn-rm').unbind('click');
+    },
     init:function(){
         var self = this;
+        self.initClickEvent();
         jQuery('#role').on('click','.role-row', $.proxy(self.registRoleTableRowEvent,this));
         jQuery('#role .btn-add').on('click', function (e) {
             jQuery('#roleModal').modal('show');
@@ -32,7 +40,7 @@ var role = {
             }
             jQuery.ajax({
                 url:'/lawinfo/admin/role/add',
-                data:{rolename:rolename,menuids:roleactionids,actionids:rolemenuids},
+                data:{rolename:rolename,menuids:rolemenuids,actionids:roleactionids},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {

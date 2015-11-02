@@ -29,6 +29,10 @@
 ]
 
 var login = {
+    loginAlert:function(msg){
+        jQuery('#loginModal .error-label').text(msg);
+        jQuery('#loginModal .has-error').show();
+    },
     init: function(){
         var self = this;
         var $authCodeBtn = $("#authCodeBtn");
@@ -48,7 +52,7 @@ var login = {
               },
               error: function(){
                 $(_self).prop("disabled", false);
-                alert("获取验证码失败");
+                  self.loginAlert("获取验证码失败");
               }
             })
         });

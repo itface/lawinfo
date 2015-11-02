@@ -6,7 +6,7 @@ import com.lawinfo.domain.common.BaseDomain;
  * Created by wangrongtao on 15/10/26.
  */
 public class Action extends BaseDomain {
-    private Long id;
+    private long id;
     private String name;
     /**
      * url，拦截器拦载url，判断权限
@@ -17,11 +17,11 @@ public class Action extends BaseDomain {
      */
     private String tag;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

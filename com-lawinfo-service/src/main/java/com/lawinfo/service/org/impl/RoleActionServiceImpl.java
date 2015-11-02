@@ -3,12 +3,16 @@ package com.lawinfo.service.org.impl;
 import com.lawinfo.dao.org.RoleActionDao;
 import com.lawinfo.domain.org.RoleAction;
 import com.lawinfo.domain.org.RoleMenu;
+import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.RoleActionQuery;
 import com.lawinfo.service.org.RoleActionService;
+import com.lawinfo.service.org.utils.RoleActionUtils;
+import com.lawinfo.service.org.utils.UserRoleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +27,20 @@ public class RoleActionServiceImpl implements RoleActionService{
     @Resource
     private RoleActionDao roleActionDao;
 
+    @Override
+    public void initCache() throws Exception {
+        try {
+            List<RoleAction> roleActions= this.findAll();
+            if (!CollectionUtils.isEmpty(roleActions)) {
+                for (RoleAction roleAction : roleActions) {
+                    RoleActionUtils.add(roleAction);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
     @Override
     public List<RoleAction> findAll() throws Exception{
         List<RoleAction> list = null;

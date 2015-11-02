@@ -13,8 +13,14 @@ var org = {
         jQuery('#orgform .error-label').text(msg);
         jQuery('#orgform .has-error').show();
     },
+    initClickEvent:function(){
+        jQuery('.btn-add-org').unbind('click');
+        jQuery('.btn-save-org').unbind('click');
+        jQuery('.btn-rm-org').unbind('click');
+    },
     init:function(){
         var self = this;
+        self.initClickEvent();
         orgTree = self.initOrgTree(self.buildOrgTree);
         jQuery('.btn-add-org').on('click', function (e) {
             if(orgSelectedNode==null){

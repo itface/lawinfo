@@ -13,6 +13,7 @@ import com.lawinfo.service.org.RoleService;
 import com.lawinfo.service.org.UserRoleService;
 import com.lawinfo.service.org.UserService;
 import com.lawinfo.service.org.utils.UserUtils;
+import com.lawinfo.service.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void initCache() throws Exception {
-        /*try {
+        try {
             List<User> userList= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(userList)) {
                 for (User user : userList) {
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e) {
             logger.error("initcache exception",e);
             throw e;
-        }*/
+        }
     }
 
     @Override
@@ -89,8 +90,8 @@ public class UserServiceImpl implements UserService{
                         StringBuilder roleIds = new StringBuilder();
                         StringBuilder roleNames = new StringBuilder();
                         for (UserRole userRole : userRoles) {
-                            roleIds.append(userRole.getId()).append(",");
-                            Role role = roleService.findById(userRole.getId());
+                            roleIds.append(userRole.getRoleid()).append(",");
+                            Role role = roleService.findById(userRole.getRoleid());
                             if (role != null) {
                                 roleNames.append(role.getName()).append(",");
                             }
@@ -120,6 +121,19 @@ public class UserServiceImpl implements UserService{
             throw e;
         }
         return list;
+    }
+
+    @Override
+    public User findByUserid(String userid) throws Exception {
+        logger.info("findByUserid begin,userid:"+userid);
+        User user = null;
+        try {
+            user=userDao.findByUserid(userid);
+        } catch (Exception e) {
+            logger.error("findByUserid error,userid=" + userid, e);
+            throw e;
+        }
+        return user;
     }
 
     @Override
@@ -215,6 +229,8 @@ public class UserServiceImpl implements UserService{
                 user.setUserid(userVo.getUserid());
                 user.setOrgid(userVo.getOrgid());
                 user.setStatus(0);
+                user.setLogintype(userVo.getLogintype());
+                user.setPwd(StrUtils.MD5(userVo.getUserid()));
                 user.initBaseDomain();
                 String roleids = userVo.getRoleids();
                 if (!StringUtils.isEmpty(userVo)) {
@@ -287,5 +303,15 @@ public class UserServiceImpl implements UserService{
             throw e;
         }
         return orgTrees;
+    }
+
+    @Override
+    public int updateLoginStatus(User user) throws Exception {
+        try {
+            return userDao.updateLoginStatus(user);
+        } catch (Exception e) {
+            logger.error("updateLoginStatus error", e);
+            throw e;
+        }
     }
 }

@@ -6,15 +6,15 @@ import com.lawinfo.domain.common.BaseDomain;
  * Created by wangrongtao on 15/10/26.
  */
 public class Group extends BaseDomain {
-    private Long id;
+    private long id;
     private String name;
-    private Long parentgroupid;
+    private long parentgroupid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -26,11 +26,11 @@ public class Group extends BaseDomain {
         this.name = name;
     }
 
-    public Long getParentgroupid() {
+    public long getParentgroupid() {
         return parentgroupid;
     }
 
-    public void setParentgroupid(Long parentgroupid) {
+    public void setParentgroupid(long parentgroupid) {
         this.parentgroupid = parentgroupid;
     }
 }

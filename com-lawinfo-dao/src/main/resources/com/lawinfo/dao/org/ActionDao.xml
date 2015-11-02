@@ -67,6 +67,16 @@
             #{item}
         </foreach>
     </select>
+    <select id="findByTags"  resultMap="ActionResult">
+        select
+        <include refid="allColumn"/>
+        from
+        action where tag IN
+        <foreach item="item" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.ActionQuery"  resultMap="ActionResult">
         select
         <include refid="allColumn"/>

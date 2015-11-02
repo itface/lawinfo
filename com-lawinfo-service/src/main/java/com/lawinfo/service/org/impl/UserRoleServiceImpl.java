@@ -1,13 +1,17 @@
 package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.UserRoleDao;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.UserRoleQuery;
 import com.lawinfo.service.org.UserRoleService;
+import com.lawinfo.service.org.utils.UserRoleUtils;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +26,20 @@ public class UserRoleServiceImpl  implements UserRoleService{
     @Resource
     private UserRoleDao userRoleDao;
 
+    @Override
+    public void initCache() throws Exception {
+        try {
+            List<UserRole> userRoles= this.findAll();
+            if (!CollectionUtils.isEmpty(userRoles)) {
+                for (UserRole userRole : userRoles) {
+                    UserRoleUtils.add(userRole);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("initcache exception",e);
+            throw e;
+        }
+    }
     @Override
     public List<UserRole> findAll() throws Exception{
         List<UserRole> list = null;

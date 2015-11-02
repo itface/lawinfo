@@ -7,6 +7,7 @@ import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.domain.org.vo.RoleTreeVo;
 import com.lawinfo.domain.org.vo.RoleVo;
 import com.lawinfo.service.org.*;
+import com.lawinfo.service.org.utils.RoleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,10 +37,12 @@ public class RoleServiceImpl implements RoleService {
     private ActionService actionService;
     @Resource
     private RoleActionService roleActionService;
+    @Resource
+    private UserRoleService userRoleService;
 
     @Override
     public void initCache() throws Exception {
-        /*try {
+        try {
             List<Role> roleList= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(roleList)) {
                 for (Role role : roleList) {
@@ -49,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
         } catch (Exception e) {
             logger.error("initcache exception",e);
             throw e;
-        }*/
+        }
     }
 
     @Override
@@ -76,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
                                 sb.append(menu.getName()).append(",");
                             }
                         }
-                        roleVo.setMenuname(sb.substring(0, sb.lastIndexOf(",") - 1));
+                        roleVo.setMenuname(sb.substring(0, sb.length()-1));
                     }
                     List<RoleAction> roleActionList = roleActionService.findByRoleid(role.getId());
                     if (!CollectionUtils.isEmpty(roleActionList)) {
@@ -92,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
                                 sb.append(action.getName()).append(",");
                             }
                         }
-                        roleVo.setActionname(sb.substring(0, sb.lastIndexOf(",") - 1));
+                        roleVo.setActionname(sb.substring(0, sb.length() - 1));
                     }
                     roleVos.add(roleVo);
                 }
@@ -231,6 +234,7 @@ public class RoleServiceImpl implements RoleService {
             if (id >0) {
                 roleMenuService.deleteByRoleid(id);
                 roleActionService.deleteByRoleid(id);
+                userRoleService.deleteByRoleid(id);
                 effectrows = roleDao.deleteById(id);
             }
         } catch (Exception e) {

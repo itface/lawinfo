@@ -6,31 +6,31 @@ import com.lawinfo.domain.common.BaseDomain;
  * Created by wangrongtao on 15/10/26.
  */
 public class RoleAction extends BaseDomain {
-    private Long id;
-    private Long roleid;
-    private Long actionid;
+    private long id;
+    private long roleid;
+    private long actionid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getRoleid() {
+    public long getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(long roleid) {
         this.roleid = roleid;
     }
 
-    public Long getActionid() {
+    public long getActionid() {
         return actionid;
     }
 
-    public void setActionid(Long actionid) {
+    public void setActionid(long actionid) {
         this.actionid = actionid;
     }
 }

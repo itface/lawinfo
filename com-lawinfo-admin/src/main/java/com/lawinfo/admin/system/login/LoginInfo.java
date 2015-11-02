@@ -25,6 +25,13 @@ public class LoginInfo {
         }
         return false;
     }
+    public synchronized static boolean removeLoginUser(HttpSession session) {
+        if (session!=null) {
+            String userid = getUseridFromSession(session);
+            return removeLoginUser(userid);
+        }
+        return false;
+    }
     public synchronized static boolean isAvailableLoginUser(String userId) {
         if (userId!=null) {
             return loginUserSet.contains(userId);

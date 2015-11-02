@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface UserRoleService {
 
+    public void initCache()throws Exception;
+
     public List<UserRole> findAll()throws Exception;
 
     public int save(UserRole userRole)throws Exception;

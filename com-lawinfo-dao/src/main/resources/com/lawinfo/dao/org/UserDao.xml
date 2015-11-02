@@ -8,6 +8,10 @@
         <result column="status" property="status"/>
         <result column="pwd" property="pwd"/>
         <result column="orgid" property="orgid"/>
+        <result column="loginfailcount" property="loginfailcount"/>
+        <result column="lastlogintime" property="lastlogintime"/>
+        <result column="logintype" property="logintype"/>
+        <result column="lastlogintimestr" property="lastlogintimestr"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -17,7 +21,7 @@
         <result column="orgid" property="orgid"/>
     </resultMap>
     <sql id="allColumn">
-         id,orgid,name,userid,status,pwd,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,orgid,name,userid,status,pwd,logintype,lastlogintime,lastlogintimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -61,6 +65,12 @@
         from
         User where id = #{id}
     </select>
+    <select id="findByUserid" parameterType="String"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        User where userid = #{userid}
+    </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
@@ -84,13 +94,13 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.User">
-        insert into User(orgid,name,userid,status,pwd,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
-        values(#{orgid},#{name},#{userid},#{status},#{pwd},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into User(logintype,orgid,name,userid,status,pwd,lastlogintime,lastlogintimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{logintype},#{orgid},#{name},#{userid},#{status},#{pwd},#{lastlogintime},#{lastlogintimestr},#{loginfailcount},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from User where id=#{id}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="updateLoginStatus" parameterType="com.lawinfo.domain.org.User">
+        update user set loginfailcount=#{loginfailcount},lastlogintime=#{lastlogintime},lastlogintimestr=#{lastlogintimestr} where userid=#{userid}
+    </update>
 </mapper>

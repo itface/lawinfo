@@ -1,6 +1,5 @@
 package com.lawinfo.service.org.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.OrgDao;
@@ -8,7 +7,7 @@ import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.org.OrgService;
-import com.lawinfo.service.org.utils.OrgInfoUtils;
+import com.lawinfo.service.org.utils.OrgUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,9 +32,9 @@ public class OrgServiceImpl implements OrgService{
         try {
             List<Org> orgList = this.findAllFromDb();
             if (!CollectionUtils.isEmpty(orgList)) {
-                OrgInfoUtils.init();
+                OrgUtils.init();
                 for (Org org : orgList) {
-                    OrgInfoUtils.add(org);
+                    OrgUtils.add(org);
                 }
             }
         } catch (Exception e) {
@@ -127,7 +126,7 @@ public class OrgServiceImpl implements OrgService{
     public List<Org> findAll() throws Exception{
         List<Org> list = null;
         try {
-            list = OrgInfoUtils.findAll();
+            list = OrgUtils.findAll();
             list = null;
             if (CollectionUtils.isEmpty(list)) {
                 list = orgDao.findAll();
@@ -162,7 +161,7 @@ public class OrgServiceImpl implements OrgService{
                 logger.info("save success,effectrows:"+effectrows+","+ org.getName());
             }
         } catch (Exception e) {
-            logger.error("findAll error,"+ org ==null?"null": org.getName(),e);
+            logger.error("findAll error,",e);
             throw e;
         }
         return effectrows;

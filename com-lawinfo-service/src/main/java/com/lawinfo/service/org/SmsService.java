@@ -1,5 +1,10 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.org.Sms;
+import com.lawinfo.domain.org.query.SmsQuery;
+
+import java.util.List;
+
 /**
  * Created by wangrongtao on 15/10/14.
  */
@@ -10,7 +15,7 @@ public interface SmsService {
      * @param phoneno
      * @return
      */
-    /*public boolean SendSms(String phoneno);
+    public boolean SendSms(String phoneno);
     public List<Sms> findAll()throws Exception;
 
     public int save(Sms sms)throws Exception;
@@ -24,5 +29,5 @@ public interface SmsService {
     public int count(SmsQuery smsQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
-    public int updateLoginfailcount(long id)throws Exception;*/
+    public int updateLoginfailcount(long id)throws Exception;
 }

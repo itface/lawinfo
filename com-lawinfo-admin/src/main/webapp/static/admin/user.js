@@ -11,8 +11,15 @@ var user = {
         jQuery('#userform .error-label').text(msg);
         jQuery('#userform .has-error').show();
     },
+    initClickEvent:function(){
+        jQuery('#user').unbind('click');
+        jQuery('#user .btn-add').unbind('click');
+        jQuery('#userModal .btn-save').unbind('click');
+        jQuery('#user .btn-rm').unbind('click');
+    },
     init:function(){
         var self = this;
+        self.initClickEvent();
         userTree = self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
 
         jQuery('#user .btn-add').on('click', function (e) {
@@ -29,6 +36,7 @@ var user = {
             var username = jQuery('#userform  #username').val();
             var userid = jQuery('#userform  #userid').val();
             var roleids = jQuery('#userform  #userroleids').val();
+            var logintype = jQuery('#userform  #logintype').val();
             var orgid = selectUserTreeNode.id;
             if (!username) {
                 self.saveUserAlert('用户名称不能为空');
@@ -41,13 +49,17 @@ var user = {
                 self.saveUserAlert('角色不能为空');
                 return false;
             }
-            if (!orgid) {
+            if (orgid==null) {
                 self.saveUserAlert('机构不能为空');
+                return false;
+            }
+            if (logintype==null||logintype=='') {
+                self.saveUserAlert('登录类型不能为空');
                 return false;
             }
             jQuery.ajax({
                 url:'/lawinfo/admin/user/add',
-                data:{name:username,userid:userid,roleids:roleids,orgid:orgid},
+                data:{name:username,userid:userid,roleids:roleids,orgid:orgid,logintype:logintype},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {

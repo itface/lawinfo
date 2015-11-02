@@ -15,6 +15,7 @@ public interface UserDao {
     public int save(User user);
 
     public User findById(Long id);
+    public User findByUserid(String userid);
 
     public List<User> findList(UserQuery userQuery);
 
@@ -24,5 +25,6 @@ public interface UserDao {
 
     public int deleteById(Long id);
 
+    public int updateLoginStatus(User user);
 
 }

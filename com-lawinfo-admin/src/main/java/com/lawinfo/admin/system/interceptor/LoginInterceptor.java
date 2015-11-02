@@ -1,6 +1,7 @@
 package com.lawinfo.admin.system.interceptor;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,13 +16,20 @@ import javax.servlet.http.HttpSession;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*HttpSession session = request.getSession();
+        String uri = request.getRequestURI();
+        HttpSession session = request.getSession();
         boolean isAvailableLoginUser = LoginInfo.isAvailableLoginUser(session);
         if (!isAvailableLoginUser) {
-            String uri = request.getRequestURI();
             response.sendRedirect("/login");
             return false;
-        }*/
+        }
+        String userid = LoginInfo.getUseridFromSession(session);
+        if ("admin".equals(userid)) {
+            return true;
+        }
+        if (!UserUtils.haveAction(userid,uri)&&!UserUtils.haveMenu(userid, uri)) {
+            return false;
+        }
         return true;
     }
 

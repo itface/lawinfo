@@ -23,7 +23,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
-    <!--<bean id="loginInterceptor" class="com.lawinfo.admin.system.interceptor.LoginInterceptor"/>-->
+    <bean id="loginInterceptor" class="com.lawinfo.admin.system.interceptor.LoginInterceptor"/>
     <!-- JSR-303 support will be detected on classpath and enabled automatically -->
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
@@ -77,12 +77,12 @@
             <value>/WEB-INF/vm/toolbox.xml</value>
         </property>
     </bean>
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/admin/**"/>
+            <mvc:mapping path="/lawinfo/**"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
     <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="error/error"/>
         <property name="exceptionMappings">

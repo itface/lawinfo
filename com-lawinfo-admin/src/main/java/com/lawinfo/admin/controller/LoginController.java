@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.login.LoginResult;
 import com.lawinfo.service.login.LoginService;
 import com.lawinfo.service.login.enumtype.LoginResultEnum;
 import com.lawinfo.service.sms.EnSendSmsService;
@@ -15,58 +16,35 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by wangrongtao on 15/10/18.
  */
-/*@Controller
-@RequestMapping("/login")*/
+@Controller
 public class LoginController {
-    /*@Resource
+    @Resource
     private LoginService loginService;
     @Resource
     private EnSendSmsService enSendSmsService;
 
-    @RequestMapping("")
+    @RequestMapping("/login")
     public String index() {
-        return "/admin/login";
+        return "/login";
     }
-
-    @RequestMapping("/dologin")
+    @RequestMapping("/login/dologin")
     @ResponseBody
-    public String dologin(HttpServletRequest request,String tel,String code) {
-        LoginResultEnum loginResultEnum = loginService.login(tel, code);
-        StringBuilder sb = new StringBuilder();
-        if (("admin".equals(tel) && "admin123".equals(code))||(loginResultEnum!=null&&loginResultEnum.getCode()==LoginResultEnum.SUCCESS.getCode())) {
+    public LoginResult dologin(HttpServletRequest request,String tel,String code) {
+        LoginResult loginResult = loginService.login(tel, code);
+        if (loginResult != null && loginResult.isSuccess()) {
             LoginInfo.addUseridToSession(request.getSession(), tel);
-            if ("admin".equals(tel)) {
-                sb.append("{");
-                sb.append("\"code\":").append(0).append(",");
-                sb.append("\"desc\":\"").append("\",");
-                sb.append("\"type\":").append(1).append("");
-                sb.append("}");
-            }else{
-                sb.append("{");
-                sb.append("\"code\":").append(0).append(",");
-                sb.append("\"desc\":\"").append("\",");
-                sb.append("\"type\":").append(0).append("");
-                sb.append("}");
-            }
-//            return "redirect:/admin/index";
-        }else{
-            sb.append("{");
-            sb.append("\"code\":").append(loginResultEnum.getCode()).append(",");
-            sb.append("\"desc\":\"").append(loginResultEnum.getDesc()).append("\",");
-            sb.append("\"type\":").append(0).append("");
-            sb.append("}");
         }
-        return sb.toString();
+        return loginResult;
     }
-    @RequestMapping("/sendsms")
+    @RequestMapping("/login/sendsms")
     @ResponseBody
     public String sendsms(String tel) {
         EnSendSmsResultEnum enSendSmsResultEnum = enSendSmsService.sendSms(tel);
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"code\":").append(enSendSmsResultEnum.getCode()).append(",");
-        sb.append("\"desc\":").append(enSendSmsResultEnum.getDesc());
-        sb.append("}");
-        return sb.toString();
-    }*/
+        return EnSendSmsResultEnum.toJsonStr(enSendSmsResultEnum);
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        LoginInfo.removeLoginUser(request.getSession());
+        return "/login";
+    }
 }

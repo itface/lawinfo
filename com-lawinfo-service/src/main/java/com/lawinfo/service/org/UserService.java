@@ -17,7 +17,7 @@ public interface UserService {
     public List<User> findAll()throws Exception;
     public List<UserVo> findAllUservo()throws Exception;
     public List<User> findAllFromDb()throws Exception;
-
+    public User findByUserid(String userid)throws Exception;
     public int save(User user)throws Exception;
     public int saveByUservo(UserVo userVo)throws Exception;
 
@@ -31,4 +31,6 @@ public interface UserService {
     public int count(UserQuery userQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int updateLoginStatus(User user)throws Exception;
+
 }

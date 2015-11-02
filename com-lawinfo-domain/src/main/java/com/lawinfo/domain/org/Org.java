@@ -11,18 +11,18 @@ import javax.validation.constraints.Min;
  */
 public class Org extends BaseDomain {
 
-    private Long id;
+    private long id;
 
     @NotBlank
     @Length(max=100)
     private String name;
-    private Long parentorgid;
+    private long parentorgid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -34,11 +34,11 @@ public class Org extends BaseDomain {
         this.name = name;
     }
 
-    public Long getParentorgid() {
+    public long getParentorgid() {
         return parentorgid;
     }
 
-    public void setParentorgid(Long parentorgid) {
+    public void setParentorgid(long parentorgid) {
         this.parentorgid = parentorgid;
     }
 

@@ -1,0 +1,82 @@
+var login = {
+    loginAlert:function(msg){
+        jQuery('#loginModal .error-label').text(msg);
+        jQuery('#loginModal .has-error').show();
+    },
+    init: function(){
+        var self = this;
+        var $authCodeBtn = $("#authCodeBtn");
+        $authCodeBtn.on("click", function(e){
+            var _self = this;
+            var tel = $("#loginForm").find("[name='tel']").val();
+            if(!tel){
+                self.loginAlert("请输入手机号");
+                return;
+            }
+            $(_self).prop("disabled", true);
+            $.ajax({
+              url: "/login/sendsms?tel="+tel,
+              dataType: "json",
+              success: function(data){
+                  if(data.code == 0){
+                      self.timeout();
+                      self.loginAlert("验证码已发送");
+                  }else{
+                      $(_self).prop("disabled", false);
+                      self.loginAlert(data.desc);
+                  }
+              },
+              error: function(){
+                $(_self).prop("disabled", false);
+                  self.loginAlert("获取验证码失败");
+              }
+            })
+        });
+
+        $(".login").on("click", function(e){
+            var tel = $("#loginForm").find("[name='tel']").val();
+            var code = $("#loginForm").find("[name='code']").val();
+
+            e.preventDefault();
+
+            if(!tel){
+                self.loginAlert("请输入手机号");
+                return;
+            }
+            if(!code){
+                e.preventDefault();
+                self.loginAlert("请输入验证码");
+            }
+            
+            $.ajax({
+              method: "POST",
+              url: "/login/dologin",
+              data: {tel: tel, code: code},
+              dataType: "json",
+            }).done(function(data){
+              if(data.success){
+                  location.replace(data.redirecturl);
+              }else{
+                  self.loginAlert(data.desc);
+              }
+            }).error(function(){
+                self.loginAlert("未知错误");
+            });
+        });
+    },
+    timeout: function(){
+        var timeout = 60;
+
+        var func = function(){
+            timeout--;
+            $("#authCodeBtn").html("倒计时" + timeout + "秒");
+            if(timeout == 0){
+               clearTimeout(self.time);
+               $("#authCodeBtn").prop("disabled", false);
+            }else{
+               self.time = setTimeout(func, 1000);
+            }
+        };
+        func();
+    }
+}

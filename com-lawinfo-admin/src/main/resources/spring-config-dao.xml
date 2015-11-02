@@ -49,6 +49,14 @@
             <property name="mapperInterface" value="com.lawinfo.dao.org.UserRoleDao"></property>
             <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
         </bean>
+        <bean id="loginLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.LoginLogDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
+        <bean id="smsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.org.SmsDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
 
        <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>

@@ -1,11 +1,22 @@
 package com.lawinfo.service.org.impl;
 
+import com.lawinfo.dao.org.SmsDao;
+import com.lawinfo.domain.org.Sms;
+import com.lawinfo.domain.org.query.SmsQuery;
+import com.lawinfo.service.org.SmsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * Created by wangrongtao on 15/10/14.
  */
-//@Service
-public class SmsServiceImpl {
-    /*
+@Service
+public class SmsServiceImpl implements SmsService{
     private static Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
 
     @Resource
@@ -118,5 +129,5 @@ public class SmsServiceImpl {
             logger.error("updateLoginfailcount error,id=" + id, e);
         }
         return effectrows;
-    }*/
+    }
 }

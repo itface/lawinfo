@@ -11,6 +11,8 @@
         <mapper resource="com/lawinfo/dao/org/RoleDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/UserDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/UserRoleDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/LoginLogDao.xml"/>
+        <mapper resource="com/lawinfo/dao/org/SmsDao.xml"/>
         <!--<mapper resource="com/lawinfo/dao/org/OrgDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/DeptDao.xml"/>
         <mapper resource="com/lawinfo/dao/org/RoleDao.xml"/>

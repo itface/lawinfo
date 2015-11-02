@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-autowire="byName">
 
-       <!--<bean id="enSendSmsService" class="com.lawinfo.service.sms.impl.EnSendSmsServiceImpl">
+       <bean id="enSendSmsService" class="com.lawinfo.service.sms.impl.EnSendSmsServiceImpl">
               <property name="address" value="${en.sms.address}"/>
               <property name="userid" value="${en.sms.userid}"/>
               <property name="pwd" value="${en.sms.pwd}"/>
@@ -13,5 +13,5 @@
        <bean id="loginService" class="com.lawinfo.service.login.impl.LoginServiceImpl">
               <property name="maxloginfailcount" value="${max.login.fail.count}"/>
               <property name="expiretime" value="${en.sms.expire.time}"/>
-       </bean>-->
+       </bean>
 </beans>

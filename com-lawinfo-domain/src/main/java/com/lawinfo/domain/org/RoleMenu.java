@@ -6,31 +6,31 @@ import java.io.Serializable;
  * Created by wangrongtao on 15/10/13.
  */
 public class RoleMenu implements Serializable {
-    private Long id;
-    private Long roleid;
-    private Long menuid;
+    private long id;
+    private long roleid;
+    private long menuid;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getRoleid() {
+    public long getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(long roleid) {
         this.roleid = roleid;
     }
 
-    public Long getMenuid() {
+    public long getMenuid() {
         return menuid;
     }
 
-    public void setMenuid(Long menuid) {
+    public void setMenuid(long menuid) {
         this.menuid = menuid;
     }
 }

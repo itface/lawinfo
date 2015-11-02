@@ -9,7 +9,7 @@
 		<param-value>classpath:spring-config.xml</param-value>
 	</context-param>
 	<session-config>
-		<session-timeout>15</session-timeout>
+		<session-timeout>150</session-timeout>
 	</session-config>
 	<listener>
 		<listener-class>com.lawinfo.admin.system.SessionManagerListener</listener-class>

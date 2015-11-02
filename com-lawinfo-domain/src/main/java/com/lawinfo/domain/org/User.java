@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
  * Created by wangrongtao on 15/10/13.
  */
 public class User extends BaseDomain {
-    private Long id;
+    private long id;
     @NotBlank
     @Length(max=100)
     private String name;
@@ -24,16 +24,22 @@ public class User extends BaseDomain {
     /**
      * 帐号状态,预留，1是正常，-1锁定
      */
-    private Integer status;
-    private Long orgid;
+    private int status;
+    private long orgid;
+    private long lastlogintime;
+    private String lastlogintimestr;
+    private int loginfailcount;
+    /**
+     * 0代表密码验证，1代码短信验证
+     */
+    private int logintype;
 
 
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,11 +59,11 @@ public class User extends BaseDomain {
         this.userid = userid;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -69,12 +75,44 @@ public class User extends BaseDomain {
         this.pwd = pwd;
     }
 
-    public Long getOrgid() {
+    public long getOrgid() {
         return orgid;
     }
 
-    public void setOrgid(Long orgid) {
+    public void setOrgid(long orgid) {
         this.orgid = orgid;
+    }
+
+    public int getLoginfailcount() {
+        return loginfailcount;
+    }
+
+    public void setLoginfailcount(int loginfailcount) {
+        this.loginfailcount = loginfailcount;
+    }
+
+    public long getLastlogintime() {
+        return lastlogintime;
+    }
+
+    public void setLastlogintime(long lastlogintime) {
+        this.lastlogintime = lastlogintime;
+    }
+
+    public String getLastlogintimestr() {
+        return lastlogintimestr;
+    }
+
+    public void setLastlogintimestr(String lastlogintimestr) {
+        this.lastlogintimestr = lastlogintimestr;
+    }
+
+    public int getLogintype() {
+        return logintype;
+    }
+
+    public void setLogintype(int logintype) {
+        this.logintype = logintype;
     }
 
     @Override

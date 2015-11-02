@@ -1,15 +1,22 @@
 package com.lawinfo.service.org.impl;
 
+import com.lawinfo.dao.org.LoginLogDao;
+import com.lawinfo.domain.org.LoginLog;
+import com.lawinfo.domain.org.query.LoginLogQuery;
+import com.lawinfo.service.org.LoginLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/10/14.
  */
 //@Service
-public class LoginLogServiceImpl{
+public class LoginLogServiceImpl implements LoginLogService{
     private static Logger logger = LoggerFactory.getLogger(LoginLogServiceImpl.class);
-/*
     @Resource
     private LoginLogDao loginLogDao;
 
@@ -102,5 +109,5 @@ public class LoginLogServiceImpl{
             logger.error("deleteById error,id=" + id, e);
         }
         return effectrows;
-    }*/
+    }
 }

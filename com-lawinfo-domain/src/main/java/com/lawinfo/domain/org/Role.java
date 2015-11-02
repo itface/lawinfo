@@ -10,17 +10,17 @@ import javax.validation.constraints.Min;
  * Created by wangrongtao on 15/10/13.
  */
 public class Role extends BaseDomain {
-    private Long id;
+    private long id;
     @NotBlank
     @Length(max=100)
     private String name;
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

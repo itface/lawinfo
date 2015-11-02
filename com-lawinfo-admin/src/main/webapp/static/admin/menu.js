@@ -9,8 +9,15 @@ var menu = {
         jQuery('#menuform .error-label').text(msg);
         jQuery('#menuform .has-error').show();
     },
+    initClickEvent:function(){
+        jQuery('#menu').unbind('click');
+        jQuery('#menu .btn-add').unbind('click');
+        jQuery('#menu .btn-rm').unbind('click');
+        jQuery('#menuModal .btn-save').unbind('click');
+    },
     init:function(){
         var self = this;
+        self.initClickEvent();
         menuTree = self.initMenuTree($.proxy(self.buildMenuTree,this));
         jQuery('#menu .btn-add').on('click', function (e) {
             if(menuSelectedNode==null){
