@@ -57,6 +57,14 @@
             <property name="mapperInterface" value="com.lawinfo.dao.org.SmsDao"></property>
             <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
         </bean>
+        <bean id="caseProgressDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.front.CaseProgressDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
+        <bean id="caseInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <property name="mapperInterface" value="com.lawinfo.dao.front.CaseInfoDao"></property>
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        </bean>
 
        <!--<bean id="deptDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
               <property name="mapperInterface" value="com.lawinfo.dao.org.DeptDao"></property>

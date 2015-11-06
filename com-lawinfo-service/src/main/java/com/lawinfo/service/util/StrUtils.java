@@ -32,8 +32,4 @@ public class StrUtils {
             return null;
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(MD5("lawinfo2015@1"));
-    }
 }

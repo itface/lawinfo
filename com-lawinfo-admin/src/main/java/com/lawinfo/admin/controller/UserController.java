@@ -36,8 +36,8 @@ public class UserController {
         return 0;
     }
     @ResponseBody
-    @RequestMapping("/remove/{id}")
-    public int remove(@PathVariable long id)throws Exception{
+    @RequestMapping("/remove")
+    public int remove(long id)throws Exception{
         int rows = userService.deleteById(id);
         return rows;
     }

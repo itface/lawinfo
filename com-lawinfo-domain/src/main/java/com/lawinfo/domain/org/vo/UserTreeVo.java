@@ -2,15 +2,18 @@ package com.lawinfo.domain.org.vo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wangrongtao on 15/10/27.
  */
 public class UserTreeVo implements Serializable,Comparable {
     private Long id;
+    private String userid;
     private String text;
-    private Long orgid;
-    private List<UserTreeVo> nodes;
+    private Long parentid;
+    private int nodetype;
+    private Set<UserTreeVo> nodes;
 
     public Long getId() {
         return id;
@@ -18,6 +21,14 @@ public class UserTreeVo implements Serializable,Comparable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getText() {
@@ -28,20 +39,28 @@ public class UserTreeVo implements Serializable,Comparable {
         this.text = text;
     }
 
-    public Long getOrgid() {
-        return orgid;
+    public Long getParentid() {
+        return parentid;
     }
 
-    public void setOrgid(Long orgid) {
-        this.orgid = orgid;
+    public void setParentid(Long parentid) {
+        this.parentid = parentid;
     }
 
-    public List<UserTreeVo> getNodes() {
+    public Set<UserTreeVo> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<UserTreeVo> nodes) {
+    public void setNodes(Set<UserTreeVo> nodes) {
         this.nodes = nodes;
+    }
+
+    public int getNodetype() {
+        return nodetype;
+    }
+
+    public void setNodetype(int nodetype) {
+        this.nodetype = nodetype;
     }
 
     @Override
@@ -50,5 +69,21 @@ public class UserTreeVo implements Serializable,Comparable {
             return this.id.compareTo(((UserTreeVo) o).getId());
         }
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserTreeVo that = (UserTreeVo) o;
+
+        return userid.equals(that.userid);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return userid.hashCode();
     }
 }

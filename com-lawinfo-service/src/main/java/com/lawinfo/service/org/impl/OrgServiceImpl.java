@@ -98,26 +98,68 @@ public class OrgServiceImpl implements OrgService{
             orgVo.setNodes(orgVoList);
         }
     }
-    @Override
-    public List<OrgVo> findOrgTree() throws Exception {
+    public List<OrgVo> findSubOrgTree(long orgid) throws Exception {
+        List<OrgVo> orgVoList = new ArrayList<OrgVo>();
+        try {
+            OrgQuery orgQuery = new OrgQuery();
+            orgQuery.setParentorgid(orgid);
+            List<Org> list = findList(orgQuery);
+            if (!CollectionUtils.isEmpty(list)) {
+                Multimap<Long, Org> multimap = findAllOrg();
+                if (multimap != null) {
+                    for (Org org : list) {
+                        OrgVo orgVo = new OrgVo();
+                        orgVo.setId(org.getId());
+                        orgVo.setText(org.getName());
+                        orgVo.setParentorgid(org.getParentorgid());
+                        buildOrgTree(multimap, orgVo);
+                        orgVoList.add(orgVo);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            logger.error("findSubOrgTree exception",e);
+            throw e;
+        }
+        return orgVoList;
+    }
+    private Multimap<Long,Org> findAllOrg()throws Exception{
+        Multimap<Long, Org> orgMultimap = ArrayListMultimap.create();
         List<Org> list = findAll();
         if (!CollectionUtils.isEmpty(list)) {
-            List<OrgVo> orgVoList = new ArrayList<OrgVo>();
-            Multimap<Long, Org> orgMultimap = ArrayListMultimap.create();
             for (Org org : list) {
                 orgMultimap.put(org.getParentorgid(), org);
             }
-            OrgVo root = new OrgVo();
-            root.setId(0l);
-            root.setParentorgid(-1l);
-            root.setText("机构");
-            Collection<Org> orgs = orgMultimap.get(root.getId());
-            List<OrgVo> orgVoList2 = new ArrayList<OrgVo>();
-            for (Org org : orgs) {
+        }
+        return orgMultimap;
+    }
+    @Override
+    public List<OrgVo> findOrgTree() throws Exception {
+        try {
+            List<Org> list = findAll();
+            if (!CollectionUtils.isEmpty(list)) {
+                List<OrgVo> orgVoList = new ArrayList<OrgVo>();
+                Multimap<Long, Org> orgMultimap = ArrayListMultimap.create();
+                for (Org org : list) {
+                    orgMultimap.put(org.getParentorgid(), org);
+                }
+                OrgVo root = new OrgVo();
+                root.setId(0l);
+                root.setParentorgid(-1l);
+                root.setText("机构");
+                /*Collection<Org> orgs = orgMultimap.get(root.getId());
+                List<OrgVo> orgVoList2 = new ArrayList<OrgVo>();
+                for (Org org : orgs) {
+                    buildOrgTree(orgMultimap,root);
+                }*/
                 buildOrgTree(orgMultimap,root);
+                orgVoList.add(root);
+                return orgVoList;
             }
-            orgVoList.add(root);
-            return orgVoList;
+        } catch (Exception e) {
+            logger.error("findOrgTree exception", e);
+            throw e;
         }
         return null;
     }

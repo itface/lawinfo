@@ -12,9 +12,11 @@ import java.util.List;
 public interface OrgService {
     public void initCache()throws Exception;
 
+    public List<OrgVo> findSubOrgTree(long orgid) throws Exception;
     public List<OrgVo> findOrgTree()throws Exception;
     public List<Org> findAll()throws Exception;
     public List<Org> findAllFromDb() throws Exception;
+//    public List<Org> findAllBank() throws Exception;
 
     public int save(Org org)throws Exception;
 

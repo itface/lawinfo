@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lawinfo.dao.org.CaseInfoDao">
-    <resultMap id="ResultMap" type="com.lawinfo.domain.org.CaseInfo">
+<mapper namespace="com.lawinfo.dao.front.CaseInfoDao">
+    <resultMap id="ResultMap" type="com.lawinfo.domain.front.CaseInfo">
         <id property="id" column="id" />
         <result column="bankid" property="bankid"/>
         <result column="bankname" property="bankname"/>
-        <result column="casenodeid" property="casenodeid"/>
-        <result column="casenodename" property="casenodename"/>
+        <result column="status" property="status"/>
         <result column="contact" property="contact"/>
         <result column="contactphone" property="contactphone"/>
         <result column="debtorinfo" property="debtorinfo"/>
         <result column="iscreditorrelated" property="iscreditorrelated"/>
         <result column="debtorpropertyinfo" property="debtorpropertyinfo"/>
+        <result column="ay" property="ay"/>
         <result column="zqbj" property="zqbj"/>
         <result column="zqdqr" property="zqdqr"/>
         <result column="zqdqrstr" property="zqdqrstr"/>
@@ -23,10 +23,10 @@
         <result column="pawnvalue" property="pawnvalue"/>
         <result column="caseprocedure" property="caseprocedure"/>
         <result column="court" property="court"/>
-        <result column="lawyerid" property="lawyerid"/>
-        <result column="lawyername" property="lawyername"/>
+        <result column="judge" property="judge"/>
+        <result column="exelawyerid" property="exelawyerid"/>
+        <result column="sslawyerid" property="sslawyerid"/>
         <result column="totalprice" property="totalprice"/>
-        <result column="description" property="description"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -34,24 +34,33 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,bankid,bankname,casenodeid,casenodename,zqdqr,zqdqrstr,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+         id,bankid,bankname,zqdqr,zqdqrstr,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,lawyerid,lawyername,totalprice,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         ,exelawyerid,sslawyerid,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="id>0">
+            <if test="id!=null and id>0">
                 id = #{id}
             </if>
             <if test="summary!=null and summary!=''">
                 and summary like concat('%', #{summary}, '%')
+            </if>
+            <!--<if test="exelawyerid!=null and exelawyerid!=''">
+                and exelawyerid like concat('%', #{exelawyerid}, '%')
+            </if>
+            <if test="sslawyerid!=null and sslawyerid!=''">
+                and sslawyerid like concat('%', #{sslawyerid}, '%')
+            </if>-->
+            <if test="userid!=null and userid!=''">
+                and (exelawyerid like concat('%', #{userid}, '%') or sslawyerid like concat('%', #{userid}, '%'))
             </if>
         </trim>
     </sql>
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
-    <select id="findAll" parameterType="com.lawinfo.domain.org.query.CaseInfoQuery"  resultMap="ResultMap">
+    <select id="findAll" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
@@ -63,14 +72,14 @@
         from
         CaseInfo where id = #{id}
     </select>
-    <select id="findList" parameterType="com.lawinfo.domain.org.query.CaseInfoQuery"  resultMap="ResultMap">
+    <select id="findList" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
         CaseInfo
         <include refid="condition"/>
     </select>
-    <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.CaseInfoQuery"  resultMap="ResultMap">
+    <select id="findListByPage" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
@@ -78,20 +87,20 @@
         <include refid="condition"/>
         <include refid="page"/>
     </select>
-    <select id="count" parameterType="com.lawinfo.domain.org.query.CaseInfoQuery" resultType="int">
+    <select id="count" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery" resultType="int">
         SELECT
         COUNT(1)
         FROM
         CaseInfo
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.org.CaseInfo">
-        insert into CaseInfo(bankid,bankname,casenodeid,casenodename,contact,zqdqr,zqdqrstr,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+    <insert id="save" parameterType="com.lawinfo.domain.front.CaseInfo">
+        insert into CaseInfo(bankid,bankname,contact,zqdqr,zqdqrstr,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,lawyerid,lawyername,totalprice,description,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary)
-         values(#{bankid},#{bankname},#{casenodeid},#{casenodename},#{contact},#{zqdqr},#{zqdqrstr},#{contactphone},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj
+         ,sslawyerid,exelawyerid,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay)
+         values(#{bankid},#{bankname},#{contact},#{zqdqr},#{zqdqrstr},#{contactphone},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj
          },#{guaranteetype},#{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court
-         },#{lawyerid},#{lawyername},#{totalprice},#{description},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary})
+         },#{sslawyerid},#{exelawyerid},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from CaseInfo where id=#{id}

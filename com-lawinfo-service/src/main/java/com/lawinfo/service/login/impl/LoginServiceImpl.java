@@ -56,7 +56,11 @@ public class LoginServiceImpl implements LoginService{
             try {
                 User user = userService.findByUserid(userid);
                 if (user!=null) {
-                    if (0==user.getLogintype()) {
+                    String url = "/lawinfo/front";
+                    if (user.getOrgid()<1) {
+                        url = "/lawinfo/admin/main";
+                    }
+                    if (0 == user.getLogintype()) {
                         boolean loginsuccess = StrUtils.MD5(password).equals(user.getPwd());
                         Integer loginfailcount = user.getLoginfailcount();
                         Long lastlogintime = user.getLastlogintime();
@@ -64,18 +68,18 @@ public class LoginServiceImpl implements LoginService{
                         user1.setUserid(userid);
                         user1.setLastlogintime(now);
                         user1.setLastlogintimestr(nowtimestr);
-                        if (loginfailcount>maxloginfailcount&&(now-lastlogintime)<(30*60*1000)) {
-                            user1.setLoginfailcount(user.getLoginfailcount()+1);
+                        if (loginfailcount > maxloginfailcount && (now - lastlogintime) < (30 * 60 * 1000)) {
+                            user1.setLoginfailcount(user.getLoginfailcount() + 1);
                             loginResult.setSuccess(false);
                             loginResult.setDesc(LoginResultEnum.MAX_LOGIN_FAIL.getDesc());
-                        }else{
-                            user1.setLoginfailcount(loginsuccess?0:user.getLoginfailcount()+1);
+                        } else {
+                            user1.setLoginfailcount(loginsuccess ? 0 : user.getLoginfailcount() + 1);
                             loginResult.setSuccess(loginsuccess);
-                            loginResult.setRedirecturl("/lawinfo/admin/main");
+                            loginResult.setRedirecturl(url);
                             loginResult.setDesc(loginsuccess ? LoginResultEnum.SUCCESS.getDesc() : LoginResultEnum.PWD_INCORRECT.getDesc());
                         }
                         userService.updateLoginStatus(user1);
-                    }else{
+                    } else {
                         List<Sms> list = smsService.findList(smsQuery);
                         if (!CollectionUtils.isEmpty(list)) {
                             for (Sms sms : list) {
@@ -88,7 +92,7 @@ public class LoginServiceImpl implements LoginService{
                                     } else {
                                         //只要有一条符合条件的，就算登录成功
                                         loginResult.setSuccess(true);
-                                        loginResult.setRedirecturl("/lawinfo/admin/main");
+                                        loginResult.setRedirecturl(url);
                                         loginResult.setDesc(LoginResultEnum.SUCCESS.getDesc());
                                     }
                                 } else {
@@ -101,6 +105,8 @@ public class LoginServiceImpl implements LoginService{
                             loginResult.setDesc(LoginResultEnum.PWD_NOT_EXIST.getDesc());
                         }
                     }
+                }else{
+                    loginResult.setDesc(LoginResultEnum.USER_NOT_EXISTS.getDesc());
                 }
             } catch (Exception e) {
                 logger.error("login exception",e);

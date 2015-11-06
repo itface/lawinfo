@@ -1,4 +1,4 @@
-package com.lawinfo.domain.org.query;
+package com.lawinfo.domain.front.query;
 
 import com.lawinfo.domain.common.BaseQuery;
 

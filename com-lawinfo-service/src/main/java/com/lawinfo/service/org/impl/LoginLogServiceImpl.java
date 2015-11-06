@@ -70,6 +70,7 @@ public class LoginLogServiceImpl implements LoginLogService{
             list = loginLogDao.findList(loginLogQuery);
         } catch (Exception e) {
             logger.error("findList error,LoginLogQuery=" + loginLogQuery==null?"null":loginLogQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -82,6 +83,7 @@ public class LoginLogServiceImpl implements LoginLogService{
             list = loginLogDao.findListByPage(loginLogQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,LoginLogQuery=" + loginLogQuery==null?"null":loginLogQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -94,6 +96,7 @@ public class LoginLogServiceImpl implements LoginLogService{
             effectrows = loginLogDao.count(loginLogQuery);
         } catch (Exception e) {
             logger.error("count error,LoginLogQuery=" + loginLogQuery==null?"null":loginLogQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -107,6 +110,7 @@ public class LoginLogServiceImpl implements LoginLogService{
             effectrows = loginLogDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }

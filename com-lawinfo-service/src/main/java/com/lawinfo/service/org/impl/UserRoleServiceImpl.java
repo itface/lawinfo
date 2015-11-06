@@ -107,6 +107,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
             list = userRoleDao.findList(userRoleQuery);
         } catch (Exception e) {
             logger.error("findList error,UserRoleQuery=" + userRoleQuery==null?"null":userRoleQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -119,6 +120,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
             list = userRoleDao.findListByPage(userRoleQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,UserRoleQuery=" + userRoleQuery==null?"null":userRoleQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -131,6 +133,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
             effectrows = userRoleDao.count(userRoleQuery);
         } catch (Exception e) {
             logger.error("count error,UserRoleQuery=" + userRoleQuery==null?"null":userRoleQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -144,6 +147,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
             effectrows = userRoleDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }

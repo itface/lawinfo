@@ -142,6 +142,7 @@ public class ActionServiceImpl implements ActionService {
             list = actionDao.findList(actionInfoQuery);
         } catch (Exception e) {
             logger.error("findList error,ActionQuery=" + actionInfoQuery==null?"null":actionInfoQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -154,6 +155,7 @@ public class ActionServiceImpl implements ActionService {
             list = actionDao.findListByPage(actionInfoQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,ActionQuery=" + actionInfoQuery==null?"null":actionInfoQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -166,6 +168,7 @@ public class ActionServiceImpl implements ActionService {
             effectrows = actionDao.count(actionInfoQuery);
         } catch (Exception e) {
             logger.error("count error,ActionQuery=" + actionInfoQuery==null?"null":actionInfoQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }

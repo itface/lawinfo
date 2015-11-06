@@ -1,4 +1,4 @@
-package com.lawinfo.domain.org.query;
+package com.lawinfo.domain.front.query;
 
 import com.lawinfo.domain.common.BaseQuery;
 
@@ -9,6 +9,7 @@ public class CaseInfoQuery extends BaseQuery {
     private Long id;
 
     private String summary;
+    private String userid;
 
     public Long getId() {
         return id;
@@ -25,10 +26,20 @@ public class CaseInfoQuery extends BaseQuery {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id").append(":").append(id).append(",");
         sb.append("summary").append(":").append(summary).append(",");
+        sb.append("userid").append(":").append(userid).append(",");
         sb.append("startRow").append(":").append(startRow).append(",");
         sb.append("pageSize").append(":").append(pageSize).append(",");
         return sb.toString();

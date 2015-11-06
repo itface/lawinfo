@@ -2,6 +2,7 @@ package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.org.Action;
+import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.login.LoginService;
 import com.lawinfo.service.login.enumtype.LoginResultEnum;
 import com.lawinfo.service.org.ActionService;
@@ -33,7 +34,7 @@ public class MainController {
     @RequestMapping("")
     public String index(ModelMap modelMap,HttpServletRequest request)throws Exception{
         String userid = LoginInfo.getUseridFromSession(request.getSession());
-        if ("admin".equals(userid)) {
+        if (SysConstants.SUPER_ADMIN.equals(userid)) {
             StringBuilder sb = new StringBuilder();
             for (int i=0;i<MAIN_TAGS.length;i++) {
                 sb.append(MAIN_TAGS[i]).append(",");

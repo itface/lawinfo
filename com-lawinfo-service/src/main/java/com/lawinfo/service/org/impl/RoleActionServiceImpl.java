@@ -85,8 +85,8 @@ public class RoleActionServiceImpl implements RoleActionService{
             return roleActionDao.findByRoleid(roleid);
         } catch (Exception e) {
             logger.error("findByRoleid error,id=" + roleid, e);
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -95,8 +95,8 @@ public class RoleActionServiceImpl implements RoleActionService{
             return roleActionDao.findByActionid(actionid);
         } catch (Exception e) {
             logger.error("findByActionid error,actionid=" + actionid, e);
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -107,6 +107,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             list = roleActionDao.findList(roleActionQuery);
         } catch (Exception e) {
             logger.error("findList error,RoleActionQuery=" + roleActionQuery==null?"null":roleActionQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -119,6 +120,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             list = roleActionDao.findListByPage(roleActionQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,RoleActionQuery=" + roleActionQuery==null?"null":roleActionQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -131,6 +133,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             effectrows = roleActionDao.count(roleActionQuery);
         } catch (Exception e) {
             logger.error("count error,RoleActionQuery=" + roleActionQuery==null?"null":roleActionQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -144,6 +147,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             effectrows = roleActionDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
@@ -157,6 +161,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             effectrows = roleActionDao.deleteByActionid(actionid);
         } catch (Exception e) {
             logger.error("deleteByActionid error,Actionid=" + actionid, e);
+            throw e;
         }
         return effectrows;
     }
@@ -170,6 +175,7 @@ public class RoleActionServiceImpl implements RoleActionService{
             effectrows = roleActionDao.deleteByRoleid(roleid);
         } catch (Exception e) {
             logger.error("deleteByRoleid error,roleid=" + roleid, e);
+            throw e;
         }
         return effectrows;
     }

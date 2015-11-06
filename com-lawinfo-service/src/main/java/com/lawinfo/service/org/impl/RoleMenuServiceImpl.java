@@ -97,6 +97,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             list = roleMenuDao.findList(roleMenuQuery);
         } catch (Exception e) {
             logger.error("findList error,RoleMenuQuery=" + roleMenuQuery==null?"null":roleMenuQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -109,6 +110,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             list = roleMenuDao.findListByPage(roleMenuQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,RoleMenuQuery=" + roleMenuQuery==null?"null":roleMenuQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -121,6 +123,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             effectrows = roleMenuDao.count(roleMenuQuery);
         } catch (Exception e) {
             logger.error("count error,RoleMenuQuery=" + roleMenuQuery==null?"null":roleMenuQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -134,6 +137,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             effectrows = roleMenuDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
@@ -147,6 +151,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             effectrows = roleMenuDao.deleteByMenuid(menuid);
         } catch (Exception e) {
             logger.error("deleteByMenuid error,menuid=" + menuid, e);
+            throw e;
         }
         return effectrows;
     }
@@ -160,6 +165,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             effectrows = roleMenuDao.deleteByRoleid(roleid);
         } catch (Exception e) {
             logger.error("deleteByRoleid error,roleid=" + roleid, e);
+            throw e;
         }
         return effectrows;
     }

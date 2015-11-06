@@ -15,6 +15,7 @@ public class OrgVo implements Serializable,Comparable {
      * 0代表机构，1代表人员
      */
     private int type;
+    private String userid;
     private List<OrgVo> nodes;
 
     public Long getId() {
@@ -63,6 +64,14 @@ public class OrgVo implements Serializable,Comparable {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     @Override

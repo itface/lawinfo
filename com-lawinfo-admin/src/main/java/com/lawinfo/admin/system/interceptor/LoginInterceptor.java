@@ -1,6 +1,7 @@
 package com.lawinfo.admin.system.interceptor;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
         String userid = LoginInfo.getUseridFromSession(session);
-        if ("admin".equals(userid)) {
+        if (SysConstants.SUPER_ADMIN.equals(userid)) {
             return true;
         }
         if (!UserUtils.haveAction(userid,uri)&&!UserUtils.haveMenu(userid, uri)) {

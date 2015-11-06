@@ -1,6 +1,7 @@
 package com.lawinfo.service.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,5 +25,11 @@ public class DateUtils {
 
     public static Date convertToDate(long time) {
         return new Date(time);
+    }
+
+    public static void main(String[] args) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,1);
+        System.out.println(formatDatetime(1446480000299l)+":"+formatDatetime(1446652800299l));
     }
 }

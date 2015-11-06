@@ -197,6 +197,7 @@ public class RoleServiceImpl implements RoleService {
             list = roleDao.findList(roleQuery);
         } catch (Exception e) {
             logger.error("findList error,roleQuery=" + roleQuery==null?"null":roleQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -209,6 +210,7 @@ public class RoleServiceImpl implements RoleService {
             list = roleDao.findListByPage(roleQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,RoleQuery=" + roleQuery==null?"null":roleQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -221,6 +223,7 @@ public class RoleServiceImpl implements RoleService {
             effectrows = roleDao.count(roleQuery);
         } catch (Exception e) {
             logger.error("count error,roleQuery=" + roleQuery==null?"null":roleQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -239,6 +242,7 @@ public class RoleServiceImpl implements RoleService {
             }
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }

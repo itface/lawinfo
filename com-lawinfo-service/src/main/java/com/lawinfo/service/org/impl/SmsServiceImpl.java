@@ -77,6 +77,7 @@ public class SmsServiceImpl implements SmsService{
             list = smsDao.findList(smsQuery);
         } catch (Exception e) {
             logger.error("findList error,SmsQuery=" + smsQuery==null?"null":smsQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -89,6 +90,7 @@ public class SmsServiceImpl implements SmsService{
             list = smsDao.findListByPage(smsQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,SmsQuery=" + smsQuery==null?"null":smsQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -101,6 +103,7 @@ public class SmsServiceImpl implements SmsService{
             effectrows = smsDao.count(smsQuery);
         } catch (Exception e) {
             logger.error("count error,SmsQuery=" + smsQuery==null?"null":smsQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -114,6 +117,7 @@ public class SmsServiceImpl implements SmsService{
             effectrows = smsDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
@@ -127,6 +131,7 @@ public class SmsServiceImpl implements SmsService{
             effectrows = smsDao.updateLoginfailcount(id);
         } catch (Exception e) {
             logger.error("updateLoginfailcount error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }

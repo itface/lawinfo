@@ -9,6 +9,8 @@
 
         <!-- 可选的Bootstrap主题文件（一般不用引入） -->
         <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/static/common/common.css">
+        <link rel="stylesheet" href="/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
 
 
         <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
@@ -16,18 +18,799 @@
 
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
         <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="/static/bootstrap-treeview/bootstrap-treeview.js"></script>
+        <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+        <script src="/static/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+        <script src="/static/front/user.js"></script>
+        <script src="/static/front/caseinfo.js"></script>
+        <script src="/static/highcharts/js/highcharts.js"></script>
+        <script src="/static/highcharts/js/modules/exporting.js"></script>
+
 	</head>
 	<body>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span2">
-                    <div class="page-nav">
-                        <div id="nav-tree"></div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-xs-10" style="text-align: center">
+                <h3>
+                    管理系统
+                </h3>
+            </div>
+            <div class="col-xs-2" style="text-align: center">
+                <ul class="nav nav-tabs">
+                    <li class="dropdown pull-right">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">设置<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/logout">离开</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="row" >
+                <div class="col-xs-3" id="nav-panel">
+                    <div id="nav-tree"></div>
+                </div>
+                <div class="col-xs-9" id="content-pane" style="background: #fff">
+                        <div class="row toolbar">
+                            <div class="col-xs-8">
+                                <button type="button" class="btn btn-primary" id="btn-caseinfo-add" actionid="front-caseinfo-add-btn" style="display: none">
+                                    创建案件
+                                </button>
+                                <button type="button" class="btn btn-primary" id="btn-caseinfo-progress-add" actionid="front-case-progress-add-btn" style="display: none">
+                                    添加案件进度
+                                </button>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" placeholder="搜索"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span12">
+                                <ul class="nav nav-tabs" id="record-nav">
+                                    <li class="active">
+                                        <a href="#case-doing" data-toggle="tab" id="case-doing-tab" actionid="front-case-doing-list" style="display: block">在办</a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-ed" data-toggle="tab" id="case-ed-tab" actionid="front-case-ed-list" style="display: block">已办</a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-all" data-toggle="tab" id="case-all-tab" actionid="front-case-all-list" style="display: block">所有</a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-report" data-toggle="tab" id="case-report-tab" actionid="front-case-report-list" style="display: block">统计</a>
+                                    </li>
+                                </ul>
+                                <div id="caseTabContent" class="tab-content">
+                                    <div class="tab-pane fade in active" id="case-doing">
+                                        <table class="table table-hover" id="caseinfo-list">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>摘要</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="case-report">
+                                        <div class="row-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="chart1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="chart2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="chart3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="chart4">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                     </div>
-				</div>
-				<div class="span10">
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!---------------------------通用提示窗口 begin--------------------------------->
+    <div class="modal fade" id="msgModal" tabindex="-1" role="dialog"
+         aria-labelledby="msgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="msgModalLabel">
+                        提示
+                    </h4>
+                </div>
+                <div class="modal-body has-error">
+                    <label class="control-label msg-label" for="inputError">
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!---------------------------通用提示窗口 end--------------------------------->
+    <div id="caseinfo-progress-modal" class="modal fade" >
+        <div class="modal-dialog pregress-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">进度明细</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div id="caseinfo-progress-tree"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="caseinfo-modal" class="modal fade">
+        <div class="modal-dialog pregress-dialog" style="width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增案件</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="caseinfo-form">
+                        <div class="case-form">
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>案件所属银行:</label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <select name="bankid" id="bankid" class="form-control">
+                                        <option value="1">中国工商银行中关村支行</option>
+                                        <option value="2">招商银行海淀分行</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>案件联络人:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="contact" class="form-control" type="text" placeholder="联络人名称" value="王家强"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>联系方式:</label>
+                                 </div>
+                                <div class="col-xs-4">
+                                    <input id="contactphone" class="form-control" type="text" placeholder="联系方式" value="15801527687"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>债务人信息:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="debtorinfo" type="text" class="form-control" placeholder="债务人信息" value="北京亦庄人"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>是否与律所关联:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="iscreditorrelated"  type="checkbox" checked="checked"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>债务人财产状况:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea  id="debtorpropertyinfo" class="form-control" rows="3">无负债</textarea>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>案由:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea  id="ay" rows="3" class="form-control">借款不还</textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>债权本金:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="zqbj" type="text" class="form-control" value="999999"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>债权到账日期:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="zqdqr" type="text" class="form-control" readonly/>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>担保人信息:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="guarantorinfo" type="text" class="form-control" value="信誉良好"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>是否与律所关联:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="isguarantorrelated" type="checkbox"/>
+                                </div>
+
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>担保方式:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea id="guaranteetype" row="3" class="form-control">查保人担保</textarea>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>担保人财产状况:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea id="guarantorpropertyinfo" row="3" class="form-control">经济良好</textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>抵押物信息:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea id="pawninfo" row="3" class="form-control">无</textarea>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>抵押物评估价值:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="pawnvalue" type="text" class="form-control" value="10000000"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>案件程序:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <textarea id="caseprocedure" row="3" class="form-control">诉讼</textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>受理法院:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="court" type="text" class="form-control" value="北京海淀法院"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>承办法官:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="judge" type="text" class="form-control" value="王连"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>诉讼律师ID:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="sslawyerid" type="text" class="form-control" value="zs" placeholder="诉讼律师ID"/>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>执行律师ID:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="exelawyerid" type="text" class="form-control" value="ls" placeholder="执行律师ID"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label>律师费总额:</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="totalprice" type="text" class="form-control" value="100000"/>
+                                </div>
+                            </div>
+                            <div class="row has-error" style="display: none">
+                                <div class="col-xs-4">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="control-label error-label" for="inputError">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-primary btn-lg btn-block submit">提交</a>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <script type="text/javascript">
+            function mainAlert(msg){
+                jQuery('#msgModal .msg-label').text(msg);
+                jQuery('#msgModal').modal('show');
+            }
+            var frontPage = {
+                init: function () {
+                    jQuery('#btn-caseinfo-add').on('click', function (e) {
+                        /*$('#btn-caseinfo-progress-add').removeClass("btn-primary").addClass("btn-default");
+                        $('#btn-caseinfo-add').removeClass("btn-default").addClass("btn-primary");*/
+                        jQuery('#caseinfo-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
+                    });
+                    jQuery('#btn-caseinfo-progress-add').on('click', function (e) {
+                        /*$('#btn-caseinfo-add').removeClass("btn-primary").addClass("btn-default");
+                        $('#btn-caseinfo-progress-add').removeClass("btn-default").addClass("btn-primary");*/
+//                        jQuery('#caseinfo-progress-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
+                    });
+                    $('#zqdqr').datetimepicker({
+                        format: 'yyyy-mm-dd',
+                        minView: "month",
+                        autoclose:true
+                    });
+                }
+            };
+            frontPage.init();
+            user.init();
+            caseinfo.init();
+            jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                // 获取已激活的标签页的名称
+                var tabid = jQuery(e.target).attr("id");
+                if (tabid=='case-doing-tab') {
+                    caseinfo.init();
+                }else if (tabid == 'case-ed-tab') {
+                }else if (tabid == 'case-all-tab') {
+                }else if (tabid == 'case-report-tab') {
+                }
+            });
+            var actionList = "$!actionList";
+            if (actionList) {
+                var actionArr = actionList.split(",");
+                for (var i=0;i<actionArr.length;i++) {
+                    jQuery("[actionid='"+actionArr[i]+"']").show();
+                }
+            }
+
+            var progressTree = [
+                {
+                    text: "合约洽谈",
+                    state: {
+                        checked: true,
+                        expanded: false,
+                        selectable: false
+                    },
+                    nodes: [
+                        {
+                            text: "银行委托洽谈"
+                        },
+                        {
+                            text: "合同已签订"
+                        },
+                        {
+                            text: "初期律师费已付"
+                        },
+                        {
+                            text: "诉前财产保全"
+                        }
+                    ]
+                },
+                {
+                    text: "一审已立案",
+                    state: {
+                        expanded: false,
+                    },
+                    nodes: [
+                        {
+                            text: "立案"
+                        },
+                        {
+                            text: "财产保全"
+                        },
+                        {
+                            text: "文书送达"
+                        },
+                        {
+                            text: "确定开庭日"
+                        }
+                    ]
+                },
+                {
+                    text: "一审已开庭",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "已开庭"
+                        },
+                        {
+                            text: "调解进行中"
+                        },
+                        {
+                            text: "代理文书提交"
+                        },
+                        {
+                            text: "判决书跟进"
+                        }
+                    ]
+                },
+                {
+                    text: "一审已判决",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "法院已出具判决书",
+                        },
+                        {
+                            text: "判决书送达"
+                        }
+                    ]
+                },
+                {
+                    text: "上诉期",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "已上诉"
+                        }
+                    ]
+                },
+                {
+                    text: "二审已立案",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "立案"
+                        },
+                        {
+                            text: "文书送达"
+                        },
+                        {
+                            text: "确定开庭日"
+                        }
+                    ]
+                },
+                {
+                    text: "二审已开庭",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "已开庭"
+                        },
+                        {
+                            text: "调解进行中"
+                        },
+                        {
+                            text: "代理文书提交"
+                        },
+                        {
+                            text: "判决书跟进"
+                        }
+                    ]
+                },
+                {
+                    text: "二审已判决",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "法院已出具判决书"
+                        },
+                        {
+                            text: "判决书送达"
+                        }
+                    ]
+                },
+                {
+                    text: "执行阶段",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "已申请执行立案"
+                        },
+                        {
+                            text: "已确定执行法官"
+                        },
+                        {
+                            text: "执行文书送达"
+                        },
+                        {
+                            text: "财产拍卖"
+                        },
+                        {
+                            text: "结案"
+                        }
+                    ]
+                },
+                {
+                    text: "律师费结案",
+                    state: {
+                        expanded: false
+                    },
+                    nodes: [
+                        {
+                            text: "提交律师费结算"
+                        },
+                        {
+                            text: "开出发票"
+                        },
+                        {
+                            text: "律师费到账"
+                        }
+                    ]
+                }
+            ];
+            $('#caseinfo-progress-tree').treeview({
+                data : progressTree
+            });
+            $(function () {
+                $('.chart1').highcharts({
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: 'Historic World Population by Region'
+                    },
+                    subtitle: {
+                        text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+                    },
+                    xAxis: {
+                        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+                        title: {
+                            text: null
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Population (millions)',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ' millions'
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -40,
+                        y: 80,
+                        floating: true,
+                        borderWidth: 1,
+                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                        shadow: true
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Year 1800',
+                        data: [107, 31, 635, 203, 2]
+                    }, {
+                        name: 'Year 1900',
+                        data: [133, 156, 947, 408, 6]
+                    }, {
+                        name: 'Year 2012',
+                        data: [1052, 954, 4250, 740, 38]
+                    }]
+                });
+                $('.chart2').highcharts({
+                    title: {
+                        text: 'Monthly Average Temperature',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Temperature (°C)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '°C'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    },
+                    series: [{
+                        name: 'Tokyo',
+                        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                    }, {
+                        name: 'New York',
+                        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+                    }, {
+                        name: 'Berlin',
+                        data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+                    }, {
+                        name: 'London',
+                        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                    }]
+                });
+                $('.chart3').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Monthly Average Rainfall'
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Rainfall (mm)'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Tokyo',
+                        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+                    }, {
+                        name: 'New York',
+                        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+                    }, {
+                        name: 'London',
+                        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+                    }, {
+                        name: 'Berlin',
+                        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+                    }]
+                });
+                $('.chart4').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Browser market shares January, 2015 to May, 2015'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "Brands",
+                        colorByPoint: true,
+                        data: [{
+                            name: "Microsoft Internet Explorer",
+                            y: 56.33
+                        }, {
+                            name: "Chrome",
+                            y: 24.03,
+                            sliced: true,
+                            selected: true
+                        }, {
+                            name: "Firefox",
+                            y: 10.38
+                        }, {
+                            name: "Safari",
+                            y: 4.77
+                        }, {
+                            name: "Opera",
+                            y: 0.91
+                        }, {
+                            name: "Proprietary or Undetectable",
+                            y: 0.2
+                        }]
+                    }]
+                });
+            });
+        </script>
 	</body>
 </html>

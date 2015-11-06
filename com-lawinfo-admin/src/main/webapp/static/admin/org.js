@@ -21,10 +21,10 @@ var org = {
     init:function(){
         var self = this;
         self.initClickEvent();
-        orgTree = self.initOrgTree(self.buildOrgTree);
+        self.initOrgTree($.proxy(self.buildOrgTree,self));
         jQuery('.btn-add-org').on('click', function (e) {
-            if(orgSelectedNode==null){
-                self.mainAlert('请先选择上级机构');
+            if(orgSelectedNode==null||orgSelectedNode.id==0){
+                self.mainAlert('请先选择上级机构,不能添加一级机构');
                 return false;
             }
             jQuery('#orgModal').modal('show');
@@ -71,7 +71,7 @@ var org = {
                 }
             ];
         }
-        return $('#treeview-selectable').treeview({
+        orgTree = $('#treeview-selectable').treeview({
             data: treedata,
             multiSelect: $('#chk-select-multi').is(':checked'),
             onNodeSelected: function(event, node) {
@@ -80,6 +80,7 @@ var org = {
             onNodeUnselected: function (event, node) {
             }
         });
+        orgTree.treeview('expandAll');
     },
     initOrgTree:function(callback) {
         var orgtree = null;
@@ -99,8 +100,8 @@ var org = {
     },
     delOrg:function() {
         var self = this;
-        if (orgSelectedNode==null||orgSelectedNode.id<=0) {
-            self.mainAlert('请选择您要删除的机构');
+        if (orgSelectedNode==null||orgSelectedNode.id<=0||orgSelectedNode.parentorgid==0) {
+            self.mainAlert('请选择您要删除的机构,不能删除一级机构');
             return false;
         }
         mainConfirm('您确认要删除吗？',jQuery.proxy(self.doDelOrg,this));

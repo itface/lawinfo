@@ -193,6 +193,7 @@ public class MenuServiceImpl implements MenuService {
             list = menuDao.findList(menuQuery);
         } catch (Exception e) {
             logger.error("findList error,MenuQuery=" + menuQuery==null?"null":menuQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -205,6 +206,7 @@ public class MenuServiceImpl implements MenuService {
             list = menuDao.findListByPage(menuQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,MenuQuery=" + menuQuery==null?"null":menuQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -217,6 +219,7 @@ public class MenuServiceImpl implements MenuService {
             effectrows = menuDao.count(menuQuery);
         } catch (Exception e) {
             logger.error("count error,MenuQuery=" + menuQuery==null?"null":menuQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -232,6 +235,7 @@ public class MenuServiceImpl implements MenuService {
             effectrows = menuDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
@@ -251,6 +255,7 @@ public class MenuServiceImpl implements MenuService {
             menuDao.deleteByParentmenuid(parentmenuid);
         } catch (Exception e) {
             logger.error("deleteByParentMenuid error,parentMenuid=" + parentmenuid, e);
+            throw e;
         }
     }
 

@@ -1,9 +1,11 @@
 package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.UserDao;
+import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.UserRole;
+import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.query.UserQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.domain.org.vo.UserTreeVo;
@@ -173,6 +175,7 @@ public class UserServiceImpl implements UserService{
             list = userDao.findList(userQuery);
         } catch (Exception e) {
             logger.error("findList error,UserQuery=" + userQuery==null?"null":userQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -185,6 +188,7 @@ public class UserServiceImpl implements UserService{
             list = userDao.findListByPage(userQuery);
         } catch (Exception e) {
             logger.error("findListByPage error,UserQuery=" + userQuery==null?"null":userQuery.toLogString(), e);
+            throw e;
         }
         return list;
     }
@@ -197,6 +201,7 @@ public class UserServiceImpl implements UserService{
             effectrows = userDao.count(userQuery);
         } catch (Exception e) {
             logger.error("count error,UserQuery=" + userQuery==null?"null":userQuery.toLogString(), e);
+            throw e;
         }
         return effectrows;
     }
@@ -215,6 +220,7 @@ public class UserServiceImpl implements UserService{
             }
         } catch (Exception e) {
             logger.error("deleteById error,id=" + id, e);
+            throw e;
         }
         return effectrows;
     }
@@ -263,6 +269,7 @@ public class UserServiceImpl implements UserService{
                         OrgVo usernode = new OrgVo();
                         usernode.setId(user.getId());
                         usernode.setText(user.getName());
+                        usernode.setUserid(user.getUserid());
                         usernode.setParentorgid(orgid);
                         usernode.setIcon("glyphicon glyphicon-user");
                         usernode.setType(1);
@@ -287,6 +294,76 @@ public class UserServiceImpl implements UserService{
             logger.error("buildOrgVo error", e);
             throw e;
         }
+    }
+    /*private void buildOrgVoByUser(User user,OrgVo orgVo)throws Exception{
+        try {
+            if (orgVo!=null&&user!=null) {
+                long orgid = user.getOrgid();
+                OrgQuery orgQuery = new OrgQuery();
+                orgQuery.setParentorgid(orgid);
+                List<Org> orgs = orgService.findList(orgQuery);
+                if (!CollectionUtils.isEmpty(orgs)) {
+                    for (Org org : orgs) {
+                        UserQuery userQuery = new UserQuery();
+                        userQuery.setOrgid(org.getId());
+                        List<User> users = findList(userQuery);
+                        if (!CollectionUtils.isEmpty(users)) {
+                            for (User user1 : users) {
+                                OrgVo usernode = new OrgVo();
+                                usernode.setId(user1.getId());
+                                usernode.setText(user1.getName());
+                                usernode.setParentorgid(org.getId());
+                                usernode.setIcon("glyphicon glyphicon-user");
+                                usernode.setType(1);
+                                if (orgVo.getNodes() == null) {
+                                    List<OrgVo> son = new ArrayList<OrgVo>();
+                                    son.add(usernode);
+                                    orgVo.setNodes(son);
+                                } else {
+                                    orgVo.getNodes().add(usernode);
+                                }
+                                Collections.sort(orgVo.getNodes());
+                            }
+                        }
+                        List<OrgVo> sons = orgVo.getNodes();
+                        if (!CollectionUtils.isEmpty(sons)) {
+                            for (OrgVo orgVo1 : sons) {
+                                buildOrgVo(orgVo1);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("buildOrgVo error", e);
+            throw e;
+        }
+    }*/
+    public List<OrgVo> findSubordinateTree(String userid)throws Exception {
+        List<OrgVo> orgVoList = null;
+        try {
+            User user = this.findByUserid(userid);
+            if (user != null) {
+                long rootOrgid = user.getOrgid();
+                List<OrgVo> list = orgService.findSubOrgTree(rootOrgid);
+                if (!CollectionUtils.isEmpty(list)) {
+                    orgVoList = new ArrayList<OrgVo>();
+                    OrgVo root = new OrgVo();
+                    root.setId(0l);
+                    root.setParentorgid(-1l);
+                    root.setText("全部");
+                    root.setNodes(list);
+                    for (OrgVo orgVo : list) {
+                        buildOrgVo(orgVo);
+                    }
+                    orgVoList.add(root);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findSubordinateTree error", e);
+            throw e;
+        }
+        return orgVoList;
     }
     @Override
     public List<OrgVo> findUserTreeVo() throws Exception {

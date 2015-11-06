@@ -20,10 +20,10 @@ var user = {
     init:function(){
         var self = this;
         self.initClickEvent();
-        userTree = self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
+        self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
 
         jQuery('#user .btn-add').on('click', function (e) {
-            if (selectUserTreeNode&&selectUserTreeNode.type!=1) {
+            if (selectUserTreeNode&&selectUserTreeNode.type!=1&&selectUserTreeNode.id>0) {
                 jQuery('#userModal').modal('show');
             }else{
                 mainAlert('请选择要添加的用户所在的部门，不能选择用户');
@@ -88,7 +88,7 @@ var user = {
                 }
             ];
         }
-        return $('#treeview-user').treeview({
+        userTree = $('#treeview-user').treeview({
             data: treedata,
             onNodeSelected: function(event, node) {
                 selectUserTreeNode=node;
@@ -96,6 +96,7 @@ var user = {
             onNodeUnselected: function (event, node) {
             }
         });
+        userTree.treeview('expandAll');
     },
     initOrgUserTree:function(callback) {
         var treedata = null;
@@ -244,7 +245,8 @@ var user = {
     doDelUser:function(){
         var self = this;
         jQuery.ajax({
-            url:'/lawinfo/admin/user/remove/'+selectUserTreeNode.id,
+            url:'/lawinfo/admin/user/remove',
+            data:{id:selectUserTreeNode.id},
             type:'GET',
             success:function(data) {
                 selectUserTreeNode=null;
@@ -255,7 +257,7 @@ var user = {
                 mainAlert('删除用户异常');
             }
         }).done(function(){
-            self.showUserRoleTable($.proxy(self.buildUserTable,this));
+            //self.showUserRoleTable($.proxy(self.buildUserTable,this));
         });
     }
 }
