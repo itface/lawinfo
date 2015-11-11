@@ -67,6 +67,27 @@ public class UserUtils {
         }
         return null;
     }
+    public static void findSubordinate(String userid,List<String> allSubordinate) {
+        if (!StringUtils.isEmpty(userid) && allSubordinate != null) {
+            User superior = userMap.get(userid);
+            if (superior != null) {
+                long superiorOrgid = superior.getOrgid();
+                Collection<User> users = userMap.values();
+                for (User user : users) {
+                    long orgid = user.getOrgid();
+                    String userid1 = user.getUserid();
+                    Org org = OrgUtils.findById(orgid);
+                    if (org != null) {
+                        long parentorgid = org.getParentorgid();
+                        if (parentorgid == superiorOrgid) {
+                            findSubordinate(userid1,allSubordinate);
+                            allSubordinate.add(userid1);
+                        }
+                    }
+                }
+            }
+        }
+    }
     /*private static void findSubordinateTree(String userid,UserTreeVo subordinateTree,List<User> allSubordinate) {
         if (!StringUtils.isEmpty(userid)&&subordinateTree!=null&&allSubordinate!=null) {
             User superior = userMap.get(userid);

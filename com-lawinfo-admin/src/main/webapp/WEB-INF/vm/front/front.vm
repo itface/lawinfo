@@ -392,18 +392,26 @@
                     });
                 }
             };
+            var currentTabType=1;
+            var loginuser="$!loginuser";
+            var currentUser=loginuser;
             frontPage.init();
             user.init();
             caseinfo.init();
             caseprogress.init();
             jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 // 获取已激活的标签页的名称
-                var tabid = jQuery(e.target).attr("id");
-                if (tabid=='case-doing-tab') {
+                var currentTabId = jQuery(e.target).attr("id");
+                if (currentTabId=='case-doing-tab') {
+                    currentTabType=1;
                     caseinfo.init();
-                }else if (tabid == 'case-ed-tab') {
-                }else if (tabid == 'case-all-tab') {
-                }else if (tabid == 'case-report-tab') {
+                }else if (currentTabId == 'case-ed-tab') {
+                    currentTabType=2;
+                    caseinfo.init();
+                }else if (currentTabId == 'case-all-tab') {
+                    currentTabType=0;
+                    caseinfo.init();
+                }else if (currentTabId == 'case-report-tab') {
                 }
             });
             var actionList = "$!actionList";

@@ -18,8 +18,12 @@
             <if test="caseinfoid!=null">
                 and caseinfoid = #{caseinfoid}
             </if>
-            <if test="userid!=null">
-                and userid = #{userid}
+            <if test="userids!=null">
+                and  userid IN
+                <foreach item="item" index="index" collection="userids"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
             <if test="usertype!=null">
                 and usertype = #{usertype}
@@ -44,6 +48,12 @@
     <select id="findList" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
+        from
+        caseinfouser
+        <include refid="condition"/>
+    </select>
+    <select id="findAllCaseinfoid" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery"  resultType="Long">
+        select caseinfoid
         from
         caseinfouser
         <include refid="condition"/>

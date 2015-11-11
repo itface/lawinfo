@@ -50,6 +50,19 @@
             <if test="summary!=null and summary!=''">
                 and summary like concat('%', #{summary}, '%')
             </if>
+            <if test="currenttabtype!=null and currenttabtype==1">
+                and status &lt;9999
+            </if>
+            <if test="currenttabtype!=null and currenttabtype==2">
+                and status=9999
+            </if>
+            <if test="caseinfoids!=null">
+                and id IN
+                <foreach item="item" index="index" collection="caseinfoids"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
             <!--<if test="exelawyerid!=null and exelawyerid!=''">
                 and exelawyerid like concat('%', #{exelawyerid}, '%')
             </if>
@@ -82,6 +95,7 @@
         from
         CaseInfo
         <include refid="condition"/>
+         order by createtime desc
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
         select
@@ -90,6 +104,7 @@
         CaseInfo
         <include refid="condition"/>
         <include refid="page"/>
+        order by createtime desc
     </select>
     <select id="count" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery" resultType="int">
         SELECT

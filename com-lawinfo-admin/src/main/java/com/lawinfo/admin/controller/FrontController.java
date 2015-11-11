@@ -35,6 +35,7 @@ public class FrontController {
     @RequestMapping("")
     public String index(ModelMap modelMap,HttpServletRequest request)throws Exception{
         String userid = LoginInfo.getUseridFromSession(request.getSession());
+        modelMap.put("loginuser", userid);
         if (SysConstants.SUPER_ADMIN.equals(userid)) {
             StringBuilder sb = new StringBuilder();
             for(String tag : SysConstants.FRONT_TAGS){

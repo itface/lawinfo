@@ -79,6 +79,18 @@ public class CaseInfoUserServiceImpl implements CaseInfoUserService {
     }
 
     @Override
+    public List<Long> findAllCaseinfoid(CaseInfoUserQuery caseInfoUserQuery) throws Exception {
+        List<Long> list = null;
+        try {
+            list = caseInfoUserDao.findAllCaseinfoid(caseInfoUserQuery);
+        } catch (Exception e) {
+            logger.error("findList error", e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
     public List<CaseInfoUser> findListByPage(CaseInfoUserQuery caseInfoUserQuery)throws Exception {
         List<CaseInfoUser> list = null;
         try {

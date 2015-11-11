@@ -35,5 +35,5 @@ public interface UserService {
     public List<OrgVo> findSubordinateTree(String userid)throws Exception;
     public List<OrgVo> findCustomerTree()throws Exception;
     public List<OrgVo> findLawyerTree()throws Exception;
-
+    public List<String> findAllSubordinate(String userid)throws Exception;
 }

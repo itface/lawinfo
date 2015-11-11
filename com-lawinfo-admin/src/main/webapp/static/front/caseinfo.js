@@ -185,10 +185,9 @@ var caseinfo = {
     },
     showCaseinfoTable:function(callback){
         var self = this;
-        var caseinfos = null;
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/find',
-            data:{userid:userSelectedNode==null?null:userSelectedNode.userid},
+            data:{userid:currentUser,currenttabtype:currentTabType},
             type:'GET',
             //async:false,
             success:function(data) {

@@ -4,16 +4,20 @@ import com.lawinfo.dao.front.CaseInfoDao;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.CaseInfoUser;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
+import com.lawinfo.domain.front.query.CaseInfoUserQuery;
 import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.front.CaseInfoService;
 import com.lawinfo.service.front.CaseInfoUserService;
+import com.lawinfo.service.org.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +31,8 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     private CaseInfoDao caseInfoDao;
     @Resource
     private CaseInfoUserService caseInfoUserService;
+    @Resource
+    private UserService userService;
 
     @Override
     public List<CaseInfo> findAll() throws Exception{
@@ -48,7 +54,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
             if (caseInfo!=null) {
                 caseInfo.initSummary();
                 caseInfo.initBaseDomain();
-                if (SysConstants.CASEINFO_TYPE_INIT==caseInfo.getCasetype()) {
+                if (SysConstants.CASEINFO_TYPE_INIT!=caseInfo.getCasetype()) {
                     caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
                 }
                 effectrows = caseInfoDao.save(caseInfo);
@@ -102,11 +108,26 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     }
 
     @Override
-    public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery)throws Exception {
+    public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery,String userid)throws Exception {
         logger.info("findList begin,CaseInfoQuery=" + caseInfoQuery == null ? "null" : caseInfoQuery.toLogString());
         List<CaseInfo> list = null;
         try {
-            list = caseInfoDao.findList(caseInfoQuery);
+            if (caseInfoQuery!=null&&!StringUtils.isEmpty(userid)) {
+                List<String> subordinate = userService.findAllSubordinate(userid);
+                if (subordinate==null) {
+                    subordinate = new ArrayList<String>();
+                }
+                subordinate.add(userid);
+                if (!CollectionUtils.isEmpty(subordinate)) {
+                    CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
+                    caseInfoUserQuery.setUserids(subordinate);
+                    List<Long> allCaseinfoid = caseInfoUserService.findAllCaseinfoid(caseInfoUserQuery);
+                    if (!CollectionUtils.isEmpty(allCaseinfoid)) {
+                        caseInfoQuery.setCaseinfoids(allCaseinfoid);
+                        list = caseInfoDao.findList(caseInfoQuery);
+                    }
+                }
+            }
         } catch (Exception e) {
             logger.error("findList error,CaseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString(), e);
             throw e;

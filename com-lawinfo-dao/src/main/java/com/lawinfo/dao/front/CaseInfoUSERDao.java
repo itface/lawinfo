@@ -23,4 +23,5 @@ public interface CaseInfoUserDao {
     public List<CaseInfoUser> findListByPage(CaseInfoUserQuery caseInfoUserQuery);
 
     public int deleteById(long id);
+    public List<Long> findAllCaseinfoid(CaseInfoUserQuery caseInfoUserQuery);
 }

@@ -295,50 +295,14 @@ public class UserServiceImpl implements UserService{
             throw e;
         }
     }
-    /*private void buildOrgVoByUser(User user,OrgVo orgVo)throws Exception{
-        try {
-            if (orgVo!=null&&user!=null) {
-                long orgid = user.getOrgid();
-                OrgQuery orgQuery = new OrgQuery();
-                orgQuery.setParentorgid(orgid);
-                List<Org> orgs = orgService.findList(orgQuery);
-                if (!CollectionUtils.isEmpty(orgs)) {
-                    for (Org org : orgs) {
-                        UserQuery userQuery = new UserQuery();
-                        userQuery.setOrgid(org.getId());
-                        List<User> users = findList(userQuery);
-                        if (!CollectionUtils.isEmpty(users)) {
-                            for (User user1 : users) {
-                                OrgVo usernode = new OrgVo();
-                                usernode.setId(user1.getId());
-                                usernode.setText(user1.getName());
-                                usernode.setParentorgid(org.getId());
-                                usernode.setIcon("glyphicon glyphicon-user");
-                                usernode.setType(1);
-                                if (orgVo.getNodes() == null) {
-                                    List<OrgVo> son = new ArrayList<OrgVo>();
-                                    son.add(usernode);
-                                    orgVo.setNodes(son);
-                                } else {
-                                    orgVo.getNodes().add(usernode);
-                                }
-                                Collections.sort(orgVo.getNodes());
-                            }
-                        }
-                        List<OrgVo> sons = orgVo.getNodes();
-                        if (!CollectionUtils.isEmpty(sons)) {
-                            for (OrgVo orgVo1 : sons) {
-                                buildOrgVo(orgVo1);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.error("buildOrgVo error", e);
-            throw e;
-        }
-    }*/
+
+    @Override
+    public List<String> findAllSubordinate(String userid) throws Exception {
+        List<String> list = new ArrayList<String>();
+        UserUtils.findSubordinate(userid,list);
+        return list;
+    }
+
     public List<OrgVo> findSubordinateTree(String userid)throws Exception {
         List<OrgVo> orgVoList = null;
         try {

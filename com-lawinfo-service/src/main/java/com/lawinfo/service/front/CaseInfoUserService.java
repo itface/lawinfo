@@ -18,6 +18,7 @@ public interface CaseInfoUserService {
     public CaseInfoUser findById(long id)throws Exception;
 
     public List<CaseInfoUser> findList(CaseInfoUserQuery caseInfoUserQuery)throws Exception;
+    public List<Long> findAllCaseinfoid(CaseInfoUserQuery caseInfoUserQuery)throws Exception;
 
     public List<CaseInfoUser> findListByPage(CaseInfoUserQuery caseInfoUserQuery)throws Exception;
 

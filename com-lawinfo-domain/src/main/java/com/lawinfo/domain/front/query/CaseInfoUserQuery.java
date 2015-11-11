@@ -1,6 +1,7 @@
 package com.lawinfo.domain.front.query;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/11/9.
@@ -8,7 +9,7 @@ import java.io.Serializable;
 public class CaseInfoUserQuery implements Serializable {
     private Long id;
     private Long caseinfoid;
-    private String userid;
+    private List<String> userids;
     /**
      * 用户类型，1代表案件所属机构的联系人，2代表诉讼律师，3代表执行律师
      */
@@ -30,12 +31,12 @@ public class CaseInfoUserQuery implements Serializable {
         this.caseinfoid = caseinfoid;
     }
 
-    public String getUserid() {
-        return userid;
+    public List<String> getUserids() {
+        return userids;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserids(List<String> userids) {
+        this.userids = userids;
     }
 
     public Integer getUsertype() {
@@ -45,4 +46,5 @@ public class CaseInfoUserQuery implements Serializable {
     public void setUsertype(Integer usertype) {
         this.usertype = usertype;
     }
+
 }

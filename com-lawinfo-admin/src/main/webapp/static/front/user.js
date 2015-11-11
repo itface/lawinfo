@@ -10,9 +10,18 @@ var user = {
         self.initUserTree($.proxy(self.buildUserTree,self));
     },
     refreshPage : function() {
-        if (userSelectedNode != null && userSelectedNode.type == 1 && userSelectedNode.id > 0) {
-            $('#case-doing-tab').click();
-            caseinfo.init();
+        if (userSelectedNode != null) {
+            if (userSelectedNode.type == 1 && userSelectedNode.id > 0) {
+                $('#case-doing-tab').click();
+                currentTabType=1;
+                currentUser=userSelectedNode.userid;
+                caseinfo.init();
+            }else if (userSelectedNode.type == 0 && userSelectedNode.id == 0) {
+                $('#case-doing-tab').click();
+                currentTabType=1;
+                currentUser=loginuser;
+                caseinfo.init();
+            }
         }
     },
     buildUserTree : function(treedata) {
