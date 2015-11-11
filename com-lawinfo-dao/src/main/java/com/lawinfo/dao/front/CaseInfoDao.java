@@ -23,4 +23,11 @@ public interface CaseInfoDao {
     public int count(CaseInfoQuery caseInfoQuery);
 
     public int deleteById(long id);
+
+    public int updateStatus(CaseInfo caseInfo);
+    public int updateYstj(CaseInfo caseInfo);
+    public int updateEstj(CaseInfo caseInfo);
+    public int updatePrePrice(CaseInfo caseInfo);
+    public int updateSufPrice(CaseInfo caseInfo);
+    public int updateExeLawyers(CaseInfo caseInfo);
 }

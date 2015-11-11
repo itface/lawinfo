@@ -5,6 +5,7 @@ import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.org.ActionService;
+import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.UserService;
 import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class FrontController {
 
     @Resource
     private UserService userService;
+
 
     @RequestMapping("")
     public String index(ModelMap modelMap,HttpServletRequest request)throws Exception{

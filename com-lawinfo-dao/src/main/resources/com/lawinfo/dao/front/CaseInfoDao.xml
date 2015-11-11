@@ -3,11 +3,10 @@
 <mapper namespace="com.lawinfo.dao.front.CaseInfoDao">
     <resultMap id="ResultMap" type="com.lawinfo.domain.front.CaseInfo">
         <id property="id" column="id" />
-        <result column="bankid" property="bankid"/>
-        <result column="bankname" property="bankname"/>
+        <result column="caseorgid" property="caseorgid"/>
+        <result column="caseorgname" property="caseorgname"/>
         <result column="status" property="status"/>
-        <result column="contact" property="contact"/>
-        <result column="contactphone" property="contactphone"/>
+        <result column="contacts" property="contacts"/>
         <result column="debtorinfo" property="debtorinfo"/>
         <result column="iscreditorrelated" property="iscreditorrelated"/>
         <result column="debtorpropertyinfo" property="debtorpropertyinfo"/>
@@ -24,9 +23,14 @@
         <result column="caseprocedure" property="caseprocedure"/>
         <result column="court" property="court"/>
         <result column="judge" property="judge"/>
-        <result column="exelawyerid" property="exelawyerid"/>
-        <result column="sslawyerid" property="sslawyerid"/>
+        <result column="exelawyers" property="exelawyers"/>
+        <result column="sslawyers" property="sslawyers"/>
         <result column="totalprice" property="totalprice"/>
+        <result column="preprice" property="preprice"/>
+        <result column="sufprice" property="sufprice"/>
+        <result column="ystj" property="ystj"/>
+        <result column="estj" property="estj"/>
+        <result column="casetype" property="casetype"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -34,9 +38,9 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,bankid,bankname,zqdqr,zqdqrstr,contact,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+         id,caseorgid,caseorgname,status,zqdqr,zqdqrstr,contacts,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,exelawyerid,sslawyerid,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary
+         ,exelawyers,sslawyers,totalprice,sufprice,preprice,ystj,estj,casetype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -52,9 +56,9 @@
             <if test="sslawyerid!=null and sslawyerid!=''">
                 and sslawyerid like concat('%', #{sslawyerid}, '%')
             </if>-->
-            <if test="userid!=null and userid!=''">
+            <!--<if test="userid!=null and userid!=''">
                 and (exelawyerid like concat('%', #{userid}, '%') or sslawyerid like concat('%', #{userid}, '%'))
-            </if>
+            </if>-->
         </trim>
     </sql>
     <sql id="page">
@@ -94,18 +98,32 @@
         CaseInfo
         <include refid="condition"/>
     </select>
-    <insert id="save" parameterType="com.lawinfo.domain.front.CaseInfo">
-        insert into CaseInfo(bankid,bankname,contact,zqdqr,zqdqrstr,contactphone,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.lawinfo.domain.front.CaseInfo">
+        insert into CaseInfo(caseorgid,caseorgname,contacts,zqdqr,zqdqrstr,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,sslawyerid,exelawyerid,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay)
-         values(#{bankid},#{bankname},#{contact},#{zqdqr},#{zqdqrstr},#{contactphone},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj
-         },#{guaranteetype},#{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court
-         },#{sslawyerid},#{exelawyerid},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay})
+         ,sslawyers,exelawyers,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay,sufprice,preprice,ystj,estj,casetype,status)
+         values(#{caseorgid},#{caseorgname},#{contacts},#{zqdqr},#{zqdqrstr},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj},#{guaranteetype},
+         #{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court},#{sslawyers},#{exelawyers},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay},#{sufprice},#{preprice},#{ystj},#{estj},#{casetype},#{status})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from CaseInfo where id=#{id}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="updateStatus" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set status=#{status} where id=#{id}
+    </update>
+    <update id="updateYstj" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set ystj=#{ystj} where id=#{id}
+    </update>
+    <update id="updateEstj" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set estj=#{estj} where id=#{id}
+    </update>
+    <update id="updatePrePrice" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set preprice=#{preprice} where id=#{id}
+    </update>
+    <update id="updateSufPrice" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set sufprice=#{sufprice} where id=#{id}
+    </update>
+    <update id="updateExeLawyers" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set exelawyers=#{exelawyers} where id=#{id}
+    </update>
 </mapper>

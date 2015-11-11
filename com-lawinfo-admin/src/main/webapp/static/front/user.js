@@ -7,7 +7,7 @@ var userTree = null;
 var user = {
     init:function(){
         var self = this;
-        userTree = self.initUserTree($.proxy(self.buildUserTree,self));
+        self.initUserTree($.proxy(self.buildUserTree,self));
     },
     refreshPage : function() {
         if (userSelectedNode != null && userSelectedNode.type == 1 && userSelectedNode.id > 0) {
@@ -46,7 +46,7 @@ var user = {
                 treedata = data;
             },
             error:function() {
-                self.mainAlert('获取用户信息异常');
+                mainAlert('获取用户信息异常');
             }
         }).done(function(){
             callback && callback(treedata);

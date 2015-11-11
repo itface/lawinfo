@@ -71,7 +71,7 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
                     if (user != null) {
                         String code = getRandomStr();
                         String smsContent = getSmsContent(code);
-                        //String result = send(smsContent,phoneno);
+//                        String result = send(smsContent,phoneno);
                         String result = "0";
                         int resultCode = Integer.parseInt(result);
                         EnSendSmsResultEnum enSendSmsResultEnum = EnSendSmsResultEnum.findByCode(resultCode);
@@ -120,9 +120,8 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
             URL url = new URL(sb.toString());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-//            in = new BufferedReader(new InputStreamReader(url.openStream()));
-//            sendResult = in.readLine();
-            sendResult="0";
+            in = new BufferedReader(new InputStreamReader(url.openStream()));
+            sendResult = in.readLine();
             logger.info("send result is "+sendResult+",mobile is "+mobile);
         } catch (IOException e) {
             logger.error("send exception,mobile:"+mobile,e);

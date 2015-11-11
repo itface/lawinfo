@@ -391,4 +391,38 @@ public class UserServiceImpl implements UserService{
             throw e;
         }
     }
+
+    @Override
+    public List<OrgVo> findCustomerTree() throws Exception {
+        List<OrgVo> list = null;
+        try {
+            list = orgService.findCustomTree();
+            if (!CollectionUtils.isEmpty(list)) {
+                for (OrgVo orgVo : list) {
+                    buildOrgVo(orgVo);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findCustomerTree error", e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<OrgVo> findLawyerTree() throws Exception {
+        List<OrgVo> list = null;
+        try {
+            list = orgService.findLawyerTree();
+            if (!CollectionUtils.isEmpty(list)) {
+                for (OrgVo orgVo : list) {
+                    buildOrgVo(orgVo);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findLawyerTree error", e);
+            throw e;
+        }
+        return list;
+    }
 }

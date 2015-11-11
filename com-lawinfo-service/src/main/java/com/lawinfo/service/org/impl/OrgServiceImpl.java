@@ -6,6 +6,7 @@ import com.lawinfo.dao.org.OrgDao;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
+import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.utils.OrgUtils;
 import org.slf4j.Logger;
@@ -159,6 +160,67 @@ public class OrgServiceImpl implements OrgService{
             }
         } catch (Exception e) {
             logger.error("findOrgTree exception", e);
+            throw e;
+        }
+        return null;
+    }
+
+    @Override
+    public List<OrgVo> findCustomTree() throws Exception {
+        try {
+            List<Org> list = findAll();
+            if (!CollectionUtils.isEmpty(list)) {
+                List<OrgVo> orgVoList = new ArrayList<OrgVo>();
+                Multimap<Long, Org> orgMultimap = ArrayListMultimap.create();
+                for (Org org : list) {
+                    /**
+                     * 不显示律所节点
+                     */
+                    if (SysConstants.ORG_TREE_NODE_NAME_OF_LAW_OFFICE.equals(org.getName())) {
+                        continue;
+                    }
+                    orgMultimap.put(org.getParentorgid(), org);
+                }
+                OrgVo root = new OrgVo();
+                root.setId(0l);
+                root.setParentorgid(-1l);
+                root.setText("所有");
+                /*Collection<Org> orgs = orgMultimap.get(root.getId());
+                List<OrgVo> orgVoList2 = new ArrayList<OrgVo>();
+                for (Org org : orgs) {
+                    buildOrgTree(orgMultimap,root);
+                }*/
+                buildOrgTree(orgMultimap,root);
+                orgVoList.add(root);
+                return orgVoList;
+            }
+        } catch (Exception e) {
+            logger.error("findCustomTree exception", e);
+            throw e;
+        }
+        return null;
+    }
+
+    @Override
+    public List<OrgVo> findLawyerTree() throws Exception {
+        try {
+            OrgQuery orgQuery = new OrgQuery();
+            orgQuery.setName(SysConstants.ORG_TREE_NODE_NAME_OF_LAW_OFFICE);
+            List<Org> list = findList(orgQuery);
+            if (!CollectionUtils.isEmpty(list)) {
+                List<OrgVo> orgList = new ArrayList<OrgVo>();
+                Org org = list.get(0);
+                List<OrgVo> orgTree = findSubOrgTree(org.getId());
+                OrgVo root = new OrgVo();
+                root.setId(org.getId());
+                root.setParentorgid(org.getParentorgid());
+                root.setText(org.getName());
+                root.setNodes(orgTree);
+                orgList.add(root);
+                return orgList;
+            }
+        } catch (Exception e) {
+            logger.error("findLawyerTree exception", e);
             throw e;
         }
         return null;

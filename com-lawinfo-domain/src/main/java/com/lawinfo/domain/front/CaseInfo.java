@@ -16,10 +16,9 @@ public class CaseInfo extends BaseDomain{
      * orginfo表里的orgid,orgtype为银行
      */
     @Min(1)
-    private long bankid;
+    private long caseorgid;
     @Length(max=100)
-    private String bankname;
-    private int status;
+    private String caseorgname;
     /**
      * 目前所属阶段
      *//*
@@ -31,12 +30,12 @@ public class CaseInfo extends BaseDomain{
      * 案件联络人
      */
     @Length(max=100)
-    private String contact;
+    private String contacts;
     /**
      * 联系方式
      */
     @Length(max=50)
-    private String contactphone;
+    private String contactids;
     /**
      * 债务人debtor信息
      */
@@ -106,8 +105,10 @@ public class CaseInfo extends BaseDomain{
     /**
      * userid
      */
-    private String sslawyerid;
-    private String exelawyerid;
+    private String sslawyers;
+    private String sslawyerids;
+    private String exelawyers;
+    private String exelawyerids;
     /**
      * 法官
      */
@@ -129,6 +130,30 @@ public class CaseInfo extends BaseDomain{
      *
      */
     private String title;
+    /**
+     * 0表示新建，1表示事后新建，没有过程
+     */
+    private int casetype;
+    /**
+     * 0代表未完成，9999代表完成，其它数字代表节点的id
+     */
+    private int status;
+    /**
+     * 前期律师费
+     */
+    private double preprice;
+    /**
+     * 后期律师费
+     */
+    private double sufprice;
+    /**
+     * 一审调解，0表示未调解，1表示调解
+     */
+    private int ystj;
+    /**
+     * 二审调解，0表示未调解，1表示调解
+     */
+    private int estj;
 
     public long getId() {
         return id;
@@ -144,39 +169,6 @@ public class CaseInfo extends BaseDomain{
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public long getBankid() {
-        return bankid;
-    }
-
-    public void setBankid(long bankid) {
-        this.bankid = bankid;
-    }
-
-    public String getBankname() {
-        return bankname;
-    }
-
-    public void setBankname(String bankname) {
-        this.bankname = bankname;
-    }
-
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getContactphone() {
-        return contactphone;
-    }
-
-    public void setContactphone(String contactphone) {
-        this.contactphone = contactphone;
     }
 
     public String getDebtorinfo() {
@@ -327,25 +319,113 @@ public class CaseInfo extends BaseDomain{
         this.title = title;
     }
 
-    public String getSslawyerid() {
-        return sslawyerid;
+    public long getCaseorgid() {
+        return caseorgid;
     }
 
-    public void setSslawyerid(String sslawyerid) {
-        this.sslawyerid = sslawyerid;
+    public void setCaseorgid(long caseorgid) {
+        this.caseorgid = caseorgid;
     }
 
-    public String getExelawyerid() {
-        return exelawyerid;
+    public String getCaseorgname() {
+        return caseorgname;
     }
 
-    public void setExelawyerid(String exelawyerid) {
-        this.exelawyerid = exelawyerid;
+    public void setCaseorgname(String caseorgname) {
+        this.caseorgname = caseorgname;
+    }
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getContactids() {
+        return contactids;
+    }
+
+    public void setContactids(String contactids) {
+        this.contactids = contactids;
+    }
+
+    public String getSslawyers() {
+        return sslawyers;
+    }
+
+    public void setSslawyers(String sslawyers) {
+        this.sslawyers = sslawyers;
+    }
+
+    public String getSslawyerids() {
+        return sslawyerids;
+    }
+
+    public void setSslawyerids(String sslawyerids) {
+        this.sslawyerids = sslawyerids;
+    }
+
+    public String getExelawyers() {
+        return exelawyers;
+    }
+
+    public void setExelawyers(String exelawyers) {
+        this.exelawyers = exelawyers;
+    }
+
+    public String getExelawyerids() {
+        return exelawyerids;
+    }
+
+    public void setExelawyerids(String exelawyerids) {
+        this.exelawyerids = exelawyerids;
+    }
+
+    public int getCasetype() {
+        return casetype;
+    }
+
+    public void setCasetype(int casetype) {
+        this.casetype = casetype;
+    }
+
+    public double getPreprice() {
+        return preprice;
+    }
+
+    public void setPreprice(double preprice) {
+        this.preprice = preprice;
+    }
+
+    public double getSufprice() {
+        return sufprice;
+    }
+
+    public void setSufprice(double sufprice) {
+        this.sufprice = sufprice;
+    }
+
+    public int getYstj() {
+        return ystj;
+    }
+
+    public void setYstj(int ystj) {
+        this.ystj = ystj;
+    }
+
+    public int getEstj() {
+        return estj;
+    }
+
+    public void setEstj(int estj) {
+        this.estj = estj;
     }
 
     public String getTitle(){
         StringBuilder sb = new StringBuilder();
-        sb.append(bankname==null?"":bankname)
+        sb.append(caseorgname==null?"":caseorgname)
                 .append("诉").
                 append(debtorinfo==null?"":debtorinfo)
                 .append(ay==null?"":ay);
@@ -354,13 +434,14 @@ public class CaseInfo extends BaseDomain{
 
     public void initSummary() {
         StringBuilder sb = new StringBuilder();
-        if (bankname!=null&&bankname.trim().length()>0) {
-            sb.append("[").append(bankname).append("]");
-        }if (contact!=null&&contact.trim().length()>0) {
-            sb.append("[").append(contact).append("]");
+        if (caseorgname!=null&&caseorgname.trim().length()>0) {
+            sb.append("[").append(caseorgname).append("]");
+        }if (contacts!=null&&contacts.trim().length()>0) {
+            sb.append("[").append(contactids).append("]");
         }if (court!=null&&court.trim().length()>0) {
             sb.append("[").append(court).append("]");
         }
         this.summary = sb.toString();
     }
+
 }
