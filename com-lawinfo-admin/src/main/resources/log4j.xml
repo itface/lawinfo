@@ -199,6 +199,55 @@
         <appender-ref ref="SERVICE-ORG-USERSERVICEIMPL"/>
     </logger>
 
+    <appender name="SERVICE-FRONT-CASEINFOSERVICEIMPL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-front-caseinfoserviceimpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.front.impl.CaseInfoServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-FRONT-CASEINFOSERVICEIMPL"/>
+    </logger>
+    <appender name="SERVICE-FRONT-CASEINFOUSERSERVICEIMPL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-front-caseinfouserserviceimpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.front.impl.CaseInfoUserServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-FRONT-CASEINFOUSERSERVICEIMPL"/>
+    </logger>
+    <appender name="SERVICE-FRONT-CASEPROGRESSCOMMENTSERVICEIMPL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-front-caseprogresscommentserviceimpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.front.impl.CaseProgressCommentServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-FRONT-CASEPROGRESSCOMMENTSERVICEIMPL"/>
+    </logger>
+    <appender name="SERVICE-FRONT-CASEPROGRESSSERVICEIMPL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-front-caseprogressserviceimpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.front.impl.CaseProgressServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-FRONT-CASEPROGRESSSERVICEIMPL"/>
+    </logger>
+
 
     <appender name="SERVICE-ORG-ORGINIT-LISTENER" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>

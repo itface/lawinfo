@@ -161,7 +161,7 @@
     </div>
     <!---------------------------通用提示窗口 end--------------------------------->
     <div id="caseinfo-progress-modal" class="modal fade" >
-        <div class="modal-dialog pregress-dialog">
+        <div class="modal-dialog pregress-dialog" style="width: 1000px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -171,6 +171,44 @@
                     <div class="row">
                         <div class="col-xs-4">
                             <div id="caseinfo-progress-tree"></div>
+                        </div>
+                        <div class="col-xs-8">
+                            <form role="form" id="caseinfo-progress-form" style="display: none">
+                                #*<div class="row form-group">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="close" style="font-size: 30px">+</button>
+                                    </div>
+                                </div>*#
+                                <div class="row form-group">
+                                    <div class="col-xs-4">&nbsp;</div>
+                                    <div class="col-xs-4">内容</div>
+                                    <div class="col-xs-4">下一步计划</div>
+                                    #*<div class="col-xs-3">提交人</div>
+                                    <div class="col-xs-3">提交时间</div>*#
+                                </div>
+                                <div id="caseinfo-progress-list">
+                                </div>
+                                <div style="height: 1px;border-bottom: 1px solid #ddd;margin-bottom: 20px"></div>
+                                <div class="row form-group">
+                                    <div class="col-xs-5">
+                                        <textarea id="comment" class="form-control" rows="3" placeholder="工作内容"></textarea>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <textarea  id="nexttask" class="form-control" rows="3" placeholder="下一步计划"></textarea>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button type="button" class="btn btn-default save">添加</button>
+                                    </div>
+                                </div>
+                                <div class="row has-error" style="display: none">
+                                    <div class="col-xs-4">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label error-label" for="inputError">
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -398,7 +436,6 @@
             frontPage.init();
             user.init();
             caseinfo.init();
-            caseprogress.init();
             jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 // 获取已激活的标签页的名称
                 var currentTabId = jQuery(e.target).attr("id");
@@ -421,190 +458,59 @@
                     jQuery("[actionid='"+actionArr[i]+"']").show();
                 }
             }
-
-            var progressTree = [
-                {
-                    text: "合约洽谈",
-                    state: {
-                        checked: true,
-                        expanded: false,
-                        selectable: false
-                    },
-                    nodes: [
-                        {
-                            text: "银行委托洽谈"
-                        },
-                        {
-                            text: "合同已签订"
-                        },
-                        {
-                            text: "初期律师费已付"
-                        },
-                        {
-                            text: "诉前财产保全"
-                        }
-                    ]
-                },
-                {
-                    text: "一审已立案",
-                    state: {
-                        expanded: false,
-                    },
-                    nodes: [
-                        {
-                            text: "立案"
-                        },
-                        {
-                            text: "财产保全"
-                        },
-                        {
-                            text: "文书送达"
-                        },
-                        {
-                            text: "确定开庭日"
-                        }
-                    ]
-                },
-                {
-                    text: "一审已开庭",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "已开庭"
-                        },
-                        {
-                            text: "调解进行中"
-                        },
-                        {
-                            text: "代理文书提交"
-                        },
-                        {
-                            text: "判决书跟进"
-                        }
-                    ]
-                },
-                {
-                    text: "一审已判决",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "法院已出具判决书",
-                        },
-                        {
-                            text: "判决书送达"
-                        }
-                    ]
-                },
-                {
-                    text: "上诉期",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "已上诉"
-                        }
-                    ]
-                },
-                {
-                    text: "二审已立案",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "立案"
-                        },
-                        {
-                            text: "文书送达"
-                        },
-                        {
-                            text: "确定开庭日"
-                        }
-                    ]
-                },
-                {
-                    text: "二审已开庭",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "已开庭"
-                        },
-                        {
-                            text: "调解进行中"
-                        },
-                        {
-                            text: "代理文书提交"
-                        },
-                        {
-                            text: "判决书跟进"
-                        }
-                    ]
-                },
-                {
-                    text: "二审已判决",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "法院已出具判决书"
-                        },
-                        {
-                            text: "判决书送达"
-                        }
-                    ]
-                },
-                {
-                    text: "执行阶段",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "已申请执行立案"
-                        },
-                        {
-                            text: "已确定执行法官"
-                        },
-                        {
-                            text: "执行文书送达"
-                        },
-                        {
-                            text: "财产拍卖"
-                        },
-                        {
-                            text: "结案"
-                        }
-                    ]
-                },
-                {
-                    text: "律师费结案",
-                    state: {
-                        expanded: false
-                    },
-                    nodes: [
-                        {
-                            text: "提交律师费结算"
-                        },
-                        {
-                            text: "开出发票"
-                        },
-                        {
-                            text: "律师费到账"
-                        }
-                    ]
-                }
-            ];
-            $('#caseinfo-progress-tree').treeview({
-                data : progressTree
+            $('#caseinfo-progress-modal').on('shown.bs.modal', function () {
+                jQuery('#caseinfo-progress-form').hide();
+                caseprogress.init();
             });
+            function saveProgressAlert(msg){
+                jQuery('#caseinfo-progress-modal .error-label').empty();
+                jQuery('#caseinfo-progress-modal .error-label').text(msg);
+                jQuery('#caseinfo-progress-modal .has-error').show();
+            }
+            function clearSaveProgressAlert(msg){
+                jQuery('#caseinfo-progress-modal .error-label').empty();
+                jQuery('#caseinfo-progress-modal .has-error').hide();
+            }
+            function afterSaveProgress(node){
+                caseprogress.init();
+                /*var selectedNode = caseProgressTree.treeview('search', [node.text]);
+                caseProgressTree.treeview('selectNode', [ selectedNode,{}]);
+                caseprogress.showCaseProgressComments(node);*/
+                jQuery('#caseinfo-progress-form #comment').val('');
+                jQuery('#caseinfo-progress-form #nexttask').val('');
+            }
+            $('#caseinfo-progress-modal .save').on('click',function(e){
+                if (caseProgressTreeSelectedNode!=null&&selectCaseinfoId!=null) {
+                    var processnodeid = caseProgressTreeSelectedNode.id;
+                    var comment = jQuery('#caseinfo-progress-form #comment').val();
+                    var nexttask = jQuery('#caseinfo-progress-form #nexttask').val();
+                    if (comment==null||comment.trim()=='') {
+                        saveProgressAlert('内容不能为空');
+                        return false;
+                    }
+                    if (nexttask==null||nexttask.trim()=='') {
+                        saveProgressAlert('下一步计划不能为空');
+                        return false;
+                    }
+                    jQuery.ajax({
+                        url:'/lawinfo/front/caseprogress/save',
+                        data:{caseinfoid:selectCaseinfoId,processnodeid:processnodeid,comment:comment,nexttask:nexttask},
+                        type:'POST',
+                        //async:false,
+                        success:function(data) {
+                            saveProgressAlert('保存成功');
+                            afterSaveProgress(caseProgressTreeSelectedNode);
+                        },
+                        error:function() {
+                            saveProgressAlert('保存案件进度信息异常');
+                        }
+                    });
+                }else{
+                    saveProgressAlert('保存异常，没有选择案件或者进度节点');
+                    return false;
+                }
+            });
+
             $(function () {
                 $('.chart1').highcharts({
                     chart: {

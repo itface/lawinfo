@@ -280,4 +280,26 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         }
         return effectrows;
     }
+
+    @Override
+    public boolean ifAllowd(String userid, long caseinfoid)throws Exception {
+        try {
+            CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
+            caseInfoUserQuery.setCaseinfoid(caseinfoid);
+            List<String> subordinate = userService.findAllSubordinate(userid);
+            if (subordinate==null) {
+                subordinate = new ArrayList<String>();
+            }
+            subordinate.add(userid);
+            caseInfoUserQuery.setUserids(subordinate);
+            List<CaseInfoUser> list = caseInfoUserService.findList(caseInfoUserQuery);
+            if (!CollectionUtils.isEmpty(list)) {
+                return true;
+            }
+        } catch (Exception e) {
+            logger.error("ifAllowd error,userid=" + caseinfoid + ",caseinfoid:" + caseinfoid, e);
+            throw e;
+        }
+        return false;
+    }
 }

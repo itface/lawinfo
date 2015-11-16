@@ -28,5 +28,6 @@ public interface CaseInfoService {
     public int count(CaseInfoQuery caseInfoQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public boolean ifAllowd(String userid,long caseinfoid)throws Exception;
 
 }

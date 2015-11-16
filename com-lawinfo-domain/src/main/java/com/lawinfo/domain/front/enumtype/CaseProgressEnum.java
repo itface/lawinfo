@@ -1,5 +1,11 @@
 package com.lawinfo.domain.front.enumtype;
 
+import com.lawinfo.domain.front.vo.CaseProgressTreeVo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by wangrongtao on 15/11/11.
  */
@@ -72,5 +78,74 @@ public enum CaseProgressEnum {
         this.name = name;
         this.index = index;
         this.parentid = parentid;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getParentid() {
+        return parentid;
+    }
+
+    public void setParentid(int parentid) {
+        this.parentid = parentid;
+    }
+
+    private static void findSubCaseProgressTree(CaseProgressTreeVo caseProgressTreeVo){
+        CaseProgressEnum[] caseProgressEnums = CaseProgressEnum.values();
+        List<CaseProgressTreeVo> caseProgressTreeVos = new ArrayList<CaseProgressTreeVo>();
+        for (int i = 0; i < caseProgressEnums.length; i++) {
+            CaseProgressEnum caseProgressEnum = caseProgressEnums[i];
+            if(caseProgressTreeVo.getId() == caseProgressEnum.parentid){
+                CaseProgressTreeVo caseProgressTreeVo2 = new CaseProgressTreeVo();
+                caseProgressTreeVo2.setId(caseProgressEnum.id);
+                caseProgressTreeVo2.setParentprocessnodeid(caseProgressEnum.parentid);
+                caseProgressTreeVo2.setProcessnodeindex(caseProgressEnum.index);
+                caseProgressTreeVo2.setText(caseProgressEnum.name);
+                caseProgressTreeVos.add(caseProgressTreeVo2);
+            }
+        }
+        Collections.sort(caseProgressTreeVos);
+        caseProgressTreeVo.setNodes(caseProgressTreeVos);
+    }
+    public static List<CaseProgressTreeVo> initCaseProgressTree(boolean ifss){
+        List<CaseProgressTreeVo> caseProgressTreeVos = new ArrayList<CaseProgressTreeVo>();
+        CaseProgressEnum[] caseProgressEnums = CaseProgressEnum.values();
+        for (int i = 0; i < caseProgressEnums.length; i++) {
+            CaseProgressEnum caseProgressEnum = caseProgressEnums[i];
+            int parentid = caseProgressEnum.parentid;
+            if (parentid==0&&(ifss==false||(ifss==true&&caseProgressEnum.id!=3500&&caseProgressEnum.id!=4100))) {
+                CaseProgressTreeVo caseProgressTreeVo = new CaseProgressTreeVo();
+                caseProgressTreeVo.setId(caseProgressEnum.id);
+                caseProgressTreeVo.setParentprocessnodeid(caseProgressEnum.parentid);
+                caseProgressTreeVo.setProcessnodeindex(caseProgressEnum.index);
+                caseProgressTreeVo.setText(caseProgressEnum.name);
+                findSubCaseProgressTree(caseProgressTreeVo);
+                caseProgressTreeVos.add(caseProgressTreeVo);
+            }
+        }
+        Collections.sort(caseProgressTreeVos);
+        return caseProgressTreeVos;
     }
 }
