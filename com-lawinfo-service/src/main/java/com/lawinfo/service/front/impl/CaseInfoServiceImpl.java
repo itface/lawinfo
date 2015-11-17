@@ -52,7 +52,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         int effectrows = 0;
         try {
             if (caseInfo!=null) {
-                caseInfo.initSummary();
+                caseInfo.init();
                 caseInfo.initBaseDomain();
                 if (SysConstants.CASEINFO_TYPE_INIT!=caseInfo.getCasetype()) {
                     caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
@@ -193,6 +193,22 @@ public class CaseInfoServiceImpl implements CaseInfoService {
 
     @Override
     @Transactional
+    public int updateStatusFinish(long caseinfoid) throws Exception {
+        int effectrows = 0;
+        try {
+            CaseInfo caseInfo = new CaseInfo();
+            caseInfo.setId(caseinfoid);
+            caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
+            effectrows = caseInfoDao.updateStatus(caseInfo);
+        } catch (Exception e) {
+            logger.error("updateStatusFinish error,id="+caseinfoid, e);
+            throw e;
+        }
+        return effectrows;
+    }
+
+    @Override
+    @Transactional
     public int updateYstj(long caseinfoid, int ystj) throws Exception {
         int effectrows = 0;
         try {
@@ -257,13 +273,14 @@ public class CaseInfoServiceImpl implements CaseInfoService {
 
     @Override
     @Transactional
-    public int updateExeLawyers(long caseinfoid, String exeLawyers, String exeLawyerids) throws Exception {
+    public int updateExeLawyers(long caseinfoid,String exeajbh, String exeLawyers, String exeLawyerids) throws Exception {
         int effectrows = 0;
         try {
             CaseInfo caseInfo = new CaseInfo();
             caseInfo.setId(caseinfoid);
             caseInfo.setExelawyers(exeLawyers);
-            effectrows = caseInfoDao.updateStatus(caseInfo);
+            caseInfo.setExeajbh(exeajbh);
+            effectrows = caseInfoDao.updateExeLawyers(caseInfo);
             if (!StringUtils.isEmpty(exeLawyerids)) {
                 String[] exeLawyerIdArr = exeLawyerids.split(",");
                 for (int i = 0; i < exeLawyerIdArr.length; i++) {

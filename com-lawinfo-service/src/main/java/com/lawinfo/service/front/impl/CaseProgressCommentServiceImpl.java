@@ -3,10 +3,12 @@ package com.lawinfo.service.front.impl;
 import com.lawinfo.dao.front.CaseProgressCommentDao;
 import com.lawinfo.domain.front.CaseProgressComment;
 import com.lawinfo.domain.front.query.CaseProgressCommentQuery;
+import com.lawinfo.service.front.CaseInfoService;
 import com.lawinfo.service.front.CaseProgressCommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +22,8 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
 
     @Resource
     private CaseProgressCommentDao caseProgressCommentDao;
+    @Resource
+    private CaseInfoService caseInfoService;
     @Override
     public List<CaseProgressComment> findAllByCaseinfoid(long caseinfoid) throws Exception {
         try {
@@ -33,10 +37,28 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
     }
 
     @Override
+    @Transactional
     public int save(CaseProgressComment caseProgressComment) throws Exception {
         try {
-            if (caseProgressComment!=null) {
+            if (caseProgressComment!=null &&caseProgressComment.getCaseinfoid()>0&&caseProgressComment.getProcessnodeid()>0) {
+                long caseinfoid = caseProgressComment.getCaseinfoid();
+                int processnodeid = caseProgressComment.getProcessnodeid();
                 caseProgressComment.initBaseDomain();
+                if (caseProgressComment.getProcessnodeid()==400) {
+                    double cqlsf = Double.parseDouble(caseProgressComment.getComment());
+                    caseInfoService.updatePrePrice(caseinfoid, cqlsf);
+                }else if (caseProgressComment.getProcessnodeid()==4400) {
+                    double eqlsf = Double.parseDouble(caseProgressComment.getComment());
+                    caseInfoService.updateSufPrice(caseinfoid, eqlsf);
+                    //提交完律师费，案子完结
+                    caseInfoService.updateStatusFinish(caseinfoid);
+                }else if (caseProgressComment.getProcessnodeid()==1600) {
+                    int ystj = Integer.parseInt(caseProgressComment.getComment());
+                    caseInfoService.updateYstj(caseinfoid, ystj);
+                }else if (caseProgressComment.getProcessnodeid()==3100) {
+                    int estj = Integer.parseInt(caseProgressComment.getComment());
+                    caseInfoService.updateEstj(caseinfoid, estj);
+                }
                 return caseProgressCommentDao.save(caseProgressComment);
             }
         } catch (Exception e) {
@@ -47,6 +69,7 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
     }
 
     @Override
+    @Transactional
     public int deleteById(long id) throws Exception {
         try {
             return caseProgressCommentDao.deleteById(id);

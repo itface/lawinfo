@@ -60,4 +60,8 @@ public class DateFormatUtils extends org.apache.commons.lang.time.DateFormatUtil
         }
         return date;
     }
+
+    public static void main(String[] args) {
+        System.out.printf(format(new Date(1447689600000l)));
+    }
 }

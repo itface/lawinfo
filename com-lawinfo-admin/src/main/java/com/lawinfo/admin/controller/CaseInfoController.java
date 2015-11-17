@@ -39,10 +39,17 @@ public class CaseInfoController {
     @RequestMapping("/add")
     public int save(HttpServletRequest request,CaseInfo caseInfo,BindingResult result)throws Exception{
         if (caseInfo != null) {
+            String userid = LoginInfo.getUseridFromSession(request.getSession());
             int rows = caseInfoService.save(caseInfo);
             return rows;
         }
         return 0;
+    }
+    @ResponseBody
+    @RequestMapping("/exelawyer/add")
+    public int addExelawyer(HttpServletRequest request,long id,String exeajbh,String exelawyers,String exelawyerids)throws Exception{
+        int rows = caseInfoService.updateExeLawyers(id,exeajbh,exelawyers,exelawyerids);
+        return rows;
     }
     @ResponseBody
     @RequestMapping("/find")

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Date;
 
 /**
  * Created by wangrongtao on 15/11/3.
@@ -60,6 +61,7 @@ public class CaseInfo extends BaseDomain{
      * 债权到期日
      */
     private long zqdqr;
+    private Date zqdqrdate;
     @Length(max=20)
     private String zqdqrstr;
     /**
@@ -147,13 +149,21 @@ public class CaseInfo extends BaseDomain{
      */
     private double sufprice;
     /**
-     * 一审调解，0表示未调解，1表示调解
+     * 一审调解，1表示未调解，2表示调解
      */
     private int ystj;
     /**
-     * 二审调解，0表示未调解，1表示调解
+     * 二审调解，1表示未调解，2表示调解
      */
     private int estj;
+    /**
+     * 诉论案件编号
+     */
+    private String ssajbh;
+    /**
+     * 执行安件编号
+     */
+    private String exeajbh;
 
     public long getId() {
         return id;
@@ -423,6 +433,30 @@ public class CaseInfo extends BaseDomain{
         this.estj = estj;
     }
 
+    public String getSsajbh() {
+        return ssajbh;
+    }
+
+    public void setSsajbh(String ssajbh) {
+        this.ssajbh = ssajbh;
+    }
+
+    public String getExeajbh() {
+        return exeajbh;
+    }
+
+    public Date getZqdqrdate() {
+        return zqdqrdate;
+    }
+
+    public void setZqdqrdate(Date zqdqrdate) {
+        this.zqdqrdate = zqdqrdate;
+    }
+
+    public void setExeajbh(String exeajbh) {
+        this.exeajbh = exeajbh;
+    }
+
     public String getTitle(){
         StringBuilder sb = new StringBuilder();
         sb.append(caseorgname==null?"":caseorgname)
@@ -431,7 +465,11 @@ public class CaseInfo extends BaseDomain{
                 .append(ay==null?"":ay);
         return sb.toString();
     }
-
+    public void init() {
+        if (zqdqrdate!=null) {
+            this.zqdqr = zqdqrdate.getTime();
+        }
+    }
     public void initSummary() {
         StringBuilder sb = new StringBuilder();
         if (caseorgname!=null&&caseorgname.trim().length()>0) {

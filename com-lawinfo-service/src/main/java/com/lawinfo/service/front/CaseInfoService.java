@@ -13,11 +13,12 @@ public interface CaseInfoService {
 
     public int save(CaseInfo caseInfo)throws Exception;
     public int updateStatus(long caseinfoid,int status)throws Exception;
+    public int updateStatusFinish(long caseinfoid)throws Exception;
     public int updateYstj(long caseinfoid,int ystj)throws Exception;
     public int updateEstj(long caseinfoid,int estj)throws Exception;
     public int updatePrePrice(long caseinfoid,double prePrice)throws Exception;
     public int updateSufPrice(long caseinfoid,double sufPrice)throws Exception;
-    public int updateExeLawyers(long caseinfoid,String exeLawyers,String exeLawyerids)throws Exception;
+    public int updateExeLawyers(long caseinfoid,String exeajbh,String exeLawyers,String exeLawyerids)throws Exception;
 
     public CaseInfo findById(long id)throws Exception;
 

@@ -24,6 +24,7 @@
         <script src="/static/front/user.js"></script>
         <script src="/static/front/caseinfo.js"></script>
         <script src="/static/front/caseprogress.js"></script>
+        <script src="/static/front/caseinfo_exelawyer.js"></script>
         <script src="/static/highcharts/js/highcharts.js"></script>
         <script src="/static/highcharts/js/modules/exporting.js"></script>
 
@@ -60,12 +61,12 @@
                                 <button type="button" class="btn btn-primary" id="btn-caseinfo-add" actionid="front-caseinfo-add-btn" style="display: none">
                                     创建案件
                                 </button>
-                                <button type="button" class="btn btn-primary" id="btn-caseinfo-progress-add" actionid="front-case-progress-add-btn" style="display: none">
+                                #*<button type="button" class="btn btn-primary" id="btn-caseinfo-progress-add" actionid="front-case-progress-add-btn" style="display: none">
                                     添加案件进度
-                                </button>
+                                </button>*#
                             </div>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control" placeholder="搜索"/>
+                                <input type="text" class="form-control" placeholder="搜索" style="display:none;"/>
                             </div>
                         </div>
                         <div class="row">
@@ -75,10 +76,10 @@
                                         <a href="#case-doing" data-toggle="tab" id="case-doing-tab" actionid="front-case-doing-list" style="display: block">在办</a>
                                     </li>
                                     <li>
-                                        <a href="#case-ed" data-toggle="tab" id="case-ed-tab" actionid="front-case-ed-list" style="display: block">已办</a>
+                                        <a href="#case-doing" data-toggle="tab" id="case-ed-tab" actionid="front-case-ed-list" style="display: block">已办</a>
                                     </li>
                                     <li>
-                                        <a href="#case-all" data-toggle="tab" id="case-all-tab" actionid="front-case-all-list" style="display: block">所有</a>
+                                        <a href="#case-doing" data-toggle="tab" id="case-all-tab" actionid="front-case-all-list" style="display: block">所有</a>
                                     </li>
                                     <li>
                                         <a href="#case-report" data-toggle="tab" id="case-report-tab" actionid="front-case-report-list" style="display: block">统计</a>
@@ -91,6 +92,7 @@
                                             <tr>
                                                 <th>序号</th>
                                                 <th>摘要</th>
+                                                <th>&nbsp;</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -160,6 +162,44 @@
         </div><!-- /.modal-dialog -->
     </div>
     <!---------------------------通用提示窗口 end--------------------------------->
+    <div id="caseinfo-exelawyer-modal" class="modal fade" >
+        <div class="modal-dialog pregress-dialog" style="width: 1000px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加执行律师</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="caseinfo-exelawyer-form">
+                        <div class="row form-group">
+                            <div class="col-xs-4">执行案号</div>
+                            <div class="col-xs-8"><input id="exeajbh" class="form-control" type="text"/></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">执行律师</div>
+                            <div class="col-xs-8">
+                                <input id="exelawyers" class="form-control" type="text" readonly/>
+                                <input id="exelawyerids" class="form-control" type="text" style="display: none"/>
+                                <div id="caseinfo-exelawyer-tree">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row has-error" style="display: none">
+                            <div class="col-xs-4">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="control-label error-label" for="inputError">
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary btn-lg btn-block submit">提交</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div id="caseinfo-progress-modal" class="modal fade" >
         <div class="modal-dialog pregress-dialog" style="width: 1000px;">
             <div class="modal-content">
@@ -179,26 +219,9 @@
                                         <button type="button" class="close" style="font-size: 30px">+</button>
                                     </div>
                                 </div>*#
-                                <div class="row form-group">
-                                    <div class="col-xs-4">&nbsp;</div>
-                                    <div class="col-xs-4">内容</div>
-                                    <div class="col-xs-4">下一步计划</div>
-                                    #*<div class="col-xs-3">提交人</div>
-                                    <div class="col-xs-3">提交时间</div>*#
-                                </div>
                                 <div id="caseinfo-progress-list">
                                 </div>
-                                <div style="height: 1px;border-bottom: 1px solid #ddd;margin-bottom: 20px"></div>
-                                <div class="row form-group">
-                                    <div class="col-xs-5">
-                                        <textarea id="comment" class="form-control" rows="3" placeholder="工作内容"></textarea>
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <textarea  id="nexttask" class="form-control" rows="3" placeholder="下一步计划"></textarea>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <button type="button" class="btn btn-default save">添加</button>
-                                    </div>
+                                <div class="row form-group" id="add-form">
                                 </div>
                                 <div class="row has-error" style="display: none">
                                     <div class="col-xs-4">
@@ -378,16 +401,14 @@
                                     <input id="judge" type="text" class="form-control" value="王连"/>
                                 </div>
                             </div>
-                            #*<div class="row form-group">
+                            <div class="row form-group">
                                 <div class="col-xs-2">
-                                    <label>诉讼律师:</label>
+                                    <label>诉讼案号:</label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <input id="sslawyers" class="form-control" type="text" disabled/>
-                                    <input id="sslawyerids" class="form-control" type="text" style="display: none"/>
-                                    <div id="progress-lawyer-tree"></div>
+                                    <input id="ssajbh" class="form-control" type="text"/>
                                 </div>
-                            </div>*#
+                            </div>
                             <div class="row has-error" style="display: none">
                                 <div class="col-xs-4">
                                 </div>
@@ -462,7 +483,10 @@
                 jQuery('#caseinfo-progress-form').hide();
                 caseprogress.init();
             });
-            function saveProgressAlert(msg){
+            $('#caseinfo-exelawyer-modal').on('shown.bs.modal', function () {
+                exeLawyer.init();
+            });
+            /*function saveProgressAlert(msg){
                 jQuery('#caseinfo-progress-modal .error-label').empty();
                 jQuery('#caseinfo-progress-modal .error-label').text(msg);
                 jQuery('#caseinfo-progress-modal .has-error').show();
@@ -473,43 +497,43 @@
             }
             function afterSaveProgress(node){
                 caseprogress.init();
-                /*var selectedNode = caseProgressTree.treeview('search', [node.text]);
+                /!*var selectedNode = caseProgressTree.treeview('search', [node.text]);
                 caseProgressTree.treeview('selectNode', [ selectedNode,{}]);
-                caseprogress.showCaseProgressComments(node);*/
+                caseprogress.showCaseProgressComments(node);*!/
                 jQuery('#caseinfo-progress-form #comment').val('');
                 jQuery('#caseinfo-progress-form #nexttask').val('');
-            }
-            $('#caseinfo-progress-modal .save').on('click',function(e){
-                if (caseProgressTreeSelectedNode!=null&&selectCaseinfoId!=null) {
-                    var processnodeid = caseProgressTreeSelectedNode.id;
-                    var comment = jQuery('#caseinfo-progress-form #comment').val();
-                    var nexttask = jQuery('#caseinfo-progress-form #nexttask').val();
-                    if (comment==null||comment.trim()=='') {
-                        saveProgressAlert('内容不能为空');
-                        return false;
-                    }
-                    if (nexttask==null||nexttask.trim()=='') {
-                        saveProgressAlert('下一步计划不能为空');
-                        return false;
-                    }
-                    jQuery.ajax({
-                        url:'/lawinfo/front/caseprogress/save',
-                        data:{caseinfoid:selectCaseinfoId,processnodeid:processnodeid,comment:comment,nexttask:nexttask},
-                        type:'POST',
-                        //async:false,
-                        success:function(data) {
-                            saveProgressAlert('保存成功');
-                            afterSaveProgress(caseProgressTreeSelectedNode);
-                        },
-                        error:function() {
-                            saveProgressAlert('保存案件进度信息异常');
+            }*/
+            /*$('#caseinfo-progress-modal .save').on('click',function(e){
+                    if (caseProgressTreeSelectedNode!=null&&selectCaseinfoId!=null) {
+                        var processnodeid = caseProgressTreeSelectedNode.id;
+                        var comment = jQuery('#caseinfo-progress-form #comment').val();
+                        var nexttask = jQuery('#caseinfo-progress-form #nexttask').val();
+                        if (comment==null||comment.trim()=='') {
+                            saveProgressAlert('内容不能为空');
+                            return false;
                         }
-                    });
-                }else{
-                    saveProgressAlert('保存异常，没有选择案件或者进度节点');
-                    return false;
-                }
-            });
+                        if (nexttask==null||nexttask.trim()=='') {
+                            saveProgressAlert('下一步计划不能为空');
+                            return false;
+                        }
+                        jQuery.ajax({
+                            url:'/lawinfo/front/caseprogress/save',
+                            data:{caseinfoid:selectCaseinfoId,processnodeid:processnodeid,comment:comment,nexttask:nexttask},
+                            type:'POST',
+                            //async:false,
+                            success:function(data) {
+                                saveProgressAlert('保存成功');
+                                afterSaveProgress(caseProgressTreeSelectedNode);
+                            },
+                            error:function() {
+                                saveProgressAlert('保存案件进度信息异常');
+                            }
+                        });
+                    }else{
+                        saveProgressAlert('保存异常，没有选择案件或者进度节点');
+                        return false;
+                    }
+                });*/
 
             $(function () {
                 $('.chart1').highcharts({

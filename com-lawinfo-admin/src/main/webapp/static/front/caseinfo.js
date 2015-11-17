@@ -1,7 +1,10 @@
 /**
  * Created by wangrongtao on 15/10/28.
  */
-
+var selectCasePreprice=null;
+var selectCaseSufprice=null;
+var selectCaseYstj=null;
+var selectCaseEstj=null;
 var selectCaseinfoId = null;
 var customOrgTreeSelectedNode = null;
 var customerTreeSelectedNode = null;
@@ -53,6 +56,7 @@ var caseinfo = {
             var sslawyerids = jQuery('#caseinfo-modal  #sslawyerids').val();
             var sslawyers = jQuery('#caseinfo-modal  #sslawyers').val();
             var totalprice = jQuery('#caseinfo-modal  #totalprice').val();
+            var ssajbh = jQuery('#caseinfo-modal  #ssajbh').val();
             if (!caseorgid) {
                 self.saveActionAlert('案件所属机构不能为空');
                 return false;
@@ -117,7 +121,12 @@ var caseinfo = {
                 self.saveActionAlert('律师费总额不能为空');
                 return false;
             }
+            if (!ssajbh) {
+                self.saveActionAlert('诉讼案号不能为空');
+                return false;
+            }
             var obj = {};
+            obj.ssajbh = ssajbh;
             obj.casetype = casetype;
             obj.caseorgid = caseorgid;
             obj.caseorgname = caseorgname;
@@ -128,7 +137,7 @@ var caseinfo = {
             obj.debtorpropertyinfo = debtorpropertyinfo;
             obj.ay = ay;
             obj.zqbj = zqbj;
-            obj.zqdqr = zqdqr;
+            obj.zqdqrdate = zqdqr;
             obj.guarantorinfo = guarantorinfo;
             obj.isguarantorrelated = isguarantorrelated;
             obj.guaranteetype = guaranteetype;
@@ -160,6 +169,10 @@ var caseinfo = {
         });
         self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,this));
     },
+    initCaseinfoTable:function(){
+        self=this;
+        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,this));
+    },
     buildCaseinfoTable:function(data) {
         var self = this;
         if (data) {
@@ -167,20 +180,40 @@ var caseinfo = {
             var html = '';
             for(var i=0;i<data.length;i++) {
                 var o = data[i];
-                html+='<tr caseinfoid="'+ o.id+'" class="caseinfo-row">';
-                html+=' <td>';
+                var exelawyerids = o.exelawyers;
+                var caseinfoid = o.id;
+                html+='<tr caseinfoid="'+ o.id+'">';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'">';
                 html+='     '+ (i+1);
                 html+=' </td>';
-                html+=' <td>';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'">';
                 html+='     '+ o.title;
+                html+=' </td>';
+                html+=' <td>';
+                if (!exelawyerids) {
+                    html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids"  caseinfoid="'+caseinfoid+'">添加执行律师</button>';
+                }else{
+                    html+='&nbsp;';
+                }
                 html+=' </td>';
                 html+='</tr>';
             }
             $('#caseinfo-list tbody').append(html);
+            $('.btn-saveExelawyerids').unbind('click');
+            $('.btn-saveExelawyerids').on('click', $.proxy(self.saveExelawyeridsEvent,self));
         }
+    },
+    saveExelawyeridsEvent:function(e){
+        //e.preventBubble();
+        selectCaseinfoId = $(e.target).attr('caseinfoid');
+        jQuery('#caseinfo-exelawyer-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     registCaseinfoTableRowEvent:function(e){
         selectCaseinfoId = jQuery(e.currentTarget).attr('caseinfoid');
+        selectCasePreprice = jQuery(e.currentTarget).attr('preprice');
+        selectCaseSufprice = jQuery(e.currentTarget).attr('sufprice');
+        selectCaseYstj = jQuery(e.currentTarget).attr('ystj');
+        selectCaseEstj = jQuery(e.currentTarget).attr('estj');
         jQuery('#caseinfo-progress-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     showCaseinfoTable:function(callback){
