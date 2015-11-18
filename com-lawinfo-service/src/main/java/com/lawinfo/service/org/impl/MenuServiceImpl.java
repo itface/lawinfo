@@ -40,6 +40,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void initCache() throws Exception {
         try {
+            MenuUtils.init();
             List<Menu> list= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(list)) {
                 for (Menu menu : list) {
@@ -135,7 +136,10 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> findAll() throws Exception{
         List<Menu> list = null;
         try {
-            list = menuDao.findAll();
+            list = MenuUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
             throw e;
@@ -175,14 +179,17 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu findById(long id)throws Exception {
         logger.info("findById begin,id:"+id);
-        Menu Menu = null;
+        Menu menu = null;
         try {
-            Menu =menuDao.findById(id);
+            menu = MenuUtils.findById(id);
+            if (menu==null) {
+                menu = menuDao.findById(id);
+            }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
         }
-        return Menu;
+        return menu;
     }
 
     @Override
@@ -261,6 +268,10 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> findByIds(Long[] ids) {
-        return menuDao.findByIds(ids);
+        List<Menu> list = MenuUtils.findByIds(ids);
+        if (CollectionUtils.isEmpty(list)) {
+            list = menuDao.findByIds(ids);
+        }
+        return list;
     }
 }

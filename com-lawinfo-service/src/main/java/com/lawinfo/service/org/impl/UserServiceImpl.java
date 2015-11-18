@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void initCache() throws Exception {
         try {
+            UserUtils.init();
             List<User> userList= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(userList)) {
                 for (User user : userList) {
@@ -63,12 +64,10 @@ public class UserServiceImpl implements UserService{
     public List<User> findAll() throws Exception{
         List<User> list = null;
         try {
-            list = userDao.findAll();
-            /*
             list = UserUtils.findAll();
             if (CollectionUtils.isEmpty(list)) {
-                list = userDao.findAll();
-            }*/
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
             throw e;
@@ -130,7 +129,10 @@ public class UserServiceImpl implements UserService{
         logger.info("findByUserid begin,userid:"+userid);
         User user = null;
         try {
-            user=userDao.findByUserid(userid);
+            user = UserUtils.findByUserid(userid);
+            if (user==null) {
+                user = userDao.findByUserid(userid);
+            }
         } catch (Exception e) {
             logger.error("findByUserid error,userid=" + userid, e);
             throw e;
@@ -160,7 +162,10 @@ public class UserServiceImpl implements UserService{
         logger.info("findById begin,id:"+id);
         User user = null;
         try {
-            user=userDao.findById(id);
+            user = UserUtils.findById(id);
+            if (user==null) {
+                user = userDao.findById(id);
+            }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
@@ -212,7 +217,7 @@ public class UserServiceImpl implements UserService{
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
-            User user = userDao.findById(id);
+            User user = findById(id);
             if (user != null) {
                 String userid = user.getUserid();
                 userRoleService.deleteByUserid(userid);
@@ -230,9 +235,13 @@ public class UserServiceImpl implements UserService{
         logger.info("deleteByOrgid begin,orgid=" + orgid);
         int effectrows = 0;
         try {
-            UserQuery userQuery = new UserQuery();
-            userQuery.setOrgid(orgid);
-            List<User> list = this.findList(userQuery);
+            List<User> list = null;
+            list = UserUtils.findByOrgid(orgid);
+            if (CollectionUtils.isEmpty(list)) {
+                UserQuery userQuery = new UserQuery();
+                userQuery.setOrgid(orgid);
+                list = this.findList(userQuery);
+            }
             if (!CollectionUtils.isEmpty(list)) {
                 for (User user : list) {
                     deleteById(user.getId());
@@ -281,9 +290,13 @@ public class UserServiceImpl implements UserService{
         try {
             if (orgVo!=null) {
                 long orgid = orgVo.getId();
-                UserQuery userQuery = new UserQuery();
-                userQuery.setOrgid(orgid);
-                List<User> users = findList(userQuery);
+                List<User> users = null;
+                users = UserUtils.findByOrgid(orgid);
+                if (CollectionUtils.isEmpty(users)) {
+                    UserQuery userQuery = new UserQuery();
+                    userQuery.setOrgid(orgid);
+                    users = this.findList(userQuery);
+                }
                 if (!CollectionUtils.isEmpty(users)) {
                     for (User user : users) {
                         OrgVo usernode = new OrgVo();
@@ -319,7 +332,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<String> findAllSubordinate(String userid) throws Exception {
         List<String> list = new ArrayList<String>();
-        UserUtils.findSubordinate(userid,list);
+        User user = findByUserid(userid);
+        if (user!=null) {
+            UserUtils.findSubordinate(user.getOrgid(),list);
+        }
         return list;
     }
 

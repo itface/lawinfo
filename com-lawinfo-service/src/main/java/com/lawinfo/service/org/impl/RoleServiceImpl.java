@@ -43,6 +43,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void initCache() throws Exception {
         try {
+            RoleUtils.init();
             List<Role> roleList= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(roleList)) {
                 for (Role role : roleList) {
@@ -112,12 +113,10 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() throws Exception{
         List<Role> list = null;
         try {
-            list = roleDao.findAll();
-
-            /*list = RoleUtils.findAll();
+            list = RoleUtils.findAll();
             if (CollectionUtils.isEmpty(list)) {
-                list = roleDao.findAll();
-            }*/
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
             throw e;
@@ -181,7 +180,10 @@ public class RoleServiceImpl implements RoleService {
         logger.info("findById begin,id:"+id);
         Role role = null;
         try {
-            role=roleDao.findById(id);
+            role = RoleUtils.findByRoleid(id);
+            if (role==null) {
+                role = roleDao.findById(id);
+            }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;

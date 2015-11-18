@@ -17,6 +17,9 @@ public class MenuUtils {
      */
    private static Map<Long, Menu> menutMap = new Hashtable<Long, Menu>();
 
+    public static void init() {
+        menutMap.clear();
+    }
 
     public static boolean add(Menu menu) {
         if (menu != null) {
@@ -32,6 +35,21 @@ public class MenuUtils {
     public static List<Menu> findAll(){
         List<Menu> list = new ArrayList<Menu>();
         list.addAll(menutMap.values());
+        return list;
+    }
+    public static List<Menu> findByIds(Long[] ids){
+        List<Menu> list = new ArrayList<Menu>();
+        if (ids!=null&&ids.length>0) {
+            Collection<Menu> all = menutMap.values();
+            for (Long id : ids) {
+                for (Menu menu : all) {
+                    if (id != null && id.equals(menu.getId())) {
+                        list.add(menu);
+                        break;
+                    }
+                }
+            }
+        }
         return list;
     }
     public static Menu findById(long id){

@@ -29,6 +29,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
     @Override
     public void initCache() throws Exception {
         try {
+            RoleMenuUtils.init();
             List<RoleMenu> roleMenus= this.findAll();
             if (!CollectionUtils.isEmpty(roleMenus)) {
                 for (RoleMenu roleMenu : roleMenus) {
@@ -44,9 +45,24 @@ public class RoleMenuServiceImpl implements RoleMenuService{
     public List<RoleMenu> findAll() throws Exception{
         List<RoleMenu> list = null;
         try {
-            list = roleMenuDao.findAll();
+            list = RoleMenuUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<RoleMenu> findAllFromDb() throws Exception {
+        List<RoleMenu> list = null;
+        try {
+            list = roleMenuDao.findAll();
+        } catch (Exception e) {
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;
@@ -67,7 +83,7 @@ public class RoleMenuServiceImpl implements RoleMenuService{
         return effectrows;
     }
 
-    @Override
+    /*@Override
     public RoleMenu findById(long id)throws Exception {
         RoleMenu roleMenu = null;
         try {
@@ -77,16 +93,24 @@ public class RoleMenuServiceImpl implements RoleMenuService{
             throw e;
         }
         return roleMenu;
-    }
+    }*/
 
     @Override
     public List<RoleMenu> findByRoleid(long roleid) throws Exception {
-        return roleMenuDao.findByRoleid(roleid);
+        List<RoleMenu> list = RoleMenuUtils.findByRoleid(roleid);
+        if (CollectionUtils.isEmpty(list)) {
+            list = roleMenuDao.findByRoleid(roleid);
+        }
+        return list;
     }
 
     @Override
     public List<RoleMenu> findByMenuid(long menuid) throws Exception {
-        return roleMenuDao.findByMenuid(menuid);
+        List<RoleMenu> list = RoleMenuUtils.findByMenuid(menuid);
+        if (CollectionUtils.isEmpty(list)) {
+            list = roleMenuDao.findByMenuid(menuid);
+        }
+        return list;
     }
 
     @Override

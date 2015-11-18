@@ -17,6 +17,9 @@ public class UserUtils {
    private static Map<String, User> userMap = new Hashtable<String, User>();
 
 
+    public static void init() {
+        userMap.clear();
+    }
     public static boolean add(User user) {
         if (user != null) {
             userMap.put(user.getUserid(),user);
@@ -35,6 +38,25 @@ public class UserUtils {
         List<User> list = new ArrayList<User>();
         list.addAll(userMap.values());
         return list;
+    }
+    public static List<User> findByOrgid(long orgid){
+        Collection<User> users = userMap.values();
+        List<User> userList = new ArrayList<User>();
+        for (User user : users) {
+            if (user.getOrgid() == orgid) {
+                userList.add(user);
+            }
+        }
+        return userList;
+    }
+    public static User findById(long id){
+        Collection<User> users = userMap.values();
+        for (User user : users) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
     }
     public static List<UserRole> findRolesByUserid(String userid) {
         return UserRoleUtils.findByUserid(userid);
@@ -67,80 +89,22 @@ public class UserUtils {
         }
         return null;
     }
-    public static void findSubordinate(String userid,List<String> allSubordinate) {
-        if (!StringUtils.isEmpty(userid) && allSubordinate != null) {
-            User superior = userMap.get(userid);
-            if (superior != null) {
-                long superiorOrgid = superior.getOrgid();
+    public static void findSubordinate(long superiorOrgid,List<String> allSubordinate) {
+        if (allSubordinate != null) {
+            List<Org> orgs = OrgUtils.findSubOrg(superiorOrgid);
+            if (!CollectionUtils.isEmpty(orgs)) {
                 Collection<User> users = userMap.values();
-                for (User user : users) {
-                    long orgid = user.getOrgid();
-                    String userid1 = user.getUserid();
-                    Org org = OrgUtils.findById(orgid);
-                    if (org != null) {
-                        long parentorgid = org.getParentorgid();
-                        if (parentorgid == superiorOrgid) {
-                            findSubordinate(userid1,allSubordinate);
-                            allSubordinate.add(userid1);
+                for (Org org : orgs) {
+                    for (User user : users) {
+                        if (user.getOrgid() == org.getId()) {
+                            allSubordinate.add(user.getUserid());
                         }
                     }
+                    findSubordinate(org.getId(),allSubordinate);
                 }
             }
         }
     }
-    /*private static void findSubordinateTree(String userid,UserTreeVo subordinateTree,List<User> allSubordinate) {
-        if (!StringUtils.isEmpty(userid)&&subordinateTree!=null&&allSubordinate!=null) {
-            User superior = userMap.get(userid);
-            if (superior != null) {
-                long superiorOrgid = superior.getOrgid();
-                Collection<User> users = userMap.values();
-                for (User user : users) {
-                    long orgid = user.getOrgid();
-                    Org org = OrgUtils.findById(orgid);
-                    if (org != null) {
-                        long parentorgid = org.getParentorgid();
-                        if (parentorgid == superiorOrgid) {
-                            allSubordinate.add(user);
-                            Set<UserTreeVo> subTreeNode = subordinateTree.getNodes();
-                            if (subTreeNode == null) {
-                                subordinateTree.setNodes(new HashSet<UserTreeVo>());
-                            }
-                            UserTreeVo temp = new UserTreeVo();
-                            temp.setUserid(String.valueOf(orgid));
-                            Set<UserTreeVo> set = subordinateTree.getNodes();
-                            if (!set.contains(temp)) {
-                                UserTreeVo root = new UserTreeVo();
-                                root.setId(org.getId());
-                                root.setText(org.getName());
-                                root.setUserid(String.valueOf(org.getId()));
-                                root.setNodetype(1);
-                                root.setParentid(org.getParentorgid());
-                                findSubordinateTree(user.getUserid(), root, allSubordinate);
-                                set.add(root);
-                            }else{
-                                findSubordinateTree(user.getUserid(), set., allSubordinate);
-                                subordinateTree.getNodes().add(root);
-                            }
-
-                            if (subordinateTree.size() == 0) {
-
-                            }
-
-                            UserTreeVo userTreeVo = new UserTreeVo();
-                            userTreeVo.setId(user.getId());
-                            userTreeVo.setUserid(user.getUserid());
-                            userTreeVo.setText(user.getName());
-                            userTreeVo.setParentid(user.getOrgid());
-                            List<UserTreeVo> sons = new ArrayList<UserTreeVo>();
-                            sons.addAll(findSubordinateTree(user.getUserid()));
-                            userTreeVo.setNodes(sons);
-                            root.getNodes().add(userTreeVo);
-                        }
-                    }
-                }
-            }
-        }
-    }*/
     public static User findByUserid(String userid){
         return userMap.get(userid);
     }

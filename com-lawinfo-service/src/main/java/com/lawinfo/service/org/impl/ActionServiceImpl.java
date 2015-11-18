@@ -39,6 +39,7 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public void initCache() throws Exception {
         try {
+            ActionUtils.init();
             List<Action> actionList= this.findAllFromDb();
             if (!CollectionUtils.isEmpty(actionList)) {
                 for (Action action : actionList) {
@@ -55,7 +56,10 @@ public class ActionServiceImpl implements ActionService {
     public List<Action> findAll() throws Exception{
         List<Action> list = null;
         try {
-            list = actionDao.findAll();
+            list = ActionUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
             throw e;

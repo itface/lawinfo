@@ -108,7 +108,7 @@ public class OrgInit {
             logger.error("deleteRoleById exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.UserServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.UserServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.UserServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.UserServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.UserServiceImpl.update*(..))")
      public void saveUser() {
         logger.info("saveUser begin");
         try {

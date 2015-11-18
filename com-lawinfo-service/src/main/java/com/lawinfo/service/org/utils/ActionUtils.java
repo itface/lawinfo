@@ -19,6 +19,9 @@ public class ActionUtils {
    private static Map<Long, Action> actionMap = new Hashtable<Long, Action>();
 
 
+    public static void init() {
+        actionMap.clear();
+    }
     public static boolean add(Action action) {
         if (action != null) {
             actionMap.put(action.getId(),action);

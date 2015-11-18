@@ -21,7 +21,7 @@
 
     <style>
         .modal-backdrop {
-            background-color: rgb(137, 181, 181);
+            background-color: #fff;
         }
     </style>
 </head>

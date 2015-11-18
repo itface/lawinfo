@@ -14,8 +14,8 @@ public interface RoleMenuService {
     public List<RoleMenu> findAll()throws Exception;
 
     public int save(RoleMenu roleMenu)throws Exception;
-
-    public RoleMenu findById(long id)throws Exception;
+    public List<RoleMenu> findAllFromDb() throws Exception;
+//    public RoleMenu findById(long id)throws Exception;
     public List<RoleMenu> findByRoleid(long roleid)throws Exception;
     public List<RoleMenu> findByMenuid(long menuid)throws Exception;
 

@@ -191,7 +191,8 @@ var caseinfo = {
                 html+=' </td>';
                 html+=' <td>';
                 if (!exelawyerids) {
-                    html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids"  caseinfoid="'+caseinfoid+'">添加执行律师</button>';
+                    var display = self.checkExelawyerAdd() ? "block" : "none";
+                    html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'"  caseinfoid="'+caseinfoid+'">添加执行律师</button>';
                 }else{
                     html+='&nbsp;';
                 }
@@ -202,6 +203,17 @@ var caseinfo = {
             $('.btn-saveExelawyerids').unbind('click');
             $('.btn-saveExelawyerids').on('click', $.proxy(self.saveExelawyeridsEvent,self));
         }
+    },
+    checkExelawyerAdd : function(){
+        if (actionList) {
+            var actionArr = actionList.split(",");
+            for (var i=0;i<actionArr.length;i++) {
+                if(actionArr[i] == "front-caseinfo-exelawyer-add"){
+                    return true;
+                }
+            }
+        }
+        return false;
     },
     saveExelawyeridsEvent:function(e){
         //e.preventBubble();

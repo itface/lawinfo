@@ -30,6 +30,7 @@ public class RoleActionServiceImpl implements RoleActionService{
     @Override
     public void initCache() throws Exception {
         try {
+            RoleActionUtils.init();
             List<RoleAction> roleActions= this.findAll();
             if (!CollectionUtils.isEmpty(roleActions)) {
                 for (RoleAction roleAction : roleActions) {
@@ -43,6 +44,21 @@ public class RoleActionServiceImpl implements RoleActionService{
     }
     @Override
     public List<RoleAction> findAll() throws Exception{
+        List<RoleAction> list = null;
+        try {
+            list = RoleActionUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = roleActionDao.findAll();
+            }
+        } catch (Exception e) {
+            logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<RoleAction> findAllFromDb() throws Exception {
         List<RoleAction> list = null;
         try {
             list = roleActionDao.findAll();
@@ -69,20 +85,13 @@ public class RoleActionServiceImpl implements RoleActionService{
     }
 
     @Override
-    public RoleAction findById(long id)throws Exception {
-        RoleAction roleAction = null;
-        try {
-            roleAction=roleActionDao.findById(id);
-        } catch (Exception e) {
-            logger.error("findById error,id=" + id, e);
-            throw e;
-        }
-        return roleAction;
-    }
-    @Override
     public List<RoleAction> findByRoleid(long roleid) throws Exception {
         try {
-            return roleActionDao.findByRoleid(roleid);
+            List<RoleAction> list = RoleActionUtils.findByRoleid(roleid);
+            if (CollectionUtils.isEmpty(list)) {
+                list = roleActionDao.findByRoleid(roleid);
+            }
+            return list;
         } catch (Exception e) {
             logger.error("findByRoleid error,id=" + roleid, e);
             throw e;
@@ -92,7 +101,11 @@ public class RoleActionServiceImpl implements RoleActionService{
     @Override
     public List<RoleAction> findByActionid(long actionid) throws Exception {
         try {
-            return roleActionDao.findByActionid(actionid);
+            List<RoleAction> list = RoleActionUtils.findByActionid(actionid);
+            if (CollectionUtils.isEmpty(list)) {
+                list = roleActionDao.findByActionid(actionid);
+            }
+            return list;
         } catch (Exception e) {
             logger.error("findByActionid error,actionid=" + actionid, e);
             throw e;

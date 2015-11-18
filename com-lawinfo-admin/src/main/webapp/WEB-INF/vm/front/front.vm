@@ -82,7 +82,7 @@
                                         <a href="#case-doing" data-toggle="tab" id="case-all-tab" actionid="front-case-all-list" style="display: block">所有</a>
                                     </li>
                                     <li>
-                                        <a href="#case-report" data-toggle="tab" id="case-report-tab" actionid="front-case-report-list" style="display: block">统计</a>
+                                        <a href="#case-report" data-toggle="tab" id="case-report-tab" actionid="front-case-report-list" style="display: none">统计</a>
                                     </li>
                                 </ul>
                                 <div id="caseTabContent" class="tab-content">

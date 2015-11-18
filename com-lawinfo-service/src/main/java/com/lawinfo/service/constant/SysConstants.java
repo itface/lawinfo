@@ -20,5 +20,7 @@ public class SysConstants {
     static {
         FRONT_TAGS.add("front-case-progress-add-btn");
         FRONT_TAGS.add("front-caseinfo-add-btn");
+        FRONT_TAGS.add("front-caseinfo-exelawyer-add");
+        FRONT_TAGS.add("front-case-report-list");
     }
 }

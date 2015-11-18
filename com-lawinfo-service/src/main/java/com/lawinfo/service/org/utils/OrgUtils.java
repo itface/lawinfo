@@ -1,11 +1,9 @@
 package com.lawinfo.service.org.utils;
 
 import com.lawinfo.domain.org.Org;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 15/10/20.
@@ -33,6 +31,19 @@ public class OrgUtils {
             return true;
         }
         return false;
+    }
+
+    public static List<Org> findSubOrg(long orgid){
+        List<Org> list = new ArrayList<Org>();
+        Collection<Org> orgs = orgMap.values();
+        if (!CollectionUtils.isEmpty(orgs)) {
+            for (Org org : orgs) {
+                if (org.getParentorgid()==orgid) {
+                    list.add(org);
+                }
+            }
+        }
+        return list;
     }
     public static List<Org> findAll(){
         List<Org> list = new ArrayList<Org>();

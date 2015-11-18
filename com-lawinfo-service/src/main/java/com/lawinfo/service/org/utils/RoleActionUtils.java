@@ -14,6 +14,9 @@ public class RoleActionUtils {
    private static Map<Long, RoleAction> roleActionMap = new Hashtable<Long, RoleAction>();
 
 
+    public static void init() {
+        roleActionMap.clear();
+    }
     public static boolean add(RoleAction roleAction) {
         if (roleAction != null) {
             roleActionMap.put(roleAction.getId(),roleAction);

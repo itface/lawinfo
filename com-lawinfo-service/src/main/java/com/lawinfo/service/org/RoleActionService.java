@@ -15,8 +15,7 @@ public interface RoleActionService {
     public List<RoleAction> findAll()throws Exception;
 
     public int save(RoleAction roleAction)throws Exception;
-
-    public RoleAction findById(long id)throws Exception;
+    public List<RoleAction> findAllFromDb() throws Exception;
     public List<RoleAction> findByRoleid(long roleid)throws Exception;
     public List<RoleAction> findByActionid(long actionid)throws Exception;
 

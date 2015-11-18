@@ -16,6 +16,9 @@ public class UserRoleUtils {
    private static Map<Long, UserRole> userRoleMap = new Hashtable<Long, UserRole>();
 
 
+    public static void init() {
+        userRoleMap.clear();
+    }
     public static boolean add(UserRole userRole) {
         if (userRole != null) {
             userRoleMap.put(userRole.getId(),userRole);

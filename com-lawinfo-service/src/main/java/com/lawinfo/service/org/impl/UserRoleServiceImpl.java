@@ -29,6 +29,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
     @Override
     public void initCache() throws Exception {
         try {
+            UserRoleUtils.init();
             List<UserRole> userRoles= this.findAll();
             if (!CollectionUtils.isEmpty(userRoles)) {
                 for (UserRole userRole : userRoles) {
@@ -44,9 +45,24 @@ public class UserRoleServiceImpl  implements UserRoleService{
     public List<UserRole> findAll() throws Exception{
         List<UserRole> list = null;
         try {
-            list = userRoleDao.findAll();
+            list = UserRoleUtils.findAll();
+            if (CollectionUtils.isEmpty(list)) {
+                list = findAllFromDb();
+            }
         } catch (Exception e) {
             logger.error("findAll error",e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public List<UserRole> findAllFromDb() throws Exception {
+        List<UserRole> list = null;
+        try {
+            list = userRoleDao.findAll();
+        } catch (Exception e) {
+            logger.error("findAllFromDb error",e);
             throw e;
         }
         return list;
@@ -67,7 +83,7 @@ public class UserRoleServiceImpl  implements UserRoleService{
         return effectrows;
     }
 
-    @Override
+    /*@Override
     public UserRole findById(long id)throws Exception {
         UserRole userRole = null;
         try {
@@ -77,12 +93,16 @@ public class UserRoleServiceImpl  implements UserRoleService{
             throw e;
         }
         return userRole;
-    }
+    }*/
 
     @Override
     public List<UserRole> findByRoleid(long roleid) throws Exception {
         try {
-            return userRoleDao.findByRoleid(roleid);
+            List<UserRole> list = UserRoleUtils.findByRoleid(roleid);
+            if (CollectionUtils.isEmpty(list)) {
+                list = userRoleDao.findByRoleid(roleid);
+            }
+            return list;
         } catch (Exception e) {
             logger.error("findByRoleid error,roleid=" + roleid, e);
             throw e;
@@ -92,7 +112,11 @@ public class UserRoleServiceImpl  implements UserRoleService{
     @Override
     public List<UserRole> findByUserid(String userid) throws Exception {
         try {
-            return userRoleDao.findByUserid(userid);
+            List<UserRole> list = UserRoleUtils.findByUserid(userid);
+            if (CollectionUtils.isEmpty(list)) {
+                list = userRoleDao.findByUserid(userid);
+            }
+            return list;
         } catch (Exception e) {
             logger.error("findByRoleid error,userid=" + userid, e);
             throw e;

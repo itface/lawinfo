@@ -21,6 +21,9 @@ public class RoleUtils {
    private static Map<Long, Role> roleMap = new Hashtable<Long, Role>();
 
 
+    public static void init() {
+        roleMap.clear();
+    }
     public static boolean add(Role role) {
         if (role != null) {
             long id = role.getId();

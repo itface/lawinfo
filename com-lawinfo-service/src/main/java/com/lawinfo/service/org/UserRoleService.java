@@ -16,8 +16,8 @@ public interface UserRoleService {
     public List<UserRole> findAll()throws Exception;
 
     public int save(UserRole userRole)throws Exception;
-
-    public UserRole findById(long id)throws Exception;
+    public List<UserRole> findAllFromDb() throws Exception;
+//    public UserRole findById(long id)throws Exception;
     public List<UserRole> findByRoleid(long roleid)throws Exception;
     public List<UserRole> findByUserid(String userid)throws Exception;
     public List<UserRole> findList(UserRoleQuery userRoleQuery)throws Exception;

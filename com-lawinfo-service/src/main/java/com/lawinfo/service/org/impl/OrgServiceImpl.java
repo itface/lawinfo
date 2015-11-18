@@ -31,9 +31,9 @@ public class OrgServiceImpl implements OrgService{
     @Override
     public void initCache() throws Exception {
         try {
+            OrgUtils.init();
             List<Org> orgList = this.findAllFromDb();
             if (!CollectionUtils.isEmpty(orgList)) {
-                OrgUtils.init();
                 for (Org org : orgList) {
                     OrgUtils.add(org);
                 }
@@ -102,9 +102,13 @@ public class OrgServiceImpl implements OrgService{
     public List<OrgVo> findSubOrgTree(long orgid) throws Exception {
         List<OrgVo> orgVoList = new ArrayList<OrgVo>();
         try {
-            OrgQuery orgQuery = new OrgQuery();
-            orgQuery.setParentorgid(orgid);
-            List<Org> list = findList(orgQuery);
+            List<Org> list = null;
+            list = OrgUtils.findSubOrg(orgid);
+            if (CollectionUtils.isEmpty(list)) {
+                OrgQuery orgQuery = new OrgQuery();
+                orgQuery.setParentorgid(orgid);
+                list = findList(orgQuery);
+            }
             if (!CollectionUtils.isEmpty(list)) {
                 Multimap<Long, Org> multimap = findAllOrg();
                 if (multimap != null) {
@@ -231,9 +235,8 @@ public class OrgServiceImpl implements OrgService{
         List<Org> list = null;
         try {
             list = OrgUtils.findAll();
-            list = null;
             if (CollectionUtils.isEmpty(list)) {
-                list = orgDao.findAll();
+                list = findAllFromDb();
             }
         } catch (Exception e) {
             logger.error("findAll error",e);
@@ -276,7 +279,10 @@ public class OrgServiceImpl implements OrgService{
         logger.info("findById begin,id:"+id);
         Org org = null;
         try {
-            org =orgDao.findById(id);
+            org = OrgUtils.findById(id);
+            if (org==null) {
+                org = orgDao.findById(id);
+            }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
@@ -339,7 +345,10 @@ public class OrgServiceImpl implements OrgService{
     public void deleteByParentorgid(long parentorgid) throws Exception {
         logger.info("deleteByParentorgid begin,parentorgid=" + parentorgid);
         try {
-            List<Org> orgs = orgDao.findByParentorgid(parentorgid);
+            List<Org> orgs = OrgUtils.findSubOrg(parentorgid);
+            if (CollectionUtils.isEmpty(orgs)) {
+                orgs = orgDao.findByParentorgid(parentorgid);
+            }
             if (!CollectionUtils.isEmpty(orgs)) {
                 for (Org org : orgs) {
                     deleteByParentorgid(org.getId());

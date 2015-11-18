@@ -15,6 +15,9 @@ public class RoleMenuUtils {
    private static Map<Long, RoleMenu> roleMenuMap = new Hashtable<Long, RoleMenu>();
 
 
+    public static void init() {
+        roleMenuMap.clear();
+    }
     public static boolean add(RoleMenu roleMenu) {
         if (roleMenu != null) {
             roleMenuMap.put(roleMenu.getId(),roleMenu);
