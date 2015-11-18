@@ -9,7 +9,7 @@ var login = {
         $authCodeBtn.on("click", function(e){
             var _self = this;
             var tel = $("#loginForm").find("[name='tel']").val();
-            if(!tel){
+            if(tel==null||tel==''||!self.checkPhoneNo(tel)){
                 self.loginAlert("请输入手机号");
                 return;
             }
@@ -63,6 +63,14 @@ var login = {
                 self.loginAlert("未知错误");
             });
         });
+    },
+    checkPhoneNo:function(no){
+        var pattern=/(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
+        if(pattern.test(no)) {
+            return true;
+        }else{
+            return false;
+        }
     },
     timeout: function(){
         var timeout = 60;

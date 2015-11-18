@@ -45,14 +45,15 @@ var user = {
             var roleids = jQuery('#userform  #userroleids').val();
             var logintype = jQuery('#userform  #logintype').val();
             var orgid = selectUserTreeNode.id;
+            if (!self.checkPhoneNo(userid)) {
+                self.saveUserAlert('用户id只能是手机号码');
+                return false;
+            }
             if (!username) {
                 self.saveUserAlert('用户名称不能为空');
                 return false;
             }
-            if (!userid) {
-                self.saveUserAlert('用户id不能为空');
-                return false;
-            }if (!roleids) {
+            if (!roleids) {
                 self.saveUserAlert('角色不能为空');
                 return false;
             }

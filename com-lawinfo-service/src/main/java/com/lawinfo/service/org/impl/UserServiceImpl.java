@@ -224,6 +224,26 @@ public class UserServiceImpl implements UserService{
         }
         return effectrows;
     }
+    @Override
+    @Transactional
+    public int deleteByOrgid(long orgid)throws Exception {
+        logger.info("deleteByOrgid begin,orgid=" + orgid);
+        int effectrows = 0;
+        try {
+            UserQuery userQuery = new UserQuery();
+            userQuery.setOrgid(orgid);
+            List<User> list = this.findList(userQuery);
+            if (!CollectionUtils.isEmpty(list)) {
+                for (User user : list) {
+                    deleteById(user.getId());
+                }
+            }
+        } catch (Exception e) {
+            logger.error("deleteByOrgid error,orgid=" + orgid, e);
+            throw e;
+        }
+        return effectrows;
+    }
 
     @Override
     @Transactional

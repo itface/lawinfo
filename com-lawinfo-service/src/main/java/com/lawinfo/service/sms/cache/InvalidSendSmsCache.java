@@ -10,6 +10,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class InvalidSendSmsCache {
     public static Cache<String, Long> cache = CacheBuilder.newBuilder()
-            .expireAfterAccess(30, TimeUnit.SECONDS)
+            .expireAfterAccess(60, TimeUnit.SECONDS)
             .build();
 }

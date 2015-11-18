@@ -19,6 +19,11 @@
     <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="/static/login/login.js"></script>
 
+    <style>
+        .modal-backdrop {
+            background-color: rgb(137, 181, 181);
+        }
+    </style>
 </head>
 
 <body>

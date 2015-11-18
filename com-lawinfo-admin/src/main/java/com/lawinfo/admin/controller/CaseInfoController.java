@@ -40,6 +40,7 @@ public class CaseInfoController {
     public int save(HttpServletRequest request,CaseInfo caseInfo,BindingResult result)throws Exception{
         if (caseInfo != null) {
             String userid = LoginInfo.getUseridFromSession(request.getSession());
+            caseInfo.setOptuserid(userid);
             int rows = caseInfoService.save(caseInfo);
             return rows;
         }

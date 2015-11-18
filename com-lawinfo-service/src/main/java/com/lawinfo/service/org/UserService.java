@@ -31,6 +31,7 @@ public interface UserService {
     public int count(UserQuery userQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int deleteByOrgid(long orgid)throws Exception;
     public int updateLoginStatus(User user)throws Exception;
     public List<OrgVo> findSubordinateTree(String userid)throws Exception;
     public List<OrgVo> findCustomerTree()throws Exception;

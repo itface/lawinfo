@@ -3,6 +3,7 @@ package com.lawinfo.admin.controller;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.org.OrgService;
+import com.lawinfo.service.org.OrgUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,8 @@ public class OrgController {
 
     @Resource
     private OrgService orgService;
+    @Resource
+    private OrgUserService orgUserService;
 
 
     @ResponseBody
@@ -42,7 +45,7 @@ public class OrgController {
     @ResponseBody
     @RequestMapping("/remove")
     public int remove(long id)throws Exception{
-        int rows = orgService.deleteById(id);
+        int rows = orgUserService.deleteOrgAndUserByOrgid(id);
         return rows;
     }
 }

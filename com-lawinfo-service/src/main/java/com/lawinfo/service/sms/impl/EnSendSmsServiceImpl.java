@@ -24,6 +24,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,10 +70,9 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
                     List<User> users = userService.findList(userQuery);
                     User user = CollectionUtils.isEmpty(users) ? null : users.get(0);
                     if (user != null) {
-                        String code = getRandomStr();
+                        String code = String.valueOf(getRandomStr(1000, 9999));
                         String smsContent = getSmsContent(code);
-//                        String result = send(smsContent,phoneno);
-                        String result = "0";
+                        String result = send(smsContent,phoneno);
                         int resultCode = Integer.parseInt(result);
                         EnSendSmsResultEnum enSendSmsResultEnum = EnSendSmsResultEnum.findByCode(resultCode);
                         if (enSendSmsResultEnum == null) {
@@ -158,7 +158,11 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
         int num =  (int)((Math.random()*9+1)*100000);
         return String.valueOf(num);
     }
-
+    private int getRandomStr(int min,int max){
+        Random random = new Random();
+        int s = random.nextInt(max)%(max-min+1) + min;
+        return s;
+    }
     public String getAddress() {
         return address;
     }
