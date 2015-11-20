@@ -165,6 +165,7 @@ public class CaseInfo extends BaseDomain{
      */
     private String exeajbh;
 
+    private double realtotalprice;
     public long getId() {
         return id;
     }
@@ -457,6 +458,14 @@ public class CaseInfo extends BaseDomain{
         this.exeajbh = exeajbh;
     }
 
+    public double getRealtotalprice() {
+        return realtotalprice;
+    }
+
+    public void setRealtotalprice(double realtotalprice) {
+        this.realtotalprice = realtotalprice;
+    }
+
     public String getTitle(){
         StringBuilder sb = new StringBuilder();
         sb.append(caseorgname==null?"":caseorgname)
@@ -468,6 +477,9 @@ public class CaseInfo extends BaseDomain{
     public void init() {
         if (zqdqrdate!=null) {
             this.zqdqr = zqdqrdate.getTime();
+        }
+        if (casetype==1) {
+            this.realtotalprice = this.totalprice;
         }
     }
     public void initSummary() {

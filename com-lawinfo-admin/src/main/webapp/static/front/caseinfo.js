@@ -156,7 +156,7 @@ var caseinfo = {
                 type:'POST',
                 success:function(data) {
                     if (data==1) {
-                        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,this));
+                        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
                         $('#caseinfo-modal').modal('hide');
                     }else{
                         self.saveActionAlert('保存异常');
@@ -167,11 +167,11 @@ var caseinfo = {
                 }
             });
         });
-        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,this));
+        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
     },
     initCaseinfoTable:function(){
-        self=this;
-        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,this));
+        var self=this;
+        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
     },
     buildCaseinfoTable:function(data) {
         var self = this;

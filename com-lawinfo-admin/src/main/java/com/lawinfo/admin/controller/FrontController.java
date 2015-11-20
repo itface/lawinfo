@@ -1,9 +1,12 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.front.charts.CaseInfoChart;
+import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.constant.SysConstants;
+import com.lawinfo.service.front.EchartsService;
 import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.UserService;
@@ -30,6 +33,8 @@ public class FrontController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private EchartsService echartsService;
 
 
     @RequestMapping("")
@@ -64,5 +69,10 @@ public class FrontController {
         String userid = LoginInfo.getUseridFromSession(request.getSession());
         List<OrgVo> list = userService.findSubordinateTree(userid);
         return list;
+    }
+    @ResponseBody
+    @RequestMapping("/chart/get")
+    public CaseInfoChart getChart(HttpServletRequest request,String userid,Integer currenttabtype)throws Exception {
+        return echartsService.getCountCaseinfoMoneyChartData(userid);
     }
 }

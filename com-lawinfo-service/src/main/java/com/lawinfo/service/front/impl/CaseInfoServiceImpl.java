@@ -108,6 +108,18 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     }
 
     @Override
+    public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery) throws Exception {
+        List<CaseInfo> list = null;
+        try {
+            list = caseInfoDao.findList(caseInfoQuery);
+        } catch (Exception e) {
+            logger.error("findList error,CaseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString(), e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery,String userid)throws Exception {
         logger.info("findList begin,CaseInfoQuery=" + caseInfoQuery == null ? "null" : caseInfoQuery.toLogString());
         List<CaseInfo> list = null;

@@ -29,7 +29,7 @@ public class DateUtils {
 
     public static void main(String[] args) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,1);
-        System.out.println(formatDatetime(1446480000299l)+":"+formatDatetime(1446652800299l));
+        calendar.add(Calendar.YEAR,1);
+        System.out.println(calendar.getTime().getTime());
     }
 }
