@@ -6,6 +6,7 @@ import com.lawinfo.domain.org.query.LoginLogQuery;
 import com.lawinfo.service.org.LoginLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/14.
  */
-//@Service
+@Service
 public class LoginLogServiceImpl implements LoginLogService{
     private static Logger logger = LoggerFactory.getLogger(LoginLogServiceImpl.class);
     @Resource

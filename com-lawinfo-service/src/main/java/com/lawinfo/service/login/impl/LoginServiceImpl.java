@@ -1,11 +1,13 @@
 package com.lawinfo.service.login.impl;
 
 import com.lawinfo.domain.login.LoginResult;
+import com.lawinfo.domain.org.LoginLog;
 import com.lawinfo.domain.org.Sms;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.SmsQuery;
 import com.lawinfo.service.login.LoginService;
 import com.lawinfo.service.login.enumtype.LoginResultEnum;
+import com.lawinfo.service.org.LoginLogService;
 import com.lawinfo.service.org.SmsService;
 import com.lawinfo.service.org.UserService;
 import com.lawinfo.service.util.DateUtils;
@@ -31,6 +33,8 @@ public class LoginServiceImpl implements LoginService{
     private SmsService smsService;
     @Resource
     private UserService userService;
+    @Resource
+    private LoginLogService loginLogService;
 
 
 
@@ -47,12 +51,16 @@ public class LoginServiceImpl implements LoginService{
         LoginResult loginResult = new LoginResult();
         loginResult.setUserid(userid);
         loginResult.setSuccess(false);
+        long now = new Date().getTime();
+        String nowtimestr = DateUtils.formatDatetime(now);
+        SmsQuery smsQuery = new SmsQuery();
+        smsQuery.setExpiretime(now);
+        smsQuery.setPhoneno(userid);
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUserid(userid);
+        loginLog.setLogintime(now);
+        loginLog.setLogintimestr(nowtimestr);
         if (!StringUtils.isEmpty(userid)&&!StringUtils.isEmpty(password)) {
-            long now = new Date().getTime();
-            String nowtimestr = DateUtils.formatDatetime(now);
-            SmsQuery smsQuery = new SmsQuery();
-            smsQuery.setExpiretime(now);
-            smsQuery.setPhoneno(userid);
             try {
                 User user = userService.findByUserid(userid);
                 if (user!=null) {
@@ -116,9 +124,21 @@ public class LoginServiceImpl implements LoginService{
         }else {
             loginResult.setDesc(LoginResultEnum.UID_PWD_EMPTY.getDesc());
         }
+        loginLog.setMsg(loginResult.getDesc());
+        saveLoginLog(loginLog);
         return loginResult;
     }
 
+    private int saveLoginLog(LoginLog loginLog) {
+        try {
+            if (loginLog != null) {
+                return loginLogService.save(loginLog);
+            }
+        } catch (Exception e) {
+            logger.error("saveLoginLog exception",e);
+        }
+        return 0;
+    }
     public void setExpiretime(long expiretime) {
         this.expiretime = expiretime;
     }

@@ -12,9 +12,10 @@
         <result column="modifiedtime" property="modifiedtime"/>
         <result column="modifiedtimestr" property="modifiedtimestr"/>
         <result column="optuserid" property="optuserid"/>
+        <result column="msg" property="msg"/>
     </resultMap>
     <sql id="allColumn">
-         id,userid,username,logintime,logintimestr,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,userid,username,logintime,logintimestr,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,msg
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -72,8 +73,8 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.LoginLog">
-        insert into LoginLog(userid,username,logintime,logintimestr,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
-        values(#{userid},#{username},#{logintime},#{logintimestr},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into LoginLog(userid,username,logintime,logintimestr,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,msg)
+        values(#{userid},#{username},#{logintime},#{logintimestr},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{msg})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from LoginLog where id=#{id}

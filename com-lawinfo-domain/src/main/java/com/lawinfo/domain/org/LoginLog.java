@@ -14,6 +14,7 @@ public class LoginLog extends BaseDomain {
     private String username;
     private long logintime;
     private String logintimestr;
+    private String msg;
 
     public long getId() {
         return id;
@@ -53,5 +54,13 @@ public class LoginLog extends BaseDomain {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
