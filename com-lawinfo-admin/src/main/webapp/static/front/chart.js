@@ -65,6 +65,8 @@ var chart = {
             myChart.setOption(option1);
             var myChart2 = echarts.init(document.getElementById('chart2'));
             myChart2.setOption(option2);
+        }else{
+            mainAlert('暂无数据');
         }
     },
     getChartData:function(callback) {
