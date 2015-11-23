@@ -55,7 +55,7 @@ public class EnSendSmsServiceImpl implements EnSendSmsService{
     @Override
     public EnSendSmsResultEnum sendSms(String phoneno) {
         try {
-            if (!StringUtils.isEmpty(phoneno)&&isMobileNO(phoneno)) {
+            if (!StringUtils.isEmpty(phoneno)) {
                 Long lastInvalidSendSmsTime = InvalidSendSmsCache.cache.get(phoneno,new Callable<Long>(){
                     @Override
                     public Long call() throws Exception {
