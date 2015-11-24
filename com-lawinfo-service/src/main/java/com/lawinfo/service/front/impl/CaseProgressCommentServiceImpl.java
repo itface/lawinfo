@@ -61,6 +61,9 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
                 }else if (caseProgressComment.getProcessnodeid()==2100) {
                     int sfss = Integer.parseInt(caseProgressComment.getComment());
                     caseInfoService.updateSfss(caseinfoid, sfss);
+                }else if (caseProgressComment.getProcessnodeid()==701) {
+                    String ssajbh = caseProgressComment.getComment();
+                    caseInfoService.updateSsajbh(caseinfoid, ssajbh);
                 }
                 return caseProgressCommentDao.save(caseProgressComment);
             }

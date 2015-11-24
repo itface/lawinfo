@@ -72,7 +72,7 @@ public class CaseProgressServiceImpl implements CaseProgressService{
                     CaseInfo caseInfo = caseInfoService.findById(caseinfoid);
                     if (caseInfo != null) {
                         int sfss = caseInfo.getSfss();
-                        List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss,(sfss==2?true:false));
+                        List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss,(sfss==1?false:true));
                         if (!CollectionUtils.isEmpty(list)) {
                             List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
                             if (!CollectionUtils.isEmpty(caseProgressComments)) {

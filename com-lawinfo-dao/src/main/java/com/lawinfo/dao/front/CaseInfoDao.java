@@ -28,6 +28,7 @@ public interface CaseInfoDao {
     public int updateYstj(CaseInfo caseInfo);
     public int updateEstj(CaseInfo caseInfo);
     public int updateSfss(CaseInfo caseInfo);
+    public int updateSsajbh(CaseInfo caseInfo);
     public int updatePrePrice(CaseInfo caseInfo);
     public int updateSufPrice(CaseInfo caseInfo);
     public int updateExeLawyers(CaseInfo caseInfo);

@@ -131,6 +131,21 @@ var caseprogress = {
                 listHtml += '</div>';
                 jQuery('#add-form').append(listHtml);
             }
+        }else if(nodeid==701){
+            if (selectCaseSsajbh) {
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
+                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+selectCaseSsajbh+'"/></div>';
+                listHtml += '</div>';
+                jQuery('#caseinfo-progress-list').append(listHtml);
+            }else{
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
+                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
+                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '</div>';
+                jQuery('#add-form').append(listHtml);
+            }
         }else{
             var comments = node.caseProgressCommentList;
             if (comments!=null) {
@@ -199,6 +214,8 @@ var caseprogress = {
             selectCaseEstj = value;
         }else if (nodeid==2100) {
             selectCaseSfss = value;
+        }else if (nodeid==701) {
+            selectCaseSsajbh = value;
         }
     },
     saveProgressEvent : function(e){
@@ -231,6 +248,8 @@ var caseprogress = {
             }else if (nodeid==3100) {
                 comment = jQuery('#caseinfo-progress-form #commonfiled').val();
             }else if (nodeid==2100) {
+                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
+            }else if (nodeid==701) {
                 comment = jQuery('#caseinfo-progress-form #commonfiled').val();
             }else{
                 comment = jQuery('#caseinfo-progress-form #comment').val();

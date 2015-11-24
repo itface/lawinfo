@@ -7,6 +7,7 @@ var selectCaseYstj=null;
 var selectCaseEstj=null;
 var selectCaseinfoId = null;
 var selectCaseSfss = null;
+var selectCaseSsajbh=null;
 var customOrgTreeSelectedNode = null;
 var customerTreeSelectedNode = null;
 var lawyerTreeSelectedNode = null;
@@ -33,31 +34,31 @@ var caseinfo = {
         jQuery('#caseinfo-list').on('click','.caseinfo-row', $.proxy(self.registCaseinfoTableRowEvent,this));
         jQuery('#caseinfo-modal .submit').on('click',function(e){
             var casetype = jQuery('#caseinfo-modal  #casetype').is(':checked')?1:0;
-            var caseorgid = jQuery('#caseinfo-modal  #caseorgid').val();
-            var caseorgname = $("#caseinfo-modal  #caseorgname").val();
-            var contacts = jQuery('#caseinfo-modal  #contacts').val();
-            var contactids = jQuery('#caseinfo-modal  #contactids').val();
-            var debtorinfo = jQuery('#caseinfo-modal  #debtorinfo').val();
+            var caseorgid = $.trim(jQuery('#caseinfo-modal  #caseorgid').val());
+            var caseorgname = $.trim($("#caseinfo-modal  #caseorgname").val());
+            var contacts = $.trim(jQuery('#caseinfo-modal  #contacts').val());
+            var contactids = $.trim(jQuery('#caseinfo-modal  #contactids').val());
+            var debtorinfo = $.trim(jQuery('#caseinfo-modal  #debtorinfo').val());
             var iscreditorrelated = jQuery('#caseinfo-modal  #iscreditorrelated').is(':checked')?1:0;
-            var debtorpropertyinfo = jQuery('#caseinfo-modal  #debtorpropertyinfo').val();
-            var ay = jQuery('#caseinfo-modal  #ay').val();
-            var zqbj = jQuery('#caseinfo-modal  #zqbj').val();
-            var zqdqr = jQuery('#caseinfo-modal  #zqdqr').val();
-            var guarantorinfo = jQuery('#caseinfo-modal  #guarantorinfo').val();
+            var debtorpropertyinfo = $.trim(jQuery('#caseinfo-modal  #debtorpropertyinfo').val());
+            var ay = $.trim(jQuery('#caseinfo-modal  #ay').val());
+            var zqbj = $.trim(jQuery('#caseinfo-modal  #zqbj').val());
+            var zqdqr = $.trim(jQuery('#caseinfo-modal  #zqdqr').val());
+            var guarantorinfo = $.trim(jQuery('#caseinfo-modal  #guarantorinfo').val());
             var isguarantorrelated = jQuery('#caseinfo-modal  #isguarantorrelated').is(':checked')?1:0;
-            var guaranteetype = jQuery('#caseinfo-modal  #guaranteetype').val();
-            var guarantorpropertyinfo = jQuery('#caseinfo-modal  #guarantorpropertyinfo').val();
-            var pawninfo = jQuery('#caseinfo-modal  #pawninfo').val();
-            var pawnvalue = jQuery('#caseinfo-modal  #pawnvalue').val();
-            var caseprocedure = jQuery('#caseinfo-modal  #caseprocedure').val();
-            var court = jQuery('#caseinfo-modal  #court').val();
-            var judge = jQuery('#caseinfo-modal  #judge').val();
+            var guaranteetype = $.trim(jQuery('#caseinfo-modal  #guaranteetype').val());
+            var guarantorpropertyinfo = $.trim(jQuery('#caseinfo-modal  #guarantorpropertyinfo').val());
+            var pawninfo = $.trim(jQuery('#caseinfo-modal  #pawninfo').val());
+            var pawnvalue = $.trim(jQuery('#caseinfo-modal  #pawnvalue').val());
+            var caseprocedure = $.trim(jQuery('#caseinfo-modal  #caseprocedure').val());
+            var court = $.trim(jQuery('#caseinfo-modal  #court').val());
+            var judge = $.trim(jQuery('#caseinfo-modal  #judge').val());
             /*var exelawyers = jQuery('#caseinfo-modal  #exelawyers').val();
             var exelawyerids = jQuery('#caseinfo-modal  #exelawyerids').val();*/
-            var sslawyerids = jQuery('#caseinfo-modal  #sslawyerids').val();
-            var sslawyers = jQuery('#caseinfo-modal  #sslawyers').val();
-            var totalprice = jQuery('#caseinfo-modal  #totalprice').val();
-            var ssajbh = jQuery('#caseinfo-modal  #ssajbh').val();
+            var sslawyerids = $.trim(jQuery('#caseinfo-modal  #sslawyerids').val());
+            var sslawyers = $.trim(jQuery('#caseinfo-modal  #sslawyers').val());
+            var totalprice = $.trim(jQuery('#caseinfo-modal  #totalprice').val());
+            var ssajbh = $.trim(jQuery('#caseinfo-modal  #ssajbh').val());
             if (!caseorgid) {
                 self.saveActionAlert('案件所属机构不能为空');
                 return false;
@@ -78,12 +79,12 @@ var caseinfo = {
                 self.saveActionAlert('案由不能为空');
                 return false;
             }
-            if (!zqbj) {
-                self.saveActionAlert('债权本金不能为空');
+            if (!zqbj||isNaN(zqbj)) {
+                self.saveActionAlert('债权本金必须是数值');
                 return false;
             }
             if (!zqdqr) {
-                self.saveActionAlert('债权到账日期不能为空');
+                self.saveActionAlert('债权到期日不能为空');
                 return false;
             }
             if (!guarantorinfo) {
@@ -95,11 +96,11 @@ var caseinfo = {
                 return false;
             }
             if (!pawninfo) {
-                self.saveActionAlert('抵押物信息不能为空不能为空');
+                self.saveActionAlert('抵押物信息不能为空');
                 return false;
             }
-            if (!pawnvalue) {
-                self.saveActionAlert('抵押物评估价值不能为空不能为空');
+            if (!pawnvalue||isNaN(pawnvalue)) {
+                self.saveActionAlert('抵押物评估价值必须是数值');
                 return false;
             }
             if (!caseprocedure) {
@@ -118,16 +119,20 @@ var caseinfo = {
                 self.saveActionAlert('诉讼律师不能为空');
                 return false;
             }
-            if (!totalprice) {
-                self.saveActionAlert('律师费总额不能为空');
+            if (!totalprice||isNaN(totalprice)) {
+                self.saveActionAlert('律师费总额必须是数值');
                 return false;
             }
-            if (!ssajbh) {
+            if (!guarantorpropertyinfo) {
+                self.saveActionAlert('担保人财产状况不能为空');
+                return false;
+            }
+            /*if (!ssajbh) {
                 self.saveActionAlert('诉讼案号不能为空');
                 return false;
-            }
+            }*/
             var obj = {};
-            obj.ssajbh = ssajbh;
+            //obj.ssajbh = ssajbh;
             obj.casetype = casetype;
             obj.caseorgid = caseorgid;
             obj.caseorgname = caseorgname;
@@ -160,6 +165,7 @@ var caseinfo = {
                     if (data==1) {
                         self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
                         $('#caseinfo-modal').modal('hide');
+                        $('#caseinfo-form')[0].reset();
                     }else{
                         self.saveActionAlert('保存异常');
                     }
@@ -184,29 +190,30 @@ var caseinfo = {
                 var o = data[i];
                 var exelawyerids = o.exelawyers;
                 var caseinfoid = o.id;
-                html+='<tr caseinfoid="'+ o.id+'" id="caseinfo_tr_'+ o.id+'">';
+                html+='<tr caseinfoid="'+ o.id+'" id="caseinfo_tr_'+ o.id+'" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'" ssajbh="'+ (o.ssajbh==null?'':o.ssajbh)+'">';
                 html+=' <td caseinfoid="'+ o.id+'">';
                 if (canRemoveCase) {
-                    html+='     <button type="button" class="close btn-caseinfo-rm" aria-hidden="true" style="color: red;opacity:1" caseinfoid="'+caseinfoid+'">&times;</button>';
+                    html+='     <button type="button" class="close btn-caseinfo-rm" aria-hidden="true" style="color: red;opacity:1">&times;</button>';
                 }else{
                     html+='&nbsp;';
                 }
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+=' <td class="caseinfo-row" >';
                 html+='     '+ (i+1);
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+=' <td class="caseinfo-row">';
                 html+='     '+ (o.optuserid);
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+=' <td class="caseinfo-row">';
                 html+='     '+ (o.createtimestr);
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+=' <td class="caseinfo-row">';
                 html+='     '+ o.title;
                 html+=' </td>';
+                html+=' <td>';
                 if (!exelawyerids) {
                     var display = self.checkExelawyerAdd() ? "block" : "none";
-                    html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'"  caseinfoid="'+caseinfoid+'">添加执行律师</button>';
+                    html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'">添加执行律师</button>';
                 }else{
                     html+='&nbsp;';
                 }
@@ -232,14 +239,24 @@ var caseinfo = {
         return false;
     },
     rmCaseinfoEvent:function(e){
-        var caseinfoid = $(e.target).attr('caseinfoid');
+        var self = this;
+        var caseinfoid = $(e.target).parent().attr('caseinfoid');
+        if (caseinfoid<1) {
+            mainAlert('无效的案件编号');
+            return false;
+        }
+        selectCaseinfoId = caseinfoid;
+        mainConfirm('您确定要删除吗？',jQuery.proxy(self.doRmCaseinfo,this));
+    },
+    doRmCaseinfo:function(e){
+        var self = this;
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/remove',
-            data:{caseinfoid:caseinfoid},
+            data:{caseinfoid:selectCaseinfoId},
             type:'GET',
             cache:false,
             success:function(data) {
-                $('caseinfo_tr_'+caseinfoid).remove();
+                self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
             },
             error:function() {
                 mainAlert('删除案件异常');
@@ -248,16 +265,18 @@ var caseinfo = {
     },
     saveExelawyeridsEvent:function(e){
         //e.preventBubble();
-        selectCaseinfoId = $(e.target).attr('caseinfoid');
+        selectCaseinfoId = $(e.target).parent().parent().attr('caseinfoid');
         jQuery('#caseinfo-exelawyer-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     registCaseinfoTableRowEvent:function(e){
-        selectCaseinfoId = jQuery(e.currentTarget).attr('caseinfoid');
-        selectCasePreprice = jQuery(e.currentTarget).attr('preprice');
-        selectCaseSufprice = jQuery(e.currentTarget).attr('sufprice');
-        selectCaseYstj = jQuery(e.currentTarget).attr('ystj');
-        selectCaseEstj = jQuery(e.currentTarget).attr('estj');
-        selectCaseSfss = jQuery(e.currentTarget).attr('sfss');
+        var tr = jQuery(e.target).parent();
+        selectCaseinfoId = tr.attr('caseinfoid');
+        selectCasePreprice = tr.attr('preprice');
+        selectCaseSufprice = tr.attr('sufprice');
+        selectCaseYstj = tr.attr('ystj');
+        selectCaseEstj = tr.attr('estj');
+        selectCaseSfss = tr.attr('sfss');
+        selectCaseSsajbh = tr.attr('ssajbh');
         jQuery('#caseinfo-progress-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     showCaseinfoTable:function(callback){

@@ -155,7 +155,35 @@
             </div>
         </div>
     </div>
-
+    <!---------------------------通用conform窗口 begin--------------------------------->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+         aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="confirmModalLabel">
+                        警告
+                    </h4>
+                </div>
+                <div class="modal-body has-error">
+                    <label class="control-label msg-label" for="inputError">
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-cancel"
+                            data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-default btn-confirm"
+                            data-dismiss="modal">确认
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!---------------------------通用conform窗口 end--------------------------------->
     <!---------------------------通用提示窗口 begin--------------------------------->
     <div class="modal fade" id="msgModal" tabindex="-1" role="dialog"
          aria-labelledby="msgModalLabel" aria-hidden="true">
@@ -326,13 +354,13 @@
                                     <label>债务人财产状况:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea  id="debtorpropertyinfo" class="form-control" rows="3">无负债</textarea>
+                                    <textarea  id="debtorpropertyinfo" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="col-xs-2">
                                     <label>案由:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea  id="ay" rows="3" class="form-control">借款不还</textarea>
+                                    <textarea  id="ay" rows="3" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -370,13 +398,13 @@
                                     <label>担保方式:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea id="guaranteetype" row="3" class="form-control">查保人担保</textarea>
+                                    <textarea id="guaranteetype" row="3" class="form-control"></textarea>
                                 </div>
                                 <div class="col-xs-2">
                                     <label>担保人财产状况:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea id="guarantorpropertyinfo" row="3" class="form-control">经济良好</textarea>
+                                    <textarea id="guarantorpropertyinfo" row="3" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -384,7 +412,7 @@
                                     <label>抵押物信息:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea id="pawninfo" row="3" class="form-control">无</textarea>
+                                    <textarea id="pawninfo" row="3" class="form-control"></textarea>
                                 </div>
                                 <div class="col-xs-2">
                                     <label>抵押物评估价值:</label>
@@ -398,7 +426,7 @@
                                     <label>案件程序:</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <textarea id="caseprocedure" row="3" class="form-control">诉讼</textarea>
+                                    <textarea id="caseprocedure" row="3" class="form-control"></textarea>
                                 </div>
                                 <div class="col-xs-2">
                                     <label>律师费总额:</label>
@@ -421,14 +449,14 @@
                                     <input id="judge" type="text" class="form-control"/>
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            #*<div class="row form-group">
                                 <div class="col-xs-2">
                                     <label>诉讼案号:</label>
                                 </div>
                                 <div class="col-xs-10">
                                     <input id="ssajbh" class="form-control" type="text"/>
                                 </div>
-                            </div>
+                            </div>*#
                             <div class="row has-error" style="display: none">
                                 <div class="col-xs-4">
                                 </div>
@@ -451,6 +479,12 @@
             function mainAlert(msg){
                 jQuery('#msgModal .msg-label').text(msg);
                 jQuery('#msgModal').modal('show');
+            }
+            function mainConfirm(msg,confirmCallback){
+                jQuery('#confirmModal .msg-label').text(msg);
+                jQuery('#confirmModal .btn-confirm').unbind("click")
+                jQuery('#confirmModal .btn-confirm').on('click',confirmCallback);
+                jQuery('#confirmModal').modal('show');
             }
             var frontPage = {
                 init: function () {

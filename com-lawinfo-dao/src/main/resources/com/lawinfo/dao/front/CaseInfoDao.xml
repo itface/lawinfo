@@ -138,6 +138,9 @@
     <update id="updateSfss" parameterType="com.lawinfo.domain.front.CaseInfo">
         update CaseInfo set sfss=#{sfss} where id=#{id}
     </update>
+    <update id="updateSsajbh" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set ssajbh=#{ssajbh} where id=#{id}
+    </update>
     <update id="updatePrePrice" parameterType="com.lawinfo.domain.front.CaseInfo">
         update CaseInfo set preprice=#{preprice},realtotalprice=sufprice+#{preprice} where id=#{id}
     </update>

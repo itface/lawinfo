@@ -252,6 +252,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     }
 
     @Override
+    @Transactional
     public int updateSfss(long caseinfoid, int sfss) throws Exception {
         int effectrows = 0;
         try {
@@ -261,6 +262,22 @@ public class CaseInfoServiceImpl implements CaseInfoService {
             effectrows = caseInfoDao.updateSfss(caseInfo);
         } catch (Exception e) {
             logger.error("updateEstj error,id="+caseinfoid+",sfss:"+sfss, e);
+            throw e;
+        }
+        return effectrows;
+    }
+
+    @Override
+    @Transactional
+    public int updateSsajbh(long caseinfoid, String ssajbh) throws Exception {
+        int effectrows = 0;
+        try {
+            CaseInfo caseInfo = new CaseInfo();
+            caseInfo.setId(caseinfoid);
+            caseInfo.setSsajbh(ssajbh);
+            effectrows = caseInfoDao.updateSsajbh(caseInfo);
+        } catch (Exception e) {
+            logger.error("updateSsajbh error,caseinfoid="+caseinfoid+",ssajbh:"+ssajbh, e);
             throw e;
         }
         return effectrows;

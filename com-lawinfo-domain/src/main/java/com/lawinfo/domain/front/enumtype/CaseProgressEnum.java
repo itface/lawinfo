@@ -19,6 +19,7 @@ public enum CaseProgressEnum {
 
     LEVEL_2(600,"一审立案",600,0),
     LEVEL_2_STEP_1(700,"立案",700,600),
+    LEVEL_2_STEP_5(701,"添加诉讼案号",701,600),
     LEVEL_2_STEP_2(800,"财产保全",800,600),
     LEVEL_2_STEP_3(900,"文书送达",900,600),
     LEVEL_2_STEP_4(1000,"确定开庭日",1000,600),
