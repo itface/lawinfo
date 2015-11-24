@@ -14,6 +14,7 @@ public interface CaseProgressCommentService {
     public List<CaseProgressComment> findAllByCaseinfoid(long caseinfoid)throws Exception;
     public int save(CaseProgressComment caseProgressComment)throws Exception;
     public int deleteById(long id)throws Exception;
+    public int deleteByCaseinfoid(long caseinfoid)throws Exception;
     public List<CaseProgressComment> find(CaseProgressCommentQuery caseProgressCommentQuery)throws Exception;
     public List<CaseProgressComment> findByPage(CaseProgressCommentQuery caseProgressCommentQuery)throws Exception;
 }

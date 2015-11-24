@@ -24,4 +24,5 @@ public interface CaseProgressCommentDao {
     public int count(CaseProgressCommentQuery caseProgressCommentQuery);
 
     public int deleteById(long id);
+    public int deleteByCaseinfoid(long caseinfoid);
 }

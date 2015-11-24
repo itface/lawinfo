@@ -9,6 +9,7 @@ import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.utils.UserUtils;
 import com.lawinfo.service.sms.EnSendSmsService;
 import com.lawinfo.service.sms.enumtype.EnSendSmsResultEnum;
+import com.lawinfo.service.sys.CacheService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
@@ -30,6 +31,8 @@ public class MainController {
             "admin-action-man","admin-role-man","admin-group-man"};
     @Resource
     private ActionService actionService;
+    @Resource
+    private CacheService cacheService;
 
     @RequestMapping("")
     public String index(ModelMap modelMap,HttpServletRequest request)throws Exception{
@@ -51,5 +54,10 @@ public class MainController {
             }
         }
         return "/admin/main";
+    }
+    @RequestMapping("/refreshcache")
+    @ResponseBody
+    public boolean refreshcache()throws Exception{
+        return cacheService.initCache();
     }
 }

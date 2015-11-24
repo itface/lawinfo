@@ -157,6 +157,10 @@ public class CaseInfo extends BaseDomain{
      */
     private int estj;
     /**
+     * 二审调解，1表示不上诉，2表示上诉
+     */
+    private int sfss;
+    /**
      * 诉论案件编号
      */
     private String ssajbh;
@@ -464,6 +468,14 @@ public class CaseInfo extends BaseDomain{
 
     public void setRealtotalprice(double realtotalprice) {
         this.realtotalprice = realtotalprice;
+    }
+
+    public int getSfss() {
+        return sfss;
+    }
+
+    public void setSfss(int sfss) {
+        this.sfss = sfss;
     }
 
     public String getTitle(){

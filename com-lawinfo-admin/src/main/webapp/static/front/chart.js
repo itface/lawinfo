@@ -76,6 +76,7 @@ var chart = {
             url:'/lawinfo/front/chart/get',
             data:{userid:currentUser,currenttabtype:currentTabType},
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 chartData = data;

@@ -129,13 +129,19 @@ public enum CaseProgressEnum {
         Collections.sort(caseProgressTreeVos);
         caseProgressTreeVo.setNodes(caseProgressTreeVos);
     }
-    public static List<CaseProgressTreeVo> initCaseProgressTree(boolean ifss){
+    public static List<CaseProgressTreeVo> initCaseProgressTree(boolean ifss,boolean sfss){
         List<CaseProgressTreeVo> caseProgressTreeVos = new ArrayList<CaseProgressTreeVo>();
         CaseProgressEnum[] caseProgressEnums = CaseProgressEnum.values();
         for (int i = 0; i < caseProgressEnums.length; i++) {
             CaseProgressEnum caseProgressEnum = caseProgressEnums[i];
             int parentid = caseProgressEnum.parentid;
-            if (parentid==0&&(ifss==false||(ifss==true&&caseProgressEnum.id!=3500&&caseProgressEnum.id!=4100))) {
+            if (parentid==0) {
+                if ((caseProgressEnum.id==3500||caseProgressEnum.id==4100)&&ifss) {
+                    continue;
+                }
+                if ((caseProgressEnum.id==2200||caseProgressEnum.id==2600||caseProgressEnum.id==3000||caseProgressEnum.id==3200)&&!sfss) {
+                    continue;
+                }
                 CaseProgressTreeVo caseProgressTreeVo = new CaseProgressTreeVo();
                 caseProgressTreeVo.setId(caseProgressEnum.id);
                 caseProgressTreeVo.setParentprocessnodeid(caseProgressEnum.parentid);

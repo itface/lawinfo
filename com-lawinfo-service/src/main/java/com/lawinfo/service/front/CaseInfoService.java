@@ -16,6 +16,7 @@ public interface CaseInfoService {
     public int updateStatusFinish(long caseinfoid)throws Exception;
     public int updateYstj(long caseinfoid,int ystj)throws Exception;
     public int updateEstj(long caseinfoid,int estj)throws Exception;
+    public int updateSfss(long caseinfoid,int sfss)throws Exception;
     public int updatePrePrice(long caseinfoid,double prePrice)throws Exception;
     public int updateSufPrice(long caseinfoid,double sufPrice)throws Exception;
     public int updateExeLawyers(long caseinfoid,String exeajbh,String exeLawyers,String exeLawyerids)throws Exception;
@@ -29,7 +30,7 @@ public interface CaseInfoService {
 
     public int count(CaseInfoQuery caseInfoQuery)throws Exception;
 
-    public int deleteById(long id)throws Exception;
+    public int deleteCaseinfoOnlyById(long id)throws Exception;
     public boolean ifAllowd(String userid,long caseinfoid)throws Exception;
 
 }

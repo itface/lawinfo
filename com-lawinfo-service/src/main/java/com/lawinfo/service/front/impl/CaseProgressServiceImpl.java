@@ -69,38 +69,42 @@ public class CaseProgressServiceImpl implements CaseProgressService{
                 boolean ifallowd = caseInfoService.ifAllowd(userid, caseinfoid);
                 if (ifallowd) {
                     boolean ifss = ifSs(userid, caseinfoid);
-                    List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss);
-                    if (!CollectionUtils.isEmpty(list)) {
-                        List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
-                        if (!CollectionUtils.isEmpty(caseProgressComments)) {
-                            Multimap<Integer, CaseProgressComment> caseProgressCommentMultimap = ArrayListMultimap.create();
-                            for (CaseProgressComment caseProgressComment : caseProgressComments) {
-                                caseProgressCommentMultimap.put(caseProgressComment.getProcessnodeid(), caseProgressComment);
-                            }
-                            for (CaseProgressTreeVo caseProgressTreeVo : list) {
-                                //取根节点目录
-                                List<CaseProgressTreeVo> caseProgressTreeVos = caseProgressTreeVo.getNodes();
-                                caseProgressTreeVo.setCaseinfoid(caseinfoid);
-                                boolean flag = false;
-                                for (CaseProgressTreeVo caseProgressTreeVo1 : caseProgressTreeVos) {
-                                    int nodeid = caseProgressTreeVo1.getId();
-                                    caseProgressTreeVo1.setCaseinfoid(caseinfoid);
-                                    Collection<CaseProgressComment> caseProgressCommentCollection = caseProgressCommentMultimap.get(nodeid);
-                                    if (!CollectionUtils.isEmpty(caseProgressCommentCollection)) {
-                                        List<CaseProgressComment> comments = (List) caseProgressCommentCollection;
-                                        Collections.sort(comments);
-                                        caseProgressTreeVo1.setBackColor("green");
-                                        flag = true;
-                                        caseProgressTreeVo1.setCaseProgressCommentList(comments);
-                                    }
+                    CaseInfo caseInfo = caseInfoService.findById(caseinfoid);
+                    if (caseInfo != null) {
+                        int sfss = caseInfo.getSfss();
+                        List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss,(sfss==2?true:false));
+                        if (!CollectionUtils.isEmpty(list)) {
+                            List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
+                            if (!CollectionUtils.isEmpty(caseProgressComments)) {
+                                Multimap<Integer, CaseProgressComment> caseProgressCommentMultimap = ArrayListMultimap.create();
+                                for (CaseProgressComment caseProgressComment : caseProgressComments) {
+                                    caseProgressCommentMultimap.put(caseProgressComment.getProcessnodeid(), caseProgressComment);
                                 }
-                                if (flag) {
-                                    caseProgressTreeVo.setBackColor("green");
+                                for (CaseProgressTreeVo caseProgressTreeVo : list) {
+                                    //取根节点目录
+                                    List<CaseProgressTreeVo> caseProgressTreeVos = caseProgressTreeVo.getNodes();
+                                    caseProgressTreeVo.setCaseinfoid(caseinfoid);
+                                    boolean flag = false;
+                                    for (CaseProgressTreeVo caseProgressTreeVo1 : caseProgressTreeVos) {
+                                        int nodeid = caseProgressTreeVo1.getId();
+                                        caseProgressTreeVo1.setCaseinfoid(caseinfoid);
+                                        Collection<CaseProgressComment> caseProgressCommentCollection = caseProgressCommentMultimap.get(nodeid);
+                                        if (!CollectionUtils.isEmpty(caseProgressCommentCollection)) {
+                                            List<CaseProgressComment> comments = (List) caseProgressCommentCollection;
+                                            Collections.sort(comments);
+                                            caseProgressTreeVo1.setBackColor("#95EA95");
+                                            flag = true;
+                                            caseProgressTreeVo1.setCaseProgressCommentList(comments);
+                                        }
+                                    }
+                                    if (flag) {
+                                        caseProgressTreeVo.setBackColor("#95EA95");
+                                    }
                                 }
                             }
                         }
+                        return list;
                     }
-                    return list;
                 } else {
                     logger.error("findTreeVo error,not allowed,userid:" + userid + ",caseinfoid:" + caseinfoid);
                 }

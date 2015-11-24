@@ -4,6 +4,7 @@ import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.front.charts.CaseInfoChart;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.org.Action;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.front.EchartsService;
@@ -41,6 +42,9 @@ public class FrontController {
     public String index(ModelMap modelMap,HttpServletRequest request)throws Exception{
         String userid = LoginInfo.getUseridFromSession(request.getSession());
         modelMap.put("loginuser", userid);
+        User user = UserUtils.findByUserid(userid);
+        String username = user==null?null:user.getName();
+        modelMap.put("loginusername", username);
         if (SysConstants.SUPER_ADMIN.equals(userid)) {
             StringBuilder sb = new StringBuilder();
             for(String tag : SysConstants.FRONT_TAGS){

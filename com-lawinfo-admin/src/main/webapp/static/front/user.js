@@ -50,6 +50,7 @@ var user = {
         jQuery.ajax({
             url:'/lawinfo/front/user/findtree',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;

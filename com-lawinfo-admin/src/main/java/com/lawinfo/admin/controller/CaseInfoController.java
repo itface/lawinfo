@@ -4,12 +4,15 @@ import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.org.Action;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.front.CaseInfoService;
+import com.lawinfo.service.front.DeleteCaseService;
 import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.UserService;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -33,6 +36,8 @@ public class CaseInfoController {
     private OrgService orgService;
     @Resource
     private UserService userService;
+    @Resource
+    private DeleteCaseService deleteCaseService;
 
 
     @ResponseBody
@@ -40,7 +45,11 @@ public class CaseInfoController {
     public int save(HttpServletRequest request,CaseInfo caseInfo,BindingResult result)throws Exception{
         if (caseInfo != null) {
             String userid = LoginInfo.getUseridFromSession(request.getSession());
-            caseInfo.setOptuserid(userid);
+            User user = UserUtils.findByUserid(userid);
+            if (user!=null) {
+                String orpuserid = user.getName()+"["+userid+"]";
+                caseInfo.setOptuserid(orpuserid);
+            }
             int rows = caseInfoService.save(caseInfo);
             return rows;
         }
@@ -65,9 +74,9 @@ public class CaseInfoController {
     }
     @ResponseBody
     @RequestMapping("/remove")
-    public int remove(long id)throws Exception{
-        int rows = caseInfoService.deleteById(id);
-        return rows;
+    public boolean remove(long caseinfoid)throws Exception{
+        boolean flag = deleteCaseService.deleteByCaseinfoid(caseinfoid);
+        return flag;
     }
     @ResponseBody
     @RequestMapping("/org/findcustomorgtree")

@@ -175,7 +175,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
 
     @Override
     @Transactional
-    public int deleteById(long id)throws Exception {
+    public int deleteCaseinfoOnlyById(long id)throws Exception {
         logger.info("deleteById begin,id=" + id);
         int effectrows = 0;
         try {
@@ -246,6 +246,21 @@ public class CaseInfoServiceImpl implements CaseInfoService {
             effectrows = caseInfoDao.updateEstj(caseInfo);
         } catch (Exception e) {
             logger.error("updateEstj error,id="+caseinfoid+",estj:"+estj, e);
+            throw e;
+        }
+        return effectrows;
+    }
+
+    @Override
+    public int updateSfss(long caseinfoid, int sfss) throws Exception {
+        int effectrows = 0;
+        try {
+            CaseInfo caseInfo = new CaseInfo();
+            caseInfo.setId(caseinfoid);
+            caseInfo.setSfss(sfss);
+            effectrows = caseInfoDao.updateSfss(caseInfo);
+        } catch (Exception e) {
+            logger.error("updateEstj error,id="+caseinfoid+",sfss:"+sfss, e);
             throw e;
         }
         return effectrows;

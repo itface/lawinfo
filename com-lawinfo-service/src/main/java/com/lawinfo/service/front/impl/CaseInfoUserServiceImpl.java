@@ -116,4 +116,18 @@ public class CaseInfoUserServiceImpl implements CaseInfoUserService {
         }
         return effectrows;
     }
+
+    @Override
+    @Transactional
+    public int deleteByCaseinfoid(long caseinfoid) throws Exception {
+        logger.info("deleteByCaseinfoid begin,caseinfoid=" + caseinfoid);
+        int effectrows = 0;
+        try {
+            effectrows = caseInfoUserDao.deleteByCaseinfoid(caseinfoid);
+        } catch (Exception e) {
+            logger.error("deleteByCaseinfoid error,caseinfoid=" + caseinfoid, e);
+            throw e;
+        }
+        return effectrows;
+    }
 }

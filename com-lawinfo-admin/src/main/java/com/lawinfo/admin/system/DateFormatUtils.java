@@ -2,6 +2,7 @@ package com.lawinfo.admin.system;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -62,6 +63,8 @@ public class DateFormatUtils extends org.apache.commons.lang.time.DateFormatUtil
     }
 
     public static void main(String[] args) {
-        System.out.printf(format(new Date(1447689600000l)));
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,3);
+        System.out.printf(format(calendar.getTime())+":"+calendar.getTime().getTime());
     }
 }

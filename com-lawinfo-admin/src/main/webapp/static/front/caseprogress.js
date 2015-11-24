@@ -44,7 +44,7 @@ var caseprogress = {
                 jQuery('#caseinfo-progress-list').append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
+                listHtml += '<div class="col-xs-4"><label>后期律师费</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
@@ -98,6 +98,33 @@ var caseprogress = {
                     '<select id="commonfiled" class="form-control">' +
                     '<option value="1">未调解</option>' +
                     '<option value="2">已调解</option>' +
+                    '</select>' +
+                    '</div>';
+                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '</div>';
+                jQuery('#add-form').append(listHtml);
+            }
+        }else if(nodeid==2100){
+            if (selectCaseSfss&&selectCaseSfss>0) {
+                var selected1 = selectCaseSfss==1?"selected":"";
+                var selected2 = selectCaseSfss==2?"selected":"";
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-4"><label>是否上诉</label></div>';
+                listHtml += '<div class="col-xs-4">' +
+                    '<select id="commonfiled" class="form-control"  disabled value="'+selectCaseSfss+'">' +
+                    '<option value="1" '+selected1+'>不上诉</option>' +
+                    '<option value="2" '+selected2+'>上诉</option>' +
+                    '</select>' +
+                    '</div>';
+                listHtml += '</div>';
+                jQuery('#caseinfo-progress-list').append(listHtml);
+            }else{
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-4">是否上诉</div>';
+                listHtml += '<div class="col-xs-4">' +
+                    '<select id="commonfiled" class="form-control">' +
+                    '<option value="1">不上诉</option>' +
+                    '<option value="2">上诉</option>' +
                     '</select>' +
                     '</div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
@@ -170,6 +197,8 @@ var caseprogress = {
             selectCaseYstj = value;
         }else if (nodeid==3100) {
             selectCaseEstj = value;
+        }else if (nodeid==2100) {
+            selectCaseSfss = value;
         }
     },
     saveProgressEvent : function(e){
@@ -201,6 +230,8 @@ var caseprogress = {
                 comment = jQuery('#caseinfo-progress-form #commonfiled').val();
             }else if (nodeid==3100) {
                 comment = jQuery('#caseinfo-progress-form #commonfiled').val();
+            }else if (nodeid==2100) {
+                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
             }else{
                 comment = jQuery('#caseinfo-progress-form #comment').val();
                 nexttask = jQuery('#caseinfo-progress-form #nexttask').val();
@@ -217,6 +248,7 @@ var caseprogress = {
                 url:'/lawinfo/front/caseprogress/save',
                 data:{caseinfoid:selectCaseinfoId,processnodeid:nodeid,comment:comment,nexttask:nexttask},
                 type:'POST',
+                cache:false,
                 //async:false,
                 success:function(data) {
                     self.saveProgressAlert('保存成功');
@@ -259,6 +291,7 @@ var caseprogress = {
             url:'/lawinfo/front/caseprogress/findprogresstree',
             data:{caseinfoid:selectCaseinfoId},
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;

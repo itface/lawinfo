@@ -6,6 +6,7 @@ var selectCaseSufprice=null;
 var selectCaseYstj=null;
 var selectCaseEstj=null;
 var selectCaseinfoId = null;
+var selectCaseSfss = null;
 var customOrgTreeSelectedNode = null;
 var customerTreeSelectedNode = null;
 var lawyerTreeSelectedNode = null;
@@ -154,6 +155,7 @@ var caseinfo = {
                 url:'/lawinfo/front/caseinfo/add',
                 data:obj,
                 type:'POST',
+                cache:false,
                 success:function(data) {
                     if (data==1) {
                         self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
@@ -182,14 +184,26 @@ var caseinfo = {
                 var o = data[i];
                 var exelawyerids = o.exelawyers;
                 var caseinfoid = o.id;
-                html+='<tr caseinfoid="'+ o.id+'">';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'">';
+                html+='<tr caseinfoid="'+ o.id+'" id="caseinfo_tr_'+ o.id+'">';
+                html+=' <td caseinfoid="'+ o.id+'">';
+                if (canRemoveCase) {
+                    html+='     <button type="button" class="close btn-caseinfo-rm" aria-hidden="true" style="color: red;opacity:1" caseinfoid="'+caseinfoid+'">&times;</button>';
+                }else{
+                    html+='&nbsp;';
+                }
+                html+=' </td>';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
                 html+='     '+ (i+1);
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'">';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+='     '+ (o.optuserid);
+                html+=' </td>';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
+                html+='     '+ (o.createtimestr);
+                html+=' </td>';
+                html+=' <td class="caseinfo-row" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'">';
                 html+='     '+ o.title;
                 html+=' </td>';
-                html+=' <td>';
                 if (!exelawyerids) {
                     var display = self.checkExelawyerAdd() ? "block" : "none";
                     html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'"  caseinfoid="'+caseinfoid+'">添加执行律师</button>';
@@ -202,6 +216,8 @@ var caseinfo = {
             $('#caseinfo-list tbody').append(html);
             $('.btn-saveExelawyerids').unbind('click');
             $('.btn-saveExelawyerids').on('click', $.proxy(self.saveExelawyeridsEvent,self));
+            $('.btn-caseinfo-rm').unbind('click');
+            $('.btn-caseinfo-rm').on('click', $.proxy(self.rmCaseinfoEvent,self));
         }
     },
     checkExelawyerAdd : function(){
@@ -215,6 +231,21 @@ var caseinfo = {
         }
         return false;
     },
+    rmCaseinfoEvent:function(e){
+        var caseinfoid = $(e.target).attr('caseinfoid');
+        jQuery.ajax({
+            url:'/lawinfo/front/caseinfo/remove',
+            data:{caseinfoid:caseinfoid},
+            type:'GET',
+            cache:false,
+            success:function(data) {
+                $('caseinfo_tr_'+caseinfoid).remove();
+            },
+            error:function() {
+                mainAlert('删除案件异常');
+            }
+        });
+    },
     saveExelawyeridsEvent:function(e){
         //e.preventBubble();
         selectCaseinfoId = $(e.target).attr('caseinfoid');
@@ -226,6 +257,7 @@ var caseinfo = {
         selectCaseSufprice = jQuery(e.currentTarget).attr('sufprice');
         selectCaseYstj = jQuery(e.currentTarget).attr('ystj');
         selectCaseEstj = jQuery(e.currentTarget).attr('estj');
+        selectCaseSfss = jQuery(e.currentTarget).attr('sfss');
         jQuery('#caseinfo-progress-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     showCaseinfoTable:function(callback){
@@ -234,6 +266,7 @@ var caseinfo = {
             url:'/lawinfo/front/caseinfo/find',
             data:{userid:currentUser,currenttabtype:currentTabType},
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 caseinfos = data;
@@ -268,6 +301,7 @@ var caseinfo = {
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/org/findcustomorgtree',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;
@@ -334,6 +368,7 @@ var caseinfo = {
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/user/findcustomertree',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;
@@ -397,6 +432,7 @@ var caseinfo = {
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/user/findlawyertree',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;

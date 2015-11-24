@@ -3,6 +3,7 @@ package com.lawinfo.service.org.listener;
 import com.lawinfo.domain.org.*;
 import com.lawinfo.service.org.*;
 import com.lawinfo.service.org.utils.*;
+import com.lawinfo.service.sys.CacheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -20,32 +21,11 @@ import java.util.List;
 public class OrgInitListener implements ApplicationListener<ContextRefreshedEvent> {
     private static Logger logger = LoggerFactory.getLogger(OrgInitListener.class);
     @Resource
-    private UserService userService;
-    @Resource
-    private MenuService menuService;
-    @Resource
-    private OrgService orgService;
-    @Resource
-    private RoleService roleService;
-    @Resource
-    private ActionService actionService;
-    @Resource
-    private UserRoleService userRoleService;
-    @Resource
-    private RoleActionService roleActionService;
-    @Resource
-    private RoleMenuService roleMenuService;
+    private CacheService cacheService;
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         try {
-            orgService.initCache();;
-            menuService.initCache();
-            actionService.initCache();
-            roleService.initCache();
-            userService.initCache();
-            userRoleService.initCache();
-            roleActionService.initCache();
-            roleMenuService.initCache();
+            cacheService.initCache();
         } catch (Exception e) {
             logger.error("init orgs exception",e);
         }

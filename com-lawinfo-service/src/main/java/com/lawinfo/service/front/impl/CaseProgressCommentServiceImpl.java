@@ -58,6 +58,9 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
                 }else if (caseProgressComment.getProcessnodeid()==3100) {
                     int estj = Integer.parseInt(caseProgressComment.getComment());
                     caseInfoService.updateEstj(caseinfoid, estj);
+                }else if (caseProgressComment.getProcessnodeid()==2100) {
+                    int sfss = Integer.parseInt(caseProgressComment.getComment());
+                    caseInfoService.updateSfss(caseinfoid, sfss);
                 }
                 return caseProgressCommentDao.save(caseProgressComment);
             }
@@ -75,6 +78,17 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
             return caseProgressCommentDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById exception", e);
+            throw e;
+        }
+    }
+
+    @Override
+    @Transactional
+    public int deleteByCaseinfoid(long caseinfoid) throws Exception {
+        try {
+            return caseProgressCommentDao.deleteByCaseinfoid(caseinfoid);
+        } catch (Exception e) {
+            logger.error("deleteById exception,caseinfoid"+caseinfoid, e);
             throw e;
         }
     }

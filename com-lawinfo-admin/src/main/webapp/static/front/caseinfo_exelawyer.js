@@ -42,6 +42,7 @@ var exeLawyer = {
                 url:'/lawinfo/front/caseinfo/exelawyer/add',
                 data:{id:selectCaseinfoId,exeajbh:exeajbh,exelawyers:exelawyers,exelawyerids:exelawyerids},
                 type:'POST',
+                cache:false,
                 success:function(data) {
                     self.saveActionAlert('保存成功');
                     caseinfo.initCaseinfoTable();
@@ -102,6 +103,7 @@ var exeLawyer = {
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/user/findlawyertree',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 treedata = data;

@@ -23,5 +23,6 @@ public interface CaseInfoUserService {
     public List<CaseInfoUser> findListByPage(CaseInfoUserQuery caseInfoUserQuery)throws Exception;
 
     public int deleteById(long id)throws Exception;
+    public int deleteByCaseinfoid(long caseinfoid)throws Exception;
 
 }

@@ -30,6 +30,7 @@
         <result column="sufprice" property="sufprice"/>
         <result column="ystj" property="ystj"/>
         <result column="estj" property="estj"/>
+        <result column="sfss" property="sfss"/>
         <result column="ssajbh" property="ssajbh"/>
         <result column="exeajbh" property="exeajbh"/>
         <result column="casetype" property="casetype"/>
@@ -42,7 +43,7 @@
     <sql id="allColumn">
          id,caseorgid,caseorgname,status,zqdqr,zqdqrstr,contacts,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,exelawyers,sslawyers,totalprice,sufprice,preprice,ystj,estj,casetype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary,ssajbh,exeajbh,realtotalprice
+         ,exelawyers,sslawyers,totalprice,sufprice,preprice,ystj,estj,casetype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary,ssajbh,exeajbh,realtotalprice,sfss
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -118,9 +119,9 @@
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.lawinfo.domain.front.CaseInfo">
         insert into CaseInfo(caseorgid,caseorgname,contacts,zqdqr,zqdqrstr,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
-         ,sslawyers,exelawyers,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay,sufprice,preprice,ystj,estj,casetype,status,ssajbh,exeajbh,realtotalprice)
+         ,sslawyers,exelawyers,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay,sufprice,preprice,ystj,estj,casetype,status,ssajbh,exeajbh,realtotalprice,sfss)
          values(#{caseorgid},#{caseorgname},#{contacts},#{zqdqr},#{zqdqrstr},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj},#{guaranteetype},
-         #{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court},#{sslawyers},#{exelawyers},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay},#{sufprice},#{preprice},#{ystj},#{estj},#{casetype},#{status},#{ssajbh},#{exeajbh},#{realtotalprice})
+         #{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court},#{sslawyers},#{exelawyers},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay},#{sufprice},#{preprice},#{ystj},#{estj},#{casetype},#{status},#{ssajbh},#{exeajbh},#{realtotalprice},#{sfss})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from CaseInfo where id=#{id}
@@ -133,6 +134,9 @@
     </update>
     <update id="updateEstj" parameterType="com.lawinfo.domain.front.CaseInfo">
         update CaseInfo set estj=#{estj} where id=#{id}
+    </update>
+    <update id="updateSfss" parameterType="com.lawinfo.domain.front.CaseInfo">
+        update CaseInfo set sfss=#{sfss} where id=#{id}
     </update>
     <update id="updatePrePrice" parameterType="com.lawinfo.domain.front.CaseInfo">
         update CaseInfo set preprice=#{preprice},realtotalprice=sufprice+#{preprice} where id=#{id}

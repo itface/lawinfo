@@ -70,6 +70,9 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from CaseProgress where id=#{id}
     </delete>
+    <delete id="deleteByCaseinfoid" parameterType="long">    <!-- 删除用户 -->
+        delete from CaseProgress where caseinfoid=#{caseinfoid}
+    </delete>
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
     </update>-->

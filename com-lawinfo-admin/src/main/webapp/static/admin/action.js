@@ -42,6 +42,7 @@ var action = {
                 url:'/lawinfo/admin/action/add',
                 data:{name:actionname,actionkey:key,tag:tag},
                 type:'POST',
+                cache:false,
                 success:function(data) {
                     if (data==1) {
                         self.showActionTable($.proxy(self.buildActionTable,this));
@@ -92,6 +93,7 @@ var action = {
         jQuery.ajax({
             url:'/lawinfo/admin/action/find',
             type:'GET',
+            cache:false,
             //async:false,
             success:function(data) {
                 actionData = data;
@@ -116,6 +118,7 @@ var action = {
         jQuery.ajax({
             url:'/lawinfo/admin/action/remove/?id='+selectActionId,
             type:'GET',
+            cache:false,
             success:function(data) {
                 selectActionId=null;
                 mainAlert('删除成功');
