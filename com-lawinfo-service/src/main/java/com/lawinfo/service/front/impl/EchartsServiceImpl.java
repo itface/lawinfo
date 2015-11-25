@@ -64,7 +64,8 @@ public class EchartsServiceImpl implements EchartsService {
         return null;
     }
     private CaseInfoChart buildCaseInfoChart(Multimap<String, CaseInfo> caseInfoMultimap) {
-        if (caseInfoMultimap != null) {
+        if (caseInfoMultimap != null&&caseInfoMultimap.size()>0) {
+            logger.info("buildCaseInfoChart caseInfoMultimap size:"+caseInfoMultimap.size());
             CaseInfoChart caseInfoChart = new CaseInfoChart();
             List<String> xAxisDataList = new ArrayList<String>();
             List<EchartsSerie> series = new ArrayList<EchartsSerie>();
@@ -72,24 +73,24 @@ public class EchartsServiceImpl implements EchartsService {
             List<EchartsSerie> caseCounts = new ArrayList<EchartsSerie>();
             Set<String> keySet = caseInfoMultimap.keySet();
             Set<String> yearSet = new HashSet<String>();
-            Set<String> useridSet = new HashSet<String>();
-            Set<String> userNameSet = new HashSet<String>();
+            Map<String, String> userMap = new HashMap<String, String>();
+            logger.info("buildCaseInfoChart keySet size:"+keySet.size());
             for (Iterator<String> iter = keySet.iterator(); iter.hasNext();) {
                 String key = iter.next();
                 String[] useridAndYear = key.split(",");
                 String userid = useridAndYear[0];
                 String year = useridAndYear[1];
                 yearSet.add(year);
-                useridSet.add(userid);
                 User user = UserUtils.findByUserid(userid);
                 if (user != null) {
-                    userNameSet.add(user.getName());
+                    userMap.put(userid, user.getName());
                 }
+                logger.info("buildCaseInfoChart key :"+key);
             }
-            xAxisDataList.addAll(userNameSet);
-            legendData.addAll(yearSet);
+            Set<String> userids = userMap.keySet();
             for (Iterator<String> iter = yearSet.iterator(); iter.hasNext();) {
                 String year = iter.next();
+                legendData.add(year);
                 EchartsSerie echartsSerie = new EchartsSerie();
                 echartsSerie.setName(year);
                 echartsSerie.setType("bar");
@@ -98,18 +99,27 @@ public class EchartsServiceImpl implements EchartsService {
                 echartsSerie2.setType("bar");
                 List<String> money = new ArrayList<String>();
                 List<String> count = new ArrayList<String>();
-                for (Iterator<String> iter2 = useridSet.iterator(); iter2.hasNext();) {
+                logger.info("buildCaseInfoChart year:"+year);
+                for (Iterator<String> iter2 = userids.iterator(); iter2.hasNext();) {
                     String userid = iter2.next();
+                    String name = userMap.get(userid);
+                    xAxisDataList.add(name);
                     String key = userid+","+year;
                     Collection<CaseInfo> caseInfos = caseInfoMultimap.get(key);
+                    logger.info("buildCaseInfoChart key:"+key+",caseinfos size:"+caseInfos.size());
                     double totalPrice = 0;
                     for (CaseInfo caseInfo : caseInfos) {
                         long time = caseInfo.getCreatetime();
                         String caseinfoYear = String.valueOf(getYear(time));
+                        logger.info("buildCaseInfoChart key:"+key+",caseinfoYear"+caseinfoYear);
                         if (year.equals(caseinfoYear)) {
-                            totalPrice += caseInfo.getRealtotalprice();
+                            double price = caseInfo.getRealtotalprice();
+                            totalPrice += price;
+                            logger.info("buildCaseInfoChart key:"+key+",price"+price);
+
                         }
                     }
+                    logger.info("buildCaseInfoChart key:"+key+",totalPrice:"+totalPrice);
                     money.add(String.valueOf(totalPrice));
                     count.add(String.valueOf(caseInfos.size()));
                 }

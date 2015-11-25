@@ -283,7 +283,7 @@
 
     <logger name="com.lawinfo.service.front.impl.EchartsServiceImpl" additivity="true">
         <level value="${log.common.level}"/>
-        <appender-ref ref="SERVICE-SMS-ENSENDSMSSERVICEIMPL"/>
+        <appender-ref ref="SERVICE-FRONT-ECHARTSSERVICEIMPL"/>
     </logger>
 
     <root>

@@ -1,5 +1,6 @@
 package com.lawinfo.domain.front.charts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 public class EchartsSerie {
     private String name;
     private String type;
-    private List<String> data;
+    private List<String> data=new ArrayList<String>();
 
     public String getName() {
         return name;
