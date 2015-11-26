@@ -9,7 +9,7 @@ var caseprogress = {
         jQuery('#caseinfo-progress-form').hide();
         self.clearSaveProgressAlert();
         if (selectCaseinfoId&&selectCaseinfoId>0) {
-            self.initCaseProgressTree($.proxy(self.buildCaseProgressTree,self));
+            self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
         }
     },
     showCaseProgressComments:function(node){
@@ -151,17 +151,17 @@ var caseprogress = {
             if (comments!=null) {
                 listHtml += '<div class="row form-group">'+
                                 '<div class="col-xs-4">&nbsp;</div>'+
-                                '<div class="col-xs-4">内容</div>'+
-                                '<div class="col-xs-4">下一步计划</div>'+
+                                '<div class="col-xs-3">内容</div>'+
+                                '<div class="col-xs-3">下一步计划</div>'+
                                 '</div>';
                 for (var i=0;i<comments.length;i++) {
                     var comment = comments[i];
                     var index = i+1;
-                    var str = index + "、" + "&nbsp;&nbsp;"+comment.createtimestr;
+                    var str = index + "、" +comment.createtimestr;
                     listHtml += '<div class="row form-group">';
                     listHtml += '<div class="col-xs-4">'+str+'</div>';
-                    listHtml += '<div class="col-xs-4"><textarea  class="form-control" rows="3" readonly>'+comment.comment+'</textarea></div>';
-                    listHtml += '<div class="col-xs-4"><textarea  class="form-control" rows="3" readonly>'+comment.nexttask+'</textarea></div>';
+                    listHtml += '<div class="col-xs-3"><textarea  class="form-control" rows="3" readonly>'+comment.comment+'</textarea></div>';
+                    listHtml += '<div class="col-xs-3"><textarea  class="form-control" rows="3" readonly>'+comment.nexttask+'</textarea></div>';
                     /*listHtml += '<div class="col-xs-2">'+comment.optuserid+'</div>';
                      listHtml += '<div class="col-xs-3">'+comment.createtimestr+'</div>';*/
                     listHtml += '</div>';
@@ -282,6 +282,73 @@ var caseprogress = {
             return false;
         }
     },
+    initCaseProgressView : function(data){
+        var self = this;
+        if (data) {
+            if (data.caseProgressCommentList) {
+                self.buildCaseProgressTable(data.caseProgressCommentList);
+            }
+            if (data.caseProgressTreeVoList) {
+                self.buildCaseProgressTree(data.caseProgressTreeVoList);
+            }
+        }
+    },
+    buildCommentVo:function(processnodeid,comment){
+        var msg = "";
+        if (processnodeid == 1600) {
+            if (1==comment) {
+                msg = "一审未调解";
+            } else if (2==comment) {
+                msg = "一审已调解";
+            }
+        }else if (processnodeid == 3100) {
+            if (1==comment) {
+                msg = "二审未调解";
+            } else if (2==comment) {
+                msg = "二审已调解";
+            }
+        }else if (processnodeid == 2100) {
+            if (1==comment) {
+                msg = "未上诉";
+            } else if (2==comment) {
+                msg = "已上诉";
+            }
+        }else if (processnodeid == 701&&comment!=null) {
+            msg = "诉讼案件编号:"+comment;
+        }else if (processnodeid == 400&&comment!=null) {
+            msg = "初期律师费:"+comment;
+        }else if (processnodeid == 4400&&comment!=null) {
+            msg = "后期期律师费:"+comment;
+        }else{
+            msg = comment;
+        }
+        return msg;
+    },
+    buildCaseProgressTable:function(data){
+        var self = this;
+        $('#progress-query tbody').empty();
+        if (data) {
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                var o = data[i];
+                html += "<tr>";
+                html += "   <td>";
+                html += (i+1);
+                html += "   </td>";
+                html += "   <td>";
+                html += o.createtimestr;
+                html += "   </td>";
+                html += "   <td>";
+                html += '<textarea  class="form-control" rows="3" readonly>'+(o.comment==null?"":self.buildCommentVo(o.processnodeid,o.comment))+'</textarea>';
+                html += "   </td>";
+                html += "   <td>";
+                html += '<textarea  class="form-control" rows="3" readonly>'+(o.nexttask==null?"":o.nexttask)+'</textarea>';
+                html += "   </td>";
+                html += "</tr>";
+            }
+            $('#progress-query tbody').append(html);
+        }
+    },
     buildCaseProgressTree : function(treedata) {
         var self = this;
         caseProgressTree = $('#caseinfo-progress-tree').treeview({
@@ -303,7 +370,7 @@ var caseprogress = {
         //customOrgTree.treeview('expandAll');
         caseProgressTree.treeview('collapseAll');
     },
-    initCaseProgressTree:function(callback) {
+    findCaseProgressViews:function(callback) {
         var self = this;
         var treedata = null;
         jQuery.ajax({

@@ -5,6 +5,7 @@ import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.CaseProgress;
 import com.lawinfo.domain.front.CaseProgressComment;
 import com.lawinfo.domain.front.vo.CaseProgressTreeVo;
+import com.lawinfo.domain.front.vo.CaseProgressViewVo;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.front.CaseProgressCommentService;
 import com.lawinfo.service.front.CaseProgressService;
@@ -39,9 +40,9 @@ public class CaseProgressController {
     }
     @ResponseBody
     @RequestMapping("/findprogresstree")
-    public List<CaseProgressTreeVo> findprogresstree(HttpServletRequest request,long caseinfoid)throws Exception{
+    public CaseProgressViewVo findprogresstree(HttpServletRequest request,long caseinfoid)throws Exception{
         String userid = LoginInfo.getUseridFromSession(request.getSession());
-        List<CaseProgressTreeVo> list = caseProgressService.findTreeVo(userid,caseinfoid);
-        return list;
+        CaseProgressViewVo caseProgressViewVo = caseProgressService.findCaseProgressCommentVo(userid,caseinfoid);
+        return caseProgressViewVo;
     }
 }

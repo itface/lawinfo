@@ -207,7 +207,7 @@ var caseinfo = {
                 html+=' <td class="caseinfo-row">';
                 html+='     '+ (o.createtimestr);
                 html+=' </td>';
-                html+=' <td class="caseinfo-row">';
+                html+=' <td class="caseinfo-row caseinfo-title">';
                 html+='     '+ o.title;
                 html+=' </td>';
                 html+=' <td>';
@@ -277,6 +277,9 @@ var caseinfo = {
         selectCaseEstj = tr.attr('estj');
         selectCaseSfss = tr.attr('sfss');
         selectCaseSsajbh = tr.attr('ssajbh');
+        var progresstitle = $('.caseinfo-title',tr).text();
+        $('#caseinfo-progress-modal #casetitle').empty();
+        $('#caseinfo-progress-modal #casetitle').append(progresstitle);
         jQuery('#caseinfo-progress-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     showCaseinfoTable:function(callback){

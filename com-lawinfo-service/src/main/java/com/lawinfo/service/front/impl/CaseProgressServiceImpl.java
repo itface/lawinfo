@@ -13,6 +13,7 @@ import com.lawinfo.domain.front.enumtype.CaseProgressEnum;
 import com.lawinfo.domain.front.query.CaseInfoUserQuery;
 import com.lawinfo.domain.front.query.CaseProgressQuery;
 import com.lawinfo.domain.front.vo.CaseProgressTreeVo;
+import com.lawinfo.domain.front.vo.CaseProgressViewVo;
 import com.lawinfo.service.front.CaseInfoService;
 import com.lawinfo.service.front.CaseInfoUserService;
 import com.lawinfo.service.front.CaseProgressCommentService;
@@ -63,7 +64,7 @@ public class CaseProgressServiceImpl implements CaseProgressService{
         return false;
     }
     @Override
-    public List<CaseProgressTreeVo> findTreeVo(String userid,long caseinfoid) throws Exception {
+    public CaseProgressViewVo findCaseProgressCommentVo(String userid,long caseinfoid) throws Exception {
         try {
             if (caseinfoid>0) {
                 boolean ifallowd = caseInfoService.ifAllowd(userid, caseinfoid);
@@ -72,9 +73,11 @@ public class CaseProgressServiceImpl implements CaseProgressService{
                     CaseInfo caseInfo = caseInfoService.findById(caseinfoid);
                     if (caseInfo != null) {
                         int sfss = caseInfo.getSfss();
+                        CaseProgressViewVo caseProgressViewVo = new CaseProgressViewVo();
                         List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss,(sfss==1?false:true));
                         if (!CollectionUtils.isEmpty(list)) {
                             List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
+                            caseProgressViewVo.setCaseProgressCommentList(caseProgressComments);
                             if (!CollectionUtils.isEmpty(caseProgressComments)) {
                                 Multimap<Integer, CaseProgressComment> caseProgressCommentMultimap = ArrayListMultimap.create();
                                 for (CaseProgressComment caseProgressComment : caseProgressComments) {
@@ -102,8 +105,9 @@ public class CaseProgressServiceImpl implements CaseProgressService{
                                     }
                                 }
                             }
+                            caseProgressViewVo.setCaseProgressTreeVoList(list);
+                            return caseProgressViewVo;
                         }
-                        return list;
                     }
                 } else {
                     logger.error("findTreeVo error,not allowed,userid:" + userid + ",caseinfoid:" + caseinfoid);
