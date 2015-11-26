@@ -6,9 +6,11 @@ import com.lawinfo.domain.front.CaseProgress;
 import com.lawinfo.domain.front.CaseProgressComment;
 import com.lawinfo.domain.front.vo.CaseProgressTreeVo;
 import com.lawinfo.domain.front.vo.CaseProgressViewVo;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.front.CaseProgressCommentService;
 import com.lawinfo.service.front.CaseProgressService;
+import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,11 @@ public class CaseProgressController {
     public int index(HttpServletRequest request,CaseProgressComment caseProgressComment,BindingResult result)throws Exception{
         if (caseProgressComment!=null) {
             String userid = LoginInfo.getUseridFromSession(request.getSession());
-            caseProgressComment.setOptuserid(userid);
+            User user = UserUtils.findByUserid(userid);
+            if (user!=null) {
+                String orpuserid = user.getName()+"["+userid+"]";
+                caseProgressComment.setOptuserid(orpuserid);
+            }
             return caseProgressCommentService.save(caseProgressComment);
         }
         return 0;
