@@ -33,6 +33,7 @@ var caseinfo = {
         self.initLawyerTree($.proxy(self.buildLawyerTree,self));
         jQuery('#caseinfo-list').on('click','.caseinfo-row', $.proxy(self.registCaseinfoTableRowEvent,this));
         jQuery('#caseinfo-modal .submit').on('click',function(e){
+            jQuery(e.target).addClass('disabled');
             var casetype = jQuery('#caseinfo-modal  #casetype').is(':checked')?1:0;
             var caseorgid = $.trim(jQuery('#caseinfo-modal  #caseorgid').val());
             var caseorgname = $.trim($("#caseinfo-modal  #caseorgname").val());
@@ -61,70 +62,87 @@ var caseinfo = {
             var ssajbh = $.trim(jQuery('#caseinfo-modal  #ssajbh').val());
             if (!caseorgid) {
                 self.saveActionAlert('案件所属机构不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!contacts) {
                 self.saveActionAlert('案件联系人不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!debtorinfo) {
                 self.saveActionAlert('债务人信息不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!debtorpropertyinfo) {
                 self.saveActionAlert('债务人财产状况不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!ay) {
                 self.saveActionAlert('案由不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!zqbj||isNaN(zqbj)) {
                 self.saveActionAlert('债权本金必须是数值');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!zqdqr) {
                 self.saveActionAlert('债权到期日不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!guarantorinfo) {
                 self.saveActionAlert('担保人信息不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!guaranteetype) {
                 self.saveActionAlert('担保方式不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!pawninfo) {
                 self.saveActionAlert('抵押物信息不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!pawnvalue||isNaN(pawnvalue)) {
                 self.saveActionAlert('抵押物评估价值必须是数值');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!caseprocedure) {
                 self.saveActionAlert('案件程序不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!court) {
                 self.saveActionAlert('受理法院不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!judge) {
                 self.saveActionAlert('承办法官不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!sslawyerids) {
                 self.saveActionAlert('诉讼律师不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!totalprice||isNaN(totalprice)) {
                 self.saveActionAlert('律师费总额必须是数值');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             if (!guarantorpropertyinfo) {
                 self.saveActionAlert('担保人财产状况不能为空');
+                jQuery(e.target).removeClass('disabled');
                 return false;
             }
             /*if (!ssajbh) {
@@ -169,9 +187,11 @@ var caseinfo = {
                     }else{
                         self.saveActionAlert('保存异常');
                     }
+                    jQuery(e.target).removeClass('disabled');
                 },
                 error:function() {
                     self.saveActionAlert('保存异常');
+                    jQuery(e.target).removeClass('disabled');
                 }
             });
         });
