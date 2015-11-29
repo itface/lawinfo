@@ -63,7 +63,7 @@
     </bean>
     <bean id="velocityViewResolver"
           class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-        <property name="layoutUrl" value="layout/default.vm"/>
+        <property name="layoutUrl" value="layout/empty.vm"/>
         <property name="cache" value="false"/>
         <property name="suffix" value=".vm"/>
         <property name="exposeSpringMacroHelpers" value="true"/>
