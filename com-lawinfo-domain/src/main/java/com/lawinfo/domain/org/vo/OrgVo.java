@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by wangrongtao on 15/10/27.
  */
-public class OrgVo implements Serializable,Comparable {
+public class OrgVo implements Serializable,Comparable<OrgVo> {
     private Long id;
     private String text;
     private Long parentorgid;
@@ -75,11 +75,11 @@ public class OrgVo implements Serializable,Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(OrgVo o) {
         if (o!=null) {
-            int num = ((OrgVo) o).getType()-this.type;
+            int num = o.getType()-this.type;
             if (num==0) {
-                return (this.id).compareTo(((OrgVo) o).getId());
+                return this.getId().compareTo(o.getId());
             }
             return num;
         }

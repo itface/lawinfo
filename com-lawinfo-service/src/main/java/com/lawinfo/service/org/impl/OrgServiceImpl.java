@@ -121,7 +121,7 @@ public class OrgServiceImpl implements OrgService{
                         orgVoList.add(orgVo);
                     }
                 }
-
+                Collections.sort(orgVoList);
             }
         } catch (Exception e) {
             logger.error("findSubOrgTree exception",e);
