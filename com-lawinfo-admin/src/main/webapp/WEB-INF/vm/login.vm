@@ -22,12 +22,25 @@
     <style>
         .modal-backdrop {
             background-color: #fff;
+            /*filter:alpha(opacity=0); !*IE滤镜透明度50%*!
+            -moz-opacity:0; !*Firefox私透明度50%*!
+            opacity:0;!*其透明度50%*!*/
         }
     </style>
 </head>
 
 <body>
-
+<div style="margin-top: 170px;padding-left: 30px;">
+    <div class="row">
+        <div class="col-xs-3" style="text-align: left"><h3>法律是一门技术</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3" style="text-align: right"><h3>法律也可以是一门艺术</h3></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12" style="text-align: center;position: absolute;bottom:5px">明理金融法律服务团队@2015-2015 版权所有</div>
+</div>
 <div id="loginModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -59,7 +72,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 <script type="text/javascript">
     jQuery('#loginModal').modal({backdrop: 'static', keyboard: false}).modal('show');

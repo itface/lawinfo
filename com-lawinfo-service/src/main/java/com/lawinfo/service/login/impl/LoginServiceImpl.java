@@ -29,6 +29,7 @@ public class LoginServiceImpl implements LoginService{
 
     private  int maxloginfailcount;
     private long expiretime;
+    private long maxallowrelogintime;
     @Resource
     private SmsService smsService;
     @Resource
@@ -76,7 +77,7 @@ public class LoginServiceImpl implements LoginService{
                         user1.setUserid(userid);
                         user1.setLastlogintime(now);
                         user1.setLastlogintimestr(nowtimestr);
-                        if (loginfailcount > maxloginfailcount && (now - lastlogintime) < (30 * 60 * 1000)) {
+                        if (loginfailcount > maxloginfailcount && (now - lastlogintime) < maxallowrelogintime) {
                             user1.setLoginfailcount(user.getLoginfailcount() + 1);
                             loginResult.setSuccess(false);
                             loginResult.setDesc(LoginResultEnum.MAX_LOGIN_FAIL.getDesc());
@@ -153,5 +154,13 @@ public class LoginServiceImpl implements LoginService{
 
     public void setMaxloginfailcount(int maxloginfailcount) {
         this.maxloginfailcount = maxloginfailcount;
+    }
+
+    public long getMaxallowrelogintime() {
+        return maxallowrelogintime;
+    }
+
+    public void setMaxallowrelogintime(long maxallowrelogintime) {
+        this.maxallowrelogintime = maxallowrelogintime;
     }
 }

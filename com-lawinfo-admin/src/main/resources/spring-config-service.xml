@@ -13,5 +13,6 @@
        <bean id="loginService" class="com.lawinfo.service.login.impl.LoginServiceImpl">
               <property name="maxloginfailcount" value="${max.login.fail.count}"/>
               <property name="expiretime" value="${en.sms.expire.time}"/>
+              <property name="maxallowrelogintime" value="${max.allow.relogin.time}"/>
        </bean>
 </beans>
