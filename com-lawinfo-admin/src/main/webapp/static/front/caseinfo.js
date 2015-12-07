@@ -203,8 +203,8 @@ var caseinfo = {
     },
     buildCaseinfoTable:function(data) {
         var self = this;
+        $('#caseinfo-list tbody').empty();
         if (data) {
-            $('#caseinfo-list tbody').empty();
             var html = '';
             for(var i=0;i<data.length;i++) {
                 var o = data[i];
@@ -304,6 +304,7 @@ var caseinfo = {
     },
     showCaseinfoTable:function(callback){
         var self = this;
+        var caseinfos = null;
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/find',
             data:{userid:currentUser,currenttabtype:currentTabType},

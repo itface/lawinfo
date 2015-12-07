@@ -7,7 +7,7 @@ public enum LoginResultEnum {
 
     SUCCESS(0,"登录成功"),
     UID_PWD_EMPTY(-1,"用户名密码不能为空"),
-    PWD_INCORRECT(-2,"密码错误"),
+    PWD_INCORRECT(-2,"用户名或密码错误"),
     PWD_NOT_EXIST(-3,"验证码不存在，请先获取验证码"),
     MAX_LOGIN_FAIL(-4,"超过最大失败次数"),
     USER_NOT_EXISTS(-5,"用户名密码错误"),
