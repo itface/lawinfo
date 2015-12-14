@@ -43,7 +43,17 @@ public class CaseProgressServiceImpl implements CaseProgressService{
     @Resource
     private CaseProgressCommentService caseProgressCommentService;
 
+    /**
+     * 是否是诉讼律师,默认是诉讼律师,因为能查看案件的就是诉讼律师,执行律师,部门负责人和团队负责人.
+     * 能看到案件的只有讨讼律师不能看到执行结点,所以只要
+     * @param userid
+     * @param caseinfoid
+     * @return
+     * @throws Exception
+     */
     private boolean ifSs(String userid,long caseinfoid) throws Exception{
+        boolean ifss = false;
+        boolean ifzx = false;
         try {
             CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
             caseInfoUserQuery.setCaseinfoid(caseinfoid);
@@ -53,7 +63,10 @@ public class CaseProgressServiceImpl implements CaseProgressService{
                     int usertype = caseInfoUser.getUsertype();
                     String userid2 = caseInfoUser.getUserid();
                     if (usertype == 2&&userid.equals(userid2)) {
-                        return true;
+                        ifss = true;
+                    }else if (usertype != 2&&userid.equals(userid2)) {
+                        ifss = false;
+                        ifzx = true;
                     }
                 }
             }
@@ -61,7 +74,8 @@ public class CaseProgressServiceImpl implements CaseProgressService{
             logger.error("ifSs exception"+caseinfoid+",userid:"+userid, e);
             throw e;
         }
-        return false;
+        //是诉讼律师,并且不是执行律师,才不能看到执行节点
+        return ifss&&!ifzx;
     }
     @Override
     public CaseProgressViewVo findCaseProgressCommentVo(String userid,long caseinfoid) throws Exception {

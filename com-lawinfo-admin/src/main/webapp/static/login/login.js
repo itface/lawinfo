@@ -17,6 +17,7 @@ var login = {
             $.ajax({
               url: "/login/sendsms?tel="+tel,
               dataType: "json",
+                cache:false,
               success: function(data){
                   if(data.code == 0){
                       self.timeout();
@@ -52,6 +53,7 @@ var login = {
               method: "POST",
               url: "/login/dologin",
               data: {tel: tel, code: code},
+                cache:false,
               dataType: "json",
             }).done(function(data){
               if(data.success){
