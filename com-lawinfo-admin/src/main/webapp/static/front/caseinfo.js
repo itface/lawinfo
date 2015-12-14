@@ -185,7 +185,7 @@ var caseinfo = {
                         $('#caseinfo-modal').modal('hide');
                         $('#caseinfo-form')[0].reset();
                     }else{
-                        self.saveActionAlert('保存异常');
+                        self.saveActionAlert('保存失败');
                     }
                     jQuery(e.target).removeClass('disabled');
                 },

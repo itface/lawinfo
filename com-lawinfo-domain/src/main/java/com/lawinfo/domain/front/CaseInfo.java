@@ -16,9 +16,9 @@ public class CaseInfo extends BaseDomain{
      * 案件所属银行
      * orginfo表里的orgid,orgtype为银行
      */
-    @Min(1)
+//    @Min(1)
     private long caseorgid;
-    @Length(max=100)
+//    @Length(max=100)
     private String caseorgname;
     /**
      * 目前所属阶段
@@ -30,28 +30,28 @@ public class CaseInfo extends BaseDomain{
     /**
      * 案件联络人
      */
-    @Length(max=100)
+//    @Length(max=100)
     private String contacts;
     /**
      * 联系方式
      */
-    @Length(max=50)
+//    @Length(max=50)
     private String contactids;
     /**
      * 债务人debtor信息
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String debtorinfo;
     /**
      * 债权人creditor是否与律师所关联（1是、0否)
      */
-    @Min(0)
-    @Max(1)
+//    @Min(0)
+//    @Max(1)
     private int iscreditorrelated;
     /**
      * 债务人财产状况
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String debtorpropertyinfo;
     /**
      * 债权本金
@@ -62,33 +62,33 @@ public class CaseInfo extends BaseDomain{
      */
     private long zqdqr;
     private Date zqdqrdate;
-    @Length(max=20)
+//    @Length(max=20)
     private String zqdqrstr;
     /**
      * 担保guarantee方式
      */
-    @Length(max=50)
+//    @Length(max=50)
     private String guaranteetype;
     /**
      *担保人guarantor信息
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String guarantorinfo;
     /**
      * 担保人是否与律所关联（是1、否0）
      */
-    @Min(0)
-    @Max(1)
+//    @Min(0)
+//    @Max(1)
     private int isguarantorrelated;
     /**
      * 担保人财产情况
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String guarantorpropertyinfo;
     /**
      * 抵押物pawn信息
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String pawninfo;
     /**
      * 抵押物pawn评估价值
@@ -97,12 +97,12 @@ public class CaseInfo extends BaseDomain{
     /**
      * 案件程序
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String caseprocedure;
     /**
      * 受理法院
      */
-    @Length(max=150)
+//    @Length(max=150)
     private String court;
     /**
      * userid
