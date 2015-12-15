@@ -426,6 +426,7 @@ var caseprogress = {
                     $('#ajcx').val(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
                     $('#zxls').val(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
                     $('#zxah').val(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
+                    return;
                 }
             }
         }
