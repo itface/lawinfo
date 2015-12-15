@@ -60,4 +60,9 @@ public class MainController {
     public boolean refreshcache()throws Exception{
         return cacheService.initCache();
     }
+    @RequestMapping("/onlineuser")
+    @ResponseBody
+    public List<String> getAllOnlineUsers()throws Exception{
+        return LoginInfo.getAllOnlineUsers();
+    }
 }

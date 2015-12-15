@@ -3,7 +3,9 @@ package com.lawinfo.admin.system.login;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -56,5 +58,10 @@ public class LoginInfo {
     public static boolean isAvailableLoginUser(HttpSession session) {
         String userid = getUseridFromSession(session);
         return isAvailableLoginUser(userid);
+    }
+    public static List<String> getAllOnlineUsers(){
+        List<String> list = new ArrayList<String>();
+        list.addAll(loginUserSet);
+        return list;
     }
 }
