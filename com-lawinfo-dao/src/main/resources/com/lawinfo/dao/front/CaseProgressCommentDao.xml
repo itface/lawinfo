@@ -47,7 +47,7 @@
         from
         CaseProgress
         <include refid="condition"/>
-        order by processnodeid desc
+        order by processnodeid desc,id DESC
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.front.query.CaseProgressCommentQuery"  resultMap="ResultMap">
         select
