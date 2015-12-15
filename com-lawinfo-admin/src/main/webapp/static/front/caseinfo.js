@@ -14,6 +14,7 @@ var lawyerTreeSelectedNode = null;
 var customOrgTree = null;
 var customerTree = null;
 var lawyerTree = null;
+var currentCaseinfoList = null;
 var caseinfo = {
 
     saveActionAlert:function(msg){
@@ -313,6 +314,7 @@ var caseinfo = {
             //async:false,
             success:function(data) {
                 caseinfos = data;
+                currentCaseinfoList = data;
             },
             error:function() {
                 mainAlert('获取案件信息异常');

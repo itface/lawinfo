@@ -391,5 +391,43 @@ var caseprogress = {
         }).done(function(){
             callback && callback(treedata);
         });
+    },
+    buildCaseinfoTable:function(){
+        var self = this;
+        if (selectCaseinfoId&&currentCaseinfoList) {
+            for (var i=0;i<currentCaseinfoList.length;i++) {
+                var caseinfo = currentCaseinfoList[i];
+                if (caseinfo.id==selectCaseinfoId) {
+                    $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
+                    caseinfo.casetype==1?$('#ajsfwj').attr('checked',true):$('#ajsfwj').attr('checked',false);
+                    $('#ajssjg').val(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
+                    $('#jgllr').val(caseinfo.contacts==null?"":caseinfo.contacts);
+                    $('#zaiquanbj').val(caseinfo.zqbj==null?"":caseinfo.zqbj);
+                    if (caseinfo.zqdqr) {
+                        var date = new Date(caseinfo.zqdqr);
+                        var zaiquandqr = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                        $('#zaiquandqr').val(zaiquandqr);
+                    }else{
+                        $('#zaiquandqr').val('');
+                    }
+                    $('#dywjj').val(caseinfo.pawnvalue==null?"":caseinfo.pawnvalue);
+                    $('#lsfze').val(caseinfo.totalprice==null?"":caseinfo.totalprice);
+                    $('#slfy').val(caseinfo.court==null?"":caseinfo.court);
+                    $('#cbfg').val(caseinfo.judge==null?"":caseinfo.judge);
+                    $('#zwrxx').val(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
+                    caseinfo.iscreditorrelated==1?$('#zwrsfgl').attr('checked',true):$('#zwrsfgl').attr('checked',false);
+                    $('#zwrcczk').val(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
+                    $('#anyou').val(caseinfo.ay==null?"":caseinfo.ay);
+                    $('#dbrxx').val(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
+                    caseinfo.isguarantorrelated==1?$('#dbrsfgl').attr('checked',true):$('#dbrsfgl').attr('checked',false);
+                    $('#dbfs').val(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
+                    $('#dbrcczk').val(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
+                    $('#dywxx').val(caseinfo.pawninfo==null?"":caseinfo.pawninfo);
+                    $('#ajcx').val(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
+                    $('#zxls').val(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
+                    $('#zxah').val(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
+                }
+            }
+        }
     }
 }

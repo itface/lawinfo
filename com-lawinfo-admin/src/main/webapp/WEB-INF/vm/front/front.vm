@@ -28,7 +28,8 @@
         <script src="/static/front/caseprogress.js"></script>
         <script src="/static/front/chart.js"></script>
         <script src="/static/front/caseinfo_exelawyer.js"></script>
-        <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+        <script src="/static/echarts/echarts-all.js"></script>
+##        <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 	</head>
 	<body>
@@ -251,6 +252,9 @@
                             <li>
                                 <a href="#progress-edit" data-toggle="tab" id="progress-edit-tab" actionid="caseinfo-progress-edit-tab">编辑</a>
                             </li>
+                            <li>
+                                <a href="#caseinfo-info" data-toggle="tab" id="caseinfo-info-tab" actionid="caseinfo-info-query-tab">案件信息</a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="progress-query">
@@ -296,6 +300,168 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="caseinfo-info">
+                                <div style="padding-top: 30px;text-align: right">
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>诉讼律师:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="ssls" class="form-control" type="text" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>案件是否完结:</label>
+                                        </div>
+                                        <div class="col-xs-3" style="text-align: left">
+                                            <input id="ajsfwj"  type="checkbox" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>执行律师:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="zxls" class="form-control" type="text" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>执行案号:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="zxah" class="form-control" type="text" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>案件所属机构:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="ajssjg" class="form-control" type="text" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>机构联络人:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="jgllr" class="form-control" type="text" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>债权本金:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="zaiquanbj" type="text" class="form-control" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>债权到期日期:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="zaiquandqr" type="text" class="form-control" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>抵押物评估价值:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="dywjj" type="text" class="form-control" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>律师费总额:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="lsfze" type="text" class="form-control" disabled/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>受理法院:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="slfy" type="text" class="form-control" disabled/>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>承办法官:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="cbfg" type="text" class="form-control" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>债务人信息:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="zwrxx" rows="6" class="form-control" placeholder="债务人信息" disabled></textarea>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>是否与律所关联:</label>
+                                        </div>
+                                        <div class="col-xs-3" style="text-align: left">
+                                            <input id="zwrsfgl"  type="checkbox" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>债务人财产状况:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea  id="zwrcczk" class="form-control" rows="6" disabled></textarea>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>案由:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea  id="anyou" rows="6" class="form-control" disabled></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>担保人信息:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="dbrxx" rows="6" class="form-control" disabled></textarea>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>是否与律所关联:</label>
+                                        </div>
+                                        <div class="col-xs-3" style="text-align: left">
+                                            <input id="dbrsfgl" type="checkbox" readonly/>
+                                        </div>
+
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>担保方式:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="dbfs" rows="6" class="form-control" disabled></textarea>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>担保人财产状况:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="dbrcczk" rows="6" class="form-control" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label>抵押物信息:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="dywxx" rows="6" class="form-control" disabled></textarea>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label>案件程序:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <textarea id="ajcx" rows="6" class="form-control" disabled></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -564,6 +730,8 @@
                 }else if (currentTabId == 'case-report-tab') {
                     currentTabType=2;//查询所有已经结束的案子
                     chart.init();
+                }else if (currentTabId =='caseinfo-info-tab') {
+                    caseprogress.buildCaseinfoTable();
                 }
             });
             var actionList = "$!actionList";
