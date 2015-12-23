@@ -4,6 +4,7 @@
     <resultMap id="ResultMap" type="com.lawinfo.domain.org.Role">
         <id property="id" column="id" />
         <result column="name" property="name"/>
+        <result column="roletag" property="roletag"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
         <result column="modifiedtime" property="modifiedtime"/>
@@ -11,7 +12,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,roletag,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -69,7 +70,7 @@
         <include refid="condition"/>
     </select>
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.lawinfo.domain.org.Role">
-        insert into role(name,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into role(name,roletag,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{roletag},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from role where id=#{id}

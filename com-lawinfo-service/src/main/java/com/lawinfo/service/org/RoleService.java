@@ -19,7 +19,7 @@ public interface RoleService {
     public List<RoleVo> findAllVo()throws Exception;
     public List<Role> findAllFromDb() throws Exception;
     public List<RoleTreeVo> findAllTree()throws Exception;
-    public int save(String name,String menuids,String actionids)throws Exception;
+    public int save(String name,String roletag,String menuids,String actionids)throws Exception;
 
     public Role findById(long id)throws Exception;
 

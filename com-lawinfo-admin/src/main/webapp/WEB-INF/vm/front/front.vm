@@ -123,6 +123,7 @@
 
                                             </tbody>
                                         </table>
+                                        <div style="text-align: center;display: none" class="caseinfo-more-div"><a href="#" class="caseinfo-more">显示更多...</a></div>
                                     </div>
                                     <div class="tab-pane fade" id="case-report">
                                         <div class="row-fluid">
@@ -132,6 +133,12 @@
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <div id="chart2" style="height:400px;"></div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div id="chart3" style="height:400px;"></div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div id="chart4" style="height:400px;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,10 +254,10 @@
                     <div class="row">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#progress-query" data-toggle="tab" id="progress-query-tab" actionid="caseinfo-progress-query-tab">查看</a>
+                                <a href="#progress-query" data-toggle="tab" id="progress-query-tab" actionid="caseinfo-progress-query-tab" style="display: none">查看</a>
                             </li>
                             <li>
-                                <a href="#progress-edit" data-toggle="tab" id="progress-edit-tab" actionid="caseinfo-progress-edit-tab">编辑</a>
+                                <a href="#progress-edit" data-toggle="tab" id="progress-edit-tab" actionid="caseinfo-progress-edit-tab" style="display: none">编辑</a>
                             </li>
                             <li>
                                 <a href="#caseinfo-info" data-toggle="tab" id="caseinfo-info-tab" actionid="caseinfo-info-query-tab">案件信息</a>
@@ -709,6 +716,7 @@
                 }
             };
             var currentTabType=1;
+            var currentPage = 1;
             var loginuser="$!loginuser";
             var currentUser=loginuser;
             var canRemoveCase = false;
@@ -720,15 +728,19 @@
                 var currentTabId = jQuery(e.target).attr("id");
                 if (currentTabId=='case-doing-tab') {
                     currentTabType=1;
+                    currentPage = 1;
                     caseinfo.init();
                 }else if (currentTabId == 'case-ed-tab') {
                     currentTabType=2;
+                    currentPage = 1;
                     caseinfo.init();
                 }else if (currentTabId == 'case-all-tab') {
                     currentTabType=0;
+                    currentPage = 1;
                     caseinfo.init();
                 }else if (currentTabId == 'case-report-tab') {
                     currentTabType=2;//查询所有已经结束的案子
+                    currentPage = 1;
                     chart.init();
                 }else if (currentTabId =='caseinfo-info-tab') {
                     caseprogress.buildCaseinfoTable();
@@ -751,7 +763,6 @@
             $('#caseinfo-exelawyer-modal').on('show.bs.modal', function () {
                 exeLawyer.init();
             });
-
         </script>
 	</body>
 </html>

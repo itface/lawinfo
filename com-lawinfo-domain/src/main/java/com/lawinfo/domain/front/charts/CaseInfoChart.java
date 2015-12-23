@@ -11,6 +11,10 @@ public class CaseInfoChart {
     private List<String> legendData;
     private List<EchartsSerie> caseCounts;
 
+    private List<String> totallegendData;
+    private List<EchartsSerie> totalcaseCounts;
+    private List<EchartsSerie> totalcaseAmount;
+
     public List<String> getxAxisDataList() {
         return xAxisDataList;
     }
@@ -41,5 +45,29 @@ public class CaseInfoChart {
 
     public void setCaseCounts(List<EchartsSerie> caseCounts) {
         this.caseCounts = caseCounts;
+    }
+
+    public List<EchartsSerie> getTotalcaseCounts() {
+        return totalcaseCounts;
+    }
+
+    public void setTotalcaseCounts(List<EchartsSerie> totalcaseCounts) {
+        this.totalcaseCounts = totalcaseCounts;
+    }
+
+    public List<EchartsSerie> getTotalcaseAmount() {
+        return totalcaseAmount;
+    }
+
+    public void setTotalcaseAmount(List<EchartsSerie> totalcaseAmount) {
+        this.totalcaseAmount = totalcaseAmount;
+    }
+
+    public List<String> getTotallegendData() {
+        return totallegendData;
+    }
+
+    public void setTotallegendData(List<String> totallegendData) {
+        this.totallegendData = totallegendData;
     }
 }

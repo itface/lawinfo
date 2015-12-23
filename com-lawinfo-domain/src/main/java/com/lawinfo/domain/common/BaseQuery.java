@@ -9,6 +9,7 @@ public class BaseQuery extends BaseDomain{
     protected int startRow;
     protected int endRow;
     protected int pageSize;
+    protected int page;
 
     public int getStartRow() {
         return startRow;
@@ -32,5 +33,13 @@ public class BaseQuery extends BaseDomain{
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }

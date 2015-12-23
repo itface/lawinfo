@@ -18,6 +18,7 @@ public class CaseInfo extends BaseDomain{
      */
 //    @Min(1)
     private long caseorgid;
+    private String casefullorgid;
 //    @Length(max=100)
     private String caseorgname;
     /**
@@ -184,6 +185,14 @@ public class CaseInfo extends BaseDomain{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getCasefullorgid() {
+        return casefullorgid;
+    }
+
+    public void setCasefullorgid(String casefullorgid) {
+        this.casefullorgid = casefullorgid;
     }
 
     public String getDebtorinfo() {

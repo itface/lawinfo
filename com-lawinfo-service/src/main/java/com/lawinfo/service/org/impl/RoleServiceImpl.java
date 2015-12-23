@@ -138,13 +138,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public int save(String name,String menuids,String actionids)throws Exception {
+    public int save(String name,String roletag,String menuids,String actionids)throws Exception {
         int effectrows = 0;
         try {
             if (!StringUtils.isEmpty(name)) {
                 Role role = new Role();
                 role.initBaseDomain();
                 role.setName(name);
+                role.setRoletag(roletag);
                 effectrows = roleDao.save(role);
                 if (effectrows==1) {
                     if (!StringUtils.isEmpty(menuids)) {

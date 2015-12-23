@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.org.Action;
@@ -38,6 +39,7 @@ public class CaseInfoController {
     private UserService userService;
     @Resource
     private DeleteCaseService deleteCaseService;
+    private final int PAGE_SIZE = 20;
 
 
     @ResponseBody
@@ -63,12 +65,17 @@ public class CaseInfoController {
     }
     @ResponseBody
     @RequestMapping("/find")
-    public List<CaseInfo> find(HttpServletRequest request,String userid,Integer currenttabtype)throws Exception {
+    public PageVo<CaseInfo> find(HttpServletRequest request,String userid,Integer currenttabtype,Integer page)throws Exception {
         if (!StringUtils.isEmpty(userid)) {
             CaseInfoQuery caseInfoQuery = new CaseInfoQuery();
             caseInfoQuery.setCurrenttabtype(currenttabtype);
-            List<CaseInfo> list = caseInfoService.findList(caseInfoQuery,userid);
-            return list;
+            if (page == null || page < 1) {
+                page = 1;
+            }
+            caseInfoQuery.setPage(page);
+            caseInfoQuery.setPageSize(PAGE_SIZE);
+            PageVo<CaseInfo> pageVo = caseInfoService.findListByPage(caseInfoQuery,userid);
+            return pageVo;
         }
         return null;
     }

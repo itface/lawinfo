@@ -32,15 +32,20 @@ var role = {
         });
         jQuery('#roleModal .btn-save').on('click',function(e){
             var rolename = jQuery('#roleform  #rolename').val();
+            var roletag = jQuery('#roleform  #roletag').val();
             var roleactionids = jQuery('#roleform  #roleactionids').val();
             var rolemenuids = jQuery('#roleform  #rolemenuids').val();
             if (!rolename) {
                 self.saveRoleAlert('角色名称不能为空');
                 return false;
             }
+            if (!roletag) {
+                self.saveRoleAlert('角色标签不能为空');
+                return false;
+            }
             jQuery.ajax({
                 url:'/lawinfo/admin/role/add',
-                data:{rolename:rolename,menuids:rolemenuids,actionids:roleactionids},
+                data:{rolename:rolename,roletag:roletag,menuids:rolemenuids,actionids:roleactionids},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {

@@ -13,6 +13,11 @@ public class CaseInfoQuery extends BaseQuery {
     private String summary;
     private List<Long> caseinfoids;
     private Integer currenttabtype;
+    private String lawyer;
+    private String contact;
+    private long caseorgid;
+    private long startcreatetime;
+    private long endcreatetime;
 
     public Long getId() {
         return id;
@@ -45,6 +50,46 @@ public class CaseInfoQuery extends BaseQuery {
 
     public void setCaseinfoids(List<Long> caseinfoids) {
         this.caseinfoids = caseinfoids;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(String lawyer) {
+        this.lawyer = lawyer;
+    }
+
+    public long getCaseorgid() {
+        return caseorgid;
+    }
+
+    public void setCaseorgid(long caseorgid) {
+        this.caseorgid = caseorgid;
+    }
+
+    public long getStartcreatetime() {
+        return startcreatetime;
+    }
+
+    public void setStartcreatetime(long startcreatetime) {
+        this.startcreatetime = startcreatetime;
+    }
+
+    public long getEndcreatetime() {
+        return endcreatetime;
+    }
+
+    public void setEndcreatetime(long endcreatetime) {
+        this.endcreatetime = endcreatetime;
     }
 
     public String toLogString() {

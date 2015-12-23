@@ -1,11 +1,13 @@
 package com.lawinfo.domain.front;
 
+import com.lawinfo.domain.common.BaseDomain;
+
 import java.io.Serializable;
 
 /**
  * Created by wangrongtao on 15/11/9.
  */
-public class CaseInfoUser implements Serializable {
+public class CaseInfoUser extends BaseDomain implements Serializable {
     private long id;
     private long caseinfoid;
     private String userid;

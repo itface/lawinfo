@@ -395,7 +395,7 @@ var caseprogress = {
     buildCaseinfoTable:function(){
         var self = this;
         if (selectCaseinfoId&&currentCaseinfoList) {
-            for (var i=0;i<currentCaseinfoList.length;i++) {
+            for (var i in currentCaseinfoList) {
                 var caseinfo = currentCaseinfoList[i];
                 if (caseinfo.id==selectCaseinfoId) {
                     $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);

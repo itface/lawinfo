@@ -1,5 +1,6 @@
 package com.lawinfo.service.front;
 
+import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
 
@@ -26,8 +27,9 @@ public interface CaseInfoService {
 
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery)throws Exception;
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery,String userid)throws Exception;
+    public List<CaseInfo> findComputeFieldList(CaseInfoQuery caseInfoQuery,String userid)throws Exception;
 
-    public List<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery)throws Exception;
+    public PageVo<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery,String userid)throws Exception;
 
     public int count(CaseInfoQuery caseInfoQuery)throws Exception;
 

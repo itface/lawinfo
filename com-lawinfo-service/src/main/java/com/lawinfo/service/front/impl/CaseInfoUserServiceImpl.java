@@ -44,6 +44,7 @@ public class CaseInfoUserServiceImpl implements CaseInfoUserService {
         int effectrows = 0;
         try {
             if (caseInfoUser!=null) {
+                caseInfoUser.initBaseDomain();
                 effectrows = caseInfoUserDao.save(caseInfoUser);
             }
         } catch (Exception e) {
@@ -88,6 +89,29 @@ public class CaseInfoUserServiceImpl implements CaseInfoUserService {
             throw e;
         }
         return list;
+    }
+    @Override
+    public List<Long> findAllCaseinfoidByPage(CaseInfoUserQuery caseInfoUserQuery) throws Exception {
+        List<Long> list = null;
+        try {
+            list = caseInfoUserDao.findAllCaseinfoidByPage(caseInfoUserQuery);
+        } catch (Exception e) {
+            logger.error("findAllCaseinfoidByPage error", e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public int count(CaseInfoUserQuery caseInfoUserQuery) throws Exception {
+        int effectrows = 0;
+        try {
+            effectrows = caseInfoUserDao.count(caseInfoUserQuery);
+        } catch (Exception e) {
+            logger.error("count error", e);
+            throw e;
+        }
+        return effectrows;
     }
 
     @Override

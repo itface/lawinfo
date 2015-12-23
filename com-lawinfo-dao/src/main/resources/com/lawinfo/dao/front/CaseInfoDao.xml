@@ -4,6 +4,7 @@
     <resultMap id="ResultMap" type="com.lawinfo.domain.front.CaseInfo">
         <id property="id" column="id" />
         <result column="caseorgid" property="caseorgid"/>
+        <result column="casefullorgid" property="casefullorgid"/>
         <result column="caseorgname" property="caseorgname"/>
         <result column="status" property="status"/>
         <result column="contacts" property="contacts"/>
@@ -31,6 +32,7 @@
         <result column="ystj" property="ystj"/>
         <result column="estj" property="estj"/>
         <result column="sfss" property="sfss"/>
+        <result column="realtotalprice" property="realtotalprice"/>
         <result column="ssajbh" property="ssajbh"/>
         <result column="exeajbh" property="exeajbh"/>
         <result column="casetype" property="casetype"/>
@@ -41,7 +43,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,caseorgid,caseorgname,status,zqdqr,zqdqrstr,contacts,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+         id,caseorgid,casefullorgid,caseorgname,status,zqdqr,zqdqrstr,contacts,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
          ,exelawyers,sslawyers,totalprice,sufprice,preprice,ystj,estj,casetype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,judge,ay,summary,ssajbh,exeajbh,realtotalprice,sfss
     </sql>
@@ -65,6 +67,21 @@
                          open="(" separator="," close=")">
                     #{item}
                 </foreach>
+            </if>
+            <if test="lawyer!=null and lawyer!=''">
+                and (sslawyers like concat('%', #{lawyer}, '%') or exelawyers like concat('%', #{lawyer}, '%'))
+            </if>
+            <if test="contact!=null and contact!=''">
+                and contacts like concat('%', #{contact}, '%')
+            </if>
+            <if test="caseorgid>0">
+                and casefullorgid like concat('%', #{caseorgid}, '%')
+            </if>
+            <if test="startcreatetime>0">
+                and createtime &gt; #{startcreatetime}
+            </if>
+            <if test="endcreatetime>0">
+                and createtime &lt; #{endcreatetime}
             </if>
             <!--<if test="exelawyerid!=null and exelawyerid!=''">
                 and exelawyerid like concat('%', #{exelawyerid}, '%')
@@ -100,14 +117,21 @@
         <include refid="condition"/>
          order by createtime desc
     </select>
+    <select id="findComputeFieldList" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
+        select id,createtime,realtotalprice,sslawyers,exelawyers
+        from
+        CaseInfo
+        <include refid="condition"/>
+         order by createtime desc
+    </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
         from
         CaseInfo
         <include refid="condition"/>
-        <include refid="page"/>
         order by createtime desc
+        <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.front.query.CaseInfoQuery" resultType="int">
         SELECT
@@ -117,10 +141,10 @@
         <include refid="condition"/>
     </select>
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.lawinfo.domain.front.CaseInfo">
-        insert into CaseInfo(caseorgid,caseorgname,contacts,zqdqr,zqdqrstr,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
+        insert into CaseInfo(caseorgid,casefullorgid,caseorgname,contacts,zqdqr,zqdqrstr,debtorinfo,iscreditorrelated,debtorpropertyinfo,zqbj
          ,guaranteetype,guarantorinfo,isguarantorrelated,guarantorpropertyinfo,pawninfo,pawnvalue,caseprocedure,court
          ,sslawyers,exelawyers,totalprice,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,summary,judge,ay,sufprice,preprice,ystj,estj,casetype,status,ssajbh,exeajbh,realtotalprice,sfss)
-         values(#{caseorgid},#{caseorgname},#{contacts},#{zqdqr},#{zqdqrstr},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj},#{guaranteetype},
+         values(#{caseorgid},#{casefullorgid},#{caseorgname},#{contacts},#{zqdqr},#{zqdqrstr},#{debtorinfo},#{iscreditorrelated},#{debtorpropertyinfo},#{zqbj},#{guaranteetype},
          #{guarantorinfo},#{isguarantorrelated},#{guarantorpropertyinfo},#{pawninfo},#{pawnvalue},#{caseprocedure},#{court},#{sslawyers},#{exelawyers},#{totalprice},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid},#{summary},#{judge},#{ay},#{sufprice},#{preprice},#{ystj},#{estj},#{casetype},#{status},#{ssajbh},#{exeajbh},#{realtotalprice},#{sfss})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->

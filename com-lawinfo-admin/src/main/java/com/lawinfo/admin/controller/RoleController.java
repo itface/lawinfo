@@ -26,9 +26,9 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public int save(HttpServletRequest request,String rolename,String menuids,String actionids)throws Exception{
+    public int save(HttpServletRequest request,String rolename,String roletag,String menuids,String actionids)throws Exception{
         if (!StringUtils.isEmpty(rolename)) {
-            int rows = roleService.save(rolename,menuids,actionids);
+            int rows = roleService.save(rolename,roletag,menuids,actionids);
             return rows;
         }
         return 0;

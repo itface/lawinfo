@@ -1,5 +1,6 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.UserQuery;
 import com.lawinfo.domain.org.vo.OrgVo;

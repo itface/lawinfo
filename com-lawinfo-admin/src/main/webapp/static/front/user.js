@@ -11,6 +11,7 @@ var user = {
     },
     refreshPage : function() {
         if (userSelectedNode != null) {
+            currentPage = 1;
             if (userSelectedNode.type == 1 && userSelectedNode.id > 0) {
                 $('#case-doing-tab').click();
                 currentTabType=1;

@@ -14,6 +14,7 @@ public class Role extends BaseDomain {
     @NotBlank
     @Length(max=100)
     private String name;
+    private String roletag;
 
 
     public long getId() {
@@ -32,4 +33,11 @@ public class Role extends BaseDomain {
         this.name = name;
     }
 
+    public String getRoletag() {
+        return roletag;
+    }
+
+    public void setRoletag(String roletag) {
+        this.roletag = roletag;
+    }
 }

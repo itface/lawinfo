@@ -1,13 +1,21 @@
 package com.lawinfo.service.front.impl;
 
 import com.lawinfo.dao.front.CaseInfoDao;
+import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.CaseInfoUser;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.front.query.CaseInfoUserQuery;
+import com.lawinfo.domain.org.Role;
+import com.lawinfo.domain.org.User;
+import com.lawinfo.domain.org.UserRole;
+import com.lawinfo.domain.org.enumtype.RoleTagEnum;
 import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.front.CaseInfoService;
 import com.lawinfo.service.front.CaseInfoUserService;
+import com.lawinfo.service.org.OrgService;
+import com.lawinfo.service.org.RoleService;
+import com.lawinfo.service.org.UserRoleService;
 import com.lawinfo.service.org.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +41,12 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     private CaseInfoUserService caseInfoUserService;
     @Resource
     private UserService userService;
+    @Resource
+    private UserRoleService userRoleService;
+    @Resource
+    private RoleService roleService;
+    @Resource
+    private OrgService orgService;
 
     @Override
     public List<CaseInfo> findAll() throws Exception{
@@ -57,6 +71,9 @@ public class CaseInfoServiceImpl implements CaseInfoService {
                 if (SysConstants.CASEINFO_TYPE_INIT!=caseInfo.getCasetype()) {
                     caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
                 }
+                long caseorgid = caseInfo.getCaseorgid();
+                String caseorgfullid = orgService.getFullPathId(caseorgid);
+                caseInfo.setCasefullorgid(caseorgfullid);
                 effectrows = caseInfoDao.save(caseInfo);
                 if (effectrows > 0) {
                     long caseinfoid = caseInfo.getId();
@@ -125,17 +142,36 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         List<CaseInfo> list = null;
         try {
             if (caseInfoQuery!=null&&!StringUtils.isEmpty(userid)) {
-                List<String> subordinate = userService.findAllSubordinate(userid);
-                if (subordinate==null) {
-                    subordinate = new ArrayList<String>();
-                }
-                subordinate.add(userid);
-                if (!CollectionUtils.isEmpty(subordinate)) {
-                    CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
-                    caseInfoUserQuery.setUserids(subordinate);
-                    List<Long> allCaseinfoid = caseInfoUserService.findAllCaseinfoid(caseInfoUserQuery);
-                    if (!CollectionUtils.isEmpty(allCaseinfoid)) {
-                        caseInfoQuery.setCaseinfoids(allCaseinfoid);
+                List<UserRole> userRoles = userRoleService.findByUserid(userid);
+                if (!CollectionUtils.isEmpty(userRoles)) {
+                    boolean queryflag = false;
+                    for (UserRole userRole : userRoles) {
+                        long roleid = userRole.getRoleid();
+                        Role role = roleService.findById(roleid);
+                        if (role != null) {
+                            String roletag = role.getRoletag();
+                            //部门负责人和诉讼负责人和团队负责人,都可以查询所有案件,主办律师,只能查询诉讼律师或执行律师是自已的.
+                            //客户的负责人能查看他们单位的所有案件,客户经理只能查询自已经办的案件
+                            if (RoleTagEnum.LAWYER.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setLawyer(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.LAWYER_SS_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_EXECUTE_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_COMPANY_MANAGER.getRoletag().equals(roletag)) {
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setContact(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM_COMPANY_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.CUSTOM_DEPT_MANAGER.getRoletag().equals(roletag)) {
+                                User user = userService.findByUserid(userid);
+                                caseInfoQuery.setCaseorgid(user.getOrgid());
+                                queryflag=true;
+                                break;
+                            }
+                        }
+                    }
+                    if (queryflag) {
                         list = caseInfoDao.findList(caseInfoQuery);
                     }
                 }
@@ -148,16 +184,119 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     }
 
     @Override
-    public List<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery)throws Exception {
-        logger.info("findListByPage begin,caseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString());
+    public List<CaseInfo> findComputeFieldList(CaseInfoQuery caseInfoQuery, String userid) throws Exception {
         List<CaseInfo> list = null;
         try {
-            list = caseInfoDao.findListByPage(caseInfoQuery);
+            if (caseInfoQuery!=null&&!StringUtils.isEmpty(userid)) {
+                List<UserRole> userRoles = userRoleService.findByUserid(userid);
+                if (!CollectionUtils.isEmpty(userRoles)) {
+                    boolean queryflag = false;
+                    for (UserRole userRole : userRoles) {
+                        long roleid = userRole.getRoleid();
+                        Role role = roleService.findById(roleid);
+                        if (role != null) {
+                            String roletag = role.getRoletag();
+                            //部门负责人和诉讼负责人和团队负责人,都可以查询所有案件,主办律师,只能查询诉讼律师或执行律师是自已的.
+                            //客户的负责人能查看他们单位的所有案件,客户经理只能查询自已经办的案件
+                            if (RoleTagEnum.LAWYER.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setLawyer(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.LAWYER_SS_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_EXECUTE_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_COMPANY_MANAGER.getRoletag().equals(roletag)) {
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setContact(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM_COMPANY_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.CUSTOM_DEPT_MANAGER.getRoletag().equals(roletag)) {
+                                User user = userService.findByUserid(userid);
+                                caseInfoQuery.setCaseorgid(user.getOrgid());
+                                queryflag=true;
+                                break;
+                            }
+                        }
+                    }
+                    if (queryflag) {
+                        list = caseInfoDao.findComputeFieldList(caseInfoQuery);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findList error,CaseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString(), e);
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public PageVo<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery,String userid)throws Exception {
+        logger.info("findListByPage begin,caseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString());
+        PageVo<CaseInfo> pageVo = new PageVo<CaseInfo>();
+        try {
+            if (caseInfoQuery != null&&!StringUtils.isEmpty(userid)) {
+                int page = caseInfoQuery.getPage();
+                if (page < 1) {
+                    page = 1;
+                }
+                int pagesize = caseInfoQuery.getPageSize();
+                if (pagesize < 1) {
+                    pagesize = 20;
+                }
+                int startRow = (page - 1) * pagesize;
+                List<UserRole> userRoles = userRoleService.findByUserid(userid);
+                if (!CollectionUtils.isEmpty(userRoles)) {
+                    boolean queryflag = false;
+                    for (UserRole userRole : userRoles) {
+                        long roleid = userRole.getRoleid();
+                        Role role = roleService.findById(roleid);
+                        if (role != null) {
+                            String roletag = role.getRoletag();
+                            //部门负责人和诉讼负责人和团队负责人,都可以查询所有案件,主办律师,只能查询诉讼律师或执行律师是自已的.
+                            //客户的负责人能查看他们单位的所有案件,客户经理只能查询自已经办的案件
+                            if (RoleTagEnum.LAWYER.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setLawyer(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.LAWYER_SS_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_EXECUTE_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_COMPANY_MANAGER.getRoletag().equals(roletag)) {
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM.getRoletag().equals(roletag)) {
+                                caseInfoQuery.setContact(userid);
+                                queryflag=true;
+                                break;
+                            }else if (RoleTagEnum.CUSTOM_COMPANY_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.CUSTOM_DEPT_MANAGER.getRoletag().equals(roletag)) {
+                                User user = userService.findByUserid(userid);
+                                caseInfoQuery.setCaseorgid(user.getOrgid());
+                                queryflag=true;
+                                break;
+                            }
+                        }
+                    }
+                    if (queryflag) {
+                        caseInfoQuery.setPageSize(pagesize);
+                        caseInfoQuery.setStartRow(startRow);
+                        int total = this.count(caseInfoQuery);
+                        if (total>0) {
+                            List<CaseInfo> list = caseInfoDao.findListByPage(caseInfoQuery);
+                            pageVo.setList(list);
+                            pageVo.setPage(page);
+                            pageVo.setPagesize(pagesize);
+                            pageVo.setTotal(total);
+                            if (total > (page * pagesize)) {
+                                pageVo.setHavenext(true);
+                            }else{
+                                pageVo.setHavenext(false);
+                            }
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
             logger.error("findListByPage error,caseInfoQuery=" + caseInfoQuery==null?"null":caseInfoQuery.toLogString(), e);
             throw e;
         }
-        return list;
+        return pageVo;
     }
 
     @Override
@@ -345,17 +484,43 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     @Override
     public boolean ifAllowd(String userid, long caseinfoid)throws Exception {
         try {
-            CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
-            caseInfoUserQuery.setCaseinfoid(caseinfoid);
-            List<String> subordinate = userService.findAllSubordinate(userid);
-            if (subordinate==null) {
-                subordinate = new ArrayList<String>();
-            }
-            subordinate.add(userid);
-            caseInfoUserQuery.setUserids(subordinate);
-            List<CaseInfoUser> list = caseInfoUserService.findList(caseInfoUserQuery);
-            if (!CollectionUtils.isEmpty(list)) {
-                return true;
+            List<UserRole> userRoles = userRoleService.findByUserid(userid);
+            if (!CollectionUtils.isEmpty(userRoles)) {
+                boolean queryflag = false;
+                CaseInfoQuery caseInfoQuery = new CaseInfoQuery();
+                for (UserRole userRole : userRoles) {
+                    long roleid = userRole.getRoleid();
+                    Role role = roleService.findById(roleid);
+                    if (role != null) {
+                        String roletag = role.getRoletag();
+                        //部门负责人和诉讼负责人和团队负责人,都可以查询所有案件,主办律师,只能查询诉讼律师或执行律师是自已的.
+                        //客户的负责人能查看他们单位的所有案件,客户经理只能查询自已经办的案件
+                        if (RoleTagEnum.LAWYER.getRoletag().equals(roletag)) {
+                            caseInfoQuery.setLawyer(userid);
+                            queryflag=true;
+                            break;
+                        }else if (RoleTagEnum.LAWYER_SS_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_EXECUTE_DEPT_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.LAWYER_COMPANY_MANAGER.getRoletag().equals(roletag)) {
+                            queryflag=true;
+                            break;
+                        }else if (RoleTagEnum.CUSTOM.getRoletag().equals(roletag)) {
+                            caseInfoQuery.setContact(userid);
+                            queryflag=true;
+                            break;
+                        }else if (RoleTagEnum.CUSTOM_COMPANY_MANAGER.getRoletag().equals(roletag)||RoleTagEnum.CUSTOM_DEPT_MANAGER.getRoletag().equals(roletag)) {
+                            User user = userService.findByUserid(userid);
+                            caseInfoQuery.setCaseorgid(user.getOrgid());
+                            queryflag=true;
+                            break;
+                        }
+                    }
+                }
+                if (queryflag) {
+                    caseInfoQuery.setId(caseinfoid);
+                    List<CaseInfo> list = caseInfoDao.findComputeFieldList(caseInfoQuery);
+                    if (!CollectionUtils.isEmpty(list)) {
+                        return true;
+                    }
+                }
             }
         } catch (Exception e) {
             logger.error("ifAllowd error,userid=" + caseinfoid + ",caseinfoid:" + caseinfoid, e);

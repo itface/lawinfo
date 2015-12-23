@@ -32,5 +32,5 @@ public interface OrgService {
 
     public int deleteById(long id)throws Exception;
     public void deleteByParentorgid(long parentorgid)throws Exception;
-
+    public String getFullPathId(long id)throws Exception;
 }

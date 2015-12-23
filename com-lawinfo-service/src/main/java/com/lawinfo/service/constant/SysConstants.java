@@ -23,5 +23,7 @@ public class SysConstants {
         FRONT_TAGS.add("front-case-remove");
         FRONT_TAGS.add("front-caseinfo-exelawyer-add");
         FRONT_TAGS.add("front-case-report-list");
+        FRONT_TAGS.add("caseinfo-progress-edit-tab");
+        FRONT_TAGS.add("caseinfo-progress-query-tab");
     }
 }

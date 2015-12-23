@@ -1,6 +1,7 @@
 package com.lawinfo.service.front.impl;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.CaseInfoUser;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -31,15 +33,6 @@ public class EchartsServiceImpl implements EchartsService {
 
     @Resource
     private CaseInfoService caseInfoService;
-    @Resource
-    private UserService userService;
-    @Resource
-    private CaseInfoUserService caseInfoUserService;
-    @Override
-    public CaseInfoChart getCountCaseinfoChartData(String userid) {
-
-        return null;
-    }
 
     private int getYear(long time){
         Calendar calendar = Calendar.getInstance();
@@ -47,26 +40,69 @@ public class EchartsServiceImpl implements EchartsService {
         int year = calendar.get(Calendar.YEAR);
         return year;
     }
-    private Multimap<String, CaseInfo> buildMultimap(List<CaseInfoUser> caseInfoUsers,List<CaseInfo> list) {
-        if (!CollectionUtils.isEmpty(caseInfoUsers)&&!CollectionUtils.isEmpty(list)) {
-            Multimap<String, CaseInfo> caseInfoMultimap = ArrayListMultimap.create();
-            for (CaseInfoUser caseInfoUser : caseInfoUsers) {
-                for (CaseInfo caseInfo : list) {
-                    if (caseInfoUser.getCaseinfoid() == caseInfo.getId()) {
-                        String userid = caseInfoUser.getUserid();
-                        String key = userid+","+getYear(caseInfo.getCreatetime());
+    private void buildMultimap(List<CaseInfo> list,Multimap<String, CaseInfo> caseInfoMultimap,Multimap<Integer, Double> totalcaseInfoMultimap) {
+        if (!CollectionUtils.isEmpty(list)) {
+            for (CaseInfo caseInfo : list) {
+                String sslawyers = caseInfo.getSslawyers();
+                String exelawyers = caseInfo.getExelawyers();
+                int year = getYear(caseInfo.getCreatetime());
+                double amount = caseInfo.getRealtotalprice();
+                totalcaseInfoMultimap.put(year, amount);
+                if (!StringUtils.isEmpty(sslawyers)) {
+                    String[] sslawyerArr = sslawyers.split(",");
+                    for (int i = 0; i < sslawyerArr.length; i++) {
+                        String key = sslawyerArr[i]+","+year;
+                        caseInfoMultimap.put(key, caseInfo);
+                    }
+                }
+                if (!StringUtils.isEmpty(exelawyers)) {
+                    String[] exelawyerArr = exelawyers.split(",");
+                    for (int i = 0; i < exelawyerArr.length; i++) {
+                        String key = exelawyerArr[i]+","+year;
                         caseInfoMultimap.put(key, caseInfo);
                     }
                 }
             }
-            return caseInfoMultimap;
         }
-        return null;
     }
-    private CaseInfoChart buildCaseInfoChart(Multimap<String, CaseInfo> caseInfoMultimap) {
+    private void setTotal(CaseInfoChart caseInfoChart,Multimap<Integer, Double> totalcaseInfoMultimap){
+        if (totalcaseInfoMultimap != null&&totalcaseInfoMultimap.size()>0) {
+            List<EchartsSerie> totalCaseCounts = new ArrayList<EchartsSerie>();
+            List<EchartsSerie> totalCaseAmount = new ArrayList<EchartsSerie>();
+            List<String> totallegendData = new ArrayList<String>();
+            Set<Integer> keySet1 = totalcaseInfoMultimap.keySet();
+            for (Iterator<Integer> iter = keySet1.iterator(); iter.hasNext();) {
+                Integer key = iter.next();
+                String year = String.valueOf(key);
+                Collection<Double> collection = totalcaseInfoMultimap.get(key);
+                List<String> totalmoney = new ArrayList<String>();
+                List<String> totalcount = new ArrayList<String>();
+                totalcount.add(String.valueOf(collection.size()));
+                double amount = 0;
+                for (double money : collection) {
+                    amount = amount+money;
+                }
+                totallegendData.add(year);
+                totalmoney.add(String.valueOf(amount));
+                EchartsSerie echartsSerie3 = new EchartsSerie();
+                echartsSerie3.setName(year);
+                echartsSerie3.setType("bar");
+                echartsSerie3.setData(totalmoney);
+                EchartsSerie echartsSerie4 = new EchartsSerie();
+                echartsSerie4.setName(year);
+                echartsSerie4.setType("bar");
+                echartsSerie4.setData(totalcount);
+                totalCaseCounts.add(echartsSerie4);
+                totalCaseAmount.add(echartsSerie3);
+            }
+            caseInfoChart.setTotallegendData(totallegendData);
+            caseInfoChart.setTotalcaseAmount(totalCaseAmount);
+            caseInfoChart.setTotalcaseCounts(totalCaseCounts);
+        }
+    }
+    private void setByPerson(CaseInfoChart caseInfoChart,Multimap<String, CaseInfo> caseInfoMultimap){
         if (caseInfoMultimap != null&&caseInfoMultimap.size()>0) {
             logger.info("buildCaseInfoChart caseInfoMultimap size:"+caseInfoMultimap.size());
-            CaseInfoChart caseInfoChart = new CaseInfoChart();
             List<String> xAxisDataList = new ArrayList<String>();
             List<EchartsSerie> series = new ArrayList<EchartsSerie>();
             List<String> legendData = new ArrayList<String>();
@@ -74,18 +110,13 @@ public class EchartsServiceImpl implements EchartsService {
             Set<String> keySet = caseInfoMultimap.keySet();
             Set<String> yearSet = new HashSet<String>();
             Map<String, String> userMap = new HashMap<String, String>();
-            logger.info("buildCaseInfoChart keySet size:"+keySet.size());
             for (Iterator<String> iter = keySet.iterator(); iter.hasNext();) {
                 String key = iter.next();
                 String[] useridAndYear = key.split(",");
                 String userid = useridAndYear[0];
                 String year = useridAndYear[1];
                 yearSet.add(year);
-                User user = UserUtils.findByUserid(userid);
-                if (user != null) {
-                    userMap.put(userid, user.getName());
-                }
-                logger.info("buildCaseInfoChart key :"+key);
+                userMap.put(userid, userid.substring(0,userid.indexOf("[")));
             }
             Set<String> userids = userMap.keySet();
             for (Iterator<String> iter = yearSet.iterator(); iter.hasNext();) {
@@ -97,29 +128,26 @@ public class EchartsServiceImpl implements EchartsService {
                 EchartsSerie echartsSerie2 = new EchartsSerie();
                 echartsSerie2.setName(year);
                 echartsSerie2.setType("bar");
+
                 List<String> money = new ArrayList<String>();
                 List<String> count = new ArrayList<String>();
-                logger.info("buildCaseInfoChart year:"+year);
+
                 for (Iterator<String> iter2 = userids.iterator(); iter2.hasNext();) {
                     String userid = iter2.next();
                     String name = userMap.get(userid);
                     xAxisDataList.add(name);
                     String key = userid+","+year;
                     Collection<CaseInfo> caseInfos = caseInfoMultimap.get(key);
-                    logger.info("buildCaseInfoChart key:"+key+",caseinfos size:"+caseInfos.size());
                     double totalPrice = 0;
                     for (CaseInfo caseInfo : caseInfos) {
                         long time = caseInfo.getCreatetime();
                         String caseinfoYear = String.valueOf(getYear(time));
-                        logger.info("buildCaseInfoChart key:"+key+",caseinfoYear"+caseinfoYear);
                         if (year.equals(caseinfoYear)) {
                             double price = caseInfo.getRealtotalprice();
                             totalPrice += price;
-                            logger.info("buildCaseInfoChart key:"+key+",price"+price);
 
                         }
                     }
-                    logger.info("buildCaseInfoChart key:"+key+",totalPrice:"+totalPrice);
                     money.add(String.valueOf(totalPrice));
                     count.add(String.valueOf(caseInfos.size()));
                 }
@@ -132,34 +160,34 @@ public class EchartsServiceImpl implements EchartsService {
             caseInfoChart.setLegendData(legendData);
             caseInfoChart.setxAxisDataList(xAxisDataList);
             caseInfoChart.setCaseCounts(caseCounts);
-            return caseInfoChart;
         }
-        return null;
+    }
+    private CaseInfoChart buildCaseInfoChart(Multimap<String, CaseInfo> caseInfoMultimap,Multimap<Integer, Double> totalcaseInfoMultimap) {
+        logger.info("buildCaseInfoChart caseInfoMultimap size:"+caseInfoMultimap.size());
+        CaseInfoChart caseInfoChart = new CaseInfoChart();
+        setByPerson(caseInfoChart,caseInfoMultimap);
+        setTotal(caseInfoChart,totalcaseInfoMultimap);
+        return caseInfoChart;
+    }
+    private long getStarttime(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int startYear = year-1;
+        calendar.set(startYear,0,1,0,0,0);
+        return calendar.getTimeInMillis();
     }
     @Override
     public CaseInfoChart getCountCaseinfoMoneyChartData(String userid)throws Exception{
         try {
-            List<String> subordinate = userService.findAllSubordinate(userid);
-            if (subordinate==null) {
-                subordinate = new ArrayList<String>();
-            }
-            subordinate.add(userid);
-            CaseInfoUserQuery caseInfoUserQuery = new CaseInfoUserQuery();
-            caseInfoUserQuery.setUserids(subordinate);
-            List<CaseInfoUser> caseInfoUsers = caseInfoUserService.findList(caseInfoUserQuery);
-            if (!CollectionUtils.isEmpty(caseInfoUsers)) {
-                List<Long> allCaseinfoid = new ArrayList<Long>();
-                for (CaseInfoUser caseInfoUser : caseInfoUsers) {
-                    allCaseinfoid.add(caseInfoUser.getCaseinfoid());
-                }
-                CaseInfoQuery caseInfoQuery = new CaseInfoQuery();
-                caseInfoQuery.setCaseinfoids(allCaseinfoid);
-                List<CaseInfo> list = caseInfoService.findList(caseInfoQuery);
-                Multimap<String, CaseInfo> caseInfoMultimap = buildMultimap(caseInfoUsers,list);
-                if (caseInfoMultimap != null) {
-                    CaseInfoChart caseInfoChart = buildCaseInfoChart(caseInfoMultimap);
-                    return caseInfoChart;
-                }
+            CaseInfoQuery caseInfoQuery = new CaseInfoQuery();
+            caseInfoQuery.setStartcreatetime(getStarttime());
+            List<CaseInfo> list = caseInfoService.findComputeFieldList(caseInfoQuery, userid);
+            Multimap<String, CaseInfo> caseInfoMultimap = ArrayListMultimap.create();
+            Multimap<Integer, Double> totalcaseInfoMultimap = ArrayListMultimap.create();
+            buildMultimap(list,caseInfoMultimap,totalcaseInfoMultimap);
+            if (caseInfoMultimap != null) {
+                CaseInfoChart caseInfoChart = buildCaseInfoChart(caseInfoMultimap,totalcaseInfoMultimap);
+                return caseInfoChart;
             }
         } catch (Exception e) {
             logger.error("getCountCaseinfoMoneyChartData error",e);

@@ -1,12 +1,14 @@
 package com.lawinfo.domain.front.query;
 
+import com.lawinfo.domain.common.BaseQuery;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wangrongtao on 15/11/9.
  */
-public class CaseInfoUserQuery implements Serializable {
+public class CaseInfoUserQuery extends BaseQuery{
     private Long id;
     private Long caseinfoid;
     private List<String> userids;

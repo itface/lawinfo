@@ -359,4 +359,10 @@ public class OrgServiceImpl implements OrgService{
             logger.error("deleteByParentorgid error,parentorgid=" + parentorgid, e);
         }
     }
+
+    @Override
+    public String getFullPathId(long id) throws Exception {
+        String fullPathId = OrgUtils.getFullPathId(id);
+        return fullPathId;
+    }
 }

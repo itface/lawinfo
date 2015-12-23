@@ -17,6 +17,7 @@ public interface CaseInfoDao {
     public CaseInfo findById(long id);
 
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery);
+    public List<CaseInfo> findComputeFieldList(CaseInfoQuery caseInfoQuery);
 
     public List<CaseInfo> findListByPage(CaseInfoQuery caseInfoQuery);
 

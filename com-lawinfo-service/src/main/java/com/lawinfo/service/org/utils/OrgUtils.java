@@ -53,4 +53,16 @@ public class OrgUtils {
     public static Org findById(long id){
         return orgMap.get(id);
     }
+    public static String getFullPathId(long id){
+        if (id>0) {
+            Org org = findById(id);
+            StringBuilder sb = new StringBuilder();
+            if (org != null) {
+                String parentorgid = getFullPathId(org.getParentorgid());
+                sb.append(parentorgid).append(" ").append(id);
+                return sb.toString().trim();
+            }
+        }
+        return "";
+    }
 }

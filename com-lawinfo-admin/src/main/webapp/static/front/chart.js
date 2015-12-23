@@ -61,10 +61,66 @@ var chart = {
                 ],
                 series : data.caseCounts
             };
+            var option3 = {
+                title : {
+                    text: '总案件数量',
+                    subtext: ''
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:data.totallegendData
+                },
+                calculable : true,
+                yAxis : [
+                    {
+                        type : 'value',
+                        boundaryGap : [0, 0.01]
+                    }
+                ],
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : data.totallegendData
+                    }
+                ],
+                series : data.totalcaseCounts
+            };
+            var option4 = {
+                title : {
+                    text: '总案件金额',
+                    subtext: ''
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:data.totallegendData
+                },
+                calculable : true,
+                yAxis : [
+                    {
+                        type : 'value',
+                        boundaryGap : [0, 0.01]
+                    }
+                ],
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : data.totallegendData
+                    }
+                ],
+                series : data.totalcaseAmount
+            };
             var myChart = echarts.init(document.getElementById('chart1'));
             myChart.setOption(option1);
             var myChart2 = echarts.init(document.getElementById('chart2'));
             myChart2.setOption(option2);
+            var myChart3 = echarts.init(document.getElementById('chart3'));
+            myChart3.setOption(option3);
+            var myChart4 = echarts.init(document.getElementById('chart4'));
+            myChart4.setOption(option4);
         }else{
             mainAlert('暂无数据');
         }

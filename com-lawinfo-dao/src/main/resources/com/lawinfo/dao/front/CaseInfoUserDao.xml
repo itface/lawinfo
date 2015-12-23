@@ -6,9 +6,14 @@
         <result column="caseinfoid" property="caseinfoid"/>
         <result column="userid" property="userid"/>
         <result column="usertype" property="usertype"/>
+        <result column="createtime" property="createtime"/>
+        <result column="createtimestr" property="createtimestr"/>
+        <result column="modifiedtime" property="modifiedtime"/>
+        <result column="modifiedtimestr" property="modifiedtimestr"/>
+        <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,caseinfoid,userid,usertype
+         id,caseinfoid,userid,usertype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -51,12 +56,21 @@
         from
         caseinfouser
         <include refid="condition"/>
+        order by createtime desc
     </select>
     <select id="findAllCaseinfoid" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery"  resultType="Long">
-        select caseinfoid
+        select DISTINCT (caseinfoid)
         from
         caseinfouser
         <include refid="condition"/>
+    </select>
+    <select id="findAllCaseinfoidByPage" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery"  resultType="Long">
+        select DISTINCT (caseinfoid)
+        from
+        caseinfouser
+        <include refid="condition"/>
+        order by createtime desc
+        <include refid="page"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery"  resultMap="ResultMap">
         select
@@ -64,11 +78,12 @@
         from
         caseinfouser
         <include refid="condition"/>
+        order by createtime desc
         <include refid="page"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.front.CaseInfoUser">
-        insert into caseinfouser(caseinfoid,userid,usertype)
-        values(#{caseinfoid},#{userid},#{usertype})
+        insert into caseinfouser(caseinfoid,userid,usertype,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid)
+        values(#{caseinfoid},#{userid},#{usertype},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from caseinfouser where id=#{id}
@@ -79,4 +94,11 @@
     <!--<update id="update" parameterType="com.icreate.entity.User">
         update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
     </update>-->
+    <select id="count" parameterType="com.lawinfo.domain.front.query.CaseInfoUserQuery" resultType="int">
+        SELECT
+        COUNT(DISTINCT (caseinfoid))
+        FROM
+        caseinfouser
+        <include refid="condition"/>
+    </select>
 </mapper>
