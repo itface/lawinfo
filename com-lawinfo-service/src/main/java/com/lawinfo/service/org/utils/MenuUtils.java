@@ -35,6 +35,9 @@ public class MenuUtils {
     public static List<Menu> findAll(){
         List<Menu> list = new ArrayList<Menu>();
         list.addAll(menutMap.values());
+        if (!CollectionUtils.isEmpty(list)) {
+            Collections.sort(list);
+        }
         return list;
     }
     public static List<Menu> findByIds(Long[] ids){

@@ -24,6 +24,7 @@ public class UserVo extends BaseDomain {
     private String roleids;
     private String rolenames;
     private Long orgid;
+    private String orgname;
     /**
      * 0代表密码验证，1代码短信验证
      */
@@ -91,5 +92,13 @@ public class UserVo extends BaseDomain {
 
     public void setLogintype(int logintype) {
         this.logintype = logintype;
+    }
+
+    public String getOrgname() {
+        return orgname;
+    }
+
+    public void setOrgname(String orgname) {
+        this.orgname = orgname;
     }
 }

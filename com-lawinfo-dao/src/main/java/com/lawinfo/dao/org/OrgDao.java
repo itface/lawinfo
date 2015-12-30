@@ -14,8 +14,10 @@ public interface OrgDao {
     public List<Org> findByParentorgid(Long parentorgid);
 
     public int save(Org org);
+    public int update(Org org);
 
     public Org findById(Long id);
+    public Org findByOrgtag(String orgtag);
 
     public List<Org> findList(OrgQuery orgQuery);
 

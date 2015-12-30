@@ -158,19 +158,53 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findById(long id)throws Exception {
+    public User findById(long id) throws Exception {
         logger.info("findById begin,id:"+id);
         User user = null;
         try {
             user = UserUtils.findById(id);
+            if (user == null) {
+                user = userDao.findById(id);
+            }
+        } catch (Exception e) {
+        }
+        return user;
+    }
+
+    @Override
+    public UserVo findUservoById(long id)throws Exception {
+//        logger.info("findById begin,id:"+id);
+        UserVo uservo = null;
+        try {
+            User user = UserUtils.findById(id);
             if (user==null) {
                 user = userDao.findById(id);
+            }
+            if (user != null) {
+                uservo = new UserVo();
+                uservo.setId(user.getId());
+                uservo.setLogintype(user.getLogintype());
+                uservo.setName(user.getName());
+                uservo.setOrgid(user.getOrgid());
+                uservo.setUserid(user.getUserid());
+                Org org = orgService.findById(user.getOrgid());
+                if (org != null) {
+                    uservo.setOrgname(org.getName());
+                }
+                List<UserRole> userRoles = userRoleService.findByUserid(user.getUserid());
+                if (!CollectionUtils.isEmpty(userRoles)) {
+                    StringBuilder sb = new StringBuilder();
+                    for (UserRole userRole : userRoles) {
+                        sb.append(userRole.getRoleid()).append(",");
+                    }
+                    uservo.setRoleids(sb.substring(0, sb.length() - 1));
+                }
             }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
         }
-        return user;
+        return uservo;
     }
 
     @Override
@@ -256,6 +290,39 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
+    public int updatebyUservo(UserVo userVo) throws Exception {
+        try {
+            if (userVo != null) {
+                User user2 = this.findById(userVo.getId());
+                if (user2!=null) {
+                    User user = new User();
+                    user.setId(userVo.getId());
+                    user.setName(userVo.getName());
+                    user.setOrgid(userVo.getOrgid());
+                    user.setLogintype(userVo.getLogintype());
+                    String roleids = userVo.getRoleids();
+                    userRoleService.deleteByUserid(user2.getUserid());
+                    if (!StringUtils.isEmpty(roleids)) {
+                        String[] roleidArr = roleids.split(",");
+                        for (int i = 0; i < roleidArr.length; i++) {
+                            UserRole userRole = new UserRole();
+                            userRole.setUserid(userVo.getUserid());
+                            userRole.setRoleid(Long.parseLong(roleidArr[i]));
+                            userRoleService.save(userRole);
+                        }
+                    }
+                    return userDao.update(user);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("saveByUservo error", e);
+            throw e;
+        }
+        return 0;
+    }
+
+    @Override
+    @Transactional
     public int saveByUservo(UserVo userVo) throws Exception {
         try {
             if (userVo != null) {
@@ -268,7 +335,7 @@ public class UserServiceImpl implements UserService{
                 user.setPwd(StrUtils.MD5(userVo.getUserid()));
                 user.initBaseDomain();
                 String roleids = userVo.getRoleids();
-                if (!StringUtils.isEmpty(userVo)) {
+                if (!StringUtils.isEmpty(roleids)) {
                     String[] roleidArr = roleids.split(",");
                     for (int i = 0; i < roleidArr.length; i++) {
                         UserRole userRole = new UserRole();

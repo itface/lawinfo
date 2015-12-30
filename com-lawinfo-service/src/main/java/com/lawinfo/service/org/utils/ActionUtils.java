@@ -39,6 +39,9 @@ public class ActionUtils {
     public static List<Action> findAll(){
         List<Action> list = new ArrayList<Action>();
         list.addAll(actionMap.values());
+        if (!CollectionUtils.isEmpty(list)) {
+            Collections.sort(list);
+        }
         return list;
     }
     public static Action findByActionid(long id){

@@ -1,5 +1,6 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
@@ -13,6 +14,7 @@ public interface OrgService {
     public void initCache()throws Exception;
 
     public List<OrgVo> findSubOrgTree(long orgid) throws Exception;
+    public List<EasyuiTree> findSubOrgTreeOfEasyui(long orgid) throws Exception;
     public List<OrgVo> findOrgTree()throws Exception;
     public List<OrgVo> findCustomTree()throws Exception;
     public List<OrgVo> findLawyerTree()throws Exception;
@@ -21,8 +23,10 @@ public interface OrgService {
 //    public List<Org> findAllBank() throws Exception;
 
     public int save(Org org)throws Exception;
+    public int update(Org org)throws Exception;
 
     public Org findById(long id)throws Exception;
+    public List<Org> findSubtree(long id)throws Exception;
 
     public List<Org> findList(OrgQuery orgQuery)throws Exception;
 

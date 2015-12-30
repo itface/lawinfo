@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class User extends BaseDomain {
+public class User extends BaseDomain implements Comparable<User>{
     private long id;
     @NotBlank
     @Length(max=100)
@@ -129,5 +129,12 @@ public class User extends BaseDomain {
     @Override
     public int hashCode() {
         return userid.hashCode();
+    }
+    @Override
+    public int compareTo(User o) {
+        if (o != null) {
+            return id > o.getId()?1:-1;
+        }
+        return 0;
     }
 }

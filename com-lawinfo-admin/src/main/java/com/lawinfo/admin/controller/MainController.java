@@ -28,7 +28,7 @@ import java.util.List;
 public class MainController {
 
     private final String[] MAIN_TAGS = {"admin-org-man","admin-org-man-add","admin-org-man-remove","admin-user-man","admin-user-man-add","admin-user-man-remove","admin-menu-man",
-            "admin-action-man","admin-role-man","admin-group-man"};
+            "admin-action-man","admin-role-man","admin-group-man","admin-org-man-update","admin-user-man-update"};
     @Resource
     private ActionService actionService;
     @Resource

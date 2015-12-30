@@ -1,6 +1,7 @@
 package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.domain.org.vo.UserVo;
 import com.lawinfo.service.org.UserService;
@@ -30,7 +31,12 @@ public class UserController {
 //        String userid = LoginInfo.getUseridFromSession(request.getSession());
         if (userVo != null) {
 //            user.setOptuserid(userid);
-            int rows = userService.saveByUservo(userVo);
+            int rows = 0;
+            if (userVo.getId()>0) {
+                rows = userService.updatebyUservo(userVo);
+            }else{
+                rows = userService.saveByUservo(userVo);
+            }
             return rows;
         }
         return 0;
@@ -46,6 +52,12 @@ public class UserController {
     public List<UserVo> find()throws Exception{
         List<UserVo> list = userService.findAllUservo();
         return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findbyid")
+    public UserVo findbyid(long id)throws Exception{
+        UserVo user = userService.findUservoById(id);
+        return user;
     }
     @ResponseBody
     @RequestMapping("/findtree")

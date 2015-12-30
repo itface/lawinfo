@@ -1,5 +1,6 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.vo.MenuVo;
 import com.lawinfo.domain.org.vo.RoleTreeVo;
@@ -49,6 +50,12 @@ public class RoleController {
     @RequestMapping("/findtree")
     public List<RoleTreeVo> findtree()throws Exception{
         List<RoleTreeVo> list = roleService.findAllTree();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findeutree")
+    public List<EasyuiTree> findeutree()throws Exception{
+        List<EasyuiTree> list = roleService.findAllEuTree();
         return list;
     }
 }

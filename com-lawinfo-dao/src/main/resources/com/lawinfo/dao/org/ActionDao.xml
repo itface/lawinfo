@@ -50,6 +50,7 @@
         <include refid="allColumn"/>
          from
           action
+        <include refid="orderby"/>
     </select>
     <select id="findById" parameterType="long"  resultMap="ActionResult">
         select
@@ -66,6 +67,7 @@
                  open="(" separator="," close=")">
             #{item}
         </foreach>
+        <include refid="orderby"/>
     </select>
     <select id="findByTags"  resultMap="ActionResult">
         select
@@ -76,6 +78,7 @@
                  open="(" separator="," close=")">
             #{item}
         </foreach>
+        <include refid="orderby"/>
     </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.ActionQuery"  resultMap="ActionResult">
         select
@@ -83,6 +86,7 @@
         from
         action
         <include refid="condition"/>
+        <include refid="orderby"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.ActionQuery"  resultMap="ActionResult">
         select
@@ -90,6 +94,7 @@
         from
         action
         <include refid="condition"/>
+        <include refid="orderby"/>
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.ActionQuery" resultType="int">

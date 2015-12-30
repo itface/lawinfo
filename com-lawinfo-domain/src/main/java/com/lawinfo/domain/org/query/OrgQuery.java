@@ -9,6 +9,7 @@ public class OrgQuery extends BaseQuery{
 
     private Long id;
     private String name;
+    private String orgtag;
     /**
      * 机构类型：1律所、2银行、3非银
      */
@@ -36,6 +37,14 @@ public class OrgQuery extends BaseQuery{
 
     public void setParentorgid(Long parentorgid) {
         this.parentorgid = parentorgid;
+    }
+
+    public String getOrgtag() {
+        return orgtag;
+    }
+
+    public void setOrgtag(String orgtag) {
+        this.orgtag = orgtag;
     }
 
     public String toLogString() {

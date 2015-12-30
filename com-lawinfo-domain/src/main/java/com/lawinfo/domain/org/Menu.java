@@ -5,7 +5,7 @@ import com.lawinfo.domain.common.BaseDomain;
 /**
  * Created by wangrongtao on 15/10/26.
  */
-public class Menu extends BaseDomain {
+public class Menu extends BaseDomain implements Comparable<Menu> {
     private long id;
     private String name;
     private String url;
@@ -41,5 +41,12 @@ public class Menu extends BaseDomain {
 
     public void setParentmenuid(long parentmenuid) {
         this.parentmenuid = parentmenuid;
+    }
+    @Override
+    public int compareTo(Menu o) {
+        if (o != null) {
+            return id > o.getId()?1:-1;
+        }
+        return 0;
     }
 }

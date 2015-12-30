@@ -42,12 +42,16 @@ public class OrgUtils {
                     list.add(org);
                 }
             }
+            Collections.sort(list);
         }
         return list;
     }
     public static List<Org> findAll(){
         List<Org> list = new ArrayList<Org>();
         list.addAll(orgMap.values());
+        if (!CollectionUtils.isEmpty(list)) {
+            Collections.sort(list);
+        }
         return list;
     }
     public static Org findById(long id){

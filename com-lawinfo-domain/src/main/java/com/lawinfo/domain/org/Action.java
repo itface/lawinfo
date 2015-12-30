@@ -5,7 +5,7 @@ import com.lawinfo.domain.common.BaseDomain;
 /**
  * Created by wangrongtao on 15/10/26.
  */
-public class Action extends BaseDomain {
+public class Action extends BaseDomain implements Comparable<Action>{
     private long id;
     private String name;
     /**
@@ -47,5 +47,13 @@ public class Action extends BaseDomain {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public int compareTo(Action o) {
+        if (o != null) {
+            return id > o.getId()?1:-1;
+        }
+        return 0;
     }
 }

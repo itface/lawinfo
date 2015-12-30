@@ -35,11 +35,15 @@
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
+    <sql id="orderby">
+        order by id asc
+    </sql>
     <select id="findAll" parameterType="com.lawinfo.domain.org.query.RoleQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
           role
+        <include refid="orderby"/>
     </select>
     <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
@@ -53,6 +57,7 @@
         from
         role
         <include refid="condition"/>
+        <include refid="orderby"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.RoleQuery"  resultMap="ResultMap">
         select
@@ -60,6 +65,7 @@
         from
         role
         <include refid="condition"/>
+        <include refid="orderby"/>
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.RoleQuery" resultType="int">

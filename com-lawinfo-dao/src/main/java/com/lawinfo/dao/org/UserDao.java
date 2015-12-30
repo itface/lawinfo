@@ -13,6 +13,7 @@ public interface UserDao {
     public List<User> findAll();
 
     public int save(User user);
+    public int update(User user);
 
     public User findById(Long id);
     public User findByUserid(String userid);

@@ -6,10 +6,7 @@ import com.lawinfo.domain.org.RoleMenu;
 import com.lawinfo.domain.org.UserRole;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 15/10/20.
@@ -42,6 +39,9 @@ public class RoleUtils {
     public static List<Role> findAll(){
         List<Role> list = new ArrayList<Role>();
         list.addAll(roleMap.values());
+        if (!CollectionUtils.isEmpty(list)) {
+            Collections.sort(list);
+        }
         return list;
     }
     public static Role findByRoleid(long id){

@@ -36,7 +36,7 @@ public class OrgInit {
     private RoleMenuService roleMenuService;
     @Resource
     private OrgService orgService;
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.OrgServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.OrgServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.OrgServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.OrgServiceImpl.update*(..))")
     public void saveOrginfo() {
         logger.info("saveOrginfo begin:");
         try {
@@ -54,7 +54,7 @@ public class OrgInit {
             logger.error("deleteOrg", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.MenuServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.MenuServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.MenuServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.MenuServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.MenuServiceImpl.update*(..))")
     public void saveMenu() {
         logger.info("saveMenu begin,menuname:");
         try {
@@ -72,7 +72,7 @@ public class OrgInit {
             logger.error("deleteMenu exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.ActionServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.ActionServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.ActionServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.ActionServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.ActionServiceImpl.update*(..))")
     public void saveAction() {
         logger.info("saveAction begin,action:");
         try {
@@ -90,7 +90,7 @@ public class OrgInit {
             logger.error("deleteAction exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.RoleServiceImpl.update*(..))")
     public void saveRole() {
         logger.info("saveRole begin");
         try {
@@ -136,7 +136,7 @@ public class OrgInit {
             logger.error("deleteUser exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.UserRoleServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.UserRoleServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.UserRoleServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.UserRoleServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.UserRoleServiceImpl.update*(..))")
      public void saveUserRole() {
         try {
             userRoleService.initCache();
@@ -153,7 +153,7 @@ public class OrgInit {
             logger.error("deleteUserRoleById exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleActionServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleActionServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleActionServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleActionServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.RoleActionServiceImpl.update*(..))")
      public void saveRoleAction() {
         try {
             roleActionService.initCache();
@@ -170,7 +170,7 @@ public class OrgInit {
             logger.error("deleteRoleActionById exception", e);
         }
     }
-    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleMenuServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleMenuServiceImpl.insert*(..))")
+    @AfterReturning(value="execution(* com.lawinfo.service.org.impl.RoleMenuServiceImpl.save*(..))||execution(* com.lawinfo.service.org.impl.RoleMenuServiceImpl.insert*(..))||execution(* com.lawinfo.service.org.impl.RoleMenuServiceImpl.update*(..))")
      public void saveRoleMenu() {
         try {
             roleMenuService.initCache();

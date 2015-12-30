@@ -53,11 +53,15 @@
     <sql id="page">
           limit #{startRow},#{pageSize}
     </sql>
+    <sql id="orderby">
+        order by id asc
+    </sql>
     <select id="findAll" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>
          from
           User
+        <include refid="orderby"/>
     </select>
     <select id="findById" parameterType="long"  resultMap="ResultMap">
         select
@@ -77,6 +81,7 @@
         from
         User
         <include refid="condition"/>
+        <include refid="orderby"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.UserQuery"  resultMap="ResultMap">
         select
@@ -84,6 +89,7 @@
         from
         User
         <include refid="condition"/>
+        <include refid="orderby"/>
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.UserQuery" resultType="int">
@@ -102,5 +108,8 @@
     </delete>
     <update id="updateLoginStatus" parameterType="com.lawinfo.domain.org.User">
         update user set loginfailcount=#{loginfailcount},lastlogintime=#{lastlogintime},lastlogintimestr=#{lastlogintimestr} where userid=#{userid}
+    </update>
+    <update id="update" parameterType="com.lawinfo.domain.org.User">
+        update user set name=#{name},orgid=#{orgid},logintype=#{logintype} where id=#{id}
     </update>
 </mapper>

@@ -19,32 +19,33 @@ var user = {
         jQuery('#userform .has-error').show();
     },
     initClickEvent:function(){
+        var self = this;
         jQuery('#user').unbind('click');
         jQuery('#user .btn-add').unbind('click');
+        jQuery('#user .btn-update').unbind('click');
         jQuery('#userModal .btn-save').unbind('click');
         jQuery('#user .btn-rm').unbind('click');
-    },
-    init:function(){
-        var self = this;
-        self.initClickEvent();
-        self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
-
         jQuery('#user .btn-add').on('click', function (e) {
             if (selectUserTreeNode&&selectUserTreeNode.type!=1&&selectUserTreeNode.id>0) {
-                jQuery('#userModal').modal('show');
+                self.showcreateform();
             }else{
                 mainAlert('请选择要添加的用户所在的部门，不能选择用户');
             }
         });
-        $('#userModal').on('show.bs.modal', function () {
-            self.initUserRoleTree($.proxy(self.buildUserRoleTree,self));
+        jQuery('#user .btn-update').on('click', function (e) {
+            if (selectUserTreeNode&&selectUserTreeNode.type==1&&selectUserTreeNode.id>0) {
+                self.showupdateform();
+            }else{
+                mainAlert('只能更新用户');
+            }
         });
         jQuery('#userModal .btn-save').on('click',function(e){
             var username = jQuery('#userform  #username').val();
             var userid = jQuery('#userform  #userid').val();
             var roleids = jQuery('#userform  #userroleids').val();
             var logintype = jQuery('#userform  #logintype').val();
-            var orgid = selectUserTreeNode.id;
+            var orgid = jQuery('#userform  #userorgid').val();
+            var id = jQuery('#userform  #userrowid').val();
             if (!self.checkPhoneNo(userid)) {
                 self.saveUserAlert('用户id只能是手机号码');
                 return false;
@@ -67,7 +68,7 @@ var user = {
             }
             jQuery.ajax({
                 url:'/lawinfo/admin/user/add',
-                data:{name:username,userid:userid,roleids:roleids,orgid:orgid,logintype:logintype},
+                data:{id:id,name:username,userid:userid,roleids:roleids,orgid:orgid,logintype:logintype},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {
@@ -83,7 +84,132 @@ var user = {
             });
         });
         jQuery('#user .btn-rm').on('click',$.proxy(this.delUser,this));
+    },
+    initformdata:function(){
+        jQuery('#userform  #userrowid').val(0);
+        jQuery('#userform  #username').val('');
+        jQuery('#userform  #userid').val('');
+        jQuery('#userform  #userroleids').val('');
+        jQuery('#userform  #logintype').val('');
+        jQuery('#userform  #userorgid').val('');
+        jQuery('#userform  #userorgname').val('');
+        jQuery('#userform  #userid').attr('readonly',false);
+    },
+    init:function(){
+        var self = this;
+        self.initClickEvent();
+        self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
         self.showUserTable($.proxy(self.buildUserTable,this));
+    },
+    setSelectedEuOrgTreeNode:function(){
+        var nodes = $('#user-org-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            var value = '';
+            for (var i=0; i<nodes.length;i++) {
+                var nodeid = nodes[i].id;
+                value= value+nodeid+",";
+            }
+            value = value.substring(0, value.length - 1);
+            $('#userorgid').val(value);
+        }else{
+            $('#userorgid').val('');
+        }
+    },
+    setOrginfo:function(node){
+        if (node) {
+            jQuery('#userform  #userorgid').val(node.id);
+            jQuery('#userform  #userorgname').val(node.text);
+        }
+    },
+    setSelectedEuTreeNode:function(){
+        var nodes = $('#user-role-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            var value = '';
+            for (var i=0; i<nodes.length;i++) {
+                var nodeid = nodes[i].id;
+                value= value+nodeid+",";
+            }
+            value = value.substring(0, value.length - 1);
+            $('#userroleids').val(value);
+        }else{
+            $('#userroleids').val('');
+        }
+    },
+    initEuUserRoleTree:function(){
+        var val = $('#userroleids').val();
+        var nodes = $('#user-role-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            for (var i=0;i<nodes.length;i++) {
+                $('#user-role-tree').tree('uncheck',nodes[i].target);
+            }
+        }
+        if (val) {
+            var arr = val.split(',');
+            for (var i in arr) {
+                var node = $('#user-role-tree').tree('find',arr[i]);
+                if (node) {
+                    $('#user-role-tree').tree('check',node.target);
+                }
+            }
+        }
+        /*else{
+            var nodes = $('#user-role-tree').tree('getChecked');
+            if (nodes&&nodes.length>0) {
+                for (var i=0;i<nodes.length;i++) {
+                    $('#user-role-tree').tree('uncheck',nodes[i].target);
+                }
+            }
+        }*/
+    },
+    /*buildEuUserRoleTree:function(){
+        var self = this;
+        $('#user-role-tree').tree({
+            url:'/lawinfo/admin/role/findeutree',
+            checkbox:true,
+            onCheck:function(node, checked){
+                self.setSelectedEuTreeNode();
+            }
+        });
+        self.initEuUserRoleTree();
+    },*/
+    showcreateform:function(){
+        var self = this;
+        self.initformdata();
+        jQuery('#userModal').modal('show');
+    },
+    showupdateform:function(){
+        var self = this;
+        self.initformdata();
+        if (selectUserTreeNode.type==1&&selectUserTreeNode.id>0) {
+            jQuery.ajax({
+                url:'/lawinfo/admin/user/findbyid',
+                data:{id:selectUserTreeNode.id},
+                success:function(data) {
+                    if (data&&data.id>0) {
+                        self.setFormData(data);
+                    }else{
+                        self.saveUserAlert('查询用户信息出错');
+                    }
+                },
+                error:function() {
+                    self.saveUserAlert('查询用户信息异常');
+                }
+            }).done(function(){
+                jQuery('#userModal').modal('show');
+            });
+        }
+    },
+    setFormData:function(data){
+        if (data&&data.id>0) {
+            jQuery('#userform  #userrowid').val(data.id);
+            jQuery('#userform  #username').val(data.name);
+            jQuery('#userform  #userid').val(data.userid);
+            jQuery('#userform  #userorgid').val(data.orgid);
+            jQuery('#userform  #userorgname').val(data.orgname);
+            jQuery('#userform  #logintype').val(data.logintype);
+            jQuery('#userform  #userroleids').val(data.roleids);
+            jQuery('#userform  #userid').attr('readonly',true);
+        }
     },
     buildOrgUserTree : function(treedata) {
         var self = this;

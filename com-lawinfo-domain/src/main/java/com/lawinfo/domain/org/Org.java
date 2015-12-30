@@ -9,13 +9,12 @@ import javax.validation.constraints.Min;
 /**
  * Created by wangrongtao on 15/10/12.
  */
-public class Org extends BaseDomain {
+public class Org extends BaseDomain implements Comparable<Org> {
 
     private long id;
 
-    @NotBlank
-    @Length(max=100)
     private String name;
+    private String orgtag;
     private long parentorgid;
 
     public long getId() {
@@ -42,6 +41,14 @@ public class Org extends BaseDomain {
         this.parentorgid = parentorgid;
     }
 
+    public String getOrgtag() {
+        return orgtag;
+    }
+
+    public void setOrgtag(String orgtag) {
+        this.orgtag = orgtag;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,5 +63,13 @@ public class Org extends BaseDomain {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public int compareTo(Org o) {
+        if (o != null) {
+            return id > o.getId()?1:-1;
+        }
+        return 0;
     }
 }

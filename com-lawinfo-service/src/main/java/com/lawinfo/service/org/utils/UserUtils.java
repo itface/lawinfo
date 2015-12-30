@@ -37,6 +37,9 @@ public class UserUtils {
     public static List<User> findAll(){
         List<User> list = new ArrayList<User>();
         list.addAll(userMap.values());
+        if (!CollectionUtils.isEmpty(list)) {
+            Collections.sort(list);
+        }
         return list;
     }
     public static List<User> findByOrgid(long orgid){

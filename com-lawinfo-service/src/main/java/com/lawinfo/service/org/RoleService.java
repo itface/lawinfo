@@ -1,5 +1,6 @@
 package com.lawinfo.service.org;
 
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
 import com.lawinfo.domain.org.query.RoleQuery;
@@ -19,6 +20,7 @@ public interface RoleService {
     public List<RoleVo> findAllVo()throws Exception;
     public List<Role> findAllFromDb() throws Exception;
     public List<RoleTreeVo> findAllTree()throws Exception;
+    public List<EasyuiTree> findAllEuTree()throws Exception;
     public int save(String name,String roletag,String menuids,String actionids)throws Exception;
 
     public Role findById(long id)throws Exception;

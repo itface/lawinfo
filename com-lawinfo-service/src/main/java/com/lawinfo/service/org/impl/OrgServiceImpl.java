@@ -3,6 +3,7 @@ package com.lawinfo.service.org.impl;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.OrgDao;
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.query.OrgQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -102,13 +104,7 @@ public class OrgServiceImpl implements OrgService{
     public List<OrgVo> findSubOrgTree(long orgid) throws Exception {
         List<OrgVo> orgVoList = new ArrayList<OrgVo>();
         try {
-            List<Org> list = null;
-            list = OrgUtils.findSubOrg(orgid);
-            if (CollectionUtils.isEmpty(list)) {
-                OrgQuery orgQuery = new OrgQuery();
-                orgQuery.setParentorgid(orgid);
-                list = findList(orgQuery);
-            }
+            List<Org> list = findSubtree(orgid);
             if (!CollectionUtils.isEmpty(list)) {
                 Multimap<Long, Org> multimap = findAllOrg();
                 if (multimap != null) {
@@ -129,6 +125,31 @@ public class OrgServiceImpl implements OrgService{
         }
         return orgVoList;
     }
+
+    @Override
+    public List<EasyuiTree> findSubOrgTreeOfEasyui(long orgid) throws Exception {
+        try {
+            List<Org> list = findSubtree(orgid);
+            if (!CollectionUtils.isEmpty(list)) {
+                List<EasyuiTree> easyuiTrees = new ArrayList<EasyuiTree>();
+                for (Org org : list) {
+                    EasyuiTree easyuiTree = new EasyuiTree();
+                    easyuiTree.setId(org.getId());
+                    easyuiTree.setText(org.getName());
+                    easyuiTree.setState("closed");
+                    easyuiTree.setParentid(org.getParentorgid());
+//                    easyuiTree.setIconCls("ico_blank");
+                    easyuiTrees.add(easyuiTree);
+                }
+                return easyuiTrees;
+            }
+        } catch (Exception e) {
+            logger.error("findSubOrgTreeOfEasyui exception",e);
+            throw e;
+        }
+        return null;
+    }
+
     private Multimap<Long,Org> findAllOrg()throws Exception{
         Multimap<Long, Org> orgMultimap = ArrayListMultimap.create();
         List<Org> list = findAll();
@@ -275,6 +296,22 @@ public class OrgServiceImpl implements OrgService{
     }
 
     @Override
+    @Transactional
+    public int update(Org org) throws Exception {
+        int effectrows = 0;
+        try {
+            if (org !=null&&org.getId()>0) {
+                effectrows = orgDao.update(org);
+                logger.info("update success,effectrows:"+effectrows+","+ org.getName());
+            }
+        } catch (Exception e) {
+            logger.error("findAll error,",e);
+            throw e;
+        }
+        return effectrows;
+    }
+
+    @Override
     public Org findById(long id)throws Exception {
         logger.info("findById begin,id:"+id);
         Org org = null;
@@ -288,6 +325,20 @@ public class OrgServiceImpl implements OrgService{
             throw e;
         }
         return org;
+    }
+
+    @Override
+    public List<Org> findSubtree(long id) throws Exception {
+        try {
+            List<Org> list = OrgUtils.findSubOrg(id);
+            if (CollectionUtils.isEmpty(list)) {
+                list = orgDao.findByParentorgid(id);
+            }
+            return list;
+        } catch (Exception e) {
+            logger.error("findSubtree error,id=" + id, e);
+            throw e;
+        }
     }
 
     @Override

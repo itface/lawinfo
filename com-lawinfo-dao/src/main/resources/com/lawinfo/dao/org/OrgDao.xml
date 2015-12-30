@@ -4,6 +4,7 @@
     <resultMap id="OrgResult" type="com.lawinfo.domain.org.Org">
         <id property="id" column="id" />
         <result column="name" property="name"/>
+        <result column="orgtag" property="orgtag"/>
         <result column="parentorgid" property="parentorgid"/>
         <result column="createtime" property="createtime"/>
         <result column="createtimestr" property="createtimestr"/>
@@ -12,7 +13,7 @@
         <result column="optuserid" property="optuserid"/>
     </resultMap>
     <sql id="allColumn">
-         id,name,parentorgid,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,name,orgtag,parentorgid,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -24,6 +25,9 @@
             </if>
             <if test="name!=null and name!=''">
                 and name = #{name}
+            </if>
+            <if test="orgtag!=null and orgtag!=''">
+                and orgtag = #{orgtag}
             </if>
         </trim>
         <!--<where>
@@ -46,6 +50,7 @@
         <include refid="allColumn"/>
          from
           org
+        <include refid="orderby"/>
     </select>
     <select id="findById" parameterType="long"  resultMap="OrgResult">
         select
@@ -58,6 +63,7 @@
         <include refid="allColumn"/>
         from
         org where parentorgid = #{parentorgid}
+        <include refid="orderby"/>
     </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.OrgQuery"  resultMap="OrgResult">
         select
@@ -65,6 +71,7 @@
         from
         org
         <include refid="condition"/>
+        <include refid="orderby"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.OrgQuery"  resultMap="OrgResult">
         select
@@ -72,6 +79,7 @@
         from
         org
         <include refid="condition"/>
+        <include refid="orderby"/>
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.OrgQuery" resultType="int">
@@ -82,7 +90,7 @@
         <include refid="condition"/>
     </select>
     <insert id="save" parameterType="com.lawinfo.domain.org.Org">
-        insert into org(name,parentorgid,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{parentorgid},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
+        insert into org(name,orgtag,parentorgid,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid) values(#{name},#{orgtag},#{parentorgid},#{createtime},#{createtimestr},#{modifiedtime},#{modifiedtimestr},#{optuserid})
     </insert>
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from org where id=#{id}
@@ -90,7 +98,7 @@
     <delete id="deleteByParentorgid" parameterType="long">    <!-- 删除用户 -->
         delete from org where parentorgid=#{parentorgid}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="update" parameterType="com.lawinfo.domain.org.Org">
+        update org set name=#{name},orgtag=#{orgtag} where id=#{id}
+    </update>
 </mapper>

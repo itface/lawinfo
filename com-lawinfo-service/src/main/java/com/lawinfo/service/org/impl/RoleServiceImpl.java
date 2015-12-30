@@ -1,6 +1,7 @@
 package com.lawinfo.service.org.impl;
 
 import com.lawinfo.dao.org.RoleDao;
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.*;
 import com.lawinfo.domain.org.query.RoleQuery;
 import com.lawinfo.domain.org.vo.ActionTreeVo;
@@ -178,7 +179,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(long id)throws Exception {
-        logger.info("findById begin,id:"+id);
+//        logger.info("findById begin,id:"+id);
         Role role = null;
         try {
             role = RoleUtils.findByRoleid(id);
@@ -272,6 +273,27 @@ public class RoleServiceImpl implements RoleService {
             }
         } catch (Exception e) {
             logger.error("findAllTree error",e);
+            throw e;
+        }
+        return null;
+    }
+
+    @Override
+    public List<EasyuiTree> findAllEuTree() throws Exception {
+        try {
+            List<Role> list = findAll();
+            if (!CollectionUtils.isEmpty(list)) {
+                List<EasyuiTree> easyuiTrees = new ArrayList<EasyuiTree>();
+                for (Role role : list) {
+                    EasyuiTree easyuiTree = new EasyuiTree();
+                    easyuiTree.setId(role.getId());
+                    easyuiTree.setText(role.getName());
+                    easyuiTrees.add(easyuiTree);
+                }
+                return easyuiTrees;
+            }
+        } catch (Exception e) {
+            logger.error("findAllEuTree error",e);
             throw e;
         }
         return null;

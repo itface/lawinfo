@@ -20,8 +20,10 @@ public interface UserService {
     public List<User> findAllFromDb()throws Exception;
     public User findByUserid(String userid)throws Exception;
     public int save(User user)throws Exception;
+    public int updatebyUservo(UserVo userVo)throws Exception;
     public int saveByUservo(UserVo userVo)throws Exception;
 
+    public UserVo findUservoById(long id)throws Exception;
     public User findById(long id)throws Exception;
     public List<OrgVo> findUserTreeVo()throws Exception;
 

@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 /**
  * Created by wangrongtao on 15/10/13.
  */
-public class Role extends BaseDomain {
+public class Role extends BaseDomain implements Comparable<Role>{
     private long id;
     @NotBlank
     @Length(max=100)
@@ -39,5 +39,12 @@ public class Role extends BaseDomain {
 
     public void setRoletag(String roletag) {
         this.roletag = roletag;
+    }
+    @Override
+    public int compareTo(Role o) {
+        if (o != null) {
+            return id > o.getId()?1:-1;
+        }
+        return 0;
     }
 }

@@ -50,6 +50,7 @@
         <include refid="allColumn"/>
          from
           Menu
+        <include refid="orderby"/>
     </select>
     <select id="findById" parameterType="long"  resultMap="MenuResult">
         select
@@ -66,12 +67,14 @@
                  open="(" separator="," close=")">
             #{item}
         </foreach>
+        <include refid="orderby"/>
     </select>
     <select id="findByParentmenuid" parameterType="long"  resultMap="MenuResult">
         select
         <include refid="allColumn"/>
         from
         Menu where parentmenuid = #{parentmenuid}
+        <include refid="orderby"/>
     </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.MenuQuery"  resultMap="MenuResult">
         select
@@ -79,6 +82,7 @@
         from
         Menu
         <include refid="condition"/>
+        <include refid="orderby"/>
     </select>
     <select id="findListByPage" parameterType="com.lawinfo.domain.org.query.MenuQuery"  resultMap="MenuResult">
         select
@@ -86,6 +90,7 @@
         from
         Menu
         <include refid="condition"/>
+        <include refid="orderby"/>
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.MenuQuery" resultType="int">
