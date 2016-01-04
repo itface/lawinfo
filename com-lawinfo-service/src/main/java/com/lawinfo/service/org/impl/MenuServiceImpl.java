@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.MenuDao;
 import com.lawinfo.dao.org.RoleMenuDao;
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.RoleMenu;
 import com.lawinfo.domain.org.User;
@@ -18,12 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 15/10/12.
@@ -132,6 +131,69 @@ public class MenuServiceImpl implements MenuService {
         return null;
     }
 
+    private void buildEuTree(EasyuiTree parent,Multimap<Long, Menu> menuMultimap){
+        if (parent != null&&menuMultimap!=null) {
+            long id = parent.getId();
+            Collection<Menu> menuCollections = menuMultimap.get(id);
+            if (!CollectionUtils.isEmpty(menuCollections)) {
+                List<EasyuiTree> sons = parent.getChildren();
+                for (Menu menu : menuCollections) {
+                    EasyuiTree easyuiTree = new EasyuiTree();
+                    easyuiTree.setId(menu.getId());
+                    easyuiTree.setText(menu.getName());
+                    easyuiTree.setParentid(menu.getParentmenuid());
+                    easyuiTree.setState("open");
+                    buildEuTree(easyuiTree,menuMultimap);
+                    if (sons == null) {
+                        sons = new ArrayList<EasyuiTree>();
+                    }
+                    sons.add(easyuiTree);
+                }
+                parent.setChildren(sons);
+            }
+        }
+    }
+    @Override
+    public List<EasyuiTree> findMenuEuTree() throws Exception {
+        List<Menu> list = findAll();
+        if (!CollectionUtils.isEmpty(list)) {
+            List<EasyuiTree> easyuiTrees = new ArrayList<EasyuiTree>();
+            Multimap<Long, Menu> menuMultimap = ArrayListMultimap.create();
+            for (Menu menu : list) {
+                menuMultimap.put(menu.getParentmenuid(),menu);
+            }
+            Collection<Menu> menuCollection = menuMultimap.get(0l);
+            for (Menu menu : menuCollection) {
+                EasyuiTree easyuiTree = new EasyuiTree();
+                easyuiTree.setId(menu.getId());
+                easyuiTree.setText(menu.getName());
+                easyuiTree.setParentid(menu.getParentmenuid());
+                easyuiTree.setState("open");
+                easyuiTrees.add(easyuiTree);
+                buildEuTree(easyuiTree,menuMultimap);
+            }
+            return easyuiTrees;
+        }
+        return null;
+    }
+    /*@Override
+    public List<EasyuiTree> findMenuEuTree(long parentid) throws Exception {
+        List<Menu> list = findByParentid(parentid);
+        if (!CollectionUtils.isEmpty(list)) {
+            List<EasyuiTree> easyuiTrees = new ArrayList<EasyuiTree>();
+            for (Menu menu : list) {
+                EasyuiTree easyuiTree = new EasyuiTree();
+                easyuiTree.setId(menu.getId());
+                easyuiTree.setText(menu.getName());
+                easyuiTree.setParentid(menu.getParentmenuid());
+                easyuiTree.setState("closed");
+                easyuiTrees.add(easyuiTree);
+            }
+            return easyuiTrees;
+        }
+        return null;
+    }*/
+
     @Override
     public List<Menu> findAll() throws Exception{
         List<Menu> list = null;
@@ -157,6 +219,20 @@ public class MenuServiceImpl implements MenuService {
             throw e;
         }
         return list;
+    }
+
+    @Override
+    public List<Menu> findByParentid(long parentid) throws Exception {
+        try {
+            List<Menu> list = MenuUtils.findByParentid(parentid);
+            if (CollectionUtils.isEmpty(list)) {
+                list = menuDao.findByParentmenuid(parentid);
+            }
+            return list;
+        } catch (Exception e) {
+            logger.error("findByParentid error",e);
+            throw e;
+        }
     }
 
     @Override

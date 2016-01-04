@@ -3,6 +3,7 @@ package com.lawinfo.service.org.impl;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.ActionDao;
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.RoleAction;
@@ -19,11 +20,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 15/10/28.
@@ -91,6 +91,38 @@ public class ActionServiceImpl implements ActionService {
             }
         } catch (Exception e) {
             logger.error("findAllTree error",e);
+            throw e;
+        }
+        return null;
+    }
+
+    @Override
+    public List<EasyuiTree> findEuTree(String actionids) throws Exception {
+        try {
+            List<Action> list = findAll();
+            if (!CollectionUtils.isEmpty(list)) {
+                Set<Long> menuSet = new HashSet<Long>();
+                if (!StringUtils.isEmpty(actionids)) {
+                    String[] actionarr =actionids.split(",");
+                    for (int i = 0; i < actionarr.length; i++) {
+                        menuSet.add(Long.parseLong(actionarr[i]));
+                    }
+                }
+                List<EasyuiTree> easyuiTrees = new ArrayList<EasyuiTree>();
+                for (Action action : list) {
+                    EasyuiTree easyuiTree = new EasyuiTree();
+                    easyuiTree.setId(action.getId());
+                    if (menuSet.contains(action.getId())) {
+                        easyuiTree.setChecked(true);
+                    }
+                    easyuiTree.setText(action.getName());
+                    easyuiTree.setState("open");
+                    easyuiTrees.add(easyuiTree);
+                }
+                return easyuiTrees;
+            }
+        } catch (Exception e) {
+            logger.error("findEuTree error",e);
             throw e;
         }
         return null;

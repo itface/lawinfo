@@ -1,5 +1,6 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.vo.ActionTreeVo;
@@ -45,6 +46,12 @@ public class ActionController {
     @RequestMapping("/findtree")
     public List<ActionTreeVo> findtree()throws Exception{
         List<ActionTreeVo> list = actionService.findAllTree();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findeutree")
+    public List<EasyuiTree> findeutree(String actionids)throws Exception{
+        List<EasyuiTree> list = actionService.findEuTree(actionids);
         return list;
     }
     @ResponseBody

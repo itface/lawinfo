@@ -27,9 +27,14 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public int save(HttpServletRequest request,String rolename,String roletag,String menuids,String actionids)throws Exception{
+    public int save(HttpServletRequest request,Long id,String rolename,String roletag,String menuids,String actionids)throws Exception{
         if (!StringUtils.isEmpty(rolename)) {
-            int rows = roleService.save(rolename,roletag,menuids,actionids);
+            int rows = 0;
+            if (id==null||id==0) {
+                rows = roleService.save(rolename,roletag,menuids,actionids);
+            }else{
+                rows = roleService.update(id,rolename,roletag,menuids,actionids);
+            }
             return rows;
         }
         return 0;
@@ -45,6 +50,12 @@ public class RoleController {
     public List<RoleVo> find()throws Exception{
         List<RoleVo> list = roleService.findAllVo();
         return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findbyid")
+    public RoleVo findbyid(long id)throws Exception{
+        RoleVo roleVo = roleService.findVoById(id);
+        return roleVo;
     }
     @ResponseBody
     @RequestMapping("/findtree")

@@ -55,6 +55,20 @@ public class MenuUtils {
         }
         return list;
     }
+    public static List<Menu> findByParentid(long parentid){
+        if (!CollectionUtils.isEmpty(menutMap)) {
+            List<Menu> list = new ArrayList<Menu>();
+            Collection<Menu> all = menutMap.values();
+            for (Menu menu : all) {
+                if (menu.getParentmenuid()==parentid) {
+                    list.add(menu);
+                }
+            }
+            Collections.sort(list);
+            return list;
+        }
+        return null;
+    }
     public static Menu findById(long id){
         return menutMap.get(id);
     }

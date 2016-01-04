@@ -26,11 +26,11 @@ var user = {
         jQuery('#userModal .btn-save').unbind('click');
         jQuery('#user .btn-rm').unbind('click');
         jQuery('#user .btn-add').on('click', function (e) {
-            if (selectUserTreeNode&&selectUserTreeNode.type!=1&&selectUserTreeNode.id>0) {
-                self.showcreateform();
+            self.showcreateform();
+            /*if (selectUserTreeNode&&selectUserTreeNode.type!=1&&selectUserTreeNode.id>0) {
             }else{
                 mainAlert('请选择要添加的用户所在的部门，不能选择用户');
-            }
+            }*/
         });
         jQuery('#user .btn-update').on('click', function (e) {
             if (selectUserTreeNode&&selectUserTreeNode.type==1&&selectUserTreeNode.id>0) {
@@ -58,7 +58,7 @@ var user = {
                 self.saveUserAlert('角色不能为空');
                 return false;
             }
-            if (orgid==null) {
+            if (orgid==null||orgid==''||orgid<1) {
                 self.saveUserAlert('机构不能为空');
                 return false;
             }

@@ -11,6 +11,9 @@ public class RoleVo implements Serializable,Comparable {
     private String name;
     private String menuname;
     private String actionname;
+    private String roletag;
+    private String menuids;
+    private String actionids;
 
     public Long getId() {
         return id;
@@ -42,6 +45,30 @@ public class RoleVo implements Serializable,Comparable {
 
     public void setActionname(String actionname) {
         this.actionname = actionname;
+    }
+
+    public String getRoletag() {
+        return roletag;
+    }
+
+    public void setRoletag(String roletag) {
+        this.roletag = roletag;
+    }
+
+    public String getMenuids() {
+        return menuids;
+    }
+
+    public void setMenuids(String menuids) {
+        this.menuids = menuids;
+    }
+
+    public String getActionids() {
+        return actionids;
+    }
+
+    public void setActionids(String actionids) {
+        this.actionids = actionids;
     }
 
     @Override

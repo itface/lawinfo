@@ -13,28 +13,35 @@ var role = {
         jQuery('#roleform .has-error').show();
     },
     initClickEvent:function(){
+        var self = this;
         jQuery('#role').unbind('click');
         jQuery('#role .role-row').unbind('click');
         jQuery('#role .btn-add').unbind('click');
+        jQuery('#role .btn-role-update').unbind('click');
         jQuery('#roleModal .btn-save').unbind('click');
         jQuery('#role .btn-rm').unbind('click');
-    },
-    init:function(){
-        var self = this;
-        self.initClickEvent();
         jQuery('#role').on('click','.role-row', $.proxy(self.registRoleTableRowEvent,this));
         jQuery('#role .btn-add').on('click', function (e) {
-            jQuery('#roleModal').modal('show');
+            self.showcreateform();
+            //jQuery('#roleModal').modal('show');
         });
-        $('#roleModal').on('show.bs.modal', function () {
-            self.initRoleMenuTree($.proxy(self.buildRoleMenuTree,self));
-            self.initRoleActionTree($.proxy(self.buildRoleActionTree,self));
+        jQuery('#role .btn-role-update').on('click', function (e) {
+            if (selectRoleId>0) {
+                self.showupdateform();
+            }else{
+                mainAlert('请先选择要更新的记录');
+            }
         });
+        /*$('#roleModal').on('show.bs.modal', function () {
+            //self.initRoleMenuTree($.proxy(self.buildRoleMenuTree,self));
+            //self.initRoleActionTree($.proxy(self.buildRoleActionTree,self));
+        });*/
         jQuery('#roleModal .btn-save').on('click',function(e){
             var rolename = jQuery('#roleform  #rolename').val();
             var roletag = jQuery('#roleform  #roletag').val();
             var roleactionids = jQuery('#roleform  #roleactionids').val();
             var rolemenuids = jQuery('#roleform  #rolemenuids').val();
+            var id = jQuery('#roleform  #rolerowid').val();
             if (!rolename) {
                 self.saveRoleAlert('角色名称不能为空');
                 return false;
@@ -45,7 +52,7 @@ var role = {
             }
             jQuery.ajax({
                 url:'/lawinfo/admin/role/add',
-                data:{rolename:rolename,roletag:roletag,menuids:rolemenuids,actionids:roleactionids},
+                data:{id:id,rolename:rolename,roletag:roletag,menuids:rolemenuids,actionids:roleactionids},
                 type:'POST',
                 success:function(data) {
                     if (data==1) {
@@ -61,7 +68,141 @@ var role = {
             });
         });
         jQuery('#role .btn-rm').on('click',$.proxy(this.delRole,this));
+    },
+    init:function(){
+        var self = this;
+        self.initClickEvent();
+        self.initRoleMenuEuTree();
+        self.initRoleActionEuTree();
         self.showRoleTable($.proxy(self.buildRoleTable,this));
+    },
+    initRoleMenuEuTree:function(){
+        var self = this;
+        $('#role-menu-tree').tree({
+            url:'/lawinfo/admin/menu/findeutree',
+            checkbox:true,
+            cascadeCheck:false,
+            onCheck:function(node, checked){
+                self.setSelectedRoleMenuEuTreeNode();
+            }
+        });
+    },
+    setEuRoleMenuCheckedTree:function(){
+        var val = $('#rolemenuids').val();
+        var nodes = $('#role-menu-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            for (var i=0;i<nodes.length;i++) {
+                $('#role-menu-tree').tree('uncheck',nodes[i].target);
+            }
+        }
+        if (val) {
+            var arr = val.split(',');
+            for (var i in arr) {
+                var node = $('#role-menu-tree').tree('find',arr[i]);
+                if (node) {
+                    $('#role-menu-tree').tree('check',node.target);
+                }
+            }
+        }
+    },
+    setSelectedRoleMenuEuTreeNode:function(){
+        var nodes = $('#role-menu-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            var value = '';
+            for (var i=0; i<nodes.length;i++) {
+                var nodeid = nodes[i].id;
+                value= value+nodeid+",";
+            }
+            value = value.substring(0, value.length - 1);
+            $('#rolemenuids').val(value);
+        }else{
+            $('#rolemenuids').val('');
+        }
+    },
+    setSelectedRoleActionEuTreeNode:function(){
+        var nodes = $('#role-action-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            var value = '';
+            for (var i=0; i<nodes.length;i++) {
+                var nodeid = nodes[i].id;
+                value= value+nodeid+",";
+            }
+            value = value.substring(0, value.length - 1);
+            $('#roleactionids').val(value);
+        }else{
+            $('#roleactionids').val('');
+        }
+    },
+    setEuRoleActionCheckedTree:function(){
+        var val = $('#roleactionids').val();
+        var nodes = $('#role-action-tree').tree('getChecked');
+        if (nodes&&nodes.length>0) {
+            for (var i=0;i<nodes.length;i++) {
+                $('#role-action-tree').tree('uncheck',nodes[i].target);
+            }
+        }
+        if (val) {
+            var arr = val.split(',');
+            for (var i in arr) {
+                var node = $('#role-action-tree').tree('find',arr[i]);
+                if (node) {
+                    $('#role-action-tree').tree('check',node.target);
+                }
+            }
+        }
+    },
+    initRoleActionEuTree:function(){
+        var self = this;
+        $('#role-action-tree').tree({
+            url:'/lawinfo/admin/action/findeutree',
+            checkbox:true,
+            onCheck:function(node, checked){
+                self.setSelectedRoleActionEuTreeNode();
+            }
+        });
+    },
+    initformdata:function(){
+        jQuery('#roleform  #rolename').val('');
+        jQuery('#roleform  #roletag').val('');
+        jQuery('#roleform  #roleactionids').val('');
+        jQuery('#roleform  #rolemenuids').val('');
+        jQuery('#roleform  #rolerowid').val(0);
+    },
+    setFormData:function(data){
+        if (data&&data.id>0) {
+            jQuery('#roleform  #rolename').val(data.name);
+            jQuery('#roleform  #roletag').val(data.roletag);
+            jQuery('#roleform  #roleactionids').val(data.actionids);
+            jQuery('#roleform  #rolemenuids').val(data.menuids);
+            jQuery('#roleform  #rolerowid').val(data.id);
+        }
+    },
+    showcreateform:function(){
+        var self = this;
+        self.initformdata();
+        jQuery('#roleModal').modal('show');
+    },
+    showupdateform:function(){
+        var self = this;
+        self.initformdata();
+        if (selectRoleId>0) {
+            jQuery.ajax({
+                url:'/lawinfo/admin/role/findbyid',
+                data:{id:selectRoleId},
+                success:function(data) {
+                    if (data&&data.id>0) {
+                        self.setFormData(data);
+                    }else{
+                        self.saveUserAlert('查询角色信息出错');
+                    }
+                },
+                error:function() {
+                    self.saveUserAlert('查询角色信息异常');
+                }
+            }).done(function(){
+                jQuery('#roleModal').modal('show');
+            });
+        }
     },
     findCheckedRoleMenuNodes : function(nodeTexts) {
         return roleMenuTree.treeview('search', [ nodeTexts, { ignoreCase: false, exactMatch: false } ]);

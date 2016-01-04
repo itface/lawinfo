@@ -178,6 +178,46 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
+    public int update(long id, String name, String roletag, String menuids, String actionids) throws Exception {
+        int effectrows = 0;
+        try {
+            if (id>0&&!StringUtils.isEmpty(name)&&!StringUtils.isEmpty(roletag)) {
+                Role role = new Role();
+                role.setId(id);
+                role.setRoletag(roletag);
+                role.setName(name);
+                effectrows = roleDao.update(role);
+                if (effectrows==1) {
+                    roleMenuService.deleteByRoleid(id);
+                    if (!StringUtils.isEmpty(menuids)) {
+                        String[] menuArr = menuids.split(",");
+                        for (int i = 0; i < menuArr.length; i++) {
+                            RoleMenu roleMenu = new RoleMenu();
+                            roleMenu.setMenuid(Long.parseLong(menuArr[i]));
+                            roleMenu.setRoleid(role.getId());
+                            roleMenuService.save(roleMenu);
+                        }
+                    }
+                    roleActionService.deleteByRoleid(id);
+                    if (!StringUtils.isEmpty(actionids)) {
+                        String[] actionArr = actionids.split(",");
+                        for (int i = 0; i < actionArr.length; i++) {
+                            RoleAction roleAction = new RoleAction();
+                            roleAction.setActionid(Long.parseLong(actionArr[i]));
+                            roleAction.setRoleid(role.getId());
+                            roleActionService.save(roleAction);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("update error,name:"+name+",id:"+id,e);
+        }
+        return effectrows;
+    }
+
+    @Override
     public Role findById(long id)throws Exception {
 //        logger.info("findById begin,id:"+id);
         Role role = null;
@@ -191,6 +231,40 @@ public class RoleServiceImpl implements RoleService {
             throw e;
         }
         return role;
+    }
+
+    @Override
+    public RoleVo findVoById(long id) throws Exception {
+        try {
+            Role role = findById(id);
+            if (role!=null) {
+                RoleVo roleVo = new RoleVo();
+                roleVo.setId(role.getId());
+                roleVo.setName(role.getName());
+                roleVo.setRoletag(role.getRoletag());
+                List<RoleAction> roleActions = roleActionService.findByRoleid(id);
+                if (!CollectionUtils.isEmpty(roleActions)) {
+                    StringBuilder sb = new StringBuilder();
+                    for (RoleAction roleAction : roleActions) {
+                        sb.append(roleAction.getActionid()).append(",");
+                    }
+                    roleVo.setActionids(sb.substring(0, sb.length() - 1));
+                }
+                List<RoleMenu> roleMenus = roleMenuService.findByRoleid(id);
+                if (!CollectionUtils.isEmpty(roleMenus)) {
+                    StringBuilder sb = new StringBuilder();
+                    for (RoleMenu roleMenu : roleMenus) {
+                        sb.append(roleMenu.getMenuid()).append(",");
+                    }
+                    roleVo.setMenuids(sb.substring(0, sb.length() - 1));
+                }
+                return  roleVo;
+            }
+        } catch (Exception e) {
+            logger.error("findVoById error,id=" + id, e);
+            throw e;
+        }
+        return null;
     }
 
     @Override

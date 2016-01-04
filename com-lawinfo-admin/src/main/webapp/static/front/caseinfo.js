@@ -232,9 +232,9 @@ var caseinfo = {
                     html+='&nbsp;';
                 }
                 html+=' </td>';
-                html+=' <td class="caseinfo-row" >';
+                html+=' <td class="caseinfo-row" >&nbsp;&nbsp;';
                 html+='     '+ (++caseinfoIndex);
-                html+=' </td>';
+                html+=' &nbsp;&nbsp;</td>';
                 html+=' <td class="caseinfo-row">';
                 html+='     '+ (o.optuserid);
                 html+=' </td>';

@@ -81,7 +81,7 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from role where id=#{id}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="update" parameterType="com.lawinfo.domain.org.Role">
+        update role set name=#{name},roletag=#{roletag} where id=#{id}
+    </update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.lawinfo.admin.controller;
 
+import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.Org;
 import com.lawinfo.domain.org.vo.MenuVo;
@@ -38,6 +39,12 @@ public class MenuController {
     @RequestMapping("/findtree")
     public List<MenuVo> findtree()throws Exception{
         List<MenuVo> list = menuService.findMenuTree();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findeutree")
+    public List<EasyuiTree> findeutree()throws Exception{
+        List<EasyuiTree> list = menuService.findMenuEuTree();
         return list;
     }
     @ResponseBody

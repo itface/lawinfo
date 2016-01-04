@@ -1,6 +1,7 @@
 package com.lawinfo.domain.common;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wangrongtao on 15/12/24.
@@ -11,6 +12,8 @@ public class EasyuiTree implements Serializable {
     private String state;
     private String iconCls;
     private long parentid;
+    private boolean checked;
+    private List<EasyuiTree> children;
 
     public long getId() {
         return id;
@@ -50,5 +53,21 @@ public class EasyuiTree implements Serializable {
 
     public void setParentid(long parentid) {
         this.parentid = parentid;
+    }
+
+    public List<EasyuiTree> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<EasyuiTree> children) {
+        this.children = children;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -13,6 +13,7 @@ public interface RoleDao {
     public List<Role> findAll();
 
     public int save(Role role);
+    public int update(Role role);
 
     public Role findById(Long id);
 
