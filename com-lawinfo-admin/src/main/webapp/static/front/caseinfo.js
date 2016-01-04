@@ -1,20 +1,20 @@
 /**
  * Created by wangrongtao on 15/10/28.
  */
-var selectCasePreprice=null;
+/*var selectCasePreprice=null;
 var selectCaseSufprice=null;
 var selectCaseYstj=null;
 var selectCaseEstj=null;
-var selectCaseinfoId = null;
 var selectCaseSfss = null;
-var selectCaseSsajbh=null;
+var selectCaseSsajbh=null;*/
+var selectCaseinfoId = null;
 var customOrgTreeSelectedNode = null;
 var customerTreeSelectedNode = null;
 var lawyerTreeSelectedNode = null;
 var customOrgTree = null;
 var customerTree = null;
 var lawyerTree = null;
-var currentCaseinfoList = {};
+//var currentCaseinfoList = {};
 var caseinfoIndex = 0;
 var caseinfo = {
 
@@ -312,12 +312,12 @@ var caseinfo = {
     registCaseinfoTableRowEvent:function(e){
         var tr = jQuery(e.target).parent();
         selectCaseinfoId = tr.attr('caseinfoid');
-        selectCasePreprice = tr.attr('preprice');
+        /*selectCasePreprice = tr.attr('preprice');
         selectCaseSufprice = tr.attr('sufprice');
         selectCaseYstj = tr.attr('ystj');
         selectCaseEstj = tr.attr('estj');
         selectCaseSfss = tr.attr('sfss');
-        selectCaseSsajbh = tr.attr('ssajbh');
+        selectCaseSsajbh = tr.attr('ssajbh');*/
         var progresstitle = $('.caseinfo-title',tr).text();
         $('#caseinfo-progress-modal #casetitle').empty();
         $('#caseinfo-progress-modal #casetitle').append(progresstitle);
@@ -334,13 +334,6 @@ var caseinfo = {
             //async:false,
             success:function(data) {
                 caseinfosPageVo = data;
-                if (data&&data.list) {
-                    var list = data.list;
-                    for (var i=0;i<list.length;i++) {
-                        var obj = list[i];
-                        currentCaseinfoList[obj.id]=obj;
-                    }
-                }
             },
             error:function() {
                 mainAlert('获取案件信息异常');

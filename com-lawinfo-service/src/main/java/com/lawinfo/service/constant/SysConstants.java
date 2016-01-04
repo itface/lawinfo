@@ -25,5 +25,6 @@ public class SysConstants {
         FRONT_TAGS.add("front-case-report-list");
         FRONT_TAGS.add("caseinfo-progress-edit-tab");
         FRONT_TAGS.add("caseinfo-progress-query-tab");
+        FRONT_TAGS.add("front-caseinfo-progress-rm");
     }
 }

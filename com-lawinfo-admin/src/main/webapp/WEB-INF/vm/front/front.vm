@@ -269,6 +269,7 @@
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
+                                            <th>&nbsp;</th>
                                             <th>序号</th>
                                             <th>提交人</th>
                                             <th>提交时间</th>
@@ -720,6 +721,7 @@
             var loginuser="$!loginuser";
             var currentUser=loginuser;
             var canRemoveCase = false;
+            var canRemoveCaseProgress = false;
             frontPage.init();
             user.init();
             caseinfo.init();
@@ -742,8 +744,6 @@
                     currentTabType=2;//查询所有已经结束的案子
                     currentPage = 1;
                     chart.init();
-                }else if (currentTabId =='caseinfo-info-tab') {
-                    caseprogress.buildCaseinfoTable();
                 }
             });
             var actionList = "$!actionList";
@@ -753,6 +753,8 @@
                     jQuery("[actionid='"+actionArr[i]+"']").show();
                     if (actionArr[i]=='front-case-remove') {
                         canRemoveCase = true;
+                    }else if (actionArr[i]=='front-caseinfo-progress-rm') {
+                        canRemoveCaseProgress = true;
                     }
                 }
             }

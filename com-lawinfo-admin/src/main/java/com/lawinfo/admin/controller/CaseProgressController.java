@@ -51,4 +51,9 @@ public class CaseProgressController {
         CaseProgressViewVo caseProgressViewVo = caseProgressService.findCaseProgressCommentVo(userid,caseinfoid);
         return caseProgressViewVo;
     }
+    @ResponseBody
+    @RequestMapping("/remove")
+    public int remove(long id)throws Exception{
+        return caseProgressCommentService.deleteById(id);
+    }
 }

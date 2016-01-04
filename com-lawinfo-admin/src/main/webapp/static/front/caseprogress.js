@@ -12,19 +12,44 @@ var caseprogress = {
             self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
         }
     },
-    showCaseProgressComments:function(node){
+    /*getCaseinfo:function(node,caseinfoid){
+        var self = this;
+        var caseinfo = null;
+        jQuery.ajax({
+            url:'/lawinfo/front/caseinfo/findbyid',
+            data:{id:caseinfoid},
+            type:'POST',
+            cache:false,
+            //async:false,
+            success:function(data) {
+                caseinfo = data;
+            },
+            error:function() {
+                self.saveProgressAlert('保存案件进度信息异常');
+            }
+        }).done(function(){
+            self.showCaseProgressComments(node,caseinfo);
+        });
+    },*/
+    showCaseProgressComments:function(node,caseInfo){
         var self = this;
         jQuery('#caseinfo-progress-form').show();
         jQuery('#caseinfo-progress-list').empty();
         jQuery('#add-form').empty();
         var listHtml = '';
         var nodeid = node.id;
+        var preprice = caseInfo.preprice;
+        var sufprice = caseInfo.sufprice;
+        var ystj = caseInfo.ystj;
+        var estj = caseInfo.estj;
+        var sfss = caseInfo.sfss;
+        var ssajbh = caseInfo.ssajbh;
         //初期及后期律师费,一审及二审调解
         if (nodeid==400) {
-            if (selectCasePreprice&&selectCasePreprice>0) {
+            if (preprice&&preprice>0) {
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+selectCasePreprice+'"/></div>';
+                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+preprice+'"/></div>';
                 listHtml += '</div>';
                 jQuery('#caseinfo-progress-list').append(listHtml);
             }else{
@@ -36,10 +61,10 @@ var caseprogress = {
                 jQuery('#add-form').append(listHtml);
             }
         }else if (nodeid==4400) {
-            if (selectCaseSufprice&&selectCaseSufprice>0) {
+            if (sufprice&&sufprice>0) {
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>后期期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+selectCaseSufprice+'"/></div>';
+                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+sufprice+'"/></div>';
                 listHtml += '</div>';
                 jQuery('#caseinfo-progress-list').append(listHtml);
             }else{
@@ -51,13 +76,13 @@ var caseprogress = {
                 jQuery('#add-form').append(listHtml);
             }
         }else if (nodeid==1600) {
-            if (selectCaseYstj&&selectCaseYstj>0) {
-                var selected1 = selectCaseYstj==1?"selected":"";
-                var selected2 = selectCaseYstj==2?"selected":"";
+            if (ystj&&ystj>0) {
+                var selected1 = ystj==1?"selected":"";
+                var selected2 = ystj==2?"selected":"";
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>一审是否调解</label></div>';
                 listHtml += '<div class="col-xs-4">' +
-                                '<select id="commonfiled" class="form-control"  disabled value="'+selectCaseYstj+'">' +
+                                '<select id="commonfiled" class="form-control"  disabled value="'+ystj+'">' +
                                     '<option value="1" '+selected1+'>未调解</option>' +
                                     '<option value="2" '+selected2+'>已调解</option>' +
                                 '</select>' +
@@ -78,13 +103,13 @@ var caseprogress = {
                 jQuery('#add-form').append(listHtml);
             }
         }else if (nodeid==3100) {
-            if (selectCaseEstj&&selectCaseEstj>0) {
-                var selected1 = selectCaseEstj==1?"selected":"";
-                var selected2 = selectCaseEstj==2?"selected":"";
+            if (estj&&estj>0) {
+                var selected1 = estj==1?"selected":"";
+                var selected2 = estj==2?"selected":"";
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>二审是否调解</label></div>';
                 listHtml += '<div class="col-xs-4">' +
-                    '<select id="commonfiled" class="form-control"  disabled value="'+selectCaseEstj+'">' +
+                    '<select id="commonfiled" class="form-control"  disabled value="'+estj+'">' +
                     '<option value="1" '+selected1+'>未调解</option>' +
                     '<option value="2" '+selected2+'>已调解</option>' +
                     '</select>' +
@@ -105,13 +130,13 @@ var caseprogress = {
                 jQuery('#add-form').append(listHtml);
             }
         }else if(nodeid==2100){
-            if (selectCaseSfss&&selectCaseSfss>0) {
-                var selected1 = selectCaseSfss==1?"selected":"";
-                var selected2 = selectCaseSfss==2?"selected":"";
+            if (sfss&&sfss>0) {
+                var selected1 = sfss==1?"selected":"";
+                var selected2 = sfss==2?"selected":"";
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>是否上诉</label></div>';
                 listHtml += '<div class="col-xs-4">' +
-                    '<select id="commonfiled" class="form-control"  disabled value="'+selectCaseSfss+'">' +
+                    '<select id="commonfiled" class="form-control"  disabled value="'+sfss+'">' +
                     '<option value="1" '+selected1+'>不上诉</option>' +
                     '<option value="2" '+selected2+'>上诉</option>' +
                     '</select>' +
@@ -132,10 +157,10 @@ var caseprogress = {
                 jQuery('#add-form').append(listHtml);
             }
         }else if(nodeid==701){
-            if (selectCaseSsajbh) {
+            if (ssajbh) {
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+selectCaseSsajbh+'"/></div>';
+                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+ssajbh+'"/></div>';
                 listHtml += '</div>';
                 jQuery('#caseinfo-progress-list').append(listHtml);
             }else{
@@ -196,14 +221,14 @@ var caseprogress = {
         var self = this;
         self.init();
         caseinfo.initCaseinfoTable();
-        self.initCaseinfoData(node.id,comment);
+        //self.initCaseinfoData(node.id,comment);
         /*var selectedNode = caseProgressTree.treeview('search', [node.text]);
          caseProgressTree.treeview('selectNode', [ selectedNode,{}]);
          caseprogress.showCaseProgressComments(node);*/
         jQuery('#caseinfo-progress-form #comment').val('');
         jQuery('#caseinfo-progress-form #nexttask').val('');
     },
-    initCaseinfoData:function(nodeid,value){
+    /*initCaseinfoData:function(nodeid,value){
         if (nodeid==400) {
             selectCasePreprice = value;
         }else if (nodeid==4400) {
@@ -217,7 +242,7 @@ var caseprogress = {
         }else if (nodeid==701) {
             selectCaseSsajbh = value;
         }
-    },
+    },*/
     saveProgressEvent : function(e){
         var self = this;
         if (caseProgressTreeSelectedNode!=null&&selectCaseinfoId!=null) {
@@ -289,7 +314,10 @@ var caseprogress = {
                 self.buildCaseProgressTable(data.caseProgressCommentList);
             }
             if (data.caseProgressTreeVoList) {
-                self.buildCaseProgressTree(data.caseProgressTreeVoList);
+                self.buildCaseProgressTree(data.caseProgressTreeVoList,data.caseInfo);
+            }
+            if (data.caseInfo) {
+                self.buildCaseinfoTable(data.caseInfo);
             }
         }
     },
@@ -332,6 +360,13 @@ var caseprogress = {
             for (var i = 0; i < data.length; i++) {
                 var o = data[i];
                 html += "<tr>";
+                html+=' <td caseprogressid="'+ o.id+'">';
+                if (canRemoveCaseProgress) {
+                    html+='     <button type="button" class="close btn-caseprogress-rm" aria-hidden="true" style="color: red;opacity:1">&times;</button>';
+                }else{
+                    html+='&nbsp;';
+                }
+                html+=' </td>';
                 html += "   <td>";
                 html += (i+1);
                 html += "   </td>";
@@ -350,9 +385,37 @@ var caseprogress = {
                 html += "</tr>";
             }
             $('#progress-query tbody').append(html);
+            $('.btn-caseprogress-rm').unbind('click');
+            $('.btn-caseprogress-rm').on('click', $.proxy(self.rmCaseprogressEvent,self));
         }
     },
-    buildCaseProgressTree : function(treedata) {
+    rmCaseprogressEvent:function(e){
+        var self = this;
+        var caseprogressRmid = $(e.target).parent().attr('caseprogressid');
+        if (caseprogressRmid<1) {
+            mainAlert('无效的案件进度编号');
+            return false;
+        }
+        if (confirm('您确定要删除吗？')) {
+            self.doRmCaseProgress(caseprogressRmid);
+        }
+    },
+    doRmCaseProgress:function(caseprogressRmid){
+        var self = this;
+        jQuery.ajax({
+            url:'/lawinfo/front/caseprogress/remove',
+            data:{id:caseprogressRmid},
+            type:'GET',
+            cache:false,
+            success:function(data) {
+                self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
+            },
+            error:function() {
+                mainAlert('删除案件异常');
+            }
+        });
+    },
+    buildCaseProgressTree : function(treedata,caseInfo) {
         var self = this;
         caseProgressTree = $('#caseinfo-progress-tree').treeview({
             data: treedata,
@@ -360,7 +423,7 @@ var caseprogress = {
             onNodeSelected: function (event, node) {
                 caseProgressTreeSelectedNode = node;
                 if (node.parentprocessnodeid>0) {
-                    self.showCaseProgressComments(node);
+                    self.showCaseProgressComments(node,caseInfo);
                 }else{
                     jQuery('#caseinfo-progress-form').hide();
                     self.clearSaveProgressAlert();
@@ -392,43 +455,37 @@ var caseprogress = {
             callback && callback(treedata);
         });
     },
-    buildCaseinfoTable:function(){
+    buildCaseinfoTable:function(caseinfo){
         var self = this;
-        if (selectCaseinfoId&&currentCaseinfoList) {
-            for (var i in currentCaseinfoList) {
-                var caseinfo = currentCaseinfoList[i];
-                if (caseinfo.id==selectCaseinfoId) {
-                    $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
-                    caseinfo.casetype==1?$('#ajsfwj').attr('checked',true):$('#ajsfwj').attr('checked',false);
-                    $('#ajssjg').val(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
-                    $('#jgllr').val(caseinfo.contacts==null?"":caseinfo.contacts);
-                    $('#zaiquanbj').val(caseinfo.zqbj==null?"":caseinfo.zqbj);
-                    if (caseinfo.zqdqr) {
-                        var date = new Date(caseinfo.zqdqr);
-                        var zaiquandqr = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-                        $('#zaiquandqr').val(zaiquandqr);
-                    }else{
-                        $('#zaiquandqr').val('');
-                    }
-                    $('#dywjj').val(caseinfo.pawnvalue==null?"":caseinfo.pawnvalue);
-                    $('#lsfze').val(caseinfo.totalprice==null?"":caseinfo.totalprice);
-                    $('#slfy').val(caseinfo.court==null?"":caseinfo.court);
-                    $('#cbfg').val(caseinfo.judge==null?"":caseinfo.judge);
-                    $('#zwrxx').val(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
-                    caseinfo.iscreditorrelated==1?$('#zwrsfgl').attr('checked',true):$('#zwrsfgl').attr('checked',false);
-                    $('#zwrcczk').val(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
-                    $('#anyou').val(caseinfo.ay==null?"":caseinfo.ay);
-                    $('#dbrxx').val(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
-                    caseinfo.isguarantorrelated==1?$('#dbrsfgl').attr('checked',true):$('#dbrsfgl').attr('checked',false);
-                    $('#dbfs').val(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
-                    $('#dbrcczk').val(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
-                    $('#dywxx').val(caseinfo.pawninfo==null?"":caseinfo.pawninfo);
-                    $('#ajcx').val(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
-                    $('#zxls').val(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
-                    $('#zxah').val(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
-                    return;
-                }
+        if (caseinfo) {
+            $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
+            caseinfo.casetype==1?$('#ajsfwj').attr('checked',true):$('#ajsfwj').attr('checked',false);
+            $('#ajssjg').val(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
+            $('#jgllr').val(caseinfo.contacts==null?"":caseinfo.contacts);
+            $('#zaiquanbj').val(caseinfo.zqbj==null?"":caseinfo.zqbj);
+            if (caseinfo.zqdqr) {
+                var date = new Date(caseinfo.zqdqr);
+                var zaiquandqr = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                $('#zaiquandqr').val(zaiquandqr);
+            }else{
+                $('#zaiquandqr').val('');
             }
+            $('#dywjj').val(caseinfo.pawnvalue==null?"":caseinfo.pawnvalue);
+            $('#lsfze').val(caseinfo.totalprice==null?"":caseinfo.totalprice);
+            $('#slfy').val(caseinfo.court==null?"":caseinfo.court);
+            $('#cbfg').val(caseinfo.judge==null?"":caseinfo.judge);
+            $('#zwrxx').val(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
+            caseinfo.iscreditorrelated==1?$('#zwrsfgl').attr('checked',true):$('#zwrsfgl').attr('checked',false);
+            $('#zwrcczk').val(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
+            $('#anyou').val(caseinfo.ay==null?"":caseinfo.ay);
+            $('#dbrxx').val(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
+            caseinfo.isguarantorrelated==1?$('#dbrsfgl').attr('checked',true):$('#dbrsfgl').attr('checked',false);
+            $('#dbfs').val(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
+            $('#dbrcczk').val(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
+            $('#dywxx').val(caseinfo.pawninfo==null?"":caseinfo.pawninfo);
+            $('#ajcx').val(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
+            $('#zxls').val(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
+            $('#zxah').val(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
         }
     }
 }

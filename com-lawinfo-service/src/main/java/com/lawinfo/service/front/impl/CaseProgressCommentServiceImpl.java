@@ -78,6 +78,23 @@ public class CaseProgressCommentServiceImpl implements CaseProgressCommentServic
     @Transactional
     public int deleteById(long id) throws Exception {
         try {
+            CaseProgressComment caseProgressComment = caseProgressCommentDao.findById(id);
+            if (caseProgressComment != null) {
+                long caseinfoid = caseProgressComment.getCaseinfoid();
+                if (caseProgressComment.getProcessnodeid()==400) {
+                    caseInfoService.updatePrePrice(caseinfoid, 0);
+                }else if (caseProgressComment.getProcessnodeid()==4400) {
+                    caseInfoService.updateSufPrice(caseinfoid, 0);
+                }else if (caseProgressComment.getProcessnodeid()==1600) {
+                    caseInfoService.updateYstj(caseinfoid, 0);
+                }else if (caseProgressComment.getProcessnodeid()==3100) {
+                    caseInfoService.updateEstj(caseinfoid, 0);
+                }else if (caseProgressComment.getProcessnodeid()==2100) {
+                    caseInfoService.updateSfss(caseinfoid, 0);
+                }else if (caseProgressComment.getProcessnodeid()==701) {
+                    caseInfoService.updateSsajbh(caseinfoid, "");
+                }
+            }
             return caseProgressCommentDao.deleteById(id);
         } catch (Exception e) {
             logger.error("deleteById exception", e);

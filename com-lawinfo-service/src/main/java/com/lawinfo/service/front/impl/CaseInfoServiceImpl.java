@@ -125,6 +125,24 @@ public class CaseInfoServiceImpl implements CaseInfoService {
     }
 
     @Override
+    public CaseInfo findByIdWithPrivilege(long id,String userid) throws Exception {
+        try {
+            if (!StringUtils.isEmpty(userid)) {
+                CaseInfoQuery caseInfoQuery = new CaseInfoQuery();
+                caseInfoQuery.setId(id);
+                List<CaseInfo> list = findList(caseInfoQuery, userid);
+                if (!CollectionUtils.isEmpty(list)) {
+                    return list.get(0);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("findByIdWithPrivilege exception,userid:{},id:{}",userid,id,e);
+            throw e;
+        }
+        return null;
+    }
+
+    @Override
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery) throws Exception {
         List<CaseInfo> list = null;
         try {
@@ -172,7 +190,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
                         }
                     }
                     if (queryflag) {
-                        list = caseInfoDao.findList(caseInfoQuery);
+                        list = findList(caseInfoQuery);
                     }
                 }
             }

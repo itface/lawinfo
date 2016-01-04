@@ -81,48 +81,47 @@ public class CaseProgressServiceImpl implements CaseProgressService{
     public CaseProgressViewVo findCaseProgressCommentVo(String userid,long caseinfoid) throws Exception {
         try {
             if (caseinfoid>0) {
-                boolean ifallowd = caseInfoService.ifAllowd(userid, caseinfoid);
-                if (ifallowd) {
+                CaseInfo caseInfo = caseInfoService.findByIdWithPrivilege(caseinfoid, userid);
+                if (caseInfo != null) {
+                    CaseProgressViewVo caseProgressViewVo = new CaseProgressViewVo();
+                    caseProgressViewVo.setCaseInfo(caseInfo);
                     boolean ifss = ifSs(userid, caseinfoid);
-                    CaseInfo caseInfo = caseInfoService.findById(caseinfoid);
-                    if (caseInfo != null) {
-                        int sfss = caseInfo.getSfss();
-                        CaseProgressViewVo caseProgressViewVo = new CaseProgressViewVo();
-                        List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss,(sfss==1?false:true));
-                        if (!CollectionUtils.isEmpty(list)) {
-                            List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
-                            caseProgressViewVo.setCaseProgressCommentList(caseProgressComments);
-                            if (!CollectionUtils.isEmpty(caseProgressComments)) {
-                                Multimap<Integer, CaseProgressComment> caseProgressCommentMultimap = ArrayListMultimap.create();
-                                for (CaseProgressComment caseProgressComment : caseProgressComments) {
-                                    caseProgressCommentMultimap.put(caseProgressComment.getProcessnodeid(), caseProgressComment);
+                    int sfss = caseInfo.getSfss();
+                    List<CaseProgressTreeVo> list = CaseProgressEnum.initCaseProgressTree(ifss, (sfss == 1 ? false : true));
+                    if (!CollectionUtils.isEmpty(list)) {
+                        List<CaseProgressComment> caseProgressComments = caseProgressCommentService.findAllByCaseinfoid(caseinfoid);
+                        caseProgressViewVo.setCaseProgressCommentList(caseProgressComments);
+                        if (!CollectionUtils.isEmpty(caseProgressComments)) {
+                            Multimap<Integer, CaseProgressComment> caseProgressCommentMultimap = ArrayListMultimap.create();
+                            for (CaseProgressComment caseProgressComment : caseProgressComments) {
+                                caseProgressCommentMultimap.put(caseProgressComment.getProcessnodeid(), caseProgressComment);
+                            }
+                            for (CaseProgressTreeVo caseProgressTreeVo : list) {
+                                //取根节点目录
+                                List<CaseProgressTreeVo> caseProgressTreeVos = caseProgressTreeVo.getNodes();
+                                caseProgressTreeVo.setCaseinfoid(caseinfoid);
+                                boolean flag = false;
+                                for (CaseProgressTreeVo caseProgressTreeVo1 : caseProgressTreeVos) {
+                                    int nodeid = caseProgressTreeVo1.getId();
+                                    caseProgressTreeVo1.setCaseinfoid(caseinfoid);
+                                    Collection<CaseProgressComment> caseProgressCommentCollection = caseProgressCommentMultimap.get(nodeid);
+                                    if (!CollectionUtils.isEmpty(caseProgressCommentCollection)) {
+                                        List<CaseProgressComment> comments = (List) caseProgressCommentCollection;
+                                        Collections.sort(comments);
+                                        caseProgressTreeVo1.setBackColor("#95EA95");
+                                        flag = true;
+                                        caseProgressTreeVo1.setCaseProgressCommentList(comments);
+                                    }
                                 }
-                                for (CaseProgressTreeVo caseProgressTreeVo : list) {
-                                    //取根节点目录
-                                    List<CaseProgressTreeVo> caseProgressTreeVos = caseProgressTreeVo.getNodes();
-                                    caseProgressTreeVo.setCaseinfoid(caseinfoid);
-                                    boolean flag = false;
-                                    for (CaseProgressTreeVo caseProgressTreeVo1 : caseProgressTreeVos) {
-                                        int nodeid = caseProgressTreeVo1.getId();
-                                        caseProgressTreeVo1.setCaseinfoid(caseinfoid);
-                                        Collection<CaseProgressComment> caseProgressCommentCollection = caseProgressCommentMultimap.get(nodeid);
-                                        if (!CollectionUtils.isEmpty(caseProgressCommentCollection)) {
-                                            List<CaseProgressComment> comments = (List) caseProgressCommentCollection;
-                                            Collections.sort(comments);
-                                            caseProgressTreeVo1.setBackColor("#95EA95");
-                                            flag = true;
-                                            caseProgressTreeVo1.setCaseProgressCommentList(comments);
-                                        }
-                                    }
-                                    if (flag) {
-                                        caseProgressTreeVo.setBackColor("#95EA95");
-                                    }
+                                if (flag) {
+                                    caseProgressTreeVo.setBackColor("#95EA95");
                                 }
                             }
-                            caseProgressViewVo.setCaseProgressTreeVoList(list);
-                            return caseProgressViewVo;
                         }
+                        caseProgressViewVo.setCaseProgressTreeVoList(list);
+                        return caseProgressViewVo;
                     }
+
                 } else {
                     logger.error("findTreeVo error,not allowed,userid:" + userid + ",caseinfoid:" + caseinfoid);
                 }

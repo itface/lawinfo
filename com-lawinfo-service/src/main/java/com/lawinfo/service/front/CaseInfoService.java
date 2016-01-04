@@ -24,6 +24,7 @@ public interface CaseInfoService {
     public int updateExeLawyers(long caseinfoid,String exeajbh,String exeLawyers,String exeLawyerids)throws Exception;
 
     public CaseInfo findById(long id)throws Exception;
+    public CaseInfo findByIdWithPrivilege(long id,String userid)throws Exception;
 
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery)throws Exception;
     public List<CaseInfo> findList(CaseInfoQuery caseInfoQuery,String userid)throws Exception;

@@ -79,6 +79,15 @@ public class CaseInfoController {
         }
         return null;
     }
+    /*@ResponseBody
+    @RequestMapping("/findbyid")
+    public CaseInfo findbyid(HttpServletRequest request,long id)throws Exception{
+        if (id>0) {
+            String userid = LoginInfo.getUseridFromSession(request.getSession());
+            CaseInfo caseinfo = caseInfoService.findByIdWithPrivilege(id,userid);
+        }
+        return null;
+    }*/
     @ResponseBody
     @RequestMapping("/remove")
     public boolean remove(long caseinfoid)throws Exception{
