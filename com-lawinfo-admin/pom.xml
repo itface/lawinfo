@@ -136,8 +136,8 @@
             <id>production</id>
             <properties>
                 <log.path>/export/logs/info.com</log.path>
-                <log.root.level>INFO</log.root.level>
-                <log.common.level>INFO</log.common.level>
+                <log.root.level>WARN</log.root.level>
+                <log.common.level>WARN</log.common.level>
                 <lawinfo.jdbc.datasource.type>druid</lawinfo.jdbc.datasource.type>
                 <lawinfo.jdbc.mysql.driver>com.mysql.jdbc.Driver</lawinfo.jdbc.mysql.driver>
             </properties>

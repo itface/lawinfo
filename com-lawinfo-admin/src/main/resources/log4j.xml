@@ -288,8 +288,8 @@
 
     <root>
         <priority value="${log.root.level}"/>
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE-ALL"/>
+        <!--<appender-ref ref="CONSOLE"/>-->
+        <!--<appender-ref ref="FILE-ALL"/>-->
         <appender-ref ref="FILE-ERROR"/>
     </root>
 </log4j:configuration>
