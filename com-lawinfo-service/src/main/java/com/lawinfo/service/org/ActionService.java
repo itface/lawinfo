@@ -17,7 +17,8 @@ public interface ActionService {
     public List<ActionTreeVo> findAllTree()throws Exception;
     public List<EasyuiTree> findEuTree(String actionids)throws Exception;
     public List<Action> findAllFromDb() throws Exception;
-    public int save(Action Action)throws Exception;
+    public int save(Action action)throws Exception;
+    public int update(Action action)throws Exception;
 
     public Action findById(long id)throws Exception;
 

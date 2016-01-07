@@ -127,7 +127,7 @@
                 <log.common.level>INFO</log.common.level>
                 <lawinfo.jdbc.datasource.type>druid</lawinfo.jdbc.datasource.type>
                 <lawinfo.jdbc.mysql.driver>com.mysql.jdbc.Driver</lawinfo.jdbc.mysql.driver>
-                <lawinfo.jdbc.url>jdbc:mysql://127.0.0.1:3306/lawinfo3?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8</lawinfo.jdbc.url>
+                <lawinfo.jdbc.url>jdbc:mysql://127.0.0.1:3306/lawinfo4?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8</lawinfo.jdbc.url>
                 <lawinfo.jdbc.username>root</lawinfo.jdbc.username>
                 <lawinfo.jdbc.password>root</lawinfo.jdbc.password>
             </properties>

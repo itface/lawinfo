@@ -158,16 +158,34 @@ public class ActionServiceImpl implements ActionService {
     }
 
     @Override
+    public int update(Action action) throws Exception {
+        int effectrows = 0;
+        try {
+            if (action !=null) {
+                effectrows = actionDao.update(action);
+                logger.info("update success,effectrows:"+effectrows+","+ action.getName());
+            }
+        } catch (Exception e) {
+            logger.error("update error,"+ action ==null?"null": action.getName(),e);
+            throw e;
+        }
+        return effectrows;
+    }
+
+    @Override
     public Action findById(long id)throws Exception {
         logger.info("findById begin,id:"+id);
-        Action Action = null;
+        Action action = null;
         try {
-            Action =actionDao.findById(id);
+            action = ActionUtils.findByActionid(id);
+            if (action == null) {
+                action =actionDao.findById(id);
+            }
         } catch (Exception e) {
             logger.error("findById error,id=" + id, e);
             throw e;
         }
-        return Action;
+        return action;
     }
 
     @Override

@@ -9,38 +9,45 @@ var action = {
         jQuery('#actionform .has-error').show();
     },
     initClickEvent:function(){
+        var self = this;
         jQuery('#action').unbind('click');
         jQuery('#action .action-row').unbind('click');
         jQuery('#action .btn-add').unbind('click');
+        jQuery('#action .btn-action-update').unbind('click');
         jQuery('#actionModal .btn-save').unbind('click');
         jQuery('#action .btn-rm').unbind('click');
-    },
-    init:function(){
-        var self = this;
-        self.initClickEvent();
         jQuery('#action').on('click','.action-row', $.proxy(self.registActionTableRowEvent,this));
         jQuery('#action .btn-add').on('click', function (e) {
+            self.initformdata();
             jQuery('#actionModal').modal('show');
+        });
+        jQuery('#action .btn-action-update').on('click', function (e) {
+            if (selectActionId==null||selectActionId<=0) {
+                mainAlert('请选择您要更新的动作');
+                return false;
+            }
+            self.showupdateform();
         });
         jQuery('#actionModal .btn-save').on('click',function(e){
             var actionname = jQuery('#actionform  #actionname').val();
             var key = jQuery('#actionform  #actionkey').val();
             var tag = jQuery('#actionform  #actiontag').val();
+            var id = jQuery('#actionform  #actionrowid').val();
             if (!actionname) {
                 self.saveActionAlert('动作名称不能为空');
                 return false;
             }
             /*if (!key) {
-                self.saveActionAlert('动作key不能为空');
-                return false;
-            }*/
+             self.saveActionAlert('动作key不能为空');
+             return false;
+             }*/
             if (!tag) {
                 self.saveActionAlert('动作标签不能为空');
                 return false;
             }
             jQuery.ajax({
                 url:'/lawinfo/admin/action/add',
-                data:{name:actionname,actionkey:key,tag:tag},
+                data:{id:id,name:actionname,actionkey:key,tag:tag},
                 type:'POST',
                 cache:false,
                 success:function(data) {
@@ -55,8 +62,49 @@ var action = {
                     self.saveActionAlert('保存异常');
                 }
             });
+            selectActionId=0;
         });
         jQuery('#action .btn-rm').on('click',$.proxy(this.delAction,this));
+    },
+    initformdata:function(){
+        jQuery('#actionform  #actionrowid').val(0);
+        jQuery('#actionform  #actionname').val('');
+        jQuery('#actionform  #actionkey').val('');
+        jQuery('#actionform  #actiontag').val('');
+    },
+    setFormData:function(data){
+        if (data&&data.id>0) {
+            jQuery('#actionform  #actionrowid').val(data.id);
+            jQuery('#actionform  #actionname').val(data.name);
+            jQuery('#actionform  #actionkey').val(data.actionkey);
+            jQuery('#actionform  #actiontag').val(data.tag);
+        }
+    },
+    showupdateform:function(){
+        var self = this;
+        self.initformdata();
+        if (selectActionId&&selectActionId>0) {
+            jQuery.ajax({
+                url:'/lawinfo/admin/action/findbyid',
+                data:{id:selectActionId},
+                success:function(data) {
+                    if (data&&data.id>0) {
+                        self.setFormData(data);
+                    }else{
+                        self.saveActionAlert('查询动作信息出错');
+                    }
+                },
+                error:function() {
+                    self.saveActionAlert('查询动作信息异常');
+                }
+            }).done(function(){
+                jQuery('#actionModal').modal('show');
+            });
+        }
+    },
+    init:function(){
+        var self = this;
+        self.initClickEvent();
         self.showActionTable($.proxy(self.buildActionTable,this));
     },
     buildActionTable:function(actionData) {

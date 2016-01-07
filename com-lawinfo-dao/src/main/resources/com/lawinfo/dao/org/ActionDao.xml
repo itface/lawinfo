@@ -110,7 +110,7 @@
     <delete id="deleteById" parameterType="long">    <!-- 删除用户 -->
         delete from action where id=#{id}
     </delete>
-    <!--<update id="update" parameterType="com.icreate.entity.User">
-        update tb_user set username=#{username},password=#{password},email=#{email},sex=#{sex},age=#{age} where username=#{username}
-    </update>-->
+    <update id="update" parameterType="com.lawinfo.domain.org.Action">
+        update action set name=#{name},actionkey=#{actionkey},tag=#{tag} where id=#{id}
+    </update>
 </mapper>

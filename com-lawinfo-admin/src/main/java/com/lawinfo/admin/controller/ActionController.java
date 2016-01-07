@@ -31,7 +31,12 @@ public class ActionController {
     @RequestMapping("/add")
     public int save(HttpServletRequest request,Action action,BindingResult result)throws Exception{
         if (action != null) {
-            int rows = actionService.save(action);
+            int rows = 0;
+            if (action.getId() < 1) {
+                rows = actionService.save(action);
+            }else{
+                rows = actionService.update(action);
+            }
             return rows;
         }
         return 0;
@@ -41,6 +46,12 @@ public class ActionController {
     public List<Action> find()throws Exception{
         List<Action> list = actionService.findAll();
         return list;
+    }
+    @ResponseBody
+    @RequestMapping("/findbyid")
+    public Action findbyid(long id)throws Exception{
+        Action action = actionService.findById(id);
+        return action;
     }
     @ResponseBody
     @RequestMapping("/findtree")

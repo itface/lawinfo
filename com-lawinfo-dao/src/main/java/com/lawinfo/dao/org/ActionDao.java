@@ -13,6 +13,7 @@ public interface ActionDao {
     public List<Action> findAll();
 
     public int save(Action action);
+    public int update(Action action);
 
     public Action findById(Long id);
 
