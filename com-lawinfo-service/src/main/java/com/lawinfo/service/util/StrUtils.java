@@ -34,6 +34,6 @@ public class StrUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5("manager2016"));
+        System.out.println(MD5("12332sdfasmanager2012dsa"));
     }
 }
