@@ -1,6 +1,9 @@
 .lg-bg {
   overflow: hidden;
 }
+.login-title {
+  margin-top: 170px;
+}
 #loginModal .modal-dialog {
   margin-top: 150px;
   width: 300px;
