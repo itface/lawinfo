@@ -94,7 +94,7 @@
         from
         action
         <include refid="condition"/>
-        <include refid="orderby"/>
+        <!--<include refid="orderby"/>-->
         <include refid="page"/>
     </select>
     <select id="count" parameterType="com.lawinfo.domain.org.query.ActionQuery" resultType="int">

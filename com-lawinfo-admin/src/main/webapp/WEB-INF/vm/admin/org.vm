@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!--bootstrap-responsive.min.css>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="/static/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+
+    <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/mybootstrappager/my_bootstrap-pager.js"></script>
+
+    <style>
+        th{
+            text-align: center;
+        }
+        caption{
+            text-align: center;
+        }
+        td{
+            text-align: center;
+        }
+        .line-word-break{
+            word-break:break-all;
+            word-wrap:break-word
+        }
+    </style>
+</head>
+        #if($!pageVo)
+            #set($list = $!pageVo.list)
+            #set($currentPage = $!pageVo.page)
+            #set($total = $!pageVo.total)
+            #set($pagesize = $!pageVo.pagesize)
+        #end
+    <body>
+        <form id='mainform' name='mainform'>
+        <div class="container">
+            <div class="table-responsive">
+                <div>
+                    <table class="table table-bordered table-striped table-hover">
+                        <caption><h2>机构</h2></caption>
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="javascript:void(0)" class="btn btn-default btn-sm btn-add">
+                                    <span class="glyphicon glyphicon-plus"></span> 添加
+                                </a>
+                            </th>
+                            <th>序号</th>
+                            <th>动作名称</th>
+                            <th>动作url</th>
+                            <th>动作标签</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #if($list && $list.size()>0)
+                                #foreach($obj in $list)
+                                    #set($tempIndex=$velocityCount+$firstIndex)
+                                <tr objId='$obj.id'>
+                                    <td>
+                                                <span>
+                                                    <!-- <a class='glyphicon glyphicon-remove' title='删除' href='javascript:void(0)' style="color:red"></a> -->
+                                                    <a class='glyphicon glyphicon-trash btn btn-del' title='删除' href='javascript:void(0)'></a>
+                                                </span>
+                                    </td>
+                                    <td>$tempIndex</td>
+                                    <td>$obj.name</td>
+                                    <td>$obj.actionkey</td>
+                                    <td>$obj.tag</td>
+                                    <td>
+                                        <a class='glyphicon glyphicon-pencil btn' title='修改' href='javascript:void(0)'></a>
+                                        <a class='glyphicon glyphicon-eye-open btn' title='详情' href='javascript:void(0)'></a>
+                                    </td>
+                                </tr>
+                                #end
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pull-right">
+                    <div id="pager"></div>
+                </div>
+            </div>
+            <div>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close"
+                                        data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-cancel"
+                                        data-dismiss="modal">
+                                </button>
+                                <button type="button" class="btn btn-primary btn-confirm">
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+    <script id="readScriptTemplate" type="text/template">
+        <div class='read-form'>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label>动作名称:</label>
+                </div>
+                <div class="col-xs-4">
+                    <span class='read-form-name line-word-break' style=""></span>
+                </div>
+                <div class="col-xs-2">
+                    <label>动作url:</label>
+                </div>
+                <div class="col-xs-4">
+                    <span class='read-form-actionkey line-word-break'></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label>动作标签:</label>
+                </div>
+                <div class="col-xs-10">
+                    <span class='read-form-tag line-word-break'></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="">
+                    <div class="alert alert-danger center-block error-msg" style="display:none"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="editScriptTemplate" type="text/template">
+        <div class='edit-form'>
+            <form role="form" id="editForm">
+                <div class="row form-group">
+                    <div class="col-xs-2">
+                        <label for="name">动作名称:</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <input id="name" name="name" class="form-control" type="text"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="actionkey">动作url:</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <input id="actionkey" name="actionkey" class="form-control" type="text"/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-2">
+                        <label for="tag">动作标签:</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <textarea id="tag" name="tag" rows="6" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div><input type="hidden" name='id' id='id'/></div>
+                <div class="row">
+                    <div class="col-xs-12" style="">
+                        <div class="alert alert-danger center-block error-msg" style="display:none"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    <script>
+        var currentId;
+        var locationUrl = '/login/actionview';
+        jQuery('#pager').my_page({url:locationUrl,currentPage:$currentPage,formname:'mainform',total:$total,pageSize:$pagesize});
+        jQuery('.glyphicon-pencil').click(function(e){
+            currentId = jQuery(e.target).parents('tr').attr('objId');
+            var edithtml = jQuery('#editScriptTemplate').html();
+            setFormData('edit');
+            showModal(edithtml,'更新','取消','保存',edit);
+        });
+        jQuery('.glyphicon-eye-open').click(function(e){
+            currentId = jQuery(e.target).parents('tr').attr('objId');
+            var readhtml = jQuery('#readScriptTemplate').html();
+            setFormData('read');
+            showModal(readhtml,'详情','取消','关闭',hideModal);
+        });
+        jQuery('.btn-add').click(function(e){
+            currentId=0;
+            var edithtml = jQuery('#editScriptTemplate').html();
+            showModal(edithtml,'更新','取消','保存',edit);
+            initEditFormData();
+        });
+
+        // $('#myModal').on('shown.bs.modal', function () {
+
+        // })
+        function showModalErrorMsg(msg){
+            jQuery('#myModal .error-msg').empty();
+            jQuery('#myModal .error-msg').html(msg);
+            jQuery('#myModal .error-msg').show();
+        }
+        function showModal(html,title,cancelBtnVal,comfirmBtnval,confirmCallback){
+            jQuery('#myModal .error-msg').empty();
+            jQuery('#myModal .modal-body').empty();
+            jQuery('#myModal .modal-title').html(title);
+            jQuery('#myModal .btn-cancel').html(cancelBtnVal);
+            jQuery('#myModal .btn-confirm').html(comfirmBtnval);
+            jQuery('#myModal .modal-body').append(html);
+            jQuery('#myModal .btn-confirm').unbind("click")
+            if(confirmCallback){
+                jQuery('#myModal .btn-confirm').on('click',confirmCallback);
+            }
+            jQuery('#myModal').modal('show');
+        }
+        function hideModal(){
+            jQuery('#myModal').modal('hide');
+        }
+        jQuery('.btn-del').click(function(e){
+            currentId = jQuery(e.target).parents('tr').attr('objId');
+            if(currentId>0){
+                showModal('确认删除？','注意','取消','确定删除',del);
+            }else{
+                showModal('删除无效','注意','取消','确定删除',del);
+            }
+        });
+        function del(){
+            var id = currentId;
+            var url = "/login/remove";
+            jQuery.ajax({
+                url:url,
+                data:{id:id},
+                type:'POST',
+                cache:false,
+                success:function(data) {
+                    if(data>0){
+                        window.location.href=locationUrl;
+                    }
+                    showModal('删除失败','注意','取消','确定',null);
+                },
+                error:function() {
+                    showModal('删除异常','注意','取消','确定',null);
+                }
+            });
+        }
+        function edit(){
+            var id = currentId;
+            var param = $("form[id='editForm']").serialize();
+            var url = "/login/edit";
+            jQuery.ajax({
+                url:url,
+                data:param,
+                type:'POST',
+                cache:false,
+                success:function(data) {
+                    if(data){
+                        showModalErrorMsg(data);
+                    }else{
+                        window.location.href=locationUrl;
+                    }
+                },
+                error:function() {
+                    if(type=='edit'){
+                        showModalErrorMsg('提交数据异常');
+                    }else if(type=='read'){
+                        showModalErrorMsg('提交数据异常');
+                    }else{
+                        alert('提交数据异常');
+                    }
+                }
+            });
+        }
+        function setFormData(type){
+            var readFormClass = 'read-form';
+            var editFormClass = 'edit-form';
+            var id = currentId;
+            jQuery.ajax({
+                url:'/login/findbyid',
+                data:{id:id},
+                type:'GET',
+                cache:false,
+                success:function(data) {
+                    if(data){
+                        if(type=='edit'){
+                            setEditFormData(data);
+                        }else if(type=='read'){
+                            setReadFormData(data);
+                        }
+                    }else{
+                        if(type=='edit'){
+                            showModalErrorMsg('数据为空');
+                        }else if(type=='read'){
+                            showModalErrorMsg('数据为空');
+                        }else{
+                            alert('提交数据异常');
+                        }
+                    }
+                },
+                error:function() {
+                    if(type=='edit'){
+                        showModalErrorMsg('加载数据异常');
+                    }else if(type=='read'){
+                        showModalErrorMsg('加载数据异常');
+                    }else{
+                        alert('提交数据异常');
+                    }
+                }
+            });
+        }
+        function initEditFormData(){
+            jQuery('#name').val('');
+            jQuery('#actionkey').val('');
+            jQuery('#tag').val('');
+            jQuery('#id').val(0);
+        }
+        function setEditFormData(data){
+            initEditFormData();
+            if(data){
+                jQuery('#name').val(data.name);
+                jQuery('#actionkey').val(data.actionkey);
+                jQuery('#tag').val(data.tag);
+                jQuery('#id').val(data.id);
+            }
+        }
+        function setReadFormData(data){
+            if(data){
+                jQuery('.read-form-name').html(data.name);
+                jQuery('.read-form-actionkey').html(data.actionkey);
+                jQuery('.read-form-tag').html(data.tag);
+            }
+        }
+    </script>
+</html>

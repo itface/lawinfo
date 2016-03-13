@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lawinfo.dao.org.ActionDao;
 import com.lawinfo.domain.common.EasyuiTree;
+import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.Menu;
 import com.lawinfo.domain.org.RoleAction;
@@ -212,6 +213,38 @@ public class ActionServiceImpl implements ActionService {
             throw e;
         }
         return list;
+    }
+
+    @Override
+    public PageVo<Action> findByPage(ActionQuery actionQuery) throws Exception {
+        PageVo<Action> pageVo = new PageVo<Action>();
+        if (actionQuery == null) {
+            actionQuery = new ActionQuery();
+        }
+        if (actionQuery.getPage() < 1) {
+            actionQuery.setPage(1);
+        }
+        if (actionQuery.getPageSize() < 1) {
+            actionQuery.setPageSize(20);
+        }
+        int page = actionQuery.getPage();
+        int pagesize = actionQuery.getPageSize();
+        int total = this.count(actionQuery);
+        if (total > 0) {
+            int startRow = (page - 1) * pagesize;
+            actionQuery.setStartRow(startRow);
+            List<Action> list = actionDao.findListByPage(actionQuery);
+            pageVo.setList(list);
+            pageVo.setPage(page);
+            pageVo.setPagesize(pagesize);
+            pageVo.setTotal(total);
+            if (total > (page * pagesize)) {
+                pageVo.setHavenext(true);
+            }else{
+                pageVo.setHavenext(false);
+            }
+        }
+        return pageVo;
     }
 
     @Override

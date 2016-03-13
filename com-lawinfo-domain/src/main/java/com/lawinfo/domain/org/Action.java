@@ -1,12 +1,14 @@
 package com.lawinfo.domain.org;
 
 import com.lawinfo.domain.common.BaseDomain;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by wangrongtao on 15/10/26.
  */
 public class Action extends BaseDomain implements Comparable<Action>{
     private long id;
+    @NotBlank(message = "动作名称不能为空")
     private String name;
     /**
      * url，拦截器拦载url，判断权限
@@ -15,6 +17,7 @@ public class Action extends BaseDomain implements Comparable<Action>{
     /**
      * 用于授权时归类，分组，没有特珠含义
      */
+    @NotBlank(message = "动作tag不能为空")
     private String tag;
 
     public long getId() {

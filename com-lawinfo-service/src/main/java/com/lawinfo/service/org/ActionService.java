@@ -1,6 +1,7 @@
 package com.lawinfo.service.org;
 
 import com.lawinfo.domain.common.EasyuiTree;
+import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.query.ActionQuery;
 import com.lawinfo.domain.org.vo.ActionTreeVo;
@@ -25,6 +26,7 @@ public interface ActionService {
     public List<Action> findList(ActionQuery actionQuery)throws Exception;
 
     public List<Action> findListByPage(ActionQuery actionQuery)throws Exception;
+    public PageVo<Action> findByPage(ActionQuery actionQuery)throws Exception;
 
     public int count(ActionQuery actionQuery)throws Exception;
 
