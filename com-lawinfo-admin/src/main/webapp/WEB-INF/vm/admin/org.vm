@@ -1,96 +1,82 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <!--bootstrap-responsive.min.css>
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        <!--bootstrap-responsive.min.css>
+        <!-- 新 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/static/common.css">
 
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="/static/jquery/1.11.3/jquery.min.js"></script>
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="/static/jquery/1.11.3/jquery.min.js"></script>
 
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 
-    <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="/static/mybootstrappager/my_bootstrap-pager.js"></script>
-
-    <style>
-        th{
-            text-align: center;
-        }
-        caption{
-            text-align: center;
-        }
-        td{
-            text-align: center;
-        }
-        .line-word-break{
-            word-break:break-all;
-            word-wrap:break-word
-        }
-    </style>
-</head>
-        #if($!pageVo)
-            #set($list = $!pageVo.list)
-            #set($currentPage = $!pageVo.page)
-            #set($total = $!pageVo.total)
-            #set($pagesize = $!pageVo.pagesize)
-        #end
+        <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="/static/mybootstrappager/my_bootstrap-pager.js"></script>
+    </head>
+    #if($!pageVo)
+        #set($list = $!pageVo.list)
+        #set($currentPage = $!pageVo.page)
+        #set($total = $!pageVo.total)
+        #set($pagesize = $!pageVo.pagesize)
+    #end
     <body>
         <form id='mainform' name='mainform'>
-        <div class="container">
-            <div class="table-responsive">
-                <div>
-                    <table class="table table-bordered table-striped table-hover">
-                        <caption><h2>机构</h2></caption>
-                        <thead>
-                        <tr>
-                            <th>
-                                <a href="javascript:void(0)" class="btn btn-default btn-sm btn-add">
-                                    <span class="glyphicon glyphicon-plus"></span> 添加
-                                </a>
-                            </th>
-                            <th>序号</th>
-                            <th>动作名称</th>
-                            <th>动作url</th>
-                            <th>动作标签</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            #if($list && $list.size()>0)
-                                #foreach($obj in $list)
-                                    #set($tempIndex=$velocityCount+$firstIndex)
-                                <tr objId='$obj.id'>
-                                    <td>
+            <div class="container">
+                <div class="table-responsive">
+                    <div>
+                        <table class="table table-bordered table-striped table-hover common-table">
+                            <caption><h2>机构</h2></caption>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a href="javascript:void(0)" class="btn btn-default btn-sm btn-add">
+                                            <span class="glyphicon glyphicon-plus"></span> 添加
+                                        </a>
+                                    </th>
+                                    <th>序号</th>
+                                    <th>动作名称</th>
+                                    <th>动作url</th>
+                                    <th>动作标签</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                #if($list && $list.size()>0)
+                                    #foreach($obj in $list)
+                                        #set($tempIndex=$velocityCount+$firstIndex)
+                                        <tr objId='$obj.id'>
+                                            <td>
                                                 <span>
                                                     <!-- <a class='glyphicon glyphicon-remove' title='删除' href='javascript:void(0)' style="color:red"></a> -->
                                                     <a class='glyphicon glyphicon-trash btn btn-del' title='删除' href='javascript:void(0)'></a>
                                                 </span>
-                                    </td>
-                                    <td>$tempIndex</td>
-                                    <td>$obj.name</td>
-                                    <td>$obj.actionkey</td>
-                                    <td>$obj.tag</td>
-                                    <td>
-                                        <a class='glyphicon glyphicon-pencil btn' title='修改' href='javascript:void(0)'></a>
-                                        <a class='glyphicon glyphicon-eye-open btn' title='详情' href='javascript:void(0)'></a>
-                                    </td>
-                                </tr>
+                                            </td>
+                                            <td>$tempIndex</td>
+                                            <td>$obj.name</td>
+                                            <td>$obj.actionkey</td>
+                                            <td>$obj.tag</td>
+                                            <td>
+                                                <a class='glyphicon glyphicon-pencil btn' title='修改' href='javascript:void(0)'></a>
+                                                <a class='glyphicon glyphicon-eye-open btn' title='详情' href='javascript:void(0)'></a>
+                                            </td>
+                                        </tr>
+                                    #end
                                 #end
-                            #end
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pull-right">
-                    <div id="pager"></div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right">
+                        <div id="pager"></div>
+                    </div>
                 </div>
             </div>
             <div>
@@ -121,8 +107,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
     </body>
     <script id="readScriptTemplate" type="text/template">
         <div class='read-form'>
@@ -255,8 +240,9 @@
                 success:function(data) {
                     if(data>0){
                         window.location.href=locationUrl;
+                    }else{
+                        showModal('删除失败','注意','取消','确定',null);
                     }
-                    showModal('删除失败','注意','取消','确定',null);
                 },
                 error:function() {
                     showModal('删除异常','注意','取消','确定',null);
@@ -280,13 +266,7 @@
                     }
                 },
                 error:function() {
-                    if(type=='edit'){
-                        showModalErrorMsg('提交数据异常');
-                    }else if(type=='read'){
-                        showModalErrorMsg('提交数据异常');
-                    }else{
-                        alert('提交数据异常');
-                    }
+                    alert('提交数据异常');
                 }
             });
         }
@@ -307,23 +287,11 @@
                             setReadFormData(data);
                         }
                     }else{
-                        if(type=='edit'){
-                            showModalErrorMsg('数据为空');
-                        }else if(type=='read'){
-                            showModalErrorMsg('数据为空');
-                        }else{
-                            alert('提交数据异常');
-                        }
+                        showModalErrorMsg('数据为空');
                     }
                 },
                 error:function() {
-                    if(type=='edit'){
-                        showModalErrorMsg('加载数据异常');
-                    }else if(type=='read'){
-                        showModalErrorMsg('加载数据异常');
-                    }else{
-                        alert('提交数据异常');
-                    }
+                    showModalErrorMsg('加载数据异常');
                 }
             });
         }

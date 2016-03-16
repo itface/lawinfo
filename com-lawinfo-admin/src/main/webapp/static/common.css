@@ -1,0 +1,16 @@
+.common-table{
+
+}
+.common-table th{
+    text-align: center;
+}
+.common-table caption{
+    text-align: center;
+}
+.common-table td{
+    text-align: center;
+}
+.line-word-break{
+    word-break:break-all;
+    word-wrap:break-word
+}

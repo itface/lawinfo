@@ -1,0 +1,22 @@
+package com.lawinfo.domain.sourcegenerator.annotation;
+
+import java.lang.annotation.*;
+
+/**
+ * Created by wangrongtao on 16/3/16.
+ */
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface InputType {
+    InputType.type value() default type.text;
+    String name();
+    public enum type {
+        text,
+        select,
+        textarea,
+        checkbox,
+        radio,
+        hidden
+    }
+}

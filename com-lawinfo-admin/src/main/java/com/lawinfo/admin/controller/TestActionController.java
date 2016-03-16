@@ -29,7 +29,7 @@ public class TestActionController {
     @Resource
     private ActionService actionService;
 
-    @RequestMapping("/login/actionview")
+    @RequestMapping("/login/org")
     public String view(Integer page,ModelMap model){
         ActionQuery actionQuery = new ActionQuery();
         try {
@@ -45,22 +45,22 @@ public class TestActionController {
         } catch (Exception e) {
 
         }
-        return "/admin/org";
+        return "/front/newfront";
     }
     @ResponseBody
-    @RequestMapping("/login/findbyid")
+    @RequestMapping("/login/org/findbyid")
     public Action findbyid(long id)throws Exception{
         Action action = actionService.findById(id);
         return action;
     }
     @ResponseBody
-    @RequestMapping("/login/remove")
+    @RequestMapping("/login/org/remove")
     public int remove(long id)throws Exception{
         int rows = actionService.deleteById(id);
         return rows;
     }
     @ResponseBody
-    @RequestMapping("/login/edit")
+    @RequestMapping("/login/org/edit")
     public String save(HttpServletRequest request, @Valid Action action, BindingResult result)throws Exception{
         StringBuilder stringBuilder = new StringBuilder();
         if (result.hasErrors()) {
