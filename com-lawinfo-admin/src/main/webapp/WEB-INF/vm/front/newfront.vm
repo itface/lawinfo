@@ -9,9 +9,12 @@
     <meta http-equiv="Expires" content="0">
     <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="/static/common.css">
     <script src="/static/jquery/1.11.3/jquery.min.js"></script>
     <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="/static/mybootstrappager/my_bootstrap-pager.js"></script>
 </head>
     #if($!pageVo)
@@ -39,8 +42,6 @@
                             名称										</th>
                         <th>
                             动作key										</th>
-                        <th>
-                            动作tag										</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -57,7 +58,6 @@
                                 <td>$tempIndex</td>
                                 <td>$obj.name</td>
                                 <td>$obj.actionkey</td>
-                                <td>$obj.tag</td>
                                 <td>
                                     <a class='glyphicon glyphicon-pencil btn' title='修改' href='javascript:void(0)'></a>
                                     <a class='glyphicon glyphicon-eye-open btn' title='详情' href='javascript:void(0)'></a>
@@ -97,25 +97,19 @@
     <div class='read-form'>
         <div class="row">
             <div class="col-xs-2">
-                <label>名称:</label>
+                <label class='read-form-field'>名称:</label>
             </div>
             <div class="col-xs-4">
-                <span class='read-form-name line-word-break'></span>
+                <span class='read-form-name line-word-break read-form-field'></span>
             </div>
             <div class="col-xs-2">
-                <label>动作key:</label>
+                <label class='read-form-field'>动作key:</label>
             </div>
             <div class="col-xs-4">
-                <span class='read-form-actionkey line-word-break'></span>
+                <span class='read-form-actionkey line-word-break read-form-field'></span>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                <label>动作tag:</label>
-            </div>
-            <div class="col-xs-4">
-                <span class='read-form-tag line-word-break'></span>
-            </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -127,7 +121,7 @@
 <script id="editScriptTemplate" type="text/template">
     <div class='edit-form'>
         <form role="form" id="editForm">
-            <div class="row">
+            <div class="row form-group">
                 <div class="col-xs-2">
                     <label>名称</label>
                 </div>
@@ -138,15 +132,15 @@
                     <label>动作key</label>
                 </div>
                 <div class="col-xs-4">
-                    <textarea id="actionkey" name="actionkey" rows="6" class="form-control"></textarea>
+                    <input id="actionkey" name="actionkey" class="form-control" type="text"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row form-group">
                 <div class="col-xs-2">
                     <label>动作tag</label>
                 </div>
                 <div class="col-xs-4">
-                    <textarea id="tag" name="tag" rows="6" class="form-control"></textarea>
+                    <input id="tag" name="tag" class="form-control datetimepicker-class" type="text" readonly/>
                 </div>
             </div>
             <div><input type="hidden" name='id' id='id'/></div>
@@ -164,6 +158,15 @@
     jQuery('#pager').my_page({url:locationUrl,currentPage:$currentPage,formname:'mainform',total:$total,pageSize:$pagesize});
 
 
+    function initEditFormEvent(){
+        $('.datetimepicker-class').datetimepicker({
+            format: 'yyyy-mm-dd',
+            minView: "month",
+            language: 'zh-CN',
+            autoclose:true
+        });
+    }
+
     jQuery('.btn-del').click(function(e){
         currentId = jQuery(e.target).parents('tr').attr('objId');
         if(currentId>0){
@@ -176,15 +179,16 @@
     jQuery('.glyphicon-pencil').click(function(e){
         currentId = jQuery(e.target).parents('tr').attr('objId');
         var edithtml = jQuery('#editScriptTemplate').html();
-        setFormData('edit');
         showModal(edithtml,'更新','取消','保存',edit);
+        setFormData('edit');
+        initEditFormEvent();
     })
 
     jQuery('.glyphicon-eye-open').click(function(e){
         currentId = jQuery(e.target).parents('tr').attr('objId');
         var readhtml = jQuery('#readScriptTemplate').html();
-        setFormData('read');
         showModal(readhtml,'详情','取消','关闭',hideModal);
+        setFormData('read');
     })
 
     jQuery('.btn-add').click(function(e){
@@ -192,6 +196,7 @@
         var edithtml = jQuery('#editScriptTemplate').html();
         showModal(edithtml,'新增','取消','保存',edit);
         initEditFormData();
+        initEditFormEvent();
     })
 
     function showModalErrorMsg(msg){

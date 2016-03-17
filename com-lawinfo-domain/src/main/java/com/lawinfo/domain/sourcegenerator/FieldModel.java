@@ -9,6 +9,9 @@ public class FieldModel implements Serializable {
     private String type;
     private String id;
     private String name;
+    private boolean showInList;
+    private boolean showInEditForm;
+    private boolean showInReadForm;
 
     public String getType() {
         return type;
@@ -32,5 +35,29 @@ public class FieldModel implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isShowInList() {
+        return showInList;
+    }
+
+    public void setShowInList(boolean showInList) {
+        this.showInList = showInList;
+    }
+
+    public boolean isShowInEditForm() {
+        return showInEditForm;
+    }
+
+    public void setShowInEditForm(boolean showInEditForm) {
+        this.showInEditForm = showInEditForm;
+    }
+
+    public boolean isShowInReadForm() {
+        return showInReadForm;
+    }
+
+    public void setShowInReadForm(boolean showInReadForm) {
+        this.showInReadForm = showInReadForm;
     }
 }

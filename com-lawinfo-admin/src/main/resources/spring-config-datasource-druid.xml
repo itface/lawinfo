@@ -20,7 +20,7 @@
         <property name="timeBetweenEvictionRunsMillis" value="${lawinfo.mysql.jdbc.timeBetweenEvictionRunsMillis}" />
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
         <property name="minEvictableIdleTimeMillis" value="${lawinfo.mysql.jdbc.maxIdleTime}" />
-        <!--<property name="validationQuery" value="${lawinfo.mysql.jdbc.validationQuery}" />-->
+        <property name="validationQuery" value="${lawinfo.mysql.jdbc.validationQuery}" />
         <property name="testWhileIdle" value="${lawinfo.mysql.jdbc.testWhileIdle}" />
         <property name="testOnBorrow" value="${lawinfo.mysql.jdbc.testOnBorrow}" />
         <property name="testOnReturn" value="${lawinfo.mysql.jdbc.testOnReturn}" />

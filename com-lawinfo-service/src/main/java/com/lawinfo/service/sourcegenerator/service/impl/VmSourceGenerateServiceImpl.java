@@ -58,9 +58,12 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         sb.append(secondTab).append("<meta http-equiv=\"Expires\" content=\"0\">").append(BREAK_ROW);
         sb.append(secondTab).append("<link rel=\"stylesheet\" href=\"/static/bootstrap/3.3.5/css/bootstrap.min.css\">").append(BREAK_ROW);
         sb.append(secondTab).append("<link rel=\"stylesheet\" href=\"/static/bootstrap/3.3.5/css/bootstrap-theme.min.css\">").append(BREAK_ROW);
+        sb.append(secondTab).append("<link rel=\"stylesheet\" href=\"/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css\">").append(BREAK_ROW);
         sb.append(secondTab).append("<link rel=\"stylesheet\" href=\"/static/common.css\">").append(BREAK_ROW);
         sb.append(secondTab).append("<script src=\"/static/jquery/1.11.3/jquery.min.js\"></script>").append(BREAK_ROW);
         sb.append(secondTab).append("<script src=\"/static/bootstrap/3.3.5/js/bootstrap.min.js\"></script>").append(BREAK_ROW);
+        sb.append(secondTab).append("<script src=\"/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js\"></script>").append(BREAK_ROW);
+        sb.append(secondTab).append("<script src=\"/static/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js\"></script>").append(BREAK_ROW);
         sb.append(secondTab).append("<script src=\"/static/mybootstrappager/my_bootstrap-pager.js\"></script>").append(BREAK_ROW);
         sb.append(firstTab).append("</head>").append(BREAK_ROW);
         return sb.toString();
@@ -109,10 +112,12 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                                         sb.append(ninthTab).append("<th>").append("序号").append("</th>").append(BREAK_ROW);
                                         if(!CollectionUtils.isEmpty(fieldModelList)){
                                             for(FieldModel fieldModel : fieldModelList){
-                                                String fieldname = fieldModel.getName();
-                                                sb.append(ninthTab).append("<th>").append(BREAK_ROW);
-                                                sb.append(eleventhTab).append(fieldname);
-                                                sb.append(ninthTab).append("</th>").append(BREAK_ROW);
+                                                if (fieldModel.isShowInList()) {
+                                                    String fieldname = fieldModel.getName();
+                                                    sb.append(ninthTab).append("<th>").append(BREAK_ROW);
+                                                    sb.append(eleventhTab).append(fieldname);
+                                                    sb.append(ninthTab).append("</th>").append(BREAK_ROW);
+                                                }
                                             }
                                         }
                                         sb.append(ninthTab).append("<th>").append("操作").append("</th>").append(BREAK_ROW);
@@ -131,7 +136,9 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                                                 sb.append(eleventhTab).append("<td>").append("$tempIndex").append("</td>").append(BREAK_ROW);
                                                 if(!CollectionUtils.isEmpty(fieldModelList)) {
                                                     for (FieldModel fieldModel : fieldModelList) {
-                                                        sb.append(eleventhTab).append("<td>").append("$obj.").append(fieldModel.getId()).append("</td>").append(BREAK_ROW);
+                                                        if (fieldModel.isShowInList()) {
+                                                            sb.append(eleventhTab).append("<td>").append("$obj.").append(fieldModel.getId()).append("</td>").append(BREAK_ROW);
+                                                        }
                                                     }
                                                 }
                                                 sb.append(eleventhTab).append("<td>").append(BREAK_ROW);
@@ -193,22 +200,32 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                 if(!CollectionUtils.isEmpty(fieldModelList)){
                     int length = fieldModelList.size();
                     for(int i=0;i<length;){
-                        FieldModel fieldModel = fieldModelList.get(i++);
                         sb.append(thirdTab).append("<div class=\"row\">").append(BREAK_ROW);
-                            sb.append(fouthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
-                                sb.append(fifthTab).append("<label>").append(fieldModel.getName()).append(":</label>").append(BREAK_ROW);
-                            sb.append(fouthTab).append("</div>").append(BREAK_ROW);
-                            sb.append(fouthTab).append("<div class=\"col-xs-4\">").append(BREAK_ROW);
-                                sb.append(fifthTab).append("<span class='read-form-"+fieldModel.getId()+" line-word-break'></span>").append(BREAK_ROW);
-                            sb.append(fouthTab).append("</div>").append(BREAK_ROW);
-                        if (i<length) {
+                        FieldModel fieldModel = fieldModelList.get(i++);
+                        while (!fieldModel.isShowInReadForm()&&i<length) {
                             fieldModel = fieldModelList.get(i++);
+                        }
+                        if (fieldModel.isShowInReadForm()) {
                             sb.append(fouthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
-                                sb.append(fifthTab).append("<label>").append(fieldModel.getName()).append(":</label>").append(BREAK_ROW);
+                                sb.append(fifthTab).append("<label class='read-form-field'>").append(fieldModel.getName()).append(":</label>").append(BREAK_ROW);
                             sb.append(fouthTab).append("</div>").append(BREAK_ROW);
                             sb.append(fouthTab).append("<div class=\"col-xs-4\">").append(BREAK_ROW);
-                                sb.append(fifthTab).append("<span class='read-form-"+fieldModel.getId()+" line-word-break'></span>").append(BREAK_ROW);
+                                sb.append(fifthTab).append("<span class='read-form-"+fieldModel.getId()+" line-word-break read-form-field'></span>").append(BREAK_ROW);
                             sb.append(fouthTab).append("</div>").append(BREAK_ROW);
+                            if (i<length) {
+                                fieldModel = fieldModelList.get(i++);
+                                while (!fieldModel.isShowInReadForm()&&i<length) {
+                                    fieldModel = fieldModelList.get(i++);
+                                }
+                                if (fieldModel.isShowInReadForm()) {
+                                    sb.append(fouthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
+                                    sb.append(fifthTab).append("<label class='read-form-field'>").append(fieldModel.getName()).append(":</label>").append(BREAK_ROW);
+                                    sb.append(fouthTab).append("</div>").append(BREAK_ROW);
+                                    sb.append(fouthTab).append("<div class=\"col-xs-4\">").append(BREAK_ROW);
+                                    sb.append(fifthTab).append("<span class='read-form-"+fieldModel.getId()+" line-word-break read-form-field'></span>").append(BREAK_ROW);
+                                    sb.append(fouthTab).append("</div>").append(BREAK_ROW);
+                                }
+                            }
                         }
                         sb.append(thirdTab).append("</div>").append(BREAK_ROW);
                     }
@@ -237,7 +254,11 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                         int length = fieldModelList.size();
                         for(int i=0;i<length;){
                             FieldModel fieldModel = fieldModelList.get(i++);
-                            sb.append(fouthTab).append("<div class=\"row\">").append(BREAK_ROW);
+                            sb.append(fouthTab).append("<div class=\"row form-group\">").append(BREAK_ROW);
+                            while (!fieldModel.isShowInEditForm()&&i<length) {
+                                fieldModel = fieldModelList.get(i++);
+                            }
+                            if (fieldModel.isShowInEditForm()) {
                                 sb.append(fifthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
                                     sb.append(sixthTab).append("<label>").append(fieldModel.getName()).append("</label>").append(BREAK_ROW);
                                 sb.append(fifthTab).append("</div>").append(BREAK_ROW);
@@ -246,13 +267,20 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                                 sb.append(fifthTab).append("</div>").append(BREAK_ROW);
                                 if (i<length) {
                                     fieldModel = fieldModelList.get(i++);
-                                    sb.append(fifthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
+                                    while (!fieldModel.isShowInEditForm()&&i<length) {
+                                        fieldModel = fieldModelList.get(i++);
+                                    }
+                                    if (fieldModel.isShowInEditForm()) {
+                                        sb.append(fifthTab).append("<div class=\"col-xs-2\">").append(BREAK_ROW);
                                         sb.append(sixthTab).append("<label>").append(fieldModel.getName()).append("</label>").append(BREAK_ROW);
-                                    sb.append(fifthTab).append("</div>").append(BREAK_ROW);
-                                    sb.append(fifthTab).append("<div class=\"col-xs-4\">").append(BREAK_ROW);
+                                        sb.append(fifthTab).append("</div>").append(BREAK_ROW);
+                                        sb.append(fifthTab).append("<div class=\"col-xs-4\">").append(BREAK_ROW);
                                         sb.append(sixthTab).append(inputHtml(fieldModel.getType(),fieldModel.getId())).append(BREAK_ROW);
-                                    sb.append(fifthTab).append("</div>").append(BREAK_ROW);
+                                        sb.append(fifthTab).append("</div>").append(BREAK_ROW);
+                                    }
                                 }
+                            }
+
                             sb.append(fouthTab).append("</div>").append(BREAK_ROW);
                         }
                     }
@@ -277,6 +305,8 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
             inputHtml = "<textarea id=\""+fieldId+"\" name=\""+fieldId+"\" rows=\"6\" class=\"form-control\"></textarea>";
         }else if ("hidden".equals(fieldType)) {
             inputHtml = "<input type=\"hidden\" name='"+fieldId+"' id='"+fieldId+"'/>";
+        }else if ("date".equals(fieldType)) {
+            inputHtml = "<input id=\""+fieldId+"\" name=\""+fieldId+"\" class=\"form-control datetimepicker-class\" type=\"text\" readonly/>";
         }
         return inputHtml;
     }
@@ -286,6 +316,7 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         String secondTab = firstTab+TAB_1;
         sb.append(firstTab).append("<script>").append(BREAK_ROW);
         sb.append(globalJsVariable(secondTab,baseurl)).append(BREAK_ROW);
+        sb.append(functionInitEditFormEvent(secondTab)).append(BREAK_ROW);
         sb.append(functionDelEvent(secondTab)).append(BREAK_ROW);
         sb.append(functionUpdateEvent(secondTab)).append(BREAK_ROW);
         sb.append(functionReadEvent(secondTab)).append(BREAK_ROW);
@@ -304,9 +335,30 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
     }
     private String globalJsVariable(String firstTab,String baseurl){
         StringBuilder sb = new StringBuilder();
+        String secondTab = firstTab+TAB_1;
         sb.append(firstTab).append("var currentId;").append(BREAK_ROW);
         sb.append(firstTab).append("var locationUrl = '").append(baseurl).append("';").append(BREAK_ROW);
         sb.append(firstTab).append("jQuery('#pager').my_page({url:locationUrl,currentPage:$currentPage,formname:'mainform',total:$total,pageSize:$pagesize});\n").append(BREAK_ROW);
+        /*sb.append(firstTab).append("$('.datetimepicker-class').datetimepicker({").append(BREAK_ROW);
+            sb.append(secondTab).append("format: 'yyyy-mm-dd',").append(BREAK_ROW);
+            sb.append(secondTab).append("minView: \"month\",").append(BREAK_ROW);
+            sb.append(secondTab).append("language: 'zh-CN',").append(BREAK_ROW);
+            sb.append(secondTab).append("autoclose:true").append(BREAK_ROW);
+        sb.append(firstTab).append("});").append(BREAK_ROW);*/
+        return sb.toString();
+    }
+    private String functionInitEditFormEvent(String firstTab){
+        StringBuilder sb = new StringBuilder();
+        String secondTab = firstTab+TAB_1;
+        String thirdTab = secondTab+TAB_1;
+        sb.append(firstTab).append("function initEditFormEvent(){").append(BREAK_ROW);
+            sb.append(secondTab).append("$('.datetimepicker-class').datetimepicker({").append(BREAK_ROW);
+                sb.append(thirdTab).append("format: 'yyyy-mm-dd',").append(BREAK_ROW);
+                sb.append(thirdTab).append("minView: \"month\",").append(BREAK_ROW);
+                sb.append(thirdTab).append("language: 'zh-CN',").append(BREAK_ROW);
+                sb.append(thirdTab).append("autoclose:true").append(BREAK_ROW);
+            sb.append(secondTab).append("});").append(BREAK_ROW);
+        sb.append(firstTab).append("}").append(BREAK_ROW);
         return sb.toString();
     }
     private String functionDelEvent(String firstTab){
@@ -329,8 +381,9 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         sb.append(firstTab).append("jQuery('.glyphicon-pencil').click(function(e){").append(BREAK_ROW);
             sb.append(secondTab).append("currentId = jQuery(e.target).parents('tr').attr('objId');").append(BREAK_ROW);
             sb.append(secondTab).append("var edithtml = jQuery('#editScriptTemplate').html();").append(BREAK_ROW);
-            sb.append(secondTab).append("setFormData('edit');").append(BREAK_ROW);
             sb.append(secondTab).append("showModal(edithtml,'更新','取消','保存',edit);").append(BREAK_ROW);
+            sb.append(secondTab).append("setFormData('edit');").append(BREAK_ROW);
+            sb.append(secondTab).append("initEditFormEvent();").append(BREAK_ROW);
         sb.append(firstTab).append("})").append(BREAK_ROW);
         return sb.toString();
     }
@@ -340,8 +393,8 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         sb.append(firstTab).append("jQuery('.glyphicon-eye-open').click(function(e){").append(BREAK_ROW);
             sb.append(secondTab).append("currentId = jQuery(e.target).parents('tr').attr('objId');").append(BREAK_ROW);
             sb.append(secondTab).append("var readhtml = jQuery('#readScriptTemplate').html();").append(BREAK_ROW);
-            sb.append(secondTab).append("setFormData('read');").append(BREAK_ROW);
             sb.append(secondTab).append("showModal(readhtml,'详情','取消','关闭',hideModal);").append(BREAK_ROW);
+            sb.append(secondTab).append("setFormData('read');").append(BREAK_ROW);
         sb.append(firstTab).append("})").append(BREAK_ROW);
         return sb.toString();
     }
@@ -353,6 +406,7 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
             sb.append(secondTab).append("var edithtml = jQuery('#editScriptTemplate').html();").append(BREAK_ROW);
             sb.append(secondTab).append("showModal(edithtml,'新增','取消','保存',edit);").append(BREAK_ROW);
             sb.append(secondTab).append("initEditFormData();").append(BREAK_ROW);
+            sb.append(secondTab).append("initEditFormEvent();").append(BREAK_ROW);
         sb.append(firstTab).append("})").append(BREAK_ROW);
         return sb.toString();
     }
@@ -545,9 +599,15 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                         String id = field.getName();
                         InputType.type inputtype = fieldAnnotation.value();
                         String name = fieldAnnotation.name();
+                        boolean showInEditForm = fieldAnnotation.showInEditForm();
+                        boolean showInReadForm = fieldAnnotation.showInReadForm();
+                        boolean showInList = fieldAnnotation.showInList();
                         fieldModel.setId(id);
                         fieldModel.setName(name);
                         fieldModel.setType(inputtype.name());
+                        fieldModel.setShowInEditForm(showInEditForm);
+                        fieldModel.setShowInList(showInList);
+                        fieldModel.setShowInReadForm(showInReadForm);
                         list.add(fieldModel);
                     }
                 }
