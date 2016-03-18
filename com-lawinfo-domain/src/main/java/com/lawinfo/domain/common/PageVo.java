@@ -52,4 +52,7 @@ public class PageVo<T> implements Serializable {
     public void setHavenext(boolean havenext) {
         this.havenext = havenext;
     }
+    public int getStartIndex(){
+        return (page-1)*pagesize+1;
+    }
 }

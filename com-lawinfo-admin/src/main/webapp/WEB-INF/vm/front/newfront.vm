@@ -22,6 +22,7 @@
         #set($currentPage = $!pageVo.page)
         #set($total = $!pageVo.total)
         #set($pagesize = $!pageVo.pagesize)
+        #set($startIndex = $!pageVo.getStartIndex())
     #end
 <body>
 <form id='mainform' name='mainform'>
@@ -48,16 +49,16 @@
                     <tbody>
                         #if($list && $list.size()>0)
                             #foreach($obj in $list)
-                                #set($tempIndex=$velocityCount+$firstIndex)
+                                #set($tempIndex=$velocityCount+$startIndex - 1)
                             <tr objId='$obj.id'>
                                 <td>
 													<span>
 														<a class='glyphicon glyphicon-trash btn btn-del' title='删除' href='javascript:void(0)'></a>
 													</span>
                                 </td>
-                                <td>$tempIndex</td>
-                                <td>$obj.name</td>
-                                <td>$obj.actionkey</td>
+                                <td>$!tempIndex</td>
+                                <td>$!obj.name</td>
+                                <td>$!obj.actionkey</td>
                                 <td>
                                     <a class='glyphicon glyphicon-pencil btn' title='修改' href='javascript:void(0)'></a>
                                     <a class='glyphicon glyphicon-eye-open btn' title='详情' href='javascript:void(0)'></a>

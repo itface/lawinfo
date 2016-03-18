@@ -73,10 +73,11 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         String secondTab = TAB_3;
         StringBuilder sb = new StringBuilder();
         sb.append(firstTab).append("#if($!pageVo)").append(BREAK_ROW);
-        sb.append(secondTab).append("#set($list = $!pageVo.list)").append(BREAK_ROW);
-        sb.append(secondTab).append("#set($currentPage = $!pageVo.page)").append(BREAK_ROW);
-        sb.append(secondTab).append("#set($total = $!pageVo.total)").append(BREAK_ROW);
-        sb.append(secondTab).append("#set($pagesize = $!pageVo.pagesize)").append(BREAK_ROW);
+            sb.append(secondTab).append("#set($list = $!pageVo.list)").append(BREAK_ROW);
+            sb.append(secondTab).append("#set($currentPage = $!pageVo.page)").append(BREAK_ROW);
+            sb.append(secondTab).append("#set($total = $!pageVo.total)").append(BREAK_ROW);
+            sb.append(secondTab).append("#set($pagesize = $!pageVo.pagesize)").append(BREAK_ROW);
+            sb.append(secondTab).append("#set($startIndex = $!pageVo.getStartIndex())").append(BREAK_ROW);
         sb.append(firstTab).append("#end").append(BREAK_ROW);
         return sb.toString();
     }
@@ -126,7 +127,7 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                                 sb.append(seventhTab).append("<tbody>").append(BREAK_ROW);
                                     sb.append(eightthTab).append("#if($list && $list.size()>0)").append(BREAK_ROW);
                                         sb.append(ninthTab).append("#foreach($obj in $list)").append(BREAK_ROW);
-                                            sb.append(tenthTab).append("#set($tempIndex=$velocityCount+$firstIndex)").append(BREAK_ROW);
+                                            sb.append(tenthTab).append("#set($tempIndex=$velocityCount+$startIndex - 1)").append(BREAK_ROW);
                                             sb.append(tenthTab).append("<tr objId='$obj.id'>").append(BREAK_ROW);
                                                 sb.append(eleventhTab).append("<td>").append(BREAK_ROW);
                                                     sb.append(twelfthTab).append("<span>").append(BREAK_ROW);
