@@ -339,7 +339,7 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
         String secondTab = firstTab+TAB_1;
         sb.append(firstTab).append("var currentId;").append(BREAK_ROW);
         sb.append(firstTab).append("var locationUrl = '").append(baseurl).append("';").append(BREAK_ROW);
-        sb.append(firstTab).append("jQuery('#pager').my_page({url:locationUrl,currentPage:$currentPage,formname:'mainform',total:$total,pageSize:$pagesize});\n").append(BREAK_ROW);
+        sb.append(firstTab).append("jQuery('#pager').my_page({url:locationUrl,currentPage:'$!currentPage',formname:'mainform',total:'$!total',pageSize:'$!pagesize'});\n").append(BREAK_ROW);
         /*sb.append(firstTab).append("$('.datetimepicker-class').datetimepicker({").append(BREAK_ROW);
             sb.append(secondTab).append("format: 'yyyy-mm-dd',").append(BREAK_ROW);
             sb.append(secondTab).append("minView: \"month\",").append(BREAK_ROW);
