@@ -128,17 +128,17 @@ public class VmSourceGenerateServiceImpl implements VmSourceGenerateService {
                                     sb.append(eightthTab).append("#if($list && $list.size()>0)").append(BREAK_ROW);
                                         sb.append(ninthTab).append("#foreach($obj in $list)").append(BREAK_ROW);
                                             sb.append(tenthTab).append("#set($tempIndex=$velocityCount+$startIndex - 1)").append(BREAK_ROW);
-                                            sb.append(tenthTab).append("<tr objId='$obj.id'>").append(BREAK_ROW);
+                                            sb.append(tenthTab).append("<tr objId='$!obj.id'>").append(BREAK_ROW);
                                                 sb.append(eleventhTab).append("<td>").append(BREAK_ROW);
                                                     sb.append(twelfthTab).append("<span>").append(BREAK_ROW);
                                                         sb.append(thirteenthTab).append("<a class='glyphicon glyphicon-trash btn btn-del' title='删除' href='javascript:void(0)'></a>").append(BREAK_ROW);
                                                     sb.append(twelfthTab).append("</span>").append(BREAK_ROW);
                                                 sb.append(eleventhTab).append("</td>").append(BREAK_ROW);
-                                                sb.append(eleventhTab).append("<td>").append("$tempIndex").append("</td>").append(BREAK_ROW);
+                                                sb.append(eleventhTab).append("<td>").append("$!tempIndex").append("</td>").append(BREAK_ROW);
                                                 if(!CollectionUtils.isEmpty(fieldModelList)) {
                                                     for (FieldModel fieldModel : fieldModelList) {
                                                         if (fieldModel.isShowInList()) {
-                                                            sb.append(eleventhTab).append("<td>").append("$obj.").append(fieldModel.getId()).append("</td>").append(BREAK_ROW);
+                                                            sb.append(eleventhTab).append("<td>").append("$!obj.").append(fieldModel.getId()).append("</td>").append(BREAK_ROW);
                                                         }
                                                     }
                                                 }
