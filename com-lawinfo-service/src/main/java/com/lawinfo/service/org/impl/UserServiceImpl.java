@@ -386,7 +386,9 @@ public class UserServiceImpl implements UserService{
                 List<OrgVo> sons = orgVo.getNodes();
                 if (!CollectionUtils.isEmpty(sons)) {
                     for (OrgVo orgVo1 : sons) {
-                        buildOrgVo(orgVo1);
+                        if (orgVo1.getType()!=1) {
+                            buildOrgVo(orgVo1);
+                        }
                     }
                 }
             }

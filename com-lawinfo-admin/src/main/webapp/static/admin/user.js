@@ -99,7 +99,7 @@ var user = {
         var self = this;
         self.initClickEvent();
         self.initOrgUserTree($.proxy(self.buildOrgUserTree,this));
-        self.showUserTable($.proxy(self.buildUserTable,this));
+        //self.showUserTable($.proxy(self.buildUserTable,this));
     },
     setSelectedEuOrgTreeNode:function(){
         var nodes = $('#user-org-tree').tree('getChecked');
