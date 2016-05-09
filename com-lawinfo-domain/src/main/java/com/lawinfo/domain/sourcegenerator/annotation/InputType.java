@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 public @interface InputType {
     InputType.type value() default type.text;
     String name();
+    boolean queryAble() default false;
     boolean showInList() default false;
     boolean showInEditForm() default false;
     boolean showInReadForm() default false;

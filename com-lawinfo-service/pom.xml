@@ -15,23 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lawinfo</groupId>
-            <artifactId>com-lawinfo-dao</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
+            <artifactId>com-lawinfo-common</artifactId>
         </dependency>
     </dependencies>
 </project>

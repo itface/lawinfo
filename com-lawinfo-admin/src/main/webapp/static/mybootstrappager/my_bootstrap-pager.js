@@ -6,13 +6,16 @@
             };
             var pageinfo  = $.extend({},defaults,options||{});*/
             var pageinfo = options;
-            if (!pageinfo||pageinfo.total<1||pageinfo.pageSize<1||pageinfo.currentPage<1) {
+            if (!pageinfo||!pageinfo.queryform||pageinfo.total<1||pageinfo.pageSize<1||pageinfo.currentPage<1) {
                 return false;
             }
             var pageCount = pageinfo.total%pageinfo.pageSize==0?pageinfo.total/pageinfo.pageSize:parseInt(pageinfo.total/pageinfo.pageSize)+1;
             if (pageCount < 2){
                 return false;
             }
+            pageinfo.total = parseInt(pageinfo.total);
+            pageinfo.pageSize = parseInt(pageinfo.pageSize);
+            pageinfo.currentPage = parseInt(pageinfo.currentPage);
             pageinfo.pageCount = pageCount;
             var pagenoClass = 'my_pageno';
             var pagePrevClass = 'my_page_prev';
@@ -51,13 +54,14 @@
                 );
             }
             function redirectTo(pageinfo,page) {
-                var url = pageinfo.url;
-                if (url.indexOf("?") == -1) url += "?";
+                $('#page').val(page);
+                /*if (url.indexOf("?") == -1) url += "?";
                 else url += "&";
                 url += "page=" + page;
-                window.location.href=url;
-                //$("form[name='" + pageinfo.formname + "']").attr("action", url);
-                //$("form[name='" + pageinfo.formname + "']").submit();
+                window.location.href=url;*/
+                $("form[name='" + pageinfo.queryform + "']").attr("action", pageinfo.url);
+                $("form[name='" + pageinfo.queryform + "']").attr("method", 'POST');
+                $("form[name='" + pageinfo.queryform + "']").submit();
 
             }
             function buildPageHtml($this,pageinfo){

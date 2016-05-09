@@ -1,14 +1,12 @@
 package com.lawinfo.admin.controller;
 
-import com.lawinfo.domain.common.EasyuiTree;
 import com.lawinfo.domain.common.PageVo;
+import com.lawinfo.domain.front.query.CaseInfoQuery;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.query.ActionQuery;
-import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.service.org.ActionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,31 +21,21 @@ import java.util.List;
  * Created by wangrongtao on 15/10/17.
  */
 @Controller
-@RequestMapping
-public class TestActionController {
+@RequestMapping("/lawinfo/front/caseinfo")
+public class CaseInfoNewController {
 
     @Resource
     private ActionService actionService;
 
-    @RequestMapping("/login/org")
-    public String view(Integer page,ModelMap model){
-        ActionQuery actionQuery = new ActionQuery();
-        try {
-            if (page == null) {
-                page=1;
-            }
-            actionQuery.setPage(page);
-            PageVo<Action> pageVo = actionService.findByPage(actionQuery);
-            model.put("pageVo", pageVo);
-            model.put("firstIndex", (pageVo.getPage()-1)*pageVo.getPagesize());
-
-
-        } catch (Exception e) {
-
+    @RequestMapping()
+    public String view(CaseInfoQuery caseInfoQuery,ModelMap model){
+        if (caseInfoQuery.getPage() < 1) {
+            caseInfoQuery.setPage(1);
         }
-        return "/front/newfront";
+        model.put("queryobj", caseInfoQuery);
+        return "front/frontmain";
     }
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping("/login/org/findbyid")
     public Action findbyid(long id)throws Exception{
         Action action = actionService.findById(id);
@@ -76,7 +64,7 @@ public class TestActionController {
             }
         }
         return stringBuilder.toString();
-    }
+    }*/
 /*
     @ResponseBody
     @RequestMapping("/add")

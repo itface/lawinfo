@@ -9,6 +9,7 @@ public class FieldModel implements Serializable {
     private String type;
     private String id;
     private String name;
+    private boolean queryAble;
     private boolean showInList;
     private boolean showInEditForm;
     private boolean showInReadForm;
@@ -59,5 +60,13 @@ public class FieldModel implements Serializable {
 
     public void setShowInReadForm(boolean showInReadForm) {
         this.showInReadForm = showInReadForm;
+    }
+
+    public boolean isQueryAble() {
+        return queryAble;
+    }
+
+    public void setQueryAble(boolean queryAble) {
+        this.queryAble = queryAble;
     }
 }
