@@ -12,7 +12,7 @@ var exeLawyer = {
         jQuery('#caseinfo-exelawyer-modal .has-error').show();
     },
     initClickEvent:function(){
-        jQuery('#caseinfo-exelawyer-modal .submit').unbind('click');
+        jQuery('#caseinfo-exelawyer-modal .submit').unbind();
     },
     init:function(){
         var self = this;

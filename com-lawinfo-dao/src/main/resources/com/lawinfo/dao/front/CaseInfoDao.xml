@@ -83,6 +83,12 @@
             <if test="endcreatetime>0">
                 and createtime &lt; #{endcreatetime}
             </if>
+            <if test="exeajbh!=null and exeajbh!=''">
+                and exeajbh = #{exeajbh}
+            </if>
+            <if test="caseorgname!=null and caseorgname!=''">
+                and caseorgname like concat('%', #{caseorgname}, '%')
+            </if>
             <!--<if test="exelawyerid!=null and exelawyerid!=''">
                 and exelawyerid like concat('%', #{exelawyerid}, '%')
             </if>

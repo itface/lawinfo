@@ -385,7 +385,7 @@ var caseprogress = {
                 html += "</tr>";
             }
             $('#progress-query tbody').append(html);
-            $('.btn-caseprogress-rm').unbind('click');
+            $('.btn-caseprogress-rm').unbind();
             $('.btn-caseprogress-rm').on('click', $.proxy(self.rmCaseprogressEvent,self));
         }
     },

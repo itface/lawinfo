@@ -24,21 +24,29 @@ var caseinfo = {
         jQuery('#caseinfo-modal .has-error').show();
     },
     initClickEvent:function(){
-        jQuery('#caseinfo-list').unbind('click');
-        jQuery('#caseinfo-modal .submit').unbind('click');
-        $('.caseinfo-more').unbind('click');
+        jQuery('#caseinfo-list').unbind();
+        jQuery('#caseinfo-modal .submit').unbind();
+        $('.caseinfo-more').unbind();
+    },
+    goPage:function(page){
+        var self = this;
+        self.showCaseinfoTableNew(page,$.proxy(self.buildCaseinfoTableNew,self));
     },
     init:function(){
         var self = this;
+        $("form[id='query_form']")[0].reset();
         self.initClickEvent();
         self.initCustomOrgTree($.proxy(self.buildCustomOrgTree,self));
         self.initCustomerTree($.proxy(self.buildCustomerTree,self));
         self.initLawyerTree($.proxy(self.buildLawyerTree,self));
-        jQuery('#caseinfo-list').on('click','.caseinfo-row', $.proxy(self.registCaseinfoTableRowEvent,this));
+        $.proxy(self.goPage,self);
+        //jQuery('#caseinfo-list').on('click','.caseinfo-row', $.proxy(self.registCaseinfoTableRowEvent,this));
+        /*
         $('.caseinfo-more').on('click',function(e){
             currentPage++;
             self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
         });
+        */
         jQuery('#caseinfo-modal .submit').on('click',function(e){
             jQuery(e.target).addClass('disabled');
             var casetype = jQuery('#caseinfo-modal  #casetype').is(':checked')?1:0;
@@ -190,7 +198,7 @@ var caseinfo = {
                     if (data==1) {
                         caseinfoIndex=0;
                         currentPage=1;
-                        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+                        self.showCaseinfoTableNew($.proxy(self.buildCaseinfoTableNew,self));
                         $('#caseinfo-modal').modal('hide');
                         $('#caseinfo-form')[0].reset();
                     }else{
@@ -204,11 +212,12 @@ var caseinfo = {
                 }
             });
         });
-        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+        //self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+        self.goPage(1);
     },
     initCaseinfoTable:function(){
         var self=this;
-        self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+        self.showCaseinfoTableNew($.proxy(self.buildCaseinfoTableNew,self));
     },
     buildCaseinfoTable:function(data) {
         var self = this;
@@ -260,12 +269,74 @@ var caseinfo = {
             }else{
                 $('.caseinfo-more-div').hide();
             }
-            $('.btn-saveExelawyerids').unbind('click');
+            $('.btn-saveExelawyerids').unbind();
             $('.btn-saveExelawyerids').on('click', $.proxy(self.saveExelawyeridsEvent,self));
-            $('.btn-caseinfo-rm').unbind('click');
+            $('.btn-caseinfo-rm').unbind();
             $('.btn-caseinfo-rm').on('click', $.proxy(self.rmCaseinfoEvent,self));
         }else{
             $('.caseinfo-more-div').hide();
+        }
+    },
+    buildCaseinfoTableNew:function(data) {
+        var self = this;
+        $('#caseinfo-list tbody').empty();
+        jQuery('#pager').empty();
+        if (currentPage<=1) {
+            caseinfoIndex=0;
+        }
+        if (data&&data.list) {
+            var html = '';
+            var list = data.list;
+            var havenext = data.havenext;
+            var startIndex = (data.page-1)*(data.pagesize)+1;
+            for(var i=0;i<list.length;i++) {
+                var o = list[i];
+                var exelawyerids = o.exelawyers;
+                var caseinfoid = o.id;
+                html+='<tr caseinfoid="'+ o.id+'" id="caseinfo_tr_'+ o.id+'" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'" ssajbh="'+ (o.ssajbh==null?'':o.ssajbh)+'">';
+                /*html+=' <td caseinfoid="'+ o.id+'">';
+                if (canRemoveCase) {
+                    html+='     <button type="button" class="close btn-caseinfo-rm" aria-hidden="true" style="color: red;opacity:1">&times;</button>';
+                }else{
+                    html+='&nbsp;';
+                }
+                html+=' </td>';
+                */
+                html+=' <td width="50px">';
+                html+='     '+ (startIndex+(caseinfoIndex++));
+                html+=' </td>';
+                html+=' <td>';
+                html+='     '+ (o.optuserid);
+                html+=' </td>';
+                html+=' <td>';
+                html+='     '+ (o.createtimestr);
+                html+=' </td>';
+                html+=' <td class="caseinfo-title">';
+                html+='     '+ o.title;
+                html+=' </td>';
+                html+=' <td caseinfoid="'+ o.id+'">';
+                html+="<a class='glyphicon glyphicon-eye-open btn caseinfo-row' title='详情' href='javascript:void(0)'>详情</a>";
+                if (canRemoveCase) {
+                    html+="     <a class='glyphicon glyphicon-trash btn btn-del btn-caseinfo-rm' title='删除' href='javascript:void(0)'>删除</a>";
+                }
+                if (!exelawyerids) {
+                    var display = self.checkExelawyerAdd() ? "block" : "none";
+                    html+="<a class='glyphicon glyphicon-edit btn btn-saveExelawyerids' title='添加执行律师' href='javascript:void(0)' style='display:"+display+"'>添加执行律师</a>";
+                    //html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'">添加执行律师</button>';
+                }
+                html+=' </td>';
+                html+='</tr>';
+            }
+            $('#caseinfo-list tbody').append(html);
+            if (data.total>data.pagesize) {
+                jQuery('#pager').my_page({goPage:$.proxy(self.goPage,self),currentPage:data.page,total:data.total,pageSize:data.pagesize});
+            }
+            $('.caseinfo-row').unbind();
+            $('.caseinfo-row').on('click', $.proxy(self.registCaseinfoTableRowEvent,self));
+            $('.btn-saveExelawyerids').unbind();
+            $('.btn-saveExelawyerids').on('click', $.proxy(self.saveExelawyeridsEvent,self));
+            $('.btn-caseinfo-rm').unbind();
+            $('.btn-caseinfo-rm').on('click', $.proxy(self.rmCaseinfoEvent,self));
         }
     },
     checkExelawyerAdd : function(){
@@ -297,7 +368,7 @@ var caseinfo = {
             type:'GET',
             cache:false,
             success:function(data) {
-                self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+                self.showCaseinfoTableNew(1,$.proxy(self.buildCaseinfoTableNew,self));
             },
             error:function() {
                 mainAlert('删除案件异常');
@@ -310,7 +381,7 @@ var caseinfo = {
         jQuery('#caseinfo-exelawyer-modal').modal({backdrop: 'static', keyboard: false}).modal('show');
     },
     registCaseinfoTableRowEvent:function(e){
-        var tr = jQuery(e.target).parent();
+        var tr = jQuery(e.target).parent().parent();
         selectCaseinfoId = tr.attr('caseinfoid');
         /*selectCasePreprice = tr.attr('preprice');
         selectCaseSufprice = tr.attr('sufprice');
@@ -330,6 +401,32 @@ var caseinfo = {
             url:'/lawinfo/front/caseinfo/find',
             data:{userid:currentUser,currenttabtype:currentTabType,page:currentPage},
             type:'GET',
+            cache:false,
+            //async:false,
+            success:function(data) {
+                caseinfosPageVo = data;
+            },
+            error:function() {
+                mainAlert('获取案件信息异常');
+            }
+        }).done(function(e){
+            callback && callback(caseinfosPageVo);
+        });
+    },
+    showCaseinfoTableNew:function(page,callback){
+        var self = this;
+        var caseinfosPageVo = null;
+        if (!page) {
+            page=1;
+        }
+        var status =$('#status_query').val();
+        var lxr = $('#lxr_query').val();
+        var jg = $('#jg_query').val();
+        var zxah = $('#zxah_query').val();
+        jQuery.ajax({
+            url:'/lawinfo/front/caseinfo/find',
+            data:{userid:currentUser,currenttabtype:status,page:page,contact:lxr,caseorgname:jg,exeajbh:zxah},
+            type:'POST',
             cache:false,
             //async:false,
             success:function(data) {

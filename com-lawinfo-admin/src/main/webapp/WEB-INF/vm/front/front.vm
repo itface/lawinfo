@@ -24,15 +24,22 @@
         <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
         <script src="/static/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
         <script src="/static/front/user.js"></script>
+        <script src="/static/mybootstrappager/my_bootstrap-pager.js"></script>
         <script src="/static/front/caseinfo.js"></script>
         <script src="/static/front/caseprogress.js"></script>
         <script src="/static/front/chart.js"></script>
         <script src="/static/front/caseinfo_exelawyer.js"></script>
         <script src="/static/echarts/echarts-all.js"></script>
 ##        <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
-
 	</head>
 	<body>
+        #*#if($!pageVo)
+            #set($list = $!pageVo.list)
+            #set($currentPage = $!pageVo.page)
+            #set($total = $!pageVo.total)
+            #set($pageSize = $!pageVo.pagesize)
+            #set($startIndex = $!pageVo.getStartIndex())
+        #end*#
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="col-xs-12" style="text-align: center;background: url('/static/img/logo.png') no-repeat;">
@@ -46,14 +53,17 @@
                 <li class="">
                     <a href="javascript:void(0)">您好，$!loginusername</a>
                 </li>
-                <li class="dropdown pull-right">
+                <li class="pull-right">
+                    <a href="/logout">安全离开</a>
+                </li>
+                #*<li class="dropdown pull-right">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">设置<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="/logout">离开</a>
                         </li>
                     </ul>
-                </li>
+                </li>*#
             </ul>
         </div>
         <div class="row-fluid">
@@ -96,34 +106,91 @@
                                     <li class="active">
                                         <a href="#case-doing" data-toggle="tab" id="case-doing-tab" actionid="front-case-doing-list" style="display: block">在办</a>
                                     </li>
+                                    #*<li class="active">
+                                        <a href="#case-doing" data-toggle="tab" id="case-doing-tab" actionid="front-case-doing-list" style="display: block">在办</a>
+                                    </li>
                                     <li>
                                         <a href="#case-doing" data-toggle="tab" id="case-ed-tab" actionid="front-case-ed-list" style="display: block">已办</a>
                                     </li>
                                     <li>
                                         <a href="#case-doing" data-toggle="tab" id="case-all-tab" actionid="front-case-all-list" style="display: block">所有</a>
-                                    </li>
+                                    </li>*#
                                     <li>
                                         <a href="#case-report" data-toggle="tab" id="case-report-tab" actionid="front-case-report-list" style="display: none">统计</a>
                                     </li>
                                 </ul>
                                 <div id="caseTabContent" class="tab-content">
                                     <div class="tab-pane fade in active" id="case-doing">
-                                        <table class="table table-hover" id="caseinfo-list">
-                                            <thead>
-                                            <tr>
-                                                <th>&nbsp;</th>
-                                                <th>序号</th>
-                                                <th>创建人</th>
-                                                <th>创建时间</th>
-                                                <th>摘要</th>
-                                                <th>&nbsp;</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                                        <div>
+                                            <form id="query_form">
+                                                <table class="table table-bordered common-table">
+                                                    <tr>
+                                                        <td style="border: 0px">
+                                                            <div class="col-xs-2">
+                                                                <label>案件所属机构:</label>
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <input id="jg_query" type="text" class="form-control"/>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label>机构联系人:</label>
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <input id="lxr_query" type="text" class="form-control"/>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border: 0px">
+                                                            <div class="col-xs-2">
+                                                                <label>案件状态:</label>
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <select id="status_query" class="form-control field-query" placeholder="状态">
+                                                                    <option value="1">在办</option>
+                                                                    <option value="2">已办</option>
+                                                                    <option value="0">全部</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label>执行案号:</label>
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <input id="zxah_query" type="text" class="form-control"/>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border: 0px">
+                                                            <div class="pull-right">
+                                                                <a href="javascript:void(0);" class="btn btn-info btn-sm btn-query">
+                                                                    <span class="glyphicon glyphicon-search"></span> 查询
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped table-hover common-table" id="caseinfo-list">
+                                                <thead>
+                                                <tr>
+                                                    <th>序号</th>
+                                                    <th>创建人</th>
+                                                    <th>创建时间</th>
+                                                    <th>摘要</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
 
-                                            </tbody>
-                                        </table>
-                                        <div style="text-align: center;display: none" class="caseinfo-more-div"><a href="#" class="caseinfo-more">显示更多...</a></div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="pull-right">
+                                            <div id="pager"></div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="case-report">
                                         <div class="row-fluid">
@@ -732,14 +799,6 @@
                     currentTabType=1;
                     currentPage = 1;
                     caseinfo.init();
-                }else if (currentTabId == 'case-ed-tab') {
-                    currentTabType=2;
-                    currentPage = 1;
-                    caseinfo.init();
-                }else if (currentTabId == 'case-all-tab') {
-                    currentTabType=0;
-                    currentPage = 1;
-                    caseinfo.init();
                 }else if (currentTabId == 'case-report-tab') {
                     currentTabType=2;//查询所有已经结束的案子
                     currentPage = 1;
@@ -758,12 +817,15 @@
                     }
                 }
             }
-            $('#caseinfo-progress-modal').on('show.bs.modal', function () {
+            $('#caseinfo-progress-modal').on('shown.bs.modal', function () {
                 jQuery('#caseinfo-progress-form').hide();
                 caseprogress.init();
             });
-            $('#caseinfo-exelawyer-modal').on('show.bs.modal', function () {
+            $('#caseinfo-exelawyer-modal').on('shown.bs.modal', function () {
                 exeLawyer.init();
+            });
+            jQuery('.btn-query').on('click',function(e){
+                caseinfo.goPage(1);
             });
         </script>
 	</body>

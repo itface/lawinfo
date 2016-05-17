@@ -6,7 +6,7 @@
             };
             var pageinfo  = $.extend({},defaults,options||{});*/
             var pageinfo = options;
-            if (!pageinfo||!pageinfo.queryform||pageinfo.total<1||pageinfo.pageSize<1||pageinfo.currentPage<1) {
+            if (!pageinfo||!pageinfo.goPage||pageinfo.total<1||pageinfo.pageSize<1||pageinfo.currentPage<1) {
                 return false;
             }
             var pageCount = pageinfo.total%pageinfo.pageSize==0?pageinfo.total/pageinfo.pageSize:parseInt(pageinfo.total/pageinfo.pageSize)+1;
@@ -23,33 +23,39 @@
             var firstPageClass = 'my_page_first';
             var lastPageClass = 'my_page_last';
             var paginationClass = 'pagination';
+            var goPage = pageinfo.goPage;
             buildPageHtml($this,pageinfo);
             initEvent($this,pageinfo);
             function initEvent($this,pageinfo){
                 $this.find("."+pagenoClass).bind("click",
                     function() {
                         var pageno = $(this).html();
-                        redirectTo(pageinfo,pageno);
+                        goPage(pageno);
+                        //redirectTo(pageinfo,pageno);
                     }
                 );
                 $this.find("."+pagePrevClass).bind("click",
                     function() {
-                        redirectTo(pageinfo,pageinfo.currentPage - 1);
+                        goPage(pageinfo.currentPage - 1);
+                        //redirectTo(pageinfo,pageinfo.currentPage - 1);
                     }
                 );
                 $this.find("."+pageNextClass).bind("click",
                     function() {
-                        redirectTo(pageinfo,pageinfo.currentPage + 1);
+                        goPage(pageinfo.currentPage + 1);
+                        //redirectTo(pageinfo,pageinfo.currentPage + 1);
                     }
                 );
                 $this.find("."+firstPageClass).bind("click",
                     function() {
-                        redirectTo(pageinfo,1);
+                        goPage(1);
+                        //redirectTo(pageinfo,1);
                     }
                 );
                 $this.find("."+lastPageClass).bind("click",
                     function() {
-                        redirectTo(pageinfo,pageinfo.pageCount);
+                        goPage(pageinfo.pageCount);
+                        //redirectTo(pageinfo,pageinfo.pageCount);
                     }
                 );
             }

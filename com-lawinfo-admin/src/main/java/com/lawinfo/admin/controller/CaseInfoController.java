@@ -63,7 +63,7 @@ public class CaseInfoController {
         int rows = caseInfoService.updateExeLawyers(id,exeajbh,exelawyers,exelawyerids);
         return rows;
     }
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping("/find")
     public PageVo<CaseInfo> find(HttpServletRequest request,String userid,Integer currenttabtype,Integer page)throws Exception {
         if (!StringUtils.isEmpty(userid)) {
@@ -73,6 +73,19 @@ public class CaseInfoController {
                 page = 1;
             }
             caseInfoQuery.setPage(page);
+            caseInfoQuery.setPageSize(PAGE_SIZE);
+            PageVo<CaseInfo> pageVo = caseInfoService.findListByPage(caseInfoQuery,userid);
+            return pageVo;
+        }
+        return null;
+    }*/
+    @ResponseBody
+    @RequestMapping("/find")
+    public PageVo<CaseInfo> query(CaseInfoQuery caseInfoQuery,String userid)throws Exception {
+        if (caseInfoQuery!=null&&!StringUtils.isEmpty(userid)) {
+            if (caseInfoQuery.getPage() < 1) {
+                caseInfoQuery.setPage(1);
+            }
             caseInfoQuery.setPageSize(PAGE_SIZE);
             PageVo<CaseInfo> pageVo = caseInfoService.findListByPage(caseInfoQuery,userid);
             return pageVo;

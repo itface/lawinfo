@@ -16,6 +16,8 @@ public class CaseInfoQuery extends BaseQuery {
     private String lawyer;
     private String contact;
     private long caseorgid;
+    private String caseorgname;
+    private String exeajbh;
     private long startcreatetime;
     private long endcreatetime;
 
@@ -90,6 +92,22 @@ public class CaseInfoQuery extends BaseQuery {
 
     public void setEndcreatetime(long endcreatetime) {
         this.endcreatetime = endcreatetime;
+    }
+
+    public String getCaseorgname() {
+        return caseorgname;
+    }
+
+    public void setCaseorgname(String caseorgname) {
+        this.caseorgname = caseorgname;
+    }
+
+    public String getExeajbh() {
+        return exeajbh;
+    }
+
+    public void setExeajbh(String exeajbh) {
+        this.exeajbh = exeajbh;
     }
 
     public String toLogString() {
