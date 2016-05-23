@@ -69,7 +69,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
                 caseInfo.init();
                 caseInfo.initBaseDomain();
                 if (SysConstants.CASEINFO_TYPE_INIT!=caseInfo.getCasetype()) {
-                    caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
+                    caseInfo.setStatus(SysConstants.CASEINFO_STATUS_ALL_FINISHED);
                 }
                 long caseorgid = caseInfo.getCaseorgid();
                 String caseorgfullid = orgService.getFullPathId(caseorgid);
@@ -367,7 +367,7 @@ public class CaseInfoServiceImpl implements CaseInfoService {
         try {
             CaseInfo caseInfo = new CaseInfo();
             caseInfo.setId(caseinfoid);
-            caseInfo.setStatus(SysConstants.CASEINFO_STATUS_FINISHED);
+            caseInfo.setStatus(SysConstants.CASEINFO_STATUS_ALL_FINISHED);
             effectrows = caseInfoDao.updateStatus(caseInfo);
         } catch (Exception e) {
             logger.error("updateStatusFinish error,id="+caseinfoid, e);

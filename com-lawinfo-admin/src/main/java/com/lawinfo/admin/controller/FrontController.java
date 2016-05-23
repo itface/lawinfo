@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 15/10/18.
@@ -51,23 +49,15 @@ public class FrontController {
         String username = user==null?null:user.getName();
         modelMap.put("loginusername", username);
         if (SysConstants.SUPER_ADMIN.equals(userid)) {
-            StringBuilder sb = new StringBuilder();
-            for(String tag : SysConstants.FRONT_TAGS){
-                sb.append(tag).append(",");
-            }
-            modelMap.put("actionList", sb.substring(0,sb.length()-1));
+            modelMap.put("actionmap", SysConstants.FRONT_TAGS_MAP);
         }else{
             List<Action> actions = UserUtils.findActionsByUserid(userid);
             if (!CollectionUtils.isEmpty(actions)) {
-                StringBuilder sb = new StringBuilder();
+                Map<String,String> map = new HashMap<String,String>();
                 for (Action action : actions) {
-                    if (SysConstants.FRONT_TAGS.contains(action.getTag())) {
-                        sb.append(action.getTag()).append(",");
-                    }
+                    map.put(action.getTag(), action.getTag());
                 }
-                if (sb.length()>0) {
-                    modelMap.put("actionList", sb.substring(0,sb.length()-1));
-                }
+                modelMap.put("actionmap", map);
             }
         }
         return "/front/front";

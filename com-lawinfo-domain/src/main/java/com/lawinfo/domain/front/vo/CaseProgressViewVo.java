@@ -11,24 +11,43 @@ import java.util.List;
  */
 public class CaseProgressViewVo implements Serializable{
 
-    private List<CaseProgressComment> caseProgressCommentList;
-    private List<CaseProgressTreeVo> caseProgressTreeVoList;
+    private List<CaseProgressComment> ssCaseProgressCommentList;
+    private List<CaseProgressComment> executeCaseProgressCommentList;
+    private List<CaseProgressTreeVo> ssCaseProgressTreeVoList;
+    private List<CaseProgressTreeVo> executeCaseProgressTreeVoList;
     private CaseInfo caseInfo;
+    private boolean ifsslawyer;
 
-    public List<CaseProgressComment> getCaseProgressCommentList() {
-        return caseProgressCommentList;
+    public List<CaseProgressComment> getSsCaseProgressCommentList() {
+        return ssCaseProgressCommentList;
     }
 
-    public void setCaseProgressCommentList(List<CaseProgressComment> caseProgressCommentList) {
-        this.caseProgressCommentList = caseProgressCommentList;
+    public void setSsCaseProgressCommentList(List<CaseProgressComment> ssCaseProgressCommentList) {
+        this.ssCaseProgressCommentList = ssCaseProgressCommentList;
     }
 
-    public List<CaseProgressTreeVo> getCaseProgressTreeVoList() {
-        return caseProgressTreeVoList;
+    public List<CaseProgressComment> getExecuteCaseProgressCommentList() {
+        return executeCaseProgressCommentList;
     }
 
-    public void setCaseProgressTreeVoList(List<CaseProgressTreeVo> caseProgressTreeVoList) {
-        this.caseProgressTreeVoList = caseProgressTreeVoList;
+    public void setExecuteCaseProgressCommentList(List<CaseProgressComment> executeCaseProgressCommentList) {
+        this.executeCaseProgressCommentList = executeCaseProgressCommentList;
+    }
+
+    public List<CaseProgressTreeVo> getSsCaseProgressTreeVoList() {
+        return ssCaseProgressTreeVoList;
+    }
+
+    public void setSsCaseProgressTreeVoList(List<CaseProgressTreeVo> ssCaseProgressTreeVoList) {
+        this.ssCaseProgressTreeVoList = ssCaseProgressTreeVoList;
+    }
+
+    public List<CaseProgressTreeVo> getExecuteCaseProgressTreeVoList() {
+        return executeCaseProgressTreeVoList;
+    }
+
+    public void setExecuteCaseProgressTreeVoList(List<CaseProgressTreeVo> executeCaseProgressTreeVoList) {
+        this.executeCaseProgressTreeVoList = executeCaseProgressTreeVoList;
     }
 
     public CaseInfo getCaseInfo() {
@@ -37,5 +56,13 @@ public class CaseProgressViewVo implements Serializable{
 
     public void setCaseInfo(CaseInfo caseInfo) {
         this.caseInfo = caseInfo;
+    }
+
+    public boolean isIfsslawyer() {
+        return ifsslawyer;
+    }
+
+    public void setIfsslawyer(boolean ifsslawyer) {
+        this.ifsslawyer = ifsslawyer;
     }
 }

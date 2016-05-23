@@ -18,6 +18,7 @@ public class CaseInfoQuery extends BaseQuery {
     private long caseorgid;
     private String caseorgname;
     private String exeajbh;
+    private String ssajbh;
     private long startcreatetime;
     private long endcreatetime;
 
@@ -108,6 +109,14 @@ public class CaseInfoQuery extends BaseQuery {
 
     public void setExeajbh(String exeajbh) {
         this.exeajbh = exeajbh;
+    }
+
+    public String getSsajbh() {
+        return ssajbh;
+    }
+
+    public void setSsajbh(String ssajbh) {
+        this.ssajbh = ssajbh;
     }
 
     public String toLogString() {

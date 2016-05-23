@@ -1,12 +1,6 @@
 /**
  * Created by wangrongtao on 15/10/28.
  */
-/*var selectCasePreprice=null;
-var selectCaseSufprice=null;
-var selectCaseYstj=null;
-var selectCaseEstj=null;
-var selectCaseSfss = null;
-var selectCaseSsajbh=null;*/
 var selectCaseinfoId = null;
 var customOrgTreeSelectedNode = null;
 var customerTreeSelectedNode = null;
@@ -32,21 +26,14 @@ var caseinfo = {
         var self = this;
         self.showCaseinfoTableNew(page,$.proxy(self.buildCaseinfoTableNew,self));
     },
-    init:function(){
+    /**
+     * 有编辑权限(律师)初始化
+     */
+    initEditPrivil:function(){
         var self = this;
-        $("form[id='query_form']")[0].reset();
-        self.initClickEvent();
         self.initCustomOrgTree($.proxy(self.buildCustomOrgTree,self));
         self.initCustomerTree($.proxy(self.buildCustomerTree,self));
         self.initLawyerTree($.proxy(self.buildLawyerTree,self));
-        $.proxy(self.goPage,self);
-        //jQuery('#caseinfo-list').on('click','.caseinfo-row', $.proxy(self.registCaseinfoTableRowEvent,this));
-        /*
-        $('.caseinfo-more').on('click',function(e){
-            currentPage++;
-            self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
-        });
-        */
         jQuery('#caseinfo-modal .submit').on('click',function(e){
             jQuery(e.target).addClass('disabled');
             var casetype = jQuery('#caseinfo-modal  #casetype').is(':checked')?1:0;
@@ -70,7 +57,7 @@ var caseinfo = {
             var court = $.trim(jQuery('#caseinfo-modal  #court').val());
             var judge = $.trim(jQuery('#caseinfo-modal  #judge').val());
             /*var exelawyers = jQuery('#caseinfo-modal  #exelawyers').val();
-            var exelawyerids = jQuery('#caseinfo-modal  #exelawyerids').val();*/
+             var exelawyerids = jQuery('#caseinfo-modal  #exelawyerids').val();*/
             var sslawyerids = $.trim(jQuery('#caseinfo-modal  #sslawyerids').val());
             var sslawyers = $.trim(jQuery('#caseinfo-modal  #sslawyers').val());
             var totalprice = $.trim(jQuery('#caseinfo-modal  #totalprice').val());
@@ -161,9 +148,9 @@ var caseinfo = {
                 return false;
             }
             /*if (!ssajbh) {
-                self.saveActionAlert('诉讼案号不能为空');
-                return false;
-            }*/
+             self.saveActionAlert('诉讼案号不能为空');
+             return false;
+             }*/
             var obj = {};
             //obj.ssajbh = ssajbh;
             obj.casetype = casetype;
@@ -198,7 +185,7 @@ var caseinfo = {
                     if (data==1) {
                         caseinfoIndex=0;
                         currentPage=1;
-                        self.showCaseinfoTableNew($.proxy(self.buildCaseinfoTableNew,self));
+                        self.showCaseinfoTableNew(1,$.proxy(self.buildCaseinfoTableNew,self));
                         $('#caseinfo-modal').modal('hide');
                         $('#caseinfo-form')[0].reset();
                     }else{
@@ -212,12 +199,17 @@ var caseinfo = {
                 }
             });
         });
-        //self.showCaseinfoTable($.proxy(self.buildCaseinfoTable,self));
+    },
+    init:function(){
+        var self=this;
+        $("form[id='query_form']")[0].reset();
+        self.initClickEvent();
+        $.proxy(self.goPage,self);
         self.goPage(1);
     },
     initCaseinfoTable:function(){
         var self=this;
-        self.showCaseinfoTableNew($.proxy(self.buildCaseinfoTableNew,self));
+        self.showCaseinfoTableNew(1,$.proxy(self.buildCaseinfoTableNew,self));
     },
     buildCaseinfoTable:function(data) {
         var self = this;
@@ -296,34 +288,33 @@ var caseinfo = {
                 html+='<tr caseinfoid="'+ o.id+'" id="caseinfo_tr_'+ o.id+'" caseinfoid="'+ o.id+'" preprice="'+ o.preprice+'" sufprice="'+ o.sufprice+'" ystj="'+ o.ystj+'" estj="'+ o.estj+'" sfss="'+ o.sfss+'" ssajbh="'+ (o.ssajbh==null?'':o.ssajbh)+'">';
                 /*html+=' <td caseinfoid="'+ o.id+'">';
                 if (canRemoveCase) {
-                    html+='     <button type="button" class="close btn-caseinfo-rm" aria-hidden="true" style="color: red;opacity:1">&times;</button>';
+                    html+="     <a class='glyphicon glyphicon-trash btn btn-del btn-caseinfo-rm' title='删除' href='javascript:void(0)'></a>";
                 }else{
                     html+='&nbsp;';
                 }
-                html+=' </td>';
-                */
+                html+=' </td>';*/
                 html+=' <td width="50px">';
                 html+='     '+ (startIndex+(caseinfoIndex++));
                 html+=' </td>';
                 html+=' <td>';
                 html+='     '+ (o.optuserid);
                 html+=' </td>';
-                html+=' <td>';
+                html+=' <td width="100px">';
                 html+='     '+ (o.createtimestr);
                 html+=' </td>';
                 html+=' <td class="caseinfo-title">';
                 html+='     '+ o.title;
                 html+=' </td>';
                 html+=' <td caseinfoid="'+ o.id+'">';
-                html+="<a class='glyphicon glyphicon-eye-open btn caseinfo-row' title='详情' href='javascript:void(0)'>详情</a>";
+                html+="<a class='glyphicon glyphicon-eye-open btn caseinfo-row' title='详情' href='javascript:void(0)'>案件详情</a>";
                 if (canRemoveCase) {
                     html+="     <a class='glyphicon glyphicon-trash btn btn-del btn-caseinfo-rm' title='删除' href='javascript:void(0)'>删除</a>";
                 }
-                if (!exelawyerids) {
+                /*if (!exelawyerids) {
                     var display = self.checkExelawyerAdd() ? "block" : "none";
-                    html+="<a class='glyphicon glyphicon-edit btn btn-saveExelawyerids' title='添加执行律师' href='javascript:void(0)' style='display:"+display+"'>添加执行律师</a>";
+                    //html+="<a class='glyphicon glyphicon-edit btn btn-saveExelawyerids' title='添加执行律师' href='javascript:void(0)' style='display:"+display+"'>添加执行律师</a>";
                     //html+='     <button type="button" class="btn btn-primary btn-saveExelawyerids" style="display:'+display+'">添加执行律师</button>';
-                }
+                }*/
                 html+=' </td>';
                 html+='</tr>';
             }
@@ -340,14 +331,17 @@ var caseinfo = {
         }
     },
     checkExelawyerAdd : function(){
-        if (actionList) {
+        /*if (actionList) {
+            var actionArr = actionList.split(",");
+            var actionArr = actionList.split(",");
+            var actionArr = actionList.split(",");
             var actionArr = actionList.split(",");
             for (var i=0;i<actionArr.length;i++) {
                 if(actionArr[i] == "front-caseinfo-exelawyer-add"){
                     return true;
                 }
             }
-        }
+        }*/
         return false;
     },
     rmCaseinfoEvent:function(e){
@@ -423,9 +417,10 @@ var caseinfo = {
         var lxr = $('#lxr_query').val();
         var jg = $('#jg_query').val();
         var zxah = $('#zxah_query').val();
+        var ssah = $('#ssah_query').val();
         jQuery.ajax({
             url:'/lawinfo/front/caseinfo/find',
-            data:{userid:currentUser,currenttabtype:status,page:page,contact:lxr,caseorgname:jg,exeajbh:zxah},
+            data:{userid:currentUser,currenttabtype:status,page:page,contact:lxr,caseorgname:jg,exeajbh:zxah,ssajbh:ssah},
             type:'POST',
             cache:false,
             //async:false,

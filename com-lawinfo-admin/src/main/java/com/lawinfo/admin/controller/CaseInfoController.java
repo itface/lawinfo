@@ -58,6 +58,11 @@ public class CaseInfoController {
         return 0;
     }
     @ResponseBody
+    @RequestMapping("/setcasefinish")
+    public int setcasefinish(long casinfoid)throws Exception{
+        return caseInfoService.updateStatusFinish(casinfoid);
+    }
+    @ResponseBody
     @RequestMapping("/exelawyer/add")
     public int addExelawyer(HttpServletRequest request,long id,String exeajbh,String exelawyers,String exelawyerids)throws Exception{
         int rows = caseInfoService.updateExeLawyers(id,exeajbh,exelawyers,exelawyerids);

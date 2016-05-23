@@ -29,6 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         if (!UserUtils.haveAction(userid,uri)&&!UserUtils.haveMenu(userid, uri)) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return false;
         }
         return true;

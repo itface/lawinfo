@@ -3,39 +3,144 @@
  */
 var caseProgressTreeSelectedNode = null;
 var caseProgressTree = null;
+var exeLawyerTreeSelectedNode = null;
+var exeLawyerTree = null;
 var caseprogress = {
+    initEditPrivil:function(){
+        var self = this;
+        self.initExeLawyerTree($.proxy(self.buildExeLawyerTree,self));
+        jQuery('#caseinfo-progress-ss-end-form .btn').unbind();
+        jQuery('#caseinfo-progress-ss-end-form .btn').on('click',function(e){
+            var exeajbh = jQuery('#caseinfo-progress-ss-end-form  #exeajbh').val();
+            var exelawyers = jQuery('#caseinfo-progress-ss-end-form  #exelawyers').val();
+            var exelawyerids = jQuery('#caseinfo-progress-ss-end-form  #exelawyerids').val();
+            if (!exeajbh) {
+                self.saveProgressAlert('执行案优件号不能为空');
+                return false;
+            }
+            if (!exelawyers) {
+                self.saveProgressAlert('执行律师不能为空');
+                return false;
+            }
+            if (!exelawyerids) {
+                self.saveProgressAlert('执行律师不能为空');
+                return false;
+            }
+            if (!selectCaseinfoId) {
+                self.saveProgressAlert('无效的案件号，请重新选择');
+                return false;
+            }
+            jQuery.ajax({
+                url:'/lawinfo/front/caseinfo/exelawyer/add',
+                data:{id:selectCaseinfoId,exeajbh:exeajbh,exelawyers:exelawyers,exelawyerids:exelawyerids},
+                type:'POST',
+                cache:false,
+                success:function(data) {
+                    self.saveProgressAlert('保存成功');
+                    self.afterSaveProgress();
+                },
+                error:function() {
+                    self.saveProgressAlert('保存异常');
+                }
+            });
+        });
+        jQuery('#progress-execute-end-tab').unbind();
+        jQuery('#progress-execute-end-tab').on('click',function(e){
+            if (!confirm('您确定要将当前案件归档吗？')){
+                return false;
+            }
+            jQuery.ajax({
+                url:'/lawinfo/front/caseinfo/setcasefinish',
+                data:{casinfoid:selectCaseinfoId},
+                type:'POST',
+                cache:false,
+                success:function(data) {
+                    self.afterSaveProgress();
+                },
+                error:function() {
+                    alert('设置异常');
+                }
+            });
+        });
+    },
     init:function(){
         var self = this;
-        jQuery('#caseinfo-progress-form').hide();
+        jQuery('.caseinfo-progress-list').empty();
+        jQuery('.add-form').empty();
+        jQuery('#caseinfo-progress-ss-end-form  #exeajbh').val('');
+        jQuery('#caseinfo-progress-ss-end-form  #exelawyers').val('');
+        jQuery('#caseinfo-progress-ss-end-form  #exelawyerids').val('');
         self.clearSaveProgressAlert();
         if (selectCaseinfoId&&selectCaseinfoId>0) {
             self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
         }
     },
-    /*getCaseinfo:function(node,caseinfoid){
+    initExeLawyerTree:function(callback) {
         var self = this;
-        var caseinfo = null;
+        var treedata = null;
         jQuery.ajax({
-            url:'/lawinfo/front/caseinfo/findbyid',
-            data:{id:caseinfoid},
-            type:'POST',
+            url:'/lawinfo/front/caseinfo/user/findlawyertree',
+            type:'GET',
             cache:false,
             //async:false,
             success:function(data) {
-                caseinfo = data;
+                treedata = data;
             },
             error:function() {
-                self.saveProgressAlert('保存案件进度信息异常');
+                mainAlert('获取律师信息异常');
             }
         }).done(function(){
-            self.showCaseProgressComments(node,caseinfo);
+            callback && callback(treedata);
         });
-    },*/
-    showCaseProgressComments:function(node,caseInfo){
+    },
+    buildExeLawyerTree : function(treedata) {
         var self = this;
-        jQuery('#caseinfo-progress-form').show();
-        jQuery('#caseinfo-progress-list').empty();
-        jQuery('#add-form').empty();
+        exeLawyerTree = $('#caseinfo-exelawyer-tree').treeview({
+            data: treedata,
+            showCheckbox: true,
+            onNodeSelected: function (event, node) {
+                exeLawyerTreeSelectedNode = node;
+            },
+            onNodeUnselected: function (event, node) {
+            },
+            onNodeChecked: function (event, node) {
+                self.setExeLawyer();
+            },
+            onNodeUnchecked: function (event, node) {
+                self.setExeLawyer();
+            }
+        });
+        exeLawyerTree.treeview('collapseAll');
+    },
+    findSelectedExeLawyerNodess:function(){
+        return exeLawyerTree.treeview('getChecked');
+    },
+    setExeLawyer:function(){
+        var self = this;
+        var checkedNode = self.findSelectedExeLawyerNodess();
+        if (checkedNode) {
+            var userids = '';
+            var users = '';
+            for (var i=0;i<checkedNode.length;i++) {
+                var nodetype = checkedNode[i].type;
+                if (nodetype==1) {
+                    userids+=checkedNode[i].userid;
+                    userids+=',';
+                    users+=checkedNode[i].text+"["+checkedNode[i].userid+"]";
+                    users+=',';
+                }
+            }
+            userids = userids.substring(0, userids.length - 1);
+            users = users.substring(0, users.length - 1);
+            $('#caseinfo-progress-ss-end-form #exelawyers').val(users);
+            $('#caseinfo-progress-ss-end-form #exelawyerids').val(userids);
+        }
+    },
+    showCaseProgressComments:function(node,caseInfo,formid){
+        var self = this;
+        var myform = jQuery('#'+formid);
+        jQuery('.caseinfo-progress-list',myform).empty();
+        jQuery('.add-form',myform).empty();
         var listHtml = '';
         var nodeid = node.id;
         var preprice = caseInfo.preprice;
@@ -51,14 +156,14 @@ var caseprogress = {
                 listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+preprice+'"/></div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==4400) {
             if (sufprice&&sufprice>0) {
@@ -66,14 +171,14 @@ var caseprogress = {
                 listHtml += '<div class="col-xs-4"><label>后期期律师费</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+sufprice+'"/></div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>后期律师费</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==1600) {
             if (ystj&&ystj>0) {
@@ -88,7 +193,7 @@ var caseprogress = {
                                 '</select>' +
                             '</div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>一审是否调解</label></div>';
@@ -100,7 +205,7 @@ var caseprogress = {
                     '</div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==3100) {
             if (estj&&estj>0) {
@@ -115,7 +220,7 @@ var caseprogress = {
                     '</select>' +
                     '</div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4">二审是否调解</div>';
@@ -127,7 +232,7 @@ var caseprogress = {
                     '</div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
         }else if(nodeid==2100){
             if (sfss&&sfss>0) {
@@ -142,7 +247,7 @@ var caseprogress = {
                     '</select>' +
                     '</div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4">是否上诉</div>';
@@ -154,7 +259,7 @@ var caseprogress = {
                     '</div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
         }else if(nodeid==701){
             if (ssajbh) {
@@ -162,16 +267,42 @@ var caseprogress = {
                 listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+ssajbh+'"/></div>';
                 listHtml += '</div>';
-                jQuery('#caseinfo-progress-list').append(listHtml);
+                jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
                 listHtml += '<div class="row form-group">';
                 listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
                 listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
                 listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
-                jQuery('#add-form').append(listHtml);
+                jQuery('.add-form',myform).append(listHtml);
             }
-        }else{
+        }/*else if(nodeid==3401||nodeid==4500){
+            if (caseInfo.exelawyers) {
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-2"><label>执行案号</label></div>';
+                listHtml += '<div class="col-xs-6">'+caseInfo.exeajbh+'</div>';
+                listHtml += '</div>';
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-2"><label>执行律师</label></div>';
+                listHtml += '<div class="col-xs-6">'+caseInfo.exelawyers+'</div>';
+                listHtml += '</div>';
+                jQuery('.add-form',myform).append(listHtml);
+            }else{
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-2"><label>执行案号</label></div>';
+                listHtml += '<div class="col-xs-6"><input id="exeajbh" class="form-control" type="text"/></div>';
+                listHtml += '</div>';
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-2"><label>执行律师</label></div>';
+                listHtml += '<div class="col-xs-6"><input id="exelawyers" class="form-control" type="text" readonly/><input id="exelawyerids" class="form-control" type="text" style="display: none"/> <div id="caseinfo-exelawyer-tree"></div>';
+                listHtml += '</div>';
+                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '</div>';
+                jQuery('.add-form',myform).append(listHtml);
+                self.initExeLawyerTree($.proxy(self.buildExeLawyerTree,self));
+            }
+        }*/else{
             var comments = node.caseProgressCommentList;
             if (comments!=null) {
                 listHtml += '<div class="row form-group">'+
@@ -202,8 +333,8 @@ var caseprogress = {
                             '<div class="col-xs-2">'+
                                 '<button type="button" class="btn btn-default save">添加</button>'+
                             '</div>';
-            jQuery('#add-form').append(addHtml);
-            jQuery('#caseinfo-progress-list').append(listHtml);
+            jQuery('.add-form',myform).append(addHtml);
+            jQuery('.caseinfo-progress-list',myform).append(listHtml);
         }
         self.clearSaveProgressAlert();
         $('#caseinfo-progress-modal .save').on('click', $.proxy(self.saveProgressEvent,self));
@@ -213,78 +344,72 @@ var caseprogress = {
         jQuery('#caseinfo-progress-modal .error-label').text(msg);
         jQuery('#caseinfo-progress-modal .has-error').show();
     },
-    clearSaveProgressAlert : function(msg){
+    clearSaveProgressAlert : function(){
         jQuery('#caseinfo-progress-modal .error-label').empty();
         jQuery('#caseinfo-progress-modal .has-error').hide();
     },
-    afterSaveProgress : function(node,comment){
+    afterSaveProgress : function(){
         var self = this;
         self.init();
-        caseinfo.initCaseinfoTable();
-        //self.initCaseinfoData(node.id,comment);
-        /*var selectedNode = caseProgressTree.treeview('search', [node.text]);
-         caseProgressTree.treeview('selectNode', [ selectedNode,{}]);
-         caseprogress.showCaseProgressComments(node);*/
-        jQuery('#caseinfo-progress-form #comment').val('');
-        jQuery('#caseinfo-progress-form #nexttask').val('');
+        jQuery('#comment').val('');
+        jQuery('#nexttask').val('');
+        jQuery('#progress-query-tab').click();
     },
-    /*initCaseinfoData:function(nodeid,value){
-        if (nodeid==400) {
-            selectCasePreprice = value;
-        }else if (nodeid==4400) {
-            selectCaseSufprice = value;
-        }else if (nodeid==1600) {
-            selectCaseYstj = value;
-        }else if (nodeid==3100) {
-            selectCaseEstj = value;
-        }else if (nodeid==2100) {
-            selectCaseSfss = value;
-        }else if (nodeid==701) {
-            selectCaseSsajbh = value;
-        }
-    },*/
     saveProgressEvent : function(e){
         var self = this;
+        var myform = jQuery(e.target).parents('.progress-edit-form-class');
         if (caseProgressTreeSelectedNode!=null&&selectCaseinfoId!=null) {
             var nodeid = caseProgressTreeSelectedNode.id;
             var comment = null;
             var nexttask = null;
             //初期及后期律师费,一审及二审调解
             if (nodeid==400) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
+                comment = jQuery('#commonfiled',myform).val();
                 if (comment==null||comment.trim()=='') {
-                    self.saveProgressAlert('初期律师费不能为空');
+                    self.saveProgressAlert('初期律师费不能为空',myform);
                     return false;
                 }else if (isNaN(comment)) {
-                    self.saveProgressAlert('初期律师费必须是数字');
+                    self.saveProgressAlert('初期律师费必须是数字',myform);
                     return false;
                 }
             }else if (nodeid==4400) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
+                comment = jQuery('#commonfiled',myform).val();
                 if (comment==null||comment.trim()=='') {
-                    self.saveProgressAlert('后期律师费不能为空');
+                    self.saveProgressAlert('后期律师费不能为空',myform);
                     return false;
                 }else if (isNaN(comment)) {
-                    self.saveProgressAlert('后期律师费必须是数字');
+                    self.saveProgressAlert('后期律师费必须是数字',myform);
                     return false;
                 }
-            }else if (nodeid==1600) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
-            }else if (nodeid==3100) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
-            }else if (nodeid==2100) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
-            }else if (nodeid==701) {
-                comment = jQuery('#caseinfo-progress-form #commonfiled').val();
-            }else{
-                comment = jQuery('#caseinfo-progress-form #comment').val();
-                nexttask = jQuery('#caseinfo-progress-form #nexttask').val();
+            }else if (nodeid==1600||nodeid==3100||nodeid==2100||nodeid==701) {
+                comment = jQuery('#commonfiled',myform).val();
+            }/*else if((nodeid==3401||nodeid==4500)){
+                var exeajbh = jQuery('.add-form  #exeajbh').val();
+                var exelawyers = jQuery('.add-form  #exelawyers').val();
+                var exelawyerids = jQuery('.add-form  #exelawyerids').val();
+                if (exeajbh==null||exeajbh.trim()=='') {
+                    self.saveProgressAlert('执行案号不能为空',myform);
+                    return false;
+                }
+                if (exelawyers==null||exelawyers.trim()=='') {
+                    self.saveProgressAlert('执行律师不能为空',myform);
+                    return false;
+                }
+                if (exelawyerids==null||exelawyerids.trim()=='') {
+                    self.saveProgressAlert('执行律师不能为空',myform);
+                    return false;
+                }
+                this.saveExecuteLawyers(exeajbh,exelawyers,exelawyerids,myform)
+                return false;
+            }*/else{
+                comment = jQuery('#comment',myform).val();
+                nexttask = jQuery('#nexttask',myform).val();
                 if (comment==null||comment.trim()=='') {
-                    self.saveProgressAlert('内容不能为空');
+                    self.saveProgressAlert('内容不能为空',myform);
                     return false;
                 }
                 if (nexttask==null||nexttask.trim()=='') {
-                    self.saveProgressAlert('下一步计划不能为空');
+                    self.saveProgressAlert('下一步计划不能为空',myform);
                     return false;
                 }
             }
@@ -296,27 +421,74 @@ var caseprogress = {
                 //async:false,
                 success:function(data) {
                     self.saveProgressAlert('保存成功');
-                    self.afterSaveProgress(caseProgressTreeSelectedNode,comment);
+                    self.afterSaveProgress();
                 },
                 error:function() {
-                    self.saveProgressAlert('保存案件进度信息异常');
+                    self.saveProgressAlert('保存案件进度信息异常',myform);
                 }
             });
         }else{
-            self.saveProgressAlert('保存异常，没有选择案件或者进度节点');
+            self.saveProgressAlert('保存异常，没有选择案件或者进度节点',myform);
             return false;
         }
+    },
+    saveExecuteLawyers:function(exeajbh,exelawyers,exelawyerids,myform){
+        var self = this;
+        jQuery.ajax({
+            url:'/lawinfo/front/caseinfo/exelawyer/add',
+            data:{id:selectCaseinfoId,exeajbh:exeajbh,exelawyers:exelawyers,exelawyerids:exelawyerids},
+            type:'POST',
+            cache:false,
+            success:function(data) {
+                self.saveProgressAlert('保存成功',myform);
+                self.afterSaveProgress();
+            },
+            error:function() {
+                self.saveProgressAlert('保存异常',myform);
+            }
+        });
     },
     initCaseProgressView : function(data){
         var self = this;
         if (data) {
-            if (data.caseProgressCommentList) {
-                self.buildCaseProgressTable(data.caseProgressCommentList);
+            self.buildCaseProgressTable('progress-query',data.ssCaseProgressCommentList);
+            self.buildCaseProgressTable('progress-execute-query',data.executeCaseProgressCommentList);
+            if (data.ssCaseProgressTreeVoList) {
+                self.buildCaseProgressTree(data.ssCaseProgressTreeVoList,data.caseInfo,'caseinfo-progress-tree','caseinfo-progress-form');
             }
-            if (data.caseProgressTreeVoList) {
-                self.buildCaseProgressTree(data.caseProgressTreeVoList,data.caseInfo);
+            if (!data.ifsslawyer) {
+                jQuery('#progress-progress-query-execute-tab').show();
+                jQuery('#progress-edit-execute-tab').show();
+                if (data.executeCaseProgressTreeVoList) {
+                    self.buildCaseProgressTree(data.executeCaseProgressTreeVoList,data.caseInfo,'caseinfo-execute-progress-tree','caseinfo-execute-progress-form');
+                }
+            }else{
+                jQuery('#progress-progress-query-execute-tab').hide();
+                jQuery('#progress-edit-execute-tab').hide();
             }
             if (data.caseInfo) {
+                var status = data.caseInfo.status;
+                jQuery('#progress-ss-end-tab').show();
+                jQuery('#progress-execute-end-tab').hide();
+                jQuery('.status-progress').empty();
+                if (status<100) {
+                    jQuery('.status-progress').css('width','40%');
+                    jQuery('.status-progress').append("当前案件处于诉讼中");
+                }else if (status>=100&&status<9999) {
+                    jQuery('#progress-ss-end-tab').hide();
+                    if (!data.ifsslawyer) {
+                        jQuery('#progress-execute-end-tab').show();
+                    }else{
+                        jQuery('#progress-execute-end-tab').hide();
+                    }
+                    jQuery('.status-progress').css('width','80%');
+                    jQuery('.status-progress').append("当前案件处于执行中");
+                }else if (status>=9999) {
+                    jQuery('#progress-ss-end-tab').hide();
+                    jQuery('#progress-execute-end-tab').hide();
+                    jQuery('.status-progress').css('width','100%');
+                    jQuery('.status-progress').append("当前案件已归档");
+                }
                 self.buildCaseinfoTable(data.caseInfo);
             }
         }
@@ -352,9 +524,9 @@ var caseprogress = {
         }
         return msg;
     },
-    buildCaseProgressTable:function(data){
+    buildCaseProgressTable:function(formid,data){
         var self = this;
-        $('#progress-query tbody').empty();
+        $('#'+formid+' tbody').empty();
         if (data) {
             var html = '';
             for (var i = 0; i < data.length; i++) {
@@ -384,7 +556,7 @@ var caseprogress = {
                 html += "   </td>";
                 html += "</tr>";
             }
-            $('#progress-query tbody').append(html);
+            $('#'+formid+' tbody').append(html);
             $('.btn-caseprogress-rm').unbind();
             $('.btn-caseprogress-rm').on('click', $.proxy(self.rmCaseprogressEvent,self));
         }
@@ -408,32 +580,32 @@ var caseprogress = {
             type:'GET',
             cache:false,
             success:function(data) {
-                self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
+                //self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
+                self.init();
             },
             error:function() {
                 mainAlert('删除案件异常');
             }
         });
     },
-    buildCaseProgressTree : function(treedata,caseInfo) {
+    buildCaseProgressTree : function(treedata,caseInfo,treeid,formid) {
         var self = this;
-        caseProgressTree = $('#caseinfo-progress-tree').treeview({
+        caseProgressTree = $('#'+treeid).treeview({
             data: treedata,
             showCheckbox: false,
             onNodeSelected: function (event, node) {
                 caseProgressTreeSelectedNode = node;
                 if (node.parentprocessnodeid>0) {
-                    self.showCaseProgressComments(node,caseInfo);
+                    self.showCaseProgressComments(node,caseInfo,formid);
                 }else{
-                    jQuery('#caseinfo-progress-form').hide();
+                    jQuery('.caseinfo-progress-list').empty();
+                    jQuery('.add-form').empty();
                     self.clearSaveProgressAlert();
                 }
             },
             onNodeUnselected: function (event, node) {
             }
         });
-        //$('#progress-user-tree .check-icon').remove();
-        //customOrgTree.treeview('expandAll');
         caseProgressTree.treeview('collapseAll');
     },
     findCaseProgressViews:function(callback) {

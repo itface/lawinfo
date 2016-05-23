@@ -56,9 +56,12 @@
                 and summary like concat('%', #{summary}, '%')
             </if>
             <if test="currenttabtype!=null and currenttabtype==1">
-                and status &lt;9999
+                and status &lt;100
             </if>
             <if test="currenttabtype!=null and currenttabtype==2">
+                and status = 100
+            </if>
+            <if test="currenttabtype!=null and currenttabtype==3">
                 and status=9999
             </if>
             <if test="caseinfoids!=null">
@@ -84,7 +87,10 @@
                 and createtime &lt; #{endcreatetime}
             </if>
             <if test="exeajbh!=null and exeajbh!=''">
-                and exeajbh = #{exeajbh}
+                and exeajbh like concat('%', #{exeajbh}, '%')
+            </if>
+            <if test="ssajbh!=null and ssajbh!=''">
+                and ssajbh like concat('%', #{ssajbh}, '%')
             </if>
             <if test="caseorgname!=null and caseorgname!=''">
                 and caseorgname like concat('%', #{caseorgname}, '%')
@@ -178,6 +184,6 @@
         update CaseInfo set sufprice=#{sufprice},realtotalprice=preprice+#{sufprice} where id=#{id}
     </update>
     <update id="updateExeLawyers" parameterType="com.lawinfo.domain.front.CaseInfo">
-        update CaseInfo set exelawyers=#{exelawyers},exeajbh=#{exeajbh} where id=#{id}
+        update CaseInfo set exelawyers=#{exelawyers},exeajbh=#{exeajbh},status=100 where id=#{id}
     </update>
 </mapper>
