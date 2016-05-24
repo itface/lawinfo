@@ -306,7 +306,7 @@ var caseinfo = {
                 html+='     '+ o.title;
                 html+=' </td>';
                 html+=' <td caseinfoid="'+ o.id+'">';
-                html+="<a class='glyphicon glyphicon-eye-open btn caseinfo-row' title='详情' href='javascript:void(0)'>案件详情</a>";
+                html+="<a class='glyphicon glyphicon-eye-open btn caseinfo-row' title='案件进度详情' href='javascript:void(0)'>案件进度详情</a>";
                 if (canRemoveCase) {
                     html+="     <a class='glyphicon glyphicon-trash btn btn-del btn-caseinfo-rm' title='删除' href='javascript:void(0)'>删除</a>";
                 }
