@@ -1,0 +1,74 @@
+#set($layout = "/layout/mobiledefault.vm")
+#if($!pageVo)
+    #set($list = $!pageVo.list)
+    #set($currentPage = $!pageVo.page)
+    #set($total = $!pageVo.total)
+    #set($pageSize = $!pageVo.pagesize)
+    #set($startIndex = $!pageVo.getStartIndex())
+#end
+<div class="content-class">
+    <div id="caseinfo-list">
+        <table class="table table-case-list">
+            #if($list && $list.size()>0)
+                #foreach($obj in $list)
+                    #set($tempIndex=$velocityCount+$startIndex - 1)
+                    <tr caseid='$obj.id'>
+                        <td>$!tempIndex</td>
+                        <td>$!obj.titleofmobile</td>
+                    </tr>
+                #end
+            #end
+        </table>
+        <div class="center-block more" style="width: 100px;">
+            点击查询更多
+        </div>
+    </div>
+</div>
+<script>
+    var page = $!currentPage;
+    $('.table-case-list tr').click(function(e){
+        var caseid = jQuery(e.target).parent('tr').attr('caseid');
+        if (caseid>0) {
+            window.location.href = "/lawinfo/mobile/caseinfo?caseid="+caseid;
+        }
+    })
+    $('.more').click(function(e){
+        page += 1;
+        var caselistvo;
+        jQuery.ajax({
+            url:'/lawinfo/mobile/getcaselist',
+            data:{page:page},
+            type:'GET',
+            cache:false,
+            success:function(data) {
+                caselistvo = data;
+            },
+            error:function() {
+                alert('获取案件信息异常');
+            }
+        }).done(function(){
+            if (caselistvo) {
+                var html = '';
+                var havenext = caselistvo.havenext;
+                var list = caselistvo.list;
+                var currentpage = caselistvo.page;
+                var pagesize = caselistvo.pagesize;
+                var startIndex = (currentpage - 1) * pagesize + 1;
+                for (var i=0;i<list.length;i++) {
+                    var obj = list[i];
+                    html += "<tr caseid='"+obj.id+"'>";
+                    html += "<td>"+(startIndex+i)+"</td>";
+                    html += "<td>"+obj.titleofmobile+"</td>";
+                    html += "</tr>";
+                }
+                jQuery('.table-case-list').append(html);
+                if (havenext==true) {
+                    jQuery('.more').show();
+                }else{
+                    jQuery('.more').hide();
+                }
+            }
+        });
+
+    })
+</script>

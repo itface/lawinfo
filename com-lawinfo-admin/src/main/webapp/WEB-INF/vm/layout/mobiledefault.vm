@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/static/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+##    <link rel="stylesheet" href="/static/jquery/mobile1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="/static/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/static/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap-treeview/bootstrap-treeview.js"></script>
+    <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <style>
+        .fixtop {
+            width: 100%;
+            height: 44px;
+            background: #587eac;
+            line-height: 40px;
+        }
+        table,td{
+            border: 0px;
+        }
+        table,tr{
+            border-top:1px solid #ccc;
+            height: 50px;
+            /*cursor: pointer;*/
+        }
+        .btn-add{
+            position: absolute;
+            right: 20px;
+            color: #fff;
+        }
+        .btn-back{
+            padding-left: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div class="head-fixed">
+        <div class="fixtop">
+            <a href="#" class="btn-back">
+                <span class="glyphicon glyphicon-home"></span>
+            </a>
+            <a href="#" class="btn-add">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div style="width:100%">$screen_content</div>
+</div>
+<div id="footer"></div>
+<script>
+    $('.btn-back').click(function(e){
+        window.location.href = "/lawinfo/mobile";
+    })
+    $('.btn-add').click(function(e){
+        window.location.href = "/lawinfo/mobile/addview";
+    })
+</script>
+</body>
+</html>

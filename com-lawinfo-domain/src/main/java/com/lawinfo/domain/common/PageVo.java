@@ -46,7 +46,7 @@ public class PageVo<T> implements Serializable {
     }
 
     public boolean isHavenext() {
-        return havenext;
+        return getStartIndex() + pagesize - 1 < total;
     }
 
     public void setHavenext(boolean havenext) {

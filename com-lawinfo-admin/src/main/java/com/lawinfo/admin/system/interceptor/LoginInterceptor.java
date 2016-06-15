@@ -21,7 +21,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         boolean isAvailableLoginUser = LoginInfo.isAvailableLoginUser(session);
         if (!isAvailableLoginUser) {
-            response.sendRedirect("/login");
+            if (uri.indexOf("/lawinfo/mobile") == 0) {
+                response.sendRedirect("/login/mobile");
+            }else{
+                response.sendRedirect("/login");
+            }
             return false;
         }
         String userid = LoginInfo.getUseridFromSession(session);

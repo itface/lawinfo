@@ -171,6 +171,8 @@ public class CaseInfo extends BaseDomain{
     private String exeajbh;
 
     private double realtotalprice;
+
+    private String titleofmobile;
     public long getId() {
         return id;
     }
@@ -495,6 +497,19 @@ public class CaseInfo extends BaseDomain{
                 .append(ay==null?"":ay);
         return sb.toString();
     }
+    public String getTitleofmobile(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(caseorgname==null?"":caseorgname)
+                .append("诉").
+                append(debtorinfo==null?"":debtorinfo)
+                .append(ay==null?"":ay).append("    ").append("(").append(optuserid).append("创建于").append(createtimestr).append(")");
+        return sb.toString();
+    }
+
+    public void setTitleofmobile(String titleofmobile) {
+        this.titleofmobile = titleofmobile;
+    }
+
     public void init() {
         if (zqdqrdate!=null) {
             this.zqdqr = zqdqrdate.getTime();

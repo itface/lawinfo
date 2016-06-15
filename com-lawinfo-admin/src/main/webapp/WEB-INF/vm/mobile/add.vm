@@ -1,0 +1,211 @@
+#set($layout = "/layout/mobiledefault.vm")
+<script src="/static/mobile/caseinfoM.js"></script>
+<div>
+    <div style="padding-top: 10px;">
+        #if($!actionmap&&$!actionmap.get('front-caseinfo-lawyer-tree-view'))
+            <div id="caseinfo-add" style="display: block" class="container">
+                <form role="form" id="caseinfo-form">
+                    <div class="case-form">
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>诉讼律师:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="sslawyers" class="form-control" type="text" disabled/>
+                                <input id="sslawyerids" class="form-control" type="text" style="display: none"/>
+                                <div id="progress-lawyer-tree"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件所属机构:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="caseorgid" class="form-control" type="text"  style="display: none"/>
+                                <input id="caseorgname" class="form-control" type="text" disabled/>
+                                <div id="progress-org-tree"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>机构联络人:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="contacts" class="form-control" type="text" disabled/>
+                                <input id="contactids" class="form-control" type="text" style="display: none"/>
+                                <div id="progress-user-tree"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债权本金:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zqbj" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债权到期日期:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zqdqr" type="text" class="form-control date-picker" readonly/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>抵押物评估价值:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="pawnvalue" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>律师费总额:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="totalprice" type="text" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>受理法院:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="court" type="text" class="form-control"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>承办法官:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="judge" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>承办法官:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="judge" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="debtorinfo" rows="6" class="form-control" placeholder="债务人信息"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人财产状况:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea  id="debtorpropertyinfo" class="form-control" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案由:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea  id="ay" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="guarantorinfo" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保方式:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="guaranteetype" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人财产状况:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="guarantorpropertyinfo" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>抵押物信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="pawninfo" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件程序:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="caseprocedure" rows="6" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人是否与律所关联:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="isguarantorrelated" type="checkbox"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人是否与律所关联:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="iscreditorrelated"  type="checkbox"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件是否完结:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="casetype"  type="checkbox"/>
+                            </div>
+                        </div>
+                        <div class="row has-error" style="display: none">
+                            <div class="col-xs-12">
+                                <label class="control-label error-label" for="inputError">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-primary btn-lg btn-block submit">提交</a>
+                    </div>
+                </form>
+            </div>
+        #end
+    </div>
+</div>
+<script>
+    $('.date-picker').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: "month",
+        language: 'zh-CN',
+        autoclose:true
+    });
+    function formAlert(fomrid,msg){
+        jQuery('#'+fomrid+' .error-label').empty();
+        jQuery('#'+fomrid+' .error-label').text(msg);
+        jQuery('#'+fomrid+' .has-error').show();
+    }
+    caseinfoM.init();
+</script>
+</html>

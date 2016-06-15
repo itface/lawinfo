@@ -1,0 +1,366 @@
+#set($layout = "/layout/mobiledefault.vm")
+<script src="/static/mobile/caseprogressM.js"></script>
+<div>
+    #*<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">进度明细:<span id="casetitle"></span></h4>
+    </div>*#
+    <div class="modal-body">
+        <div class="row" style="margin: 5px;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success status-progress" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 1%;">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="nav nav-tabs">
+                #if($!actionmap&&$!actionmap.get('caseinfo-progress-query-tab'))
+                    <li class="active">
+                        <a href="#progress-query" data-toggle="tab" id="progress-query-tab"><span class="glyphicon glyphicon-eye-open"></span>预览诉讼进度</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('caseinfo-progress-edit-tab'))
+                    <li>
+                        <a href="#progress-edit" data-toggle="tab" id="progress-edit-tab"><span class="glyphicon glyphicon-pencil"></span>编辑诉讼进度</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('caseinfo-progress-ss-end-tab'))
+                    <li>
+                        <a href="#progress-ss-end" data-toggle="tab" id="progress-ss-end-tab"><span class="glyphicon glyphicon-floppy-saved"></span>诉讼完成</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('caseinfo-execute-progress-query-tab'))
+                    <li>
+                        <a href="#progress-execute-query" data-toggle="tab" id="progress-progress-query-execute-tab"><span class="glyphicon glyphicon-eye-open"></span>预览执行进度</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('caseinfo-execute-progress-edit-tab'))
+                    <li>
+                        <a href="#progress-execute-edit" data-toggle="tab" id="progress-edit-execute-tab"><span class="glyphicon glyphicon-pencil"></span>编辑执行进度</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('front-caseinfo-setstatus-finish'))
+                    <li>
+                        <a href="#case-progress-all-end" data-toggle="tab" id="progress-execute-end-tab"><span class="glyphicon glyphicon-floppy-saved"></span>案件归档</a>
+                    </li>
+                #end
+                #if($!actionmap&&$!actionmap.get('caseinfo-info-query-tab'))
+                    <li>
+                        <a href="#caseinfo-info" data-toggle="tab" id="caseinfo-info-tab"><span class="glyphicon glyphicon-eye-open"></span>案件信息</a>
+                    </li>
+                #end
+            </ul>
+            <div class="tab-content" style="margin-top: 5px;">
+                <div class="tab-pane fade in active" id="progress-query">
+                    <div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>提交人</th>
+                                <th>提交时间</th>
+                                <th>内容</th>
+                                <th>下一步计划</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="progress-edit">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div id="caseinfo-progress-tree" class="progress-tree-class"></div>
+                        </div>
+                        <div class="col-xs-8">
+                            <form role="form" id="caseinfo-progress-form" class="progress-edit-form-class">
+                                <div class="caseinfo-progress-list">
+                                </div>
+                                <div class="row form-group add-form">
+                                </div>
+                                <div class="row has-error" style="display: none">
+                                    <div class="col-xs-4">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label error-label" for="inputError">
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="case-progress-all-end">
+
+                </div>
+                <div class="tab-pane fade" id="progress-ss-end">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div>
+                                <form role="form" id="caseinfo-progress-ss-end-form" class="progress-edit-form-class">
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">执行案号</div>
+                                        <div class="col-xs-8"><input id="exeajbh" class="form-control" type="text"/></div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">执行律师</div>
+                                        <div class="col-xs-8">
+                                            <input id="exelawyers" class="form-control" type="text" readonly/>
+                                            <input id="exelawyerids" class="form-control" type="text" style="display: none"/>
+                                            <div id="caseinfo-exelawyer-tree">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row has-error" style="display: none">
+                                        <div class="col-xs-4">
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <label class="control-label error-label" for="inputError">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block">
+                                            提交
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="progress-execute-query">
+                    <div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>序号</th>
+                                <th>提交人</th>
+                                <th>提交时间</th>
+                                <th>内容</th>
+                                <th>下一步计划</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="progress-execute-edit">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div id="caseinfo-execute-progress-tree" class="progress-tree-class"></div>
+                        </div>
+                        <div class="col-xs-8">
+                            <form role="form" id="caseinfo-execute-progress-form" class="progress-edit-form-class">
+                                <div class="caseinfo-progress-list">
+                                </div>
+                                <div class="row form-group add-form">
+                                </div>
+                                <div class="row has-error" style="display: none">
+                                    <div class="col-xs-4">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label error-label" for="inputError">
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="caseinfo-info">
+                    <div style="padding-top: 30px;text-align: right">
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>诉讼律师:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="ssls" class="form-control" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>执行律师:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zxls" class="form-control" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>执行案号:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zxah" class="form-control" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件所属机构:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="ajssjg" class="form-control" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>机构联络人:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="jgllr" class="form-control" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债权本金:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zaiquanbj" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债权到期日期:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="zaiquandqr" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>抵押物评估价值:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="dywjj" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>律师费总额:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="lsfze" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>受理法院:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="slfy" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>承办法官:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="cbfg" type="text" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="zwrxx" rows="6" class="form-control" placeholder="债务人信息" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人财产状况:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea  id="zwrcczk" class="form-control" rows="6" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案由:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea  id="anyou" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="dbrxx" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保方式:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="dbfs" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人财产状况:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="dbrcczk" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>抵押物信息:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="dywxx" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件程序:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="ajcx" rows="6" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>债务人是否与律所关联:</label>
+                            </div>
+                            <div class="col-xs-8" style="text-align: left">
+                                <input id="zwrsfgl"  type="checkbox" readonly/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>担保人是否与律所关联:</label>
+                            </div>
+                            <div class="col-xs-8" style="text-align: left">
+                                <input id="dbrsfgl" type="checkbox" readonly/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <label>案件是否完结:</label>
+                            </div>
+                            <div class="col-xs-8" style="text-align: left">
+                                <input id="ajsfwj"  type="checkbox" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var selectCaseinfoId = '$!caseid';
+    caseprogress.init();
+</script>

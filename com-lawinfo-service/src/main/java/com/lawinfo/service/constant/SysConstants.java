@@ -35,5 +35,6 @@ public class SysConstants {
         FRONT_TAGS_MAP.put("caseinfo-progress-ss-end-tab","caseinfo-progress-ss-end-tab");
         FRONT_TAGS_MAP.put("caseinfo-execute-progress-edit-tab","caseinfo-execute-progress-edit-tab");
         FRONT_TAGS_MAP.put("caseinfo-execute-progress-query-tab","caseinfo-execute-progress-query-tab");
+        FRONT_TAGS_MAP.put("mobile-caseinfo-list","mobile-caseinfo-list");
     }
 }
