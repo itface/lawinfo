@@ -44,13 +44,22 @@
             /*cursor: pointer;*/
         }
         .btn-add{
-            position: absolute;
-            right: 20px;
             color: #fff;
+            position: absolute;
+            right: 100px;
         }
         .btn-back{
             padding-left: 20px;
             color: #fff;
+        }
+        .btn-logout{
+            position: absolute;
+            right: 20px;
+            color: #fff;
+        }
+        .span-text{
+            word-break:break-all;
+            word-wrap:break-word
         }
     </style>
 </head>
@@ -66,6 +75,10 @@
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             #end
+            <a href="/login/mobile/logout" class="btn-logout">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+
         </div>
     </div>
 </div>

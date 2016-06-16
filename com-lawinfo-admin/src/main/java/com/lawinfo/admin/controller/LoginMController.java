@@ -3,8 +3,6 @@ package com.lawinfo.admin.controller;
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.login.LoginResult;
 import com.lawinfo.service.login.LoginService;
-import com.lawinfo.service.sms.EnSendSmsService;
-import com.lawinfo.service.sms.enumtype.EnSendSmsResultEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +21,10 @@ public class LoginMController {
     @Resource
     private LoginService loginService;
 
+
     @RequestMapping("")
-    public String index() {
-        return "/mobile/loginM";
+    public String newPage() {
+        return "mobile/loginM";
     }
     @RequestMapping("/dologin")
     @ResponseBody
@@ -47,6 +46,11 @@ public class LoginMController {
             }
         }
         return loginResult;
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        LoginInfo.removeLoginUser(request.getSession());
+        return "redirect:/login/mobile";
     }
     private boolean isMatch(String regex, String orginal){
         if (orginal == null || orginal.trim().equals("")) {

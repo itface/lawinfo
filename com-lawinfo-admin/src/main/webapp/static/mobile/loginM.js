@@ -1,7 +1,6 @@
 var login = {
     loginAlert:function(msg){
-        jQuery('#loginModal .error-label').text(msg);
-        jQuery('#loginModal .has-error').show();
+        jQuery('#loginForm .error-label').text(msg);
     },
     init: function(){
         var self = this;

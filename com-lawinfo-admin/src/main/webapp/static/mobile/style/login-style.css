@@ -1,0 +1,173 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------------- */
+/*  Mixins/variables */
+/*----------------------------------------------------------------------------------- */
+.inline {
+  display: inline-block;
+  *display: inline;
+  zoom: 1; }
+
+/*----------------------------------------------------------------------------------- */
+/*  Document Setup */
+/*----------------------------------------------------------------------------------- */
+* {
+  outline: 0 !important; }
+
+html, body {
+  width: 100%; }
+
+html {
+  height: 100%; }
+
+body {
+  font-family: "Lato", sans-serif !important;
+  color: #666666;
+  background: #e8e8e8;
+  padding-top: 140px;
+  min-height: 100%; }
+
+.main-content {
+  padding-bottom: 20px; }
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0 0 15px;
+  font-weight: 300; }
+
+h3 {
+  line-height: 1.4em; }
+
+p {
+  margin: 0 0 15px; }
+  p.lead {
+    font-weight: 300; }
+
+strong {
+  font-weight: 700; }
+
+a {
+  color: #007aff; }
+  a:hover {
+    color: #666666;
+    text-decoration: none; }
+
+ul.no-style {
+  list-style: none;
+  padding: 0;
+  margin-left: 0; }
+
+li {
+  margin-bottom: 5px; }
+
+blockquote {
+  margin-bottom: 30px; }
+  blockquote p {
+    margin-bottom: 10px; }
+  blockquote.pull-right {
+    text-align: right; }
+
+dl {
+  margin: 0 0 20px; }
+  dl dd {
+    margin-bottom: 15px; }
+
+::-moz-selection {
+  background: #007aff;
+  color: white;
+  text-shadow: none; }
+
+::selection {
+  background: #007aff;
+  color: white;
+  text-shadow: none; }
+
+::-webkit-scrollbar {
+  width: 8px; }
+
+::-webkit-scrollbar-thumb {
+  background: #bbbbbb;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 5px; }
+
+::-webkit-scrollbar-track {
+  background: #dddddd;
+  background: rgba(0, 0, 0, 0.05); }
+
+/*----------------------------------------------------------------------------------- */
+/*  Background color helper classes */
+/*----------------------------------------------------------------------------------- */
+.bg-primary, .bg-success, .bg-info, .bg-warning, .bg-danger, .bg-muted {
+  color: white; }
+
+.bg-primary {
+  background-color: #007aff; }
+
+.bg-success {
+  background-color: #60c560; }
+
+.bg-info {
+  background-color: #5bc0de; }
+
+.bg-warning {
+  background-color: #f0ad4e; }
+
+.bg-danger {
+  background-color: #d9534f; }
+
+.bg-muted {
+  background-color: #bbbbbb; }
+
+.bg-white {
+  background-color: white; }
+
+
+/*  Login 2 */
+/*----------------------------------------------------------------------------------- */
+body.login2 {
+  /*padding: 150px 0 0;*/
+  background: #fff; }
+  body.login2 .login-wrapper {
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center; }
+    body.login2 .login-wrapper img {
+      margin: 40px auto; }
+    body.login2 .login-wrapper .input-group-addon {
+      padding: 8px 0;
+      background: #f4f4f4;
+      min-width: 48px;
+      text-align: center; }
+      body.login2 .login-wrapper .input-group-addon i.icon-lock {
+        font-size: 18px; }
+    body.login2 .login-wrapper input.form-control {
+      height: 48px;
+      font-size: 15px;
+      box-shadow: none; }
+    body.login2 .login-wrapper .checkbox {
+      margin-bottom: 30px; }
+    body.login2 .login-wrapper input[type="submit"] {
+      padding: 10px 0 12px;
+      margin: 20px 0 30px; }
+      body.login2 .login-wrapper input[type="submit"]:hover {
+        background: transparent; }
+    body.login2 .login-wrapper .social-login {
+      margin-bottom: 20px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #cccccc; }
+      body.login2 .login-wrapper .social-login > .btn {
+        width: 49%;
+        margin: 0; }
+      body.login2 .login-wrapper .social-login .facebook {
+        background-color: #335397;
+        border-color: #335397; }
+        body.login2 .login-wrapper .social-login .facebook:hover {
+          background-color: transparent;
+          color: #335397; }
+      body.login2 .login-wrapper .social-login .twitter {
+        background-color: #00c7f7;
+        border-color: #00c7f7; }
+        body.login2 .login-wrapper .social-login .twitter:hover {
+          background-color: transparent;
+          color: #00c7f7; }
+
+/*----------------------------------------------------------------------------------- */

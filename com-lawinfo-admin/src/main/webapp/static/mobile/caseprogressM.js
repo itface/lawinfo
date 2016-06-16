@@ -235,7 +235,7 @@ var caseprogress = {
         }else if(nodeid==701){
             if (ssajbh) {
                 listHtml += '<div class="form-group">';
-                listHtml += '<div class="col-xs-12"><span id="commonfiled" style="word-break:break-all;word-wrap:break-word">诉讼案件编号:'+ssajbh+'</span></div>';
+                listHtml += '<div class="col-xs-12"><span id="commonfiled" class="span-text">诉讼案件编号:'+ssajbh+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
@@ -257,8 +257,8 @@ var caseprogress = {
                     /*var index = i+1;
                     var str = index + "、" +comment.createtimestr;*/
                     listHtml += '<tr>';
-                    listHtml += '<td style="word-break:break-all;word-wrap:break-word">'+comment.comment+'</td>';
-                    listHtml += '<td style="word-break:break-all;word-wrap:break-word">'+comment.nexttask+'</td>';
+                    listHtml += '<td class="span-text">'+comment.comment+'</td>';
+                    listHtml += '<td class="span-text">'+comment.nexttask+'</td>';
                     listHtml += '</tr>';
                 }
                 listHtml += '</table>';
@@ -485,10 +485,10 @@ var caseprogress = {
                 html += o.createtimestr;
                 html += "   </td>";*/
                 html += "   <td>";
-                html += '<span style="word-break:break-all;word-wrap:break-word">'+(o.comment==null?"":self.buildCommentVo(o.processnodeid,o.comment))+'</span>';
+                html += '<span class="span-text">'+(o.comment==null?"":self.buildCommentVo(o.processnodeid,o.comment))+'</span>';
                 html += "   </td>";
                 html += "   <td>";
-                html += '<span style="word-break:break-all;word-wrap:break-word">'+(o.nexttask==null?"":o.nexttask)+'</span>';
+                html += '<span class="span-text">'+(o.nexttask==null?"":o.nexttask)+'</span>';
                 html += "   </td>";
                 html += "</tr>";
             }
@@ -504,6 +504,11 @@ var caseprogress = {
                 caseProgressTreeSelectedNode = node;
                 if (node.parentprocessnodeid>0) {
                     self.showCaseProgressComments(node,caseInfo,formid);
+                    if (treeid=='caseinfo-progress-tree') {
+                        hideSsTree();
+                    }else if (treeid=='caseinfo-execute-progress-tree'){
+                        hideExeTree();
+                    }
                 }else{
                     jQuery('.caseinfo-progress-list').empty();
                     jQuery('.add-form').empty();
@@ -537,33 +542,31 @@ var caseprogress = {
     buildCaseinfoTable:function(caseinfo){
         var self = this;
         if (caseinfo) {
-            $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
-            $('#ajssjg').val(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
-            $('#jgllr').val(caseinfo.contacts==null?"":caseinfo.contacts);
-            $('#zaiquanbj').val(caseinfo.zqbj==null?"":caseinfo.zqbj);
+            $('#ssls').html(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
+            $('#ajssjg').html(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
+            $('#jgllr').html(caseinfo.contacts==null?"":caseinfo.contacts);
+            $('#zaiquanbj').html(caseinfo.zqbj==null?"":caseinfo.zqbj);
             if (caseinfo.zqdqr) {
                 var date = new Date(caseinfo.zqdqr);
                 var zaiquandqr = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-                $('#zaiquandqr').val(zaiquandqr);
-            }else{
-                $('#zaiquandqr').val('');
+                $('#zaiquandqr').html(zaiquandqr);
             }
-            $('#dywjj').val(caseinfo.pawnvalue==null?"":caseinfo.pawnvalue);
-            $('#lsfze').val(caseinfo.totalprice==null?"":caseinfo.totalprice);
-            $('#slfy').val(caseinfo.court==null?"":caseinfo.court);
-            $('#cbfg').val(caseinfo.judge==null?"":caseinfo.judge);
-            $('#zwrxx').val(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
+            $('#dywjj').html(caseinfo.pawnvalue==null?"":caseinfo.pawnvalue);
+            $('#lsfze').html(caseinfo.totalprice==null?"":caseinfo.totalprice);
+            $('#slfy').html(caseinfo.court==null?"":caseinfo.court);
+            $('#cbfg').html(caseinfo.judge==null?"":caseinfo.judge);
+            $('#zwrxx').html(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
             caseinfo.iscreditorrelated==1?$('#zwrsfgl').html('债务人与律所有关联'):$('#zwrsfgl').html('债务人与律所无关联');
-            $('#zwrcczk').val(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
-            $('#anyou').val(caseinfo.ay==null?"":caseinfo.ay);
-            $('#dbrxx').val(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
+            $('#zwrcczk').html(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
+            $('#anyou').html(caseinfo.ay==null?"":caseinfo.ay);
+            $('#dbrxx').html(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
             caseinfo.isguarantorrelated==1?$('#dbrsfgl').html('担保人与律所有关联'):$('#dbrsfgl').html('担保人与律所无关联');
-            $('#dbfs').val(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
-            $('#dbrcczk').val(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
-            $('#dywxx').val(caseinfo.pawninfo==null?"":caseinfo.pawninfo);
-            $('#ajcx').val(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
-            $('#zxls').val(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
-            $('#zxah').val(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
+            $('#dbfs').html(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
+            $('#dbrcczk').html(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
+            $('#dywxx').html(caseinfo.pawninfo==null?"":caseinfo.pawninfo);
+            $('#ajcx').html(caseinfo.caseprocedure==null?"":caseinfo.caseprocedure);
+            $('#zxls').html(caseinfo.exelawyers==null?"":caseinfo.exelawyers);
+            $('#zxah').html(caseinfo.exeajbh==null?"":caseinfo.exeajbh);
         }
     }
 }
