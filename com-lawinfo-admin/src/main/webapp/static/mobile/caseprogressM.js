@@ -74,7 +74,6 @@ var caseprogress = {
         if (selectCaseinfoId&&selectCaseinfoId>0) {
             self.findCaseProgressViews($.proxy(self.initCaseProgressView,self));
         }
-        self.initEditPrivil();
     },
     initExeLawyerTree:function(callback) {
         var self = this;
@@ -153,187 +152,129 @@ var caseprogress = {
         //初期及后期律师费,一审及二审调解
         if (nodeid==400) {
             if (preprice&&preprice>0) {
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+preprice+'"/></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span id="commonfiled">初期律师费:'+preprice+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>初期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><input id="commonfiled" class="form-control" type="text" placeholder="初期律师费"/><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div></div>';
                 listHtml += '</div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==4400) {
             if (sufprice&&sufprice>0) {
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>后期期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+sufprice+'"/></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span id="commonfiled">后期期律师费:'+sufprice+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>后期律师费</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><input id="commonfiled" class="form-control" type="text" placeholder="后期律师费"/><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div></div>';
                 listHtml += '</div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==1600) {
             if (ystj&&ystj>0) {
-                var selected1 = ystj==1?"selected":"";
-                var selected2 = ystj==2?"selected":"";
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>一审是否调解</label></div>';
-                listHtml += '<div class="col-xs-4">' +
-                                '<select id="commonfiled" class="form-control"  disabled value="'+ystj+'">' +
-                                    '<option value="1" '+selected1+'>未调解</option>' +
-                                    '<option value="2" '+selected2+'>已调解</option>' +
-                                '</select>' +
-                            '</div>';
+                var tjtext = estj==1?"未调解":"已调解";
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span>'+tjtext+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="form-group">';
                 listHtml += '<div class="col-xs-4"><label>一审是否调解</label></div>';
-                listHtml += '<div class="col-xs-4">' +
+                listHtml += '<div class="col-xs-8">' +
                     '<select id="commonfiled" class="form-control">' +
                     '<option value="1" >未调解</option>' +
                     '<option value="2" >已调解</option>' +
-                    '</select>' +
+                    '</select><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div>' +
                     '</div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
         }else if (nodeid==3100) {
             if (estj&&estj>0) {
-                var selected1 = estj==1?"selected":"";
-                var selected2 = estj==2?"selected":"";
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>二审是否调解</label></div>';
-                listHtml += '<div class="col-xs-4">' +
-                    '<select id="commonfiled" class="form-control"  disabled value="'+estj+'">' +
-                    '<option value="1" '+selected1+'>未调解</option>' +
-                    '<option value="2" '+selected2+'>已调解</option>' +
-                    '</select>' +
-                    '</div>';
+                var tjtext = estj==1?"未调解":"已调解";
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span>'+tjtext+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="form-group">';
                 listHtml += '<div class="col-xs-4">二审是否调解</div>';
-                listHtml += '<div class="col-xs-4">' +
+                listHtml += '<div class="col-xs-8">' +
                     '<select id="commonfiled" class="form-control">' +
                     '<option value="1">未调解</option>' +
                     '<option value="2">已调解</option>' +
-                    '</select>' +
+                    '</select><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div>' +
                     '</div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
         }else if(nodeid==2100){
             if (sfss&&sfss>0) {
-                var selected1 = sfss==1?"selected":"";
-                var selected2 = sfss==2?"selected":"";
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>是否上诉</label></div>';
-                listHtml += '<div class="col-xs-4">' +
-                    '<select id="commonfiled" class="form-control"  disabled value="'+sfss+'">' +
-                    '<option value="1" '+selected1+'>不上诉</option>' +
-                    '<option value="2" '+selected2+'>上诉</option>' +
-                    '</select>' +
-                    '</div>';
+                var sfsstext = sfss==1?"不上诉":"上诉";
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span>'+sfsstext+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
+                listHtml += '<div class="form-group">';
                 listHtml += '<div class="col-xs-4">是否上诉</div>';
-                listHtml += '<div class="col-xs-4">' +
+                listHtml += '<div class="col-xs-8">' +
                     '<select id="commonfiled" class="form-control">' +
                     '<option value="1">不上诉</option>' +
                     '<option value="2">上诉</option>' +
-                    '</select>' +
+                    '</select><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div>' +
                     '</div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
                 listHtml += '</div>';
+                //listHtml += '<div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
         }else if(nodeid==701){
             if (ssajbh) {
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"  readonly value="'+ssajbh+'"/></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><span id="commonfiled" style="word-break:break-all;word-wrap:break-word">诉讼案件编号:'+ssajbh+'</span></div>';
                 listHtml += '</div>';
                 jQuery('.caseinfo-progress-list',myform).append(listHtml);
             }else{
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-4"><label>诉讼案件编号</label></div>';
-                listHtml += '<div class="col-xs-4"><input id="commonfiled" class="form-control" type="text"/></div>';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
+                listHtml += '<div class="form-group">';
+                listHtml += '<div class="col-xs-12"><input id="commonfiled" class="form-control" type="text" placeholder="诉讼案件编号"/><div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div></div>';
+                //listHtml += '<div class="col-xs-12"><button type="button" class="btn btn-default save">添加</button></div> ';
                 listHtml += '</div>';
                 jQuery('.add-form',myform).append(listHtml);
             }
-        }/*else if(nodeid==3401||nodeid==4500){
-            if (caseInfo.exelawyers) {
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-2"><label>执行案号</label></div>';
-                listHtml += '<div class="col-xs-6">'+caseInfo.exeajbh+'</div>';
-                listHtml += '</div>';
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-2"><label>执行律师</label></div>';
-                listHtml += '<div class="col-xs-6">'+caseInfo.exelawyers+'</div>';
-                listHtml += '</div>';
-                jQuery('.add-form',myform).append(listHtml);
-            }else{
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-2"><label>执行案号</label></div>';
-                listHtml += '<div class="col-xs-6"><input id="exeajbh" class="form-control" type="text"/></div>';
-                listHtml += '</div>';
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-2"><label>执行律师</label></div>';
-                listHtml += '<div class="col-xs-6"><input id="exelawyers" class="form-control" type="text" readonly/><input id="exelawyerids" class="form-control" type="text" style="display: none"/> <div id="caseinfo-exelawyer-tree"></div>';
-                listHtml += '</div>';
-                listHtml += '<div class="row form-group">';
-                listHtml += '<div class="col-xs-2"><button type="button" class="btn btn-default save">添加</button></div>';
-                listHtml += '</div>';
-                jQuery('.add-form',myform).append(listHtml);
-                self.initExeLawyerTree($.proxy(self.buildExeLawyerTree,self));
-            }
-        }*/else{
+        }else{
             var comments = node.caseProgressCommentList;
             if (comments!=null) {
-                listHtml += '<div class="row form-group">'+
-                                '<div class="col-xs-4">&nbsp;</div>'+
-                                '<div class="col-xs-3">内容</div>'+
-                                '<div class="col-xs-3">下一步计划</div>'+
-                                '</div>';
+                listHtml += '<div>'+
+                                '<table width="100%">'+
+                                '<tr><td style="width: 50%">内容</td>'+
+                                '<td style="width: 50%">计划</td></tr>';
                 for (var i=0;i<comments.length;i++) {
                     var comment = comments[i];
-                    var index = i+1;
-                    var str = index + "、" +comment.createtimestr;
-                    listHtml += '<div class="row form-group">';
-                    listHtml += '<div class="col-xs-4">'+str+'</div>';
-                    listHtml += '<div class="col-xs-3"><textarea  class="form-control" rows="3" readonly>'+comment.comment+'</textarea></div>';
-                    listHtml += '<div class="col-xs-3"><textarea  class="form-control" rows="3" readonly>'+comment.nexttask+'</textarea></div>';
-                    /*listHtml += '<div class="col-xs-2">'+comment.optuserid+'</div>';
-                     listHtml += '<div class="col-xs-3">'+comment.createtimestr+'</div>';*/
-                    listHtml += '</div>';
+                    /*var index = i+1;
+                    var str = index + "、" +comment.createtimestr;*/
+                    listHtml += '<tr>';
+                    listHtml += '<td style="word-break:break-all;word-wrap:break-word">'+comment.comment+'</td>';
+                    listHtml += '<td style="word-break:break-all;word-wrap:break-word">'+comment.nexttask+'</td>';
+                    listHtml += '</tr>';
                 }
+                listHtml += '</table>';
+                listHtml += '</div>';
                 listHtml += '<div style="height: 1px;border-bottom: 1px solid #ddd;margin-bottom: 20px"></div>';
             }
-            var addHtml = '<div class="col-xs-5">'+
+            var addHtml = '<div class="col-xs-12" style="padding-top: 20px">'+
                                 '<textarea id="comment" class="form-control" rows="3" placeholder="工作内容"></textarea>'+
                             '</div>'+
-                            '<div class="col-xs-5">'+
+                            '<div class="col-xs-12">'+
                                 '<textarea  id="nexttask" class="form-control" rows="3" placeholder="下一步计划"></textarea>'+
-                            '</div>'+
-                            '<div class="col-xs-2">'+
-                                '<button type="button" class="btn btn-default save">添加</button>'+
+                                '<div style="padding-top: 10px"><a type="button" class="btn btn-primary btn-lg btn-block save">添加</a></div>'+
                             '</div>';
+                            /*'<div class="modal-footer">'+
+                                '<a type="button" class="btn btn-primary btn-lg btn-block save">添加</a>'+
+                            '</div>';*/
             jQuery('.add-form',myform).append(addHtml);
             jQuery('.caseinfo-progress-list',myform).append(listHtml);
         }
@@ -533,6 +474,7 @@ var caseprogress = {
             for (var i = 0; i < data.length; i++) {
                 var o = data[i];
                 html += "<tr>";
+                /*
                 html += "   <td>";
                 html += (i+1);
                 html += "   </td>";
@@ -541,12 +483,12 @@ var caseprogress = {
                 html += "   </td>";
                 html += "   <td>";
                 html += o.createtimestr;
+                html += "   </td>";*/
+                html += "   <td>";
+                html += '<span style="word-break:break-all;word-wrap:break-word">'+(o.comment==null?"":self.buildCommentVo(o.processnodeid,o.comment))+'</span>';
                 html += "   </td>";
                 html += "   <td>";
-                html += '<textarea  class="form-control" rows="3" readonly>'+(o.comment==null?"":self.buildCommentVo(o.processnodeid,o.comment))+'</textarea>';
-                html += "   </td>";
-                html += "   <td>";
-                html += '<textarea  class="form-control" rows="3" readonly>'+(o.nexttask==null?"":o.nexttask)+'</textarea>';
+                html += '<span style="word-break:break-all;word-wrap:break-word">'+(o.nexttask==null?"":o.nexttask)+'</span>';
                 html += "   </td>";
                 html += "</tr>";
             }
@@ -596,7 +538,6 @@ var caseprogress = {
         var self = this;
         if (caseinfo) {
             $('#ssls').val(caseinfo.sslawyers==null?"":caseinfo.sslawyers);
-            caseinfo.casetype==1?$('#ajsfwj').attr('checked',true):$('#ajsfwj').attr('checked',false);
             $('#ajssjg').val(caseinfo.caseorgname==null?"":caseinfo.caseorgname);
             $('#jgllr').val(caseinfo.contacts==null?"":caseinfo.contacts);
             $('#zaiquanbj').val(caseinfo.zqbj==null?"":caseinfo.zqbj);
@@ -612,11 +553,11 @@ var caseprogress = {
             $('#slfy').val(caseinfo.court==null?"":caseinfo.court);
             $('#cbfg').val(caseinfo.judge==null?"":caseinfo.judge);
             $('#zwrxx').val(caseinfo.debtorinfo==null?"":caseinfo.debtorinfo);
-            caseinfo.iscreditorrelated==1?$('#zwrsfgl').attr('checked',true):$('#zwrsfgl').attr('checked',false);
+            caseinfo.iscreditorrelated==1?$('#zwrsfgl').html('债务人与律所有关联'):$('#zwrsfgl').html('债务人与律所无关联');
             $('#zwrcczk').val(caseinfo.debtorpropertyinfo==null?"":caseinfo.debtorpropertyinfo);
             $('#anyou').val(caseinfo.ay==null?"":caseinfo.ay);
             $('#dbrxx').val(caseinfo.guarantorinfo==null?"":caseinfo.guarantorinfo);
-            caseinfo.isguarantorrelated==1?$('#dbrsfgl').attr('checked',true):$('#dbrsfgl').attr('checked',false);
+            caseinfo.isguarantorrelated==1?$('#dbrsfgl').html('担保人与律所有关联'):$('#dbrsfgl').html('担保人与律所无关联');
             $('#dbfs').val(caseinfo.guaranteetype==null?"":caseinfo.guaranteetype);
             $('#dbrcczk').val(caseinfo.guarantorpropertyinfo==null?"":caseinfo.guarantorpropertyinfo);
             $('#dywxx').val(caseinfo.pawninfo==null?"":caseinfo.pawninfo);

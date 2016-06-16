@@ -61,9 +61,11 @@
             <a href="#" class="btn-back">
                 <span class="glyphicon glyphicon-home"></span>
             </a>
-            <a href="#" class="btn-add">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
+            #if($!actionmap&&$!actionmap.get('front-caseinfo-add-btn'))
+                <a href="#" class="btn-add">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            #end
         </div>
     </div>
 </div>

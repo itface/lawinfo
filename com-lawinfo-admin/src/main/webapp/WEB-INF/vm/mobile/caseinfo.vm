@@ -58,11 +58,11 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>提交人</th>
-                                <th>提交时间</th>
-                                <th>内容</th>
-                                <th>下一步计划</th>
+##                                <th>&nbsp;</th>
+                                #*<th>提交人</th>
+                                <th>提交时间</th>*#
+                                <th style="width: 50%">内容</th>
+                                <th style="width: 50%">计划</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="progress-edit">
-                    <div class="row">
+                    <div class="">
                         <div class="col-xs-4">
                             <div id="caseinfo-progress-tree" class="progress-tree-class"></div>
                         </div>
@@ -80,12 +80,10 @@
                             <form role="form" id="caseinfo-progress-form" class="progress-edit-form-class">
                                 <div class="caseinfo-progress-list">
                                 </div>
-                                <div class="row form-group add-form">
+                                <div class="form-group add-form">
                                 </div>
-                                <div class="row has-error" style="display: none">
-                                    <div class="col-xs-4">
-                                    </div>
-                                    <div class="col-xs-6">
+                                <div class="has-error" style="display: none">
+                                    <div class="col-xs-12">
                                         <label class="control-label error-label" for="inputError">
                                         </label>
                                     </div>
@@ -98,16 +96,16 @@
 
                 </div>
                 <div class="tab-pane fade" id="progress-ss-end">
-                    <div class="row">
+                    <div class="">
                         <div class="col-xs-12">
                             <div>
                                 <form role="form" id="caseinfo-progress-ss-end-form" class="progress-edit-form-class">
                                     <div class="row form-group">
-                                        <div class="col-xs-4">执行案号</div>
+                                        <div class="col-xs-3" style="text-align: right">执行案号</div>
                                         <div class="col-xs-8"><input id="exeajbh" class="form-control" type="text"/></div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col-xs-4">执行律师</div>
+                                        <div class="col-xs-3" style="text-align: right">执行律师</div>
                                         <div class="col-xs-8">
                                             <input id="exelawyers" class="form-control" type="text" readonly/>
                                             <input id="exelawyerids" class="form-control" type="text" style="display: none"/>
@@ -116,18 +114,19 @@
                                         </div>
                                     </div>
                                     <div class="row has-error" style="display: none">
-                                        <div class="col-xs-4">
-                                        </div>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-12">
                                             <label class="control-label error-label" for="inputError">
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
-                                        <button type="button" class="btn btn-primary btn-lg btn-block">
+                                    <div class="modal-footer">
+                                        <a type="button" class="btn btn-primary btn-lg btn-block">提交</a>
+                                    </div>
+                                    #*<div class="row form-group">
+                                        <button type="button" class="btn btn-primary btn-lg">
                                             提交
                                         </button>
-                                    </div>
+                                    </div>*#
                                 </form>
                             </div>
                         </div>
@@ -138,12 +137,12 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>&nbsp;</th>
+                                #*<th>&nbsp;</th>
                                 <th>序号</th>
                                 <th>提交人</th>
-                                <th>提交时间</th>
-                                <th>内容</th>
-                                <th>下一步计划</th>
+                                <th>提交时间</th>*#
+                                <th style="width: 50%">内容</th>
+                                <th style="width: 50%">计划</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -153,20 +152,18 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="progress-execute-edit">
-                    <div class="row">
-                        <div class="col-xs-4">
+                    <div class="">
+                        <div class="col-xs-3">
                             <div id="caseinfo-execute-progress-tree" class="progress-tree-class"></div>
                         </div>
-                        <div class="col-xs-8">
+                        <div class="col-xs-9">
                             <form role="form" id="caseinfo-execute-progress-form" class="progress-edit-form-class">
                                 <div class="caseinfo-progress-list">
                                 </div>
                                 <div class="row form-group add-form">
                                 </div>
                                 <div class="row has-error" style="display: none">
-                                    <div class="col-xs-4">
-                                    </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12">
                                         <label class="control-label error-label" for="inputError">
                                         </label>
                                     </div>
@@ -176,8 +173,8 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="caseinfo-info">
-                    <div style="padding-top: 30px;text-align: right">
-                        <div class="row form-group">
+                    <div style="padding-top: 30px;">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>诉讼律师:</label>
                             </div>
@@ -185,7 +182,7 @@
                                 <input id="ssls" class="form-control" type="text" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>执行律师:</label>
                             </div>
@@ -193,7 +190,7 @@
                                 <input id="zxls" class="form-control" type="text" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="form-group">
                             <div class="col-xs-4">
                                 <label>执行案号:</label>
                             </div>
@@ -201,7 +198,7 @@
                                 <input id="zxah" class="form-control" type="text" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>案件所属机构:</label>
                             </div>
@@ -209,7 +206,7 @@
                                 <input id="ajssjg" class="form-control" type="text" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>机构联络人:</label>
                             </div>
@@ -217,7 +214,7 @@
                                 <input id="jgllr" class="form-control" type="text" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>债权本金:</label>
                             </div>
@@ -225,7 +222,7 @@
                                 <input id="zaiquanbj" type="text" class="form-control" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>债权到期日期:</label>
                             </div>
@@ -233,15 +230,15 @@
                                 <input id="zaiquandqr" type="text" class="form-control" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
-                                <label>抵押物评估价值:</label>
+                                <label>抵押物价值:</label>
                             </div>
                             <div class="col-xs-8">
                                 <input id="dywjj" type="text" class="form-control" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>律师费总额:</label>
                             </div>
@@ -250,7 +247,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>受理法院:</label>
                             </div>
@@ -258,7 +255,7 @@
                                 <input id="slfy" type="text" class="form-control" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>承办法官:</label>
                             </div>
@@ -266,7 +263,7 @@
                                 <input id="cbfg" type="text" class="form-control" disabled/>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>债务人信息:</label>
                             </div>
@@ -274,7 +271,7 @@
                                 <textarea id="zwrxx" rows="6" class="form-control" placeholder="债务人信息" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>债务人财产状况:</label>
                             </div>
@@ -282,7 +279,7 @@
                                 <textarea  id="zwrcczk" class="form-control" rows="6" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>案由:</label>
                             </div>
@@ -290,7 +287,7 @@
                                 <textarea  id="anyou" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>担保人信息:</label>
                             </div>
@@ -298,7 +295,7 @@
                                 <textarea id="dbrxx" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>担保方式:</label>
                             </div>
@@ -306,7 +303,7 @@
                                 <textarea id="dbfs" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>担保人财产状况:</label>
                             </div>
@@ -314,7 +311,7 @@
                                 <textarea id="dbrcczk" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>抵押物信息:</label>
                             </div>
@@ -322,7 +319,7 @@
                                 <textarea id="dywxx" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div class="">
                             <div class="col-xs-4">
                                 <label>案件程序:</label>
                             </div>
@@ -330,28 +327,10 @@
                                 <textarea id="ajcx" rows="6" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-xs-4">
-                                <label>债务人是否与律所关联:</label>
-                            </div>
-                            <div class="col-xs-8" style="text-align: left">
-                                <input id="zwrsfgl"  type="checkbox" readonly/>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-xs-4">
-                                <label>担保人是否与律所关联:</label>
-                            </div>
-                            <div class="col-xs-8" style="text-align: left">
-                                <input id="dbrsfgl" type="checkbox" readonly/>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-xs-4">
-                                <label>案件是否完结:</label>
-                            </div>
-                            <div class="col-xs-8" style="text-align: left">
-                                <input id="ajsfwj"  type="checkbox" readonly/>
+                        <div class="">
+                            <div class="col-xs-10">
+                                <span id="zwrsfgl"></span><br>
+                                <span id="dbrsfgl"></span>
                             </div>
                         </div>
                     </div>
@@ -363,4 +342,7 @@
 <script>
     var selectCaseinfoId = '$!caseid';
     caseprogress.init();
+    #if($!actionmap&&$!actionmap.get('front-caseinfo-lawyer-tree-view'))
+        caseprogress.initEditPrivil();
+    #end
 </script>
