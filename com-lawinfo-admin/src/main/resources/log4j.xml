@@ -285,6 +285,18 @@
         <level value="${log.common.level}"/>
         <appender-ref ref="SERVICE-FRONT-ECHARTSSERVICEIMPL"/>
     </logger>
+    <appender name="SERVICE-WECHAT" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${log.path}/service-wechat-weChatProcessMessageServiceImpl.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%10r, %23d{yyyy-MM-dd HH:mm:ss.S}] %p %c{3}(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.lawinfo.service.wechat.impl.WeChatProcessMessageServiceImpl" additivity="true">
+        <level value="${log.common.level}"/>
+        <appender-ref ref="SERVICE-WECHAT"/>
+    </logger>
 
     <root>
         <priority value="${log.root.level}"/>
