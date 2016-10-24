@@ -10,9 +10,6 @@ import java.util.Arrays;
  */
 public class WeChatAuth implements Serializable {
 
-    // 与接口配置信息中的Token要一致
-    private static String token = "minglilawyer";
-
     // 微信加密签名
     private String signature;
     // 微信请求URL时传过来的timestamp值
@@ -57,7 +54,7 @@ public class WeChatAuth implements Serializable {
      * 验证签名
      * @return
      */
-    public boolean checkSignature() throws NoSuchAlgorithmException {
+    public boolean checkSignature(String token) throws NoSuchAlgorithmException {
         String[] arr = new String[] { token, timestamp, nonce };
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);

@@ -1,6 +1,7 @@
 package com.lawinfo.admin.weChatController;
 
 import com.lawinfo.domain.wechat.WeChatAuth;
+import com.lawinfo.domain.wechat.WeChatInfo;
 import com.lawinfo.domain.wechat.request.WeChatCommonRequestMessage;
 import com.lawinfo.domain.wechat.response.WeChatResponseTextMessage;
 import com.lawinfo.service.wechat.WeChatProcessMessageService;
@@ -24,12 +25,15 @@ import java.security.NoSuchAlgorithmException;
 public class WeChatAuthController {
 
     @Resource
+    private WeChatInfo weChatInfo;
+
+    @Resource
     private WeChatProcessMessageService weChatProcessMessageService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     @ResponseBody
     public String auth(WeChatAuth weChatAuth) throws NoSuchAlgorithmException {
-        if (weChatAuth!=null&&weChatAuth.checkSignature()) {
+        if (weChatAuth!=null&&weChatAuth.checkSignature(weChatInfo.getToken())) {
             return weChatAuth.getEchostr();
         }
         return null;
@@ -37,7 +41,7 @@ public class WeChatAuthController {
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
     public String sendData(WeChatAuth weChatAuth,HttpServletRequest request) throws Exception{
-        if (weChatAuth!=null&&weChatAuth.checkSignature()) {
+        if (weChatAuth!=null&&weChatAuth.checkSignature(weChatInfo.getToken())) {
             return weChatProcessMessageService.processMessage(request);
         }
         return null;
