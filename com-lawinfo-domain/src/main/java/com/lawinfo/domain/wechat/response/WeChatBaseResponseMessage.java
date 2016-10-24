@@ -20,7 +20,7 @@ public class WeChatBaseResponseMessage implements Serializable {
     private int FuncFlag;
 
     public String getToUserName() {
-        return ToUserName;
+        return "<![CDATA["+ToUserName+"]]>";
     }
 
     public void setToUserName(String toUserName) {
@@ -28,7 +28,7 @@ public class WeChatBaseResponseMessage implements Serializable {
     }
 
     public String getFromUserName() {
-        return FromUserName;
+        return "<![CDATA["+FromUserName+"]]>";
     }
 
     public void setFromUserName(String fromUserName) {
@@ -44,7 +44,7 @@ public class WeChatBaseResponseMessage implements Serializable {
     }
 
     public String getMsgType() {
-        return MsgType;
+        return "<![CDATA["+MsgType+"]]>";
     }
 
     public void setMsgType(String msgType) {

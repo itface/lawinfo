@@ -9,6 +9,10 @@ import java.io.Serializable;
 @XmlRootElement(name = "xml")
 public class WeChatCommonRequestMessage implements Serializable {
 
+    private String signature;
+    private long timestamp;
+    private String nonce;
+    private String openid;
     // 开发者微信号
     private String ToUserName;
     // 发送方帐号（一个OpenID）
@@ -168,5 +172,63 @@ public class WeChatCommonRequestMessage implements Serializable {
 
     public void setFormat(String format) {
         Format = format;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    @Override
+    public String toString() {
+        return "WeChatCommonRequestMessage{" +
+                "signature='" + signature + '\'' +
+                ", timestamp=" + timestamp +
+                ", nonce='" + nonce + '\'' +
+                ", openid='" + openid + '\'' +
+                ", ToUserName='" + ToUserName + '\'' +
+                ", FromUserName='" + FromUserName + '\'' +
+                ", CreateTime=" + CreateTime +
+                ", MsgType='" + MsgType + '\'' +
+                ", MsgId=" + MsgId +
+                ", Title='" + Title + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Url='" + Url + '\'' +
+                ", Location_X='" + Location_X + '\'' +
+                ", Location_Y='" + Location_Y + '\'' +
+                ", Scale='" + Scale + '\'' +
+                ", Label='" + Label + '\'' +
+                ", PicUrl='" + PicUrl + '\'' +
+                ", Content='" + Content + '\'' +
+                ", MediaId='" + MediaId + '\'' +
+                ", Format='" + Format + '\'' +
+                '}';
     }
 }

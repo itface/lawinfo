@@ -4,6 +4,7 @@ import com.lawinfo.domain.wechat.request.WeChatBaseRequestMessage;
 import com.lawinfo.domain.wechat.request.WeChatCommonRequestMessage;
 import com.lawinfo.domain.wechat.response.WeChatResponseTextMessage;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -11,5 +12,5 @@ import javax.xml.bind.JAXBException;
  */
 public interface WeChatProcessMessageService {
 
-    public String processMessage(String msgXml) throws JAXBException;
+    public String processMessage(HttpServletRequest request) throws Exception;
 }

@@ -6,6 +6,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by wangrongtao on 2016/10/23.
@@ -15,10 +16,11 @@ public class XmlUtils {
     public static <T> T xmlStr2Obj(String xmlStr,Class<T>[] tClasss) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(tClasss);
         Unmarshaller unmarshaller = context.createUnmarshaller();
+        unmarshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");// //编码格式
         return  (T)unmarshaller.unmarshal(new StringReader(xmlStr));
     }
 
-    public static String Obj2XmlStr(Object object) throws JAXBException {
+    public static String Obj2XmlStr(Object object) throws Exception{
         JAXBContext context = JAXBContext.newInstance(object.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");// //编码格式
@@ -26,6 +28,6 @@ public class XmlUtils {
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);// 是否省略xm头声明信息
         StringWriter writer = new StringWriter();
         marshaller.marshal(object, writer);
-        return writer.toString();
+        return new String(writer.toString().getBytes(),"UTF-8");
     }
 }

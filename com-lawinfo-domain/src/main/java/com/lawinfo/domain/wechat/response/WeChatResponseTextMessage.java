@@ -11,7 +11,7 @@ public class WeChatResponseTextMessage extends WeChatBaseResponseMessage {
     private String Content;
 
     public String getContent() {
-        return Content;
+        return "<![CDATA["+Content+"]]>";
     }
 
     public void setContent(String content) {

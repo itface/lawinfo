@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -33,7 +36,10 @@ public class WeChatAuthController {
     }
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
-    public String sendData(String msgXml) throws NoSuchAlgorithmException, JAXBException {
-        return weChatProcessMessageService.processMessage(msgXml);
+    public String sendData(WeChatAuth weChatAuth,HttpServletRequest request) throws Exception{
+        if (weChatAuth!=null&&weChatAuth.checkSignature()) {
+            return weChatProcessMessageService.processMessage(request);
+        }
+        return null;
     }
 }
