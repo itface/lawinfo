@@ -15,9 +15,4 @@
               <property name="expiretime" value="${en.sms.expire.time}"/>
               <property name="maxallowrelogintime" value="${max.allow.relogin.time}"/>
        </bean>
-       <bean id="weChatInfo" class="com.lawinfo.domain.wechat.WeChatInfo">
-              <property name="token" value="${wechat.token}"/>
-              <property name="appId" value="${wechat.appId}"/>
-              <property name="appSecret" value="${wechat.AppSecret}"/>
-       </bean>
 </beans>
