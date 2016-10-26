@@ -3,6 +3,7 @@ package com.lawinfo.admin.weChatController;
 import com.lawinfo.domain.wechat.WeChatAuth;
 import com.lawinfo.service.guava.GuavaCacheFactory;
 import com.lawinfo.service.util.WeChatInfo;
+import com.lawinfo.service.wechat.WeChatMenuService;
 import com.lawinfo.service.wechat.WeChatProcessMessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ public class WeChatAuthController {
 
     @Resource
     private WeChatProcessMessageService weChatProcessMessageService;
+    @Resource
+    private WeChatMenuService weChatMenuService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     @ResponseBody
@@ -38,5 +41,15 @@ public class WeChatAuthController {
             return weChatProcessMessageService.processMessage(request);
         }
         return null;
+    }
+    @RequestMapping(value = "/createMenu")
+    @ResponseBody
+    public String createMenu() throws Exception{
+        return weChatMenuService.createMenu(null);
+    }
+    @RequestMapping(value = "/test")
+    @ResponseBody
+    public String test() throws Exception{
+        return GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
     }
 }
