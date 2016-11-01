@@ -5,7 +5,6 @@ import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.org.utils.UserUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +17,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
+        if ("/".equals(uri)) {
+            response.sendRedirect("/login");
+            return false;
+        }
         HttpSession session = request.getSession();
         boolean isAvailableLoginUser = LoginInfo.isAvailableLoginUser(session);
         if (!isAvailableLoginUser) {

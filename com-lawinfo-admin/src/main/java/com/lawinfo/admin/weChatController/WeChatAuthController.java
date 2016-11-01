@@ -42,7 +42,7 @@ public class WeChatAuthController {
         }
         return null;
     }
-    @RequestMapping(value = "/createMenu")
+    /*@RequestMapping(value = "/createMenu")
     @ResponseBody
     public String createMenu() throws Exception{
         return weChatMenuService.createMenu(null);
@@ -51,5 +51,5 @@ public class WeChatAuthController {
     @ResponseBody
     public String test() throws Exception{
         return GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
-    }
+    }*/
 }

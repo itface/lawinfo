@@ -80,6 +80,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/lawinfo/**"/>
+            <mvc:mapping path="/"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
