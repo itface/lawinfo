@@ -1,10 +1,7 @@
 package com.lawinfo.service.wechat.impl;
 
-import com.lawinfo.domain.wechat.menu.Button;
-import com.lawinfo.domain.wechat.menu.Menu;
-import com.lawinfo.domain.wechat.menu.ViewButton;
+import com.lawinfo.service.constant.WeChatInfo;
 import com.lawinfo.service.guava.GuavaCacheFactory;
-import com.lawinfo.service.util.WeChatInfo;
 import com.lawinfo.service.wechat.WeChatMenuService;
 import com.lawinfo.service.wechat.utils.WechatUtils;
 import net.sf.json.JSONObject;
@@ -20,7 +17,7 @@ public class WeChatMenuServiceImpl implements WeChatMenuService {
     @Override
     public String createMenu(String menuJson) throws ExecutionException {
         String createMenuUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
-        String buttonUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeChatInfo.appId+"&redirect_uri=http://112.74.74.91/login/mobile&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+        String buttonUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeChatInfo.appId+"&redirect_uri=http://112.74.74.91/login/mobile&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
         String buttonUrlbak = "http://112.74.74.91/login/mobile";
         String accessToken = GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
         /*Menu menu = new Menu();

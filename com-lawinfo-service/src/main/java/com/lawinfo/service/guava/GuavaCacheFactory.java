@@ -3,7 +3,7 @@ package com.lawinfo.service.guava;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.lawinfo.service.util.WeChatInfo;
+import com.lawinfo.service.constant.WeChatInfo;
 import com.lawinfo.service.wechat.utils.WechatUtils;
 import net.sf.json.JSONObject;
 

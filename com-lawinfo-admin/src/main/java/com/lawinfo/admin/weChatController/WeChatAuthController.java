@@ -1,8 +1,7 @@
 package com.lawinfo.admin.weChatController;
 
 import com.lawinfo.domain.wechat.WeChatAuth;
-import com.lawinfo.service.guava.GuavaCacheFactory;
-import com.lawinfo.service.util.WeChatInfo;
+import com.lawinfo.service.constant.WeChatInfo;
 import com.lawinfo.service.wechat.WeChatMenuService;
 import com.lawinfo.service.wechat.WeChatProcessMessageService;
 import org.springframework.stereotype.Controller;
