@@ -8,4 +8,4 @@ target/
 *.ipr
 *.log
 important.properties
-/com-lawinfo-service/src/main/java/com/lawinfo/service/util/WeChatInfo.java
+com-lawinfo-service/src/main/java/com/lawinfo/service/util/WeChatInfo.java
