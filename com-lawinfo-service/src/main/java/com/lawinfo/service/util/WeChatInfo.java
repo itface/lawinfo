@@ -4,11 +4,7 @@ package com.lawinfo.service.util;
  * Created by wangrongtao on 2016/10/26.
  */
 public class WeChatInfo {
-    /*public final static String token="minglilawyer";
-    public final static String appId="wxbe89ab9d334d0d2c";
-    public final static String appSecret="c26ebe78441c470f64cc9a7ab871df49";
-    */
-    public final static String token="minglilawyer";
-    public final static String appId="wx32d8e71196dc4418";
-    public final static String appSecret="5e5a309ef8c7d32abf22567105d9d7d0";
+    public final static String token="";
+    public final static String appId="";
+    public final static String appSecret="";
 }
