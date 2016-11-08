@@ -17,6 +17,7 @@ public class WeChatMenuServiceImpl implements WeChatMenuService {
     @Override
     public String createMenu(String menuJson) throws ExecutionException {
         String createMenuUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
+
         String buttonUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeChatInfo.appId+"&redirect_uri=http://112.74.74.91/login/mobile&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
         String buttonUrlbak = "http://112.74.74.91/login/mobile";
         String accessToken = GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
