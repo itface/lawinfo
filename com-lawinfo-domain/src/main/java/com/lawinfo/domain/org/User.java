@@ -34,6 +34,8 @@ public class User extends BaseDomain implements Comparable<User>{
      */
     private int logintype;
 
+    private String wechatopenid;
+
 
     public long getId() {
         return id;
@@ -113,6 +115,14 @@ public class User extends BaseDomain implements Comparable<User>{
 
     public void setLogintype(int logintype) {
         this.logintype = logintype;
+    }
+
+    public String getWechatopenid() {
+        return wechatopenid;
+    }
+
+    public void setWechatopenid(String wechatopenid) {
+        this.wechatopenid = wechatopenid;
     }
 
     @Override

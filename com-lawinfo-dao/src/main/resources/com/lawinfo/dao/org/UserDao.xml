@@ -19,6 +19,7 @@
         <result column="optuserid" property="optuserid"/>
         <result column="roleids" property="roleids"/>
         <result column="orgid" property="orgid"/>
+        <result column="wechatopenid" property="wechatopenid"/>
     </resultMap>
     <sql id="allColumn">
          id,orgid,name,userid,status,pwd,logintype,lastlogintime,lastlogintimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
@@ -112,4 +113,13 @@
     <update id="update" parameterType="com.lawinfo.domain.org.User">
         update user set name=#{name},orgid=#{orgid},logintype=#{logintype} where id=#{id}
     </update>
+    <update id="updateWechatopenid" parameterType="com.lawinfo.domain.org.User">
+        update user set wechatopenid=#{wechatopenid} where userid=#{userid}
+    </update>
+    <select id="findByWechatopenid" parameterType="String" resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        User where wechatopenid = #{wechatopenid}
+    </select>
 </mapper>

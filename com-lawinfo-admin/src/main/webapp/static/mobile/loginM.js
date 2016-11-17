@@ -36,7 +36,7 @@ var login = {
         $(".login").on("click", function(e){
             var tel = $("#loginForm").find("[name='tel']").val();
             var code = $("#loginForm").find("[name='code']").val();
-
+            var wechatopenid = $("#wechatopenid").val();
             e.preventDefault();
 
             if(!tel){
@@ -51,7 +51,7 @@ var login = {
             $.ajax({
               method: "POST",
               url: "/login/mobile/dologin",
-              data: {tel: tel, code: code},
+              data: {tel: tel, code: code,wechatopenid:wechatopenid},
                 cache:false,
               dataType: "json",
             }).done(function(data){

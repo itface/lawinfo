@@ -17,6 +17,7 @@ public interface UserDao {
 
     public User findById(Long id);
     public User findByUserid(String userid);
+    public User findByWechatopenid(String wechatopenid);
 
     public List<User> findList(UserQuery userQuery);
 
@@ -27,5 +28,6 @@ public interface UserDao {
     public int deleteById(Long id);
 
     public int updateLoginStatus(User user);
+    public int updateWechatopenid(User user);
 
 }

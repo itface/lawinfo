@@ -16,29 +16,9 @@ import java.util.concurrent.ExecutionException;
 public class WeChatMenuServiceImpl implements WeChatMenuService {
     @Override
     public String createMenu(String menuJson) throws ExecutionException {
-        String createMenuUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
-
-        String buttonUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeChatInfo.appId+"&redirect_uri=http://112.74.74.91/login/mobile&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-        String buttonUrlbak = "http://112.74.74.91/login/mobile";
+        String buttonUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeChatInfo.appId+"&redirect_uri="+WeChatInfo.url+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
         String accessToken = GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
-        /*Menu menu = new Menu();
-        Button[] buttons = new Button[1];
-        ViewButton button = new ViewButton();
-        button.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeChatInfo.appId+"&redirect_uri=http://112.74.74.91/login/mobile&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
-        button.setName("管理系统");
-        button.setType("view");
-        buttons[0] = button;
-        *//*String str = "{\n" +
-                "    \"button\": [\n" +
-                "        {\n" +
-                "\t    \"name\": \"管理系统\",\n" +
-                "\t    \"url\": \"http://112.74.74.91/login/mobile\",\n" +
-                "\t    \"type\": \"view\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";*/
-        String menustr = "{\"button\":[{\"name\":\"管理系统\",\"type\":\"view\",\"url\":\""+buttonUrlbak+"\"}]}";
-
+        String menustr = "{\"button\":[{\"name\":\"管理系统\",\"type\":\"view\",\"url\":\""+buttonUrl+"\"}]}";
         JSONObject s = WechatUtils.httpRequest("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" +accessToken,"POST",menustr);
         return s.toString();
     }

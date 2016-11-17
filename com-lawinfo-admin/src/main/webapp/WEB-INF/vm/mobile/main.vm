@@ -19,8 +19,10 @@
                 #end
             #end
         </table>
-        <div class="center-block more" style="width: 100px;">
-            点击查询更多
+        <div class="more">
+            <div class="center-block" style="width: 100px;padding-bottom: 40px">
+                点击查询更多
+            </div>
         </div>
     </div>
 </div>

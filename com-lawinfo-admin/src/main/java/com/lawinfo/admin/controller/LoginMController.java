@@ -2,13 +2,22 @@ package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.login.LoginResult;
+import com.lawinfo.domain.org.User;
 import com.lawinfo.service.login.LoginService;
+import com.lawinfo.service.org.UserService;
+import com.lawinfo.service.wechat.WeChatUserInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,17 +27,38 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping("/login/mobile")
 public class LoginMController {
+
+    private static Logger logger = LoggerFactory.getLogger(LoginMController.class);
+
     @Resource
     private LoginService loginService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private WeChatUserInfoService weChatUserInfoService;
 
 
     @RequestMapping("")
-    public String newPage() {
+    public String newPage(ModelMap modelMap,HttpServletRequest request,String code) throws ExecutionException {
+        if (!StringUtils.isEmpty(code)) {
+            String wechatopenid = weChatUserInfoService.getOpenId(code);
+            if (!StringUtils.isEmpty(wechatopenid)) {
+                HttpSession session = request.getSession();
+                User user = userService.findByWechatopenid(wechatopenid);
+                if (user != null && !StringUtils.isEmpty(user.getUserid())) {
+                    LoginInfo.addUseridToSession(request.getSession(), user.getUserid());
+                    return "redirect:/lawinfo/mobile";
+                }
+                session.setAttribute("wechatopenid", wechatopenid);
+            }
+        }
         return "mobile/loginM";
     }
     @RequestMapping("/dologin")
     @ResponseBody
     public LoginResult dologin(HttpServletRequest request,String tel,String code) {
+        HttpSession session = request.getSession();
+        String wechatopenid = session.getAttribute("wechatopenid")==null?null:session.getAttribute("wechatopenid").toString();
         if (!isPositiveInteger(tel)) {
             LoginResult loginResult = new LoginResult();
             loginResult.setSuccess(false);
@@ -40,6 +70,12 @@ public class LoginMController {
         if (loginResult != null) {
             if (loginResult.isSuccess()) {
                 LoginInfo.addUseridToSession(request.getSession(), tel);
+                if (!StringUtils.isEmpty(wechatopenid)) {
+                    User user = new User();
+                    user.setUserid(tel);
+                    user.setWechatopenid(wechatopenid);
+                    userService.updateWechatopenid(user);
+                }
                 loginResult.setRedirecturl("/lawinfo/mobile");
             }else{
                 loginResult.setRedirecturl("/login/mobile");

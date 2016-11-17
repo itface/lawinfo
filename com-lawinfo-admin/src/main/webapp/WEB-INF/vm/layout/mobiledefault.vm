@@ -45,8 +45,14 @@
         }
         .btn-add{
             color: #fff;
+            padding-left: 30px;
+            /*position: absolute;*/
+            /*right: 100px;*/
+        }
+        .name-class{
+            color: #fff;
             position: absolute;
-            right: 100px;
+            right: 60px;
         }
         .btn-back{
             padding-left: 20px;
@@ -75,6 +81,7 @@
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             #end
+            <span class="name-class">您好，$!loginusername</span>
             <a href="/login/mobile/logout" class="btn-logout">
                 <span class="glyphicon glyphicon-log-out"></span>
             </a>

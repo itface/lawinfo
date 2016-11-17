@@ -49,6 +49,8 @@
     <!-- static resources -->
     <mvc:resources location="/static/" mapping="/static/**"
                    cache-period="864000"/>
+    <mvc:resources location="/login/mobile/" mapping="/login/mobile/**"
+                   cache-period="864000"/>
     <bean id="velocityConfig"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>

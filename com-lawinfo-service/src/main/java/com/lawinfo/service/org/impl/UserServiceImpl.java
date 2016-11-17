@@ -494,4 +494,14 @@ public class UserServiceImpl implements UserService{
         }
         return list;
     }
+
+    @Override
+    public int updateWechatopenid(User user) {
+        return userDao.updateWechatopenid(user);
+    }
+
+    @Override
+    public User findByWechatopenid(String wechatopenid) {
+        return userDao.findByWechatopenid(wechatopenid);
+    }
 }
