@@ -61,6 +61,15 @@ public class UserUtils {
         }
         return null;
     }
+    public static User findByByWechatopenid(String wechatopenid){
+        Collection<User> users = userMap.values();
+        for (User user : users) {
+            if (wechatopenid.equals(user.getWechatopenid())) {
+                return user;
+            }
+        }
+        return null;
+    }
     public static List<UserRole> findRolesByUserid(String userid) {
         return UserRoleUtils.findByUserid(userid);
     }

@@ -3,12 +3,7 @@ package com.lawinfo.admin.controller;
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.org.Action;
 import com.lawinfo.service.constant.SysConstants;
-import com.lawinfo.service.login.LoginService;
-import com.lawinfo.service.login.enumtype.LoginResultEnum;
-import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.utils.UserUtils;
-import com.lawinfo.service.sms.EnSendSmsService;
-import com.lawinfo.service.sms.enumtype.EnSendSmsResultEnum;
 import com.lawinfo.service.sys.CacheService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,8 +24,6 @@ public class MainController {
 
     private final String[] MAIN_TAGS = {"admin-org-man","admin-org-man-add","admin-org-man-remove","admin-user-man","admin-user-man-add","admin-user-man-remove","admin-menu-man",
             "admin-action-man","admin-role-man","admin-group-man","admin-org-man-update","admin-user-man-update"};
-    @Resource
-    private ActionService actionService;
     @Resource
     private CacheService cacheService;
 

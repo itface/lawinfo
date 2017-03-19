@@ -2,21 +2,29 @@ package com.lawinfo.admin.controller;
 
 import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.login.LoginResult;
+import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.User;
+import com.lawinfo.service.constant.SysConstants;
 import com.lawinfo.service.login.LoginService;
 import com.lawinfo.service.org.UserService;
+import com.lawinfo.service.org.utils.UserUtils;
 import com.lawinfo.service.wechat.WeChatUserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,5 +107,28 @@ public class LoginMController {
 
     private boolean isPositiveInteger(String orginal) {
         return isMatch("^\\+{0,1}[1-9]\\d*", orginal);
+    }
+
+    @RequestMapping(value = "/wechat/common/viewProgress/{caseid}")
+    public String viewProgress(ModelMap modelMap, HttpServletRequest request, @PathVariable String caseid) throws Exception{
+        String userid = LoginInfo.getUseridFromSession(request.getSession());
+        modelMap.put("caseid", caseid);
+        modelMap.put("loginuser", userid);
+        User user = UserUtils.findByUserid(userid);
+        String username = user==null?null:user.getName();
+        modelMap.put("loginusername", username);
+        if (SysConstants.SUPER_ADMIN.equals(userid)) {
+            modelMap.put("actionmap", SysConstants.FRONT_TAGS_MAP);
+        }else{
+            List<Action> actions = UserUtils.findActionsByUserid(userid);
+            if (!CollectionUtils.isEmpty(actions)) {
+                Map<String,String> map = new HashMap<String,String>();
+                for (Action action : actions) {
+                    map.put(action.getTag(), action.getTag());
+                }
+                modelMap.put("actionmap", map);
+            }
+        }
+        return "/mobile/caseinfo";
     }
 }

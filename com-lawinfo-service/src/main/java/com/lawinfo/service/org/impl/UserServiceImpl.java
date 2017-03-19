@@ -502,6 +502,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findByWechatopenid(String wechatopenid) {
-        return userDao.findByWechatopenid(wechatopenid);
+        User user = UserUtils.findByByWechatopenid(wechatopenid);
+        if (user == null) {
+            user = userDao.findByWechatopenid(wechatopenid);
+        }
+        return user;
     }
 }

@@ -11,6 +11,7 @@ import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.front.CaseProgressCommentService;
 import com.lawinfo.service.front.CaseProgressService;
 import com.lawinfo.service.org.utils.UserUtils;
+import com.lawinfo.service.wechat.WeChatModelMessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class CaseProgressController {
     private CaseProgressService caseProgressService;
     @Resource
     private CaseProgressCommentService caseProgressCommentService;
+    @Resource
+    private WeChatModelMessageService weChatModelMessageService;
+
     @ResponseBody
     @RequestMapping("/save")
     public int index(HttpServletRequest request,CaseProgressComment caseProgressComment,BindingResult result)throws Exception{
@@ -40,7 +44,9 @@ public class CaseProgressController {
                 String orpuserid = user.getName()+"["+userid+"]";
                 caseProgressComment.setOptuserid(orpuserid);
             }
-            return caseProgressCommentService.save(caseProgressComment);
+            int count = caseProgressCommentService.save(caseProgressComment);
+            weChatModelMessageService.postUpdateCaseTempleteMsg(caseProgressComment);
+            return count;
         }
         return 0;
     }

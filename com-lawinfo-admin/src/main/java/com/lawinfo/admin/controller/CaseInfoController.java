@@ -4,16 +4,13 @@ import com.lawinfo.admin.system.login.LoginInfo;
 import com.lawinfo.domain.common.PageVo;
 import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.query.CaseInfoQuery;
-import com.lawinfo.domain.org.Action;
 import com.lawinfo.domain.org.User;
-import com.lawinfo.domain.org.vo.ActionTreeVo;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.service.front.CaseInfoService;
 import com.lawinfo.service.front.DeleteCaseService;
-import com.lawinfo.service.org.ActionService;
 import com.lawinfo.service.org.OrgService;
 import com.lawinfo.service.org.UserService;
-import com.lawinfo.service.org.utils.UserUtils;
+import com.lawinfo.service.wechat.WeChatModelMessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -39,6 +36,8 @@ public class CaseInfoController {
     private UserService userService;
     @Resource
     private DeleteCaseService deleteCaseService;
+    @Resource
+    private WeChatModelMessageService weChatModelMessageService;
     private final int PAGE_SIZE = 20;
 
 
@@ -47,12 +46,13 @@ public class CaseInfoController {
     public int save(HttpServletRequest request,CaseInfo caseInfo,BindingResult result)throws Exception{
         if (caseInfo != null) {
             String userid = LoginInfo.getUseridFromSession(request.getSession());
-            User user = UserUtils.findByUserid(userid);
+            User user = userService.findByUserid(userid);// UserUtils.findByUserid(userid);
             if (user!=null) {
                 String orpuserid = user.getName()+"["+userid+"]";
                 caseInfo.setOptuserid(orpuserid);
             }
             int rows = caseInfoService.save(caseInfo);
+            weChatModelMessageService.postCreateCaseTempleteMsg(caseInfo.getContactids(),caseInfo.getSslawyerids(),caseInfo.getId());
             return rows;
         }
         return 0;

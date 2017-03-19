@@ -22,7 +22,7 @@
         <result column="wechatopenid" property="wechatopenid"/>
     </resultMap>
     <sql id="allColumn">
-         id,orgid,name,userid,status,pwd,logintype,lastlogintime,lastlogintimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid
+         id,orgid,name,userid,status,pwd,logintype,lastlogintime,lastlogintimestr,loginfailcount,createtime,createtimestr,modifiedtime,modifiedtimestr,optuserid,wechatopenid
     </sql>
     <sql id="condition">
         <trim prefix="WHERE" prefixOverrides="AND|OR">

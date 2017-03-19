@@ -83,6 +83,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/lawinfo/**"/>
             <mvc:mapping path="/"/>
+            <mvc:mapping path="/login/mobile/wechat/common/**"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -12,6 +12,7 @@ import com.lawinfo.service.org.SmsService;
 import com.lawinfo.service.org.UserService;
 import com.lawinfo.service.util.DateUtils;
 import com.lawinfo.service.util.StrUtils;
+import com.lawinfo.service.wechat.WeChatUserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -36,6 +37,8 @@ public class LoginServiceImpl implements LoginService{
     private UserService userService;
     @Resource
     private LoginLogService loginLogService;
+    @Resource
+    private WeChatUserInfoService weChatUserInfoService;
 
 
 
@@ -139,6 +142,18 @@ public class LoginServiceImpl implements LoginService{
             logger.error("saveLoginLog exception",e);
         }
         return 0;
+    }
+
+    public User wechatOpenIdLogin(String code) throws Exception {
+        User user = new User();
+        if (!StringUtils.isEmpty(code)) {
+            String wechatopenid = weChatUserInfoService.getOpenId(code);
+            if (!StringUtils.isEmpty(wechatopenid)) {
+                user = userService.findByWechatopenid(wechatopenid);
+                user.setWechatopenid(wechatopenid);
+            }
+        }
+        return user;
     }
     public void setExpiretime(long expiretime) {
         this.expiretime = expiretime;
