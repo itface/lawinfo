@@ -150,6 +150,9 @@ public class LoginServiceImpl implements LoginService{
             String wechatopenid = weChatUserInfoService.getOpenId(code);
             if (!StringUtils.isEmpty(wechatopenid)) {
                 user = userService.findByWechatopenid(wechatopenid);
+                if (user == null) {
+                    user = new User();
+                }
                 user.setWechatopenid(wechatopenid);
             }
         }
