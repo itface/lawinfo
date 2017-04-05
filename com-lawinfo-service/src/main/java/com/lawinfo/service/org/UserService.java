@@ -2,6 +2,7 @@ package com.lawinfo.service.org;
 
 import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
+import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.org.query.UserQuery;
 import com.lawinfo.domain.org.vo.OrgVo;
 import com.lawinfo.domain.org.vo.UserTreeVo;
@@ -28,6 +29,7 @@ public interface UserService {
     public List<OrgVo> findUserTreeVo()throws Exception;
 
     public List<User> findList(UserQuery userQuery)throws Exception;
+    public List<UserRole> findManagerList()throws Exception;
 
     public List<User> findListByPage(UserQuery userQuery)throws Exception;
 

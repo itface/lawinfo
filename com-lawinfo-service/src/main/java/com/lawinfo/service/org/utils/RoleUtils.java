@@ -1,9 +1,6 @@
 package com.lawinfo.service.org.utils;
 
-import com.lawinfo.domain.org.Role;
-import com.lawinfo.domain.org.RoleAction;
-import com.lawinfo.domain.org.RoleMenu;
-import com.lawinfo.domain.org.UserRole;
+import com.lawinfo.domain.org.*;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -43,6 +40,15 @@ public class RoleUtils {
             Collections.sort(list);
         }
         return list;
+    }
+    public static Role findByRoletag(String tag){
+        Collection<Role> roles = roleMap.values();
+        for (Role role : roles) {
+            if (role.getRoletag().equals(tag)) {
+                return role;
+            }
+        }
+        return null;
     }
     public static Role findByRoleid(long id){
         return roleMap.get(id);

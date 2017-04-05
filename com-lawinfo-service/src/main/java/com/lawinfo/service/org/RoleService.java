@@ -25,6 +25,7 @@ public interface RoleService {
     public int update(long id,String name,String roletag,String menuids,String actionids)throws Exception;
 
     public Role findById(long id)throws Exception;
+    public Role findByRoletag(String tag)throws Exception;
     public RoleVo findVoById(long id)throws Exception;
 
     public List<Role> findList(RoleQuery roleQuery)throws Exception;

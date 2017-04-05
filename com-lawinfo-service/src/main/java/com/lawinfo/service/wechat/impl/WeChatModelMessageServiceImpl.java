@@ -4,7 +4,9 @@ import com.lawinfo.domain.front.CaseInfo;
 import com.lawinfo.domain.front.CaseInfoUser;
 import com.lawinfo.domain.front.CaseProgressComment;
 import com.lawinfo.domain.front.query.CaseInfoUserQuery;
+import com.lawinfo.domain.org.Role;
 import com.lawinfo.domain.org.User;
+import com.lawinfo.domain.org.UserRole;
 import com.lawinfo.domain.wechat.templetemsg.TempleteMsg;
 import com.lawinfo.service.constant.WeChatInfo;
 import com.lawinfo.service.front.CaseInfoService;
@@ -21,7 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wangrongtao on 2017/3/18.
@@ -108,17 +110,29 @@ public class WeChatModelMessageServiceImpl implements WeChatModelMessageService{
     }
     public void postCreateCaseTempleteMsg(String  contactids,String sslawyerids,long caseId){
         try {
+            Set<String> set = new HashSet<String>();
             if (!StringUtils.isEmpty(contactids)) {
                 String[] arr = contactids.split(",");
                 for (String userid : arr) {
-                    postTempleteMsg(userid, caseId,-1);
+                    set.add(userid);
                 }
             }
             if (!StringUtils.isEmpty(sslawyerids)) {
                 String[] arr = sslawyerids.split(",");
                 for (String userid : arr) {
-                    postTempleteMsg(userid, caseId,-1);
+                    set.add(userid);
                 }
+            }
+            List<UserRole> userRoles = userService.findManagerList();
+            if (!CollectionUtils.isEmpty(userRoles)) {
+                for (UserRole userRole : userRoles) {
+                    set.add(userRole.getUserid());
+                }
+            }
+            Iterator<String> it =  set.iterator();
+            while (it.hasNext()) {
+                String userid = it.next();
+                postTempleteMsg(userid, caseId,-1);
             }
         } catch (Exception e) {
             logger.error("postCreateCaseTempleteMsg exception",e);
@@ -126,6 +140,7 @@ public class WeChatModelMessageServiceImpl implements WeChatModelMessageService{
     }
     public void postUpdateCaseTempleteMsg(CaseProgressComment caseProgressComment){
         try {
+            Set<String> set = new HashSet<String>();
             long caseid = caseProgressComment.getCaseinfoid();
             CaseInfo caseInfo = caseInfoService.findById(caseid);
             if (caseInfo != null) {
@@ -134,8 +149,19 @@ public class WeChatModelMessageServiceImpl implements WeChatModelMessageService{
                 List<CaseInfoUser> caseInfoUsers = caseInfoUserService.findList(caseInfoUserQuery);
                 if (!CollectionUtils.isEmpty(caseInfoUsers)) {
                     for (CaseInfoUser caseInfoUser : caseInfoUsers) {
-                        postTempleteMsg(caseInfoUser.getUserid(),caseid,caseInfo.getStatus());
+                        set.add(caseInfoUser.getUserid());
                     }
+                }
+                List<UserRole> userRoles = userService.findManagerList();
+                if (!CollectionUtils.isEmpty(userRoles)) {
+                    for (UserRole userRole : userRoles) {
+                        set.add(userRole.getUserid());
+                    }
+                }
+                Iterator<String> it =  set.iterator();
+                while (it.hasNext()) {
+                    String userid = it.next();
+                    postTempleteMsg(userid,caseid,caseInfo.getStatus());
                 }
             }
         } catch (Exception e) {

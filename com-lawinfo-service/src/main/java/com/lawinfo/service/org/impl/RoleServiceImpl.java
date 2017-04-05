@@ -234,6 +234,21 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+        public Role findByRoletag(String roletag) throws Exception {
+        Role role = null;
+        try {
+            role = RoleUtils.findByRoletag(roletag);
+            if (role==null) {
+                role = roleDao.findByRoletag(roletag);
+            }
+        } catch (Exception e) {
+            logger.error("findByRoletag error,roletag=" + roletag, e);
+            throw e;
+        }
+        return role;
+    }
+
+    @Override
     public RoleVo findVoById(long id) throws Exception {
         try {
             Role role = findById(id);

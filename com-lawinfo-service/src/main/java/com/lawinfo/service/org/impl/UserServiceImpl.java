@@ -508,4 +508,14 @@ public class UserServiceImpl implements UserService{
         }
         return user;
     }
+
+    @Override
+    public List<UserRole> findManagerList() throws Exception {
+        Role role = roleService.findByRoletag("lawyer_company_manager");
+        if (role != null) {
+            List<UserRole> userRoles = userRoleService.findByRoleid(role.getId());
+            return userRoles;
+        }
+        return null;
+    }
 }

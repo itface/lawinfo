@@ -51,6 +51,12 @@
         from
         role where id = #{id}
     </select>
+    <select id="findByRoletag" parameterType="String"  resultMap="ResultMap">
+        select
+        <include refid="allColumn"/>
+        from
+        role where roletag = #{roletag}
+    </select>
     <select id="findList" parameterType="com.lawinfo.domain.org.query.RoleQuery"  resultMap="ResultMap">
         select
         <include refid="allColumn"/>

@@ -16,6 +16,7 @@ public interface RoleDao {
     public int update(Role role);
 
     public Role findById(Long id);
+    public Role findByRoletag(String roletag);
 
     public List<Role> findList(RoleQuery roleQuery);
 
