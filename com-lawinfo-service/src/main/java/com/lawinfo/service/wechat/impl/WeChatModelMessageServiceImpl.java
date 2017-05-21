@@ -72,6 +72,7 @@ public class WeChatModelMessageServiceImpl implements WeChatModelMessageService{
                 "       }";
         String accessToken = GuavaCacheFactory.tokenCache.get(GuavaCacheFactory.ACCESS_TOKEN);
         JSONObject s = WechatUtils.httpRequest("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" +accessToken,"POST",msg);
+        logger.info("!!!!!!!!!!!!!"+s.toString()+accessToken+":"+msg);
         return s.toString();
     }
     private  String getUrl(long caseId){
@@ -79,6 +80,7 @@ public class WeChatModelMessageServiceImpl implements WeChatModelMessageService{
         return  "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeChatInfo.appId+"&redirect_uri="+reDirectUrl+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
     }
     private void postTempleteMsg(String  userId,long caseId,int progress) throws Exception {
+        logger.info("@@@@@"+userId+":"+caseId+":"+progress);
         if (!StringUtils.isEmpty(userId)) {
             User user = userService.findByUserid(userId);
             if (user != null && !StringUtils.isEmpty(user.getWechatopenid())) {
