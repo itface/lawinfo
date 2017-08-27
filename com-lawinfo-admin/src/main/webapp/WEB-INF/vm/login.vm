@@ -79,7 +79,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 </div>
-<div class="col-xs-12"  style="text-align: center;position: absolute;bottom:5px">明理金融法律服务团队@2015-2017 版权所有 ICP证：京ICP备16058408号-1</div>
+<div class="col-xs-12"  style="text-align: center;position: absolute;bottom:5px">@2015-2017 版权所有 ICP证：京ICP备16058408号-1</div>
 <script type="text/javascript">
     jQuery('#loginModal').modal({backdrop: 'static', keyboard: false}).modal('show');
     login.init();
